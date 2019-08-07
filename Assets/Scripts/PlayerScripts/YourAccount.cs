@@ -2,20 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YourAccount : MonoBehaviour
+
+[System.Serializable]
+public struct AccountInfo
 {
     public string username;
     public string emailAddress;
     public string password;
     public string userId;
 
+    public int currency;
 
+};
+    public class YourAccount : MonoBehaviour
+{
 
+    //public AccountInfo account = new AccountInfo();
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        // PlayerPrefs.SetString(username, JsonUtility.ToJson(account));
     }
 
     // Update is called once per frame

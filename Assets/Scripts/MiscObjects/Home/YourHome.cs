@@ -1,4 +1,4 @@
-﻿
+﻿using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 
-public class YourHome : MonoBehaviour
+public class YourHome : MonoBehaviour, IPointerDownHandler
 {
     public GameObject homeCanvas, infoMenu, deleteButton, menuCanvas, equipListObject, equipPlacement;
-    public Renderer homeBg;
+    public Renderer spawnArea;
 
     //public TMP_Text monsterName, levelText, atkText, defText, speText, precText, typeText, toNextLevelText;
     public Monster activeMonster;
@@ -20,6 +20,8 @@ public class YourHome : MonoBehaviour
 
 
     public GameObject monsterInfoMenu;
+
+   
 
     // Start is called before the first frame update
     void Start()
@@ -95,10 +97,10 @@ public class YourHome : MonoBehaviour
                     if (byPrefab.ContainsKey(species))
                     {
                         ///Location of the enemies that spawn
-                        float x1 = homeBg.transform.position.x - homeBg.bounds.size.x / 2;
-                        float x2 = homeBg.transform.position.x + homeBg.bounds.size.x / 2;
-                        float y1 = homeBg.transform.position.y - homeBg.bounds.size.y / 2;
-                        float y2 = homeBg.transform.position.y + homeBg.bounds.size.y / 2;
+                        float x1 = spawnArea.transform.position.x - spawnArea.bounds.size.x / 2;
+                        float x2 = spawnArea.transform.position.x + spawnArea.bounds.size.x / 2;
+                        float y1 = spawnArea.transform.position.y - spawnArea.bounds.size.y / 2;
+                        float y2 = spawnArea.transform.position.y + spawnArea.bounds.size.y / 2;
                         var spawnPoint = new Vector2(Random.Range(x1, x2), Random.Range(y1, y2));
                         var monster = Instantiate(byPrefab[species], transform.position, Quaternion.identity);
                         monster.transform.SetParent(homeCanvas.transform, true);
@@ -122,7 +124,7 @@ public class YourHome : MonoBehaviour
 
     public void DeleteMonster()
     {
-        Debug.Log(GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Count);
+        
 
         if (GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Count > 1)
         {
@@ -130,35 +132,51 @@ public class YourHome : MonoBehaviour
 
             Debug.Log(indexDeleted);
 
-            PlayerPrefs.DeleteKey(activeMonster.info.index.ToString());
+            
+                //deletes the key of the monster being destroyed
+                PlayerPrefs.DeleteKey(activeMonster.info.index.ToString());
 
 
-            //checks all of your current monsters, and if their index is ABOVE that of the deleted monster, reduce them all by 1 
-            for (int i = 1; i <= GameManager.Instance.monsterCount; i++)
-            {
-                string monsterJson = GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict[i];
-                var info = JsonUtility.FromJson<MonsterInfo>(monsterJson);
-                Debug.Log(i);
-
-                if (info.index > indexDeleted)
+                //checks all of your current monsters, and if their index is ABOVE that of the deleted monster, reduce them all by 1 
+                for (int i = 1; i <= GameManager.Instance.monsterCount; i++)
                 {
-                    info.index -= 1;
-                    PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
+                    string monsterJson = GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict[i];
+                    var info = JsonUtility.FromJson<MonsterInfo>(monsterJson);
+                    Debug.Log(i);
 
+                    if (info.index >= indexDeleted)
+                    {
+                        info.index -= 1;
+                        PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
+
+                    }
+
+                    if (i >= GameManager.Instance.monsterCount)
+                    {
+                        PlayerPrefs.DeleteKey(GameManager.Instance.monsterCount.ToString());
+                        GameManager.Instance.monsterCount -= 1;
+                        PlayerPrefs.SetInt("MonsterCount", GameManager.Instance.monsterCount);
+                        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+                        Debug.Log(PlayerPrefs.GetInt("MonsterCount"));
+
+
+                        Destroy(activeMonster.gameObject);
+                        infoMenu.SetActive(false);
+                    }
                 }
 
 
-            }
+                //PlayerPrefs.DeleteKey(GameManager.Instance.monsterCount.ToString());
+                //GameManager.Instance.monsterCount -= 1;
+                //PlayerPrefs.SetInt("MonsterCount", GameManager.Instance.monsterCount);
+                //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+                //Debug.Log(PlayerPrefs.GetInt("MonsterCount"));
 
-            PlayerPrefs.DeleteKey(GameManager.Instance.monsterCount.ToString());
-            GameManager.Instance.monsterCount -= 1;
-            PlayerPrefs.SetInt("MonsterCount", GameManager.Instance.monsterCount);
-            GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
-            Debug.Log(PlayerPrefs.GetInt("MonsterCount"));
 
+                //Destroy(activeMonster.gameObject);
+                //infoMenu.SetActive(false);
             
-            Destroy(activeMonster.gameObject);
-            infoMenu.SetActive(false);
+            
         }
         else
         {
@@ -237,52 +255,80 @@ public class YourHome : MonoBehaviour
         {
             //allow the player to move the monster around their Home
             MoveMonster(activeMonster);
+
         }
 
-        //these are the same thing, but I am using GetMouse for Unity/WebGL and the Touch for mobile
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+        
 
-            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+        ////these are the same thing, but I am using GetMouse for Unity/WebGL and the Touch for mobile
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-            if (hit.collider != null)
-            {
-                if (hit.collider.gameObject.tag == "Monster")
-                {
-                    var mon = JsonUtility.ToJson(hit.collider.gameObject.GetComponent<Monster>().info);
-                    var monsterInfo = JsonUtility.FromJson<MonsterInfo>(mon);
+        //    RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
 
-                    infoMenu.SetActive(true);
-                    activeMonster = hit.collider.gameObject.GetComponent<Monster>();
+        //    if (hit.collider != null)
+        //    {
+        //        if (hit.collider.gameObject.tag == "Monster")
+        //        {
+        //            var mon = JsonUtility.ToJson(hit.collider.gameObject.GetComponent<Monster>().info);
+        //            var monsterInfo = JsonUtility.FromJson<MonsterInfo>(mon);
 
-                    infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(activeMonster);
+        //            infoMenu.SetActive(true);
+        //            activeMonster = hit.collider.gameObject.GetComponent<Monster>();
 
-                    
-                }
-            }
-        }
+        //            infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(activeMonster);
+
+
+        //        }
+        //    }
+        //}
     }
 
     public void MoveMonster(Monster monster)
     {
-        for (var i = 0; i < Input.touchCount; ++i)
-        {
+        //for (var i = 0; i < Input.touchCount; ++i)
+        //{
             
-            var position = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-            //Debug.Log(position);
-            var x = position.x;
-            var y = position.y;
-            monster.transform.position = new Vector3(x, y, transform.position.z);
+        //    var position = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+        //    //Debug.Log(position);
+        //    var x = position.x;
+        //    var y = position.y;
+        //    monster.transform.position = new Vector3(x, y, transform.position.z);
 
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+        //    if (Input.GetTouch(0).phase == TouchPhase.Ended)
+        //    {
+        //        monster.transform.position = monster.transform.position;
+        //        activeMonster = null;
+        //    }
+
+        //}
+
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        
+        if (eventData.pointerEnter)
+        {
+            var tag = eventData.pointerEnter.gameObject.tag;
+            var hit = eventData.pointerEnter.gameObject;
+
+
+            //if the menu is opened with the purpose of Equipping a monster with an item, then allow it to be equipped. Otherwise, show the item's details
+            if (tag == "Monster")
             {
-                monster.transform.position = monster.transform.position;
-                activeMonster = null;
-            }
+                var mon = JsonUtility.ToJson(hit.gameObject.GetComponent<Monster>().info);
+            var monsterInfo = JsonUtility.FromJson<MonsterInfo>(mon);
 
+            infoMenu.SetActive(true);
+            activeMonster = hit.gameObject.GetComponent<Monster>();
+
+            infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(activeMonster);
+            }
         }
+
 
     }
 
@@ -292,37 +338,13 @@ public class YourHome : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-
+    
 
     public void ShowEquipment()
     {
         equipListObject.SetActive(true);
-        
-        //var items = GameManager.Instance.GetComponent<YourItems>().yourItemsDict;
-        //var equipIds = GameManager.Instance.GetComponent<YourItems>().equipIds;
-        //var allEquips = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
-        //var equipByPrefab = GameManager.Instance.GetComponent<Items>().equipmentByPrefab;
 
-
-        //for (int i = 1; i <= equipIds.Count; i++)
-        //{
-
-        //    if (equipIds.ContainsKey(i))
-        //    {
-        //        string name = equipIds[i];
-
-        //        if (PlayerPrefs.HasKey(name))
-        //        {
-        //            Equipment item = allEquips[name];
-        //            int itemCount = PlayerPrefs.GetInt(item.name);
-        //            var x = Instantiate(equipByPrefab[item.name], new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
-        //            x.transform.SetParent(equipListObject.transform, true);
-        //            x.GetComponent<EquipmentItem>().EquipItemInfo(item);
-        //            x.transform.localScale = Vector3.one;
-
-        //        }                        
-        //    }
-        //}
+        equipListObject.GetComponent<EquipmentManager>().LoadEquipment();
 
         
     }
@@ -331,14 +353,27 @@ public class YourHome : MonoBehaviour
     {
         GameObject[] equips = GameObject.FindGameObjectsWithTag("Equipment");
 
-        for (int i = 0; i < equips.Length; i++)
+        if (equips.Length == 0)
         {
-            Destroy(equips[i]);
+            equipListObject.SetActive(false);
 
-            if (i >= equips.Length - 1)
+        }
+        else
+        {
+            for (int i = 0; i < equips.Length; i++)
             {
-                equipListObject.SetActive(false);
+                Destroy(equips[i]);
+
+                if (i >= equips.Length - 1)
+                {
+                    equipListObject.SetActive(false);
+                }
             }
         }
+    }
+
+    public void DeleteAllPrefs()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }

@@ -59,6 +59,7 @@ public class Enemy : MonoBehaviour
 
 
     private Monster monster;
+    
     public EnemyStats stats = new EnemyStats();
     //the enemy's canvas for HP and effects
     public GameObject enemyCanvas;
@@ -80,7 +81,7 @@ public class Enemy : MonoBehaviour
     {
         //clears the list of roads to prevent index overflows
         roadsHit.Clear();
-
+        
         GameObject map = GameObject.FindGameObjectWithTag("Map");
 
         enemyCanvas.GetComponent<Canvas>().sortingLayerName = "Monster";
@@ -96,12 +97,112 @@ public class Enemy : MonoBehaviour
     }
 
     //this is called from the Monster script. information of this enemy is taken from the Monster Script, but new data is added since it's an "Enemy", so it will very likely be its own unique monster
-    public void SetEnemyStats()
+    public void SetEnemyStats(int level)
     {
+        var attacksDict = GameManager.Instance.baseAttacks.baseAttackDict;
+
+        var equip = GameManager.Instance.items.allEquipmentDict;
+        var dict = GameManager.Instance.monstersData.monstersAllDict;
+        var name = monster.info.species;
+
+
+        //get the monster's species dependent stats from the Game Manager
+        if (dict.ContainsKey(name))
+        {
+            monster.info.type1 = dict[name].type1;
+            monster.info.type2 = dict[name].type2;
+            monster.info.dexId = dict[name].id;
+            monster.info.hpBase = dict[name].hpBase;
+            monster.info.atkBase = dict[name].atkBase;
+            monster.info.defBase = dict[name].defBase;
+            monster.info.speBase = dict[name].speBase;
+            monster.info.precBase = dict[name].precBase;
+            monster.info.maxLevel = dict[name].maxLevel;
+            monster.info.levelConst = dict[name].levelConst;
+
+            //for each of the attacks this monster has in its base attack array, choose 2 at random to give to this monster
+            int rand = Random.Range(0, dict[name].baseAttacks.Length - 1);
+            monster.info.attack1Name = dict[name].baseAttacks[rand];
+            int rand2 = Random.Range(0, dict[name].baseAttacks.Length - 1);
+
+            //make sure the 2 attacks aren't the same
+            if (rand2 == rand)
+            {
+                if (rand2 == 0)
+                {
+                    monster.info.attack2Name = dict[name].baseAttacks[rand + 1];
+                }
+                if (rand2 == dict[name].baseAttacks.Length - 1)
+                {
+                    monster.info.attack2Name = dict[name].baseAttacks[rand - 1];
+                }
+            }
+            else
+            {
+                monster.info.attack2Name = dict[name].baseAttacks[rand];
+            }
+
+
+        }
+
+
+
+
+        //sets the monster's nickname to its name if there isn't a nickname
+        if (monster.info.name != null || monster.info.name == "")
+        {
+            monster.info.name = monster.info.species;
+        }
+
+        //load in the attacks of the monster
+        if (attacksDict.ContainsKey(monster.info.attack1Name))
+        {
+
+            BaseAttack attack = attacksDict[monster.info.attack1Name];
+
+
+            monster.info.attack1.Power.BaseValue = attack.power;
+            monster.info.attack1.Range.BaseValue = attack.range;
+            monster.info.attack1.CritChance.BaseValue = attack.critChance;
+            monster.info.attack1.CritMod.BaseValue = attack.critMod;
+            monster.info.attack1.EffectChance.BaseValue = attack.effectChance;
+            monster.info.attack1.AttackTime.BaseValue = attack.attackTime;
+            monster.info.attack1.AttackSpeed.BaseValue = attack.attackSpeed;
+
+
+
+        }
+
+        if (attacksDict.ContainsKey(monster.info.attack2Name))
+        {
+            BaseAttack attack = attacksDict[monster.info.attack2Name];
+
+            monster.info.attack2.Power.BaseValue = attack.power;
+            monster.info.attack2.Range.BaseValue = attack.range;
+            monster.info.attack2.CritChance.BaseValue = attack.critChance;
+            monster.info.attack2.CritMod.BaseValue = attack.critMod;
+            monster.info.attack2.EffectChance.BaseValue = attack.effectChance;
+            monster.info.attack2.AttackTime.BaseValue = attack.attackTime;
+            monster.info.attack2.AttackSpeed.BaseValue = attack.attackSpeed;
+        }
+
+
+
+
+        //if the monster has equipment attached to it, set their value to "none" to avoid Null Exceptions
+        if (monster.info.equip1Name == null)
+        {
+            monster.info.equip1Name = "none";
+        }
+        if (monster.info.equip2Name == null)
+        {
+            monster.info.equip2Name = "none";
+        }
+
+
         int hpRand = Random.Range(24, 26);
         int defRand = Random.Range(24, 26);
-        //int levelRand = Random.Range(1, 101);
-        int levelRand = Random.Range(1, 3);
+        
 
         stats.id = monster.info.dexId;
         monster.info.dexId = stats.id;
@@ -113,10 +214,10 @@ public class Enemy : MonoBehaviour
         stats.hpBase = monster.info.hpBase;
         stats.defPot = defRand;
         stats.defBase = monster.info.defBase;
-        stats.level = levelRand;
+        stats.level = level;
         monster.info.level = stats.level;
 
-        //Debug.Log(stats.level);
+        
 
 
         

@@ -38,19 +38,8 @@ public class GameManager : MonoBehaviour
     //create the instance of the GameManager to be used throughout the game
     void Awake()
     {
+
         if (instance == null) instance = this;
-
-        electricAttackColor = new Color(1.0f, 1.0f, 0.0f, 1.0f);
-        waterAttackColor = new Color(0.22f, 0.22f, 1.0f, 1.0f);
-
-        typeColorDictionary.Add("Electric", electricAttackColor);
-        typeColorDictionary.Add("Water", waterAttackColor);
-
-        
-
-        monsterCount = PlayerPrefs.GetInt("MonsterCount");
-
-        //PlayerPrefs.DeleteAll();
 
         if (FindObjectsOfType(GetType()).Length > 1)
         {
@@ -58,7 +47,22 @@ public class GameManager : MonoBehaviour
 
         }
 
+        electricAttackColor = new Color(1.0f, 1.0f, 0.0f, 1.0f);
+        waterAttackColor = new Color(0.22f, 0.22f, 1.0f, 1.0f);
+
+        typeColorDictionary.Add("Electric", electricAttackColor);
+        typeColorDictionary.Add("Water", waterAttackColor);
+
+       
+        monsterCount = PlayerPrefs.GetInt("MonsterCount", 0);
+        PlayerPrefs.SetInt("MonsterCount", monsterCount);
+
+
+        //PlayerPrefs.DeleteAll();
+
         
+
+
 
     }
 
@@ -84,3 +88,11 @@ public class GameManager : MonoBehaviour
 
     
 }
+
+
+
+
+////PlayerPrefs/////
+///Items: Int[Itemname, quantity]
+///Monsters: String[Monster's Index as a String, monster info Json]////
+///Account: String[account name, account info Json]////

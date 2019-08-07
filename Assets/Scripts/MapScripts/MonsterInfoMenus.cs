@@ -12,6 +12,14 @@ public class MonsterInfoMenus : MonoBehaviour
     //variable for the window that pops up to show your list of unused towers, ready to place them
     public GameObject towerMenu, infoMenu;
     public GameObject menuContentView;
+    public GameObject menuCanvas;
+
+    //variables for the motion of the Tower Menu
+    public GameObject loadTowerBtn;
+    //used to count the amount of pixels the menu has moved
+    public int menuMovements;
+    public bool isClicked;
+    
 
     public bool isChecking;
 
@@ -32,7 +40,76 @@ public class MonsterInfoMenus : MonoBehaviour
     void Start()
     {
 
+        LoadYourTowers();
         
+
+    }
+
+    public void LoadYourTowers()
+    {
+        if (!towersFilled)
+        {
+            towersFilled = true;
+            var monsters = GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict;
+            var byId = GameManager.Instance.monstersData.monstersByIdDict;
+            var byPrefab = GameManager.Instance.monstersData.monsterPrefabsDict;
+            var active = GameManager.Instance.activeTowers;
+            //int index = new int();
+
+            List<int> indexes = new List<int>();
+
+            for (int i = 1; i <= monsters.Count; i++)
+            {
+                //checks the Active Towers dictionary. If a monster appears in it, then it will add that monster to a local list of towers that are on the field
+                if (active.ContainsKey(i))
+                {
+                    Monster monster = active[i];
+                    indexes.Add(monster.info.index);
+                    Debug.Log(indexes[i]);
+                }
+
+
+                if (monsters.ContainsKey(i))
+                {
+                    string monsterJson = monsters[i];
+                    var info = JsonUtility.FromJson<MonsterInfo>(monsterJson);
+
+
+                    string species = info.species;
+
+                    //if the monster appears on the Active Towers list, skip over the spawning of it
+                    if (indexes.Contains(i))
+                    {
+                        //
+                    }
+                    else
+                    {
+                        if (byPrefab.ContainsKey(species))
+                        {
+
+                            //int towerCount = GameManager.Instance.activeTowers.Count;
+                            var tower = Instantiate(byPrefab[species], menuContentView.transform.position, Quaternion.identity);
+                            //tower.transform.position = new Vector3(towers[i - 1].transform.position.x, towers[i - 1].transform.position.y, tower.transform.position.z);
+                            tower.transform.SetParent(menuContentView.transform, false);
+                            tower.transform.position = new Vector3(towerBase.transform.position.x, towerBase.transform.position.y - ((i - 1) * 60), tower.transform.position.z);
+                            tower.transform.localScale = new Vector3(tower.transform.localScale.x * 1.1f, tower.transform.localScale.y * 1.1f, tower.transform.localScale.z);
+                            //***************************HERE************************
+                            tower.GetComponent<Monster>().isTower = true;
+                            tower.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
+                            tower.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
+                            tower.gameObject.tag = "Tower";
+                            tower.gameObject.name = tower.GetComponent<Monster>().info.species + " " + tower.GetComponent<Monster>().info.index;
+                        }
+                    }
+
+
+                }
+
+
+                //*************************************88
+
+            }
+        }
     }
 
     // Update is called once per frame
@@ -148,76 +225,59 @@ public class MonsterInfoMenus : MonoBehaviour
         }
     }
 
+    public void MoveTowerMenu()
+    {
+        if (isClicked)
+        {
+            menuMovements += 1;
+
+            if (menuMovements <= (110 * menuCanvas.transform.localScale.x))
+            {
+                loadTowerBtn.GetComponent<Button>().interactable = false;
+                towerMenu.transform.Translate(Vector3.left, Space.World);
+                loadTowerBtn.transform.Translate(Vector3.left, Space.World);
+            }
+            else
+            {
+                CancelInvoke("MoveTowerMenu");
+                menuMovements = 0;
+                loadTowerBtn.GetComponent<Button>().interactable = true;
+            }
+        }
+        else
+        {
+            menuMovements += 1;
+
+
+            if (menuMovements <= (110 * menuCanvas.transform.localScale.x))
+            {
+                loadTowerBtn.GetComponent<Button>().interactable = false;
+                towerMenu.transform.Translate(Vector3.right, Space.World);
+                loadTowerBtn.transform.Translate(Vector3.right, Space.World);
+            }
+            else
+            {
+                CancelInvoke("MoveTowerMenu");
+                menuMovements = 0;
+                loadTowerBtn.GetComponent<Button>().interactable = true;
+            }
+        }
+
+    }
+
 
 
     //map this to a button to open the tower menu for players in game and load your available towers
     public void TowerMenuBtn()
     {
+
         towerMenu.SetActive(true);
-
-        if (!towersFilled)
-        {
-            towersFilled = true;
-            var monsters = GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict;
-            var byId = GameManager.Instance.monstersData.monstersByIdDict;
-            var byPrefab = GameManager.Instance.monstersData.monsterPrefabsDict;
-            var active = GameManager.Instance.activeTowers;
-            //int index = new int();
-
-            List<int> indexes = new List<int>();
-
-            for (int i = 1; i <= monsters.Count; i++)
-            {
-                //checks the Active Towers dictionary. If a monster appears in it, then it will add that monster to a local list of towers that are on the field
-                if (active.ContainsKey(i))
-                {
-                    Monster monster = active[i];
-                    indexes.Add(monster.info.index);
-                    Debug.Log(indexes[i]);
-                }
+        isClicked = !isClicked;
+        InvokeRepeating("MoveTowerMenu", 0f, .001f);
 
 
-                if (monsters.ContainsKey(i))
-                {
-                    string monsterJson = monsters[i];
-                    var info = JsonUtility.FromJson<MonsterInfo>(monsterJson);
 
-
-                    string species = info.species;
-
-                    //if the monster appears on the Active Towers list, skip over the spawning of it
-                    if (indexes.Contains(i))
-                    {
-                        //
-                    }
-                    else
-                    {
-                        if (byPrefab.ContainsKey(species))
-                        {
-
-                            //int towerCount = GameManager.Instance.activeTowers.Count;
-                            var tower = Instantiate(byPrefab[species], menuContentView.transform.position, Quaternion.identity);
-                            //tower.transform.position = new Vector3(towers[i - 1].transform.position.x, towers[i - 1].transform.position.y, tower.transform.position.z);
-                            tower.transform.SetParent(menuContentView.transform, true);
-                            tower.transform.position = new Vector3(towerBase.transform.position.x, towerBase.transform.position.y - (i * 80), tower.transform.position.z);
-                            tower.transform.localScale = new Vector3(tower.transform.localScale.x * 1.1f, tower.transform.localScale.y * 1.1f, tower.transform.localScale.z);
-                            //***************************HERE************************
-                            tower.GetComponent<Monster>().isTower = true;
-                            tower.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
-                            tower.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
-                            tower.gameObject.tag = "Tower";
-                            tower.gameObject.name = tower.GetComponent<Monster>().info.species + " " + tower.GetComponent<Monster>().info.index;
-                        }
-                    }
-
-
-                }
-
-
-                //*************************************88
-
-            }
-        }
+        
         
         //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = false;
 

@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\GameData\BaseAttacks.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\EquippableItem.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\Items.cs" />
+    <Compile Include="Assets\Scripts\GameData\Maps.cs" />
     <Compile Include="Assets\Scripts\GameData\MonstersData.cs" />
     <Compile Include="Assets\Scripts\GameData\StatsCalc.cs" />
     <Compile Include="Assets\Scripts\Items\EquipmentItem.cs" />
@@ -73,11 +74,13 @@
     <Compile Include="Assets\Scripts\MapScripts\MapTile.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MonsterInfoMenus.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\CameraMotion.cs" />
-    <Compile Include="Assets\Scripts\MiscObjects\EquipmentManager.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\Home\EquipmentManager.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterInfoPanel.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\Home\YourHome.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\ItemScene\ItemShop.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\MainMenu.cs" />
-    <Compile Include="Assets\Scripts\MiscObjects\MonsterInfoPanel.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\MonsterManager.cs" />
-    <Compile Include="Assets\Scripts\MiscObjects\YourHome.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\WorldMap.cs" />
     <Compile Include="Assets\Scripts\Monster\Enemy.cs" />
     <Compile Include="Assets\Scripts\Monster\Monster.cs" />
     <Compile Include="Assets\Scripts\Monster\Tower.cs" />

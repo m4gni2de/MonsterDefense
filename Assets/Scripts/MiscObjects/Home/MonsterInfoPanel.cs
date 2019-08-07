@@ -9,6 +9,8 @@ public class MonsterInfoPanel : MonoBehaviour
     public GameObject monsterSprite, equip1, equip2, type1, type2;
     public GameObject equipMenu, equipObject;
     public TMP_Text monsterNameText, levelText, atkText, defText, speText, precText, typeText, toNextLevelText;
+    public TMP_Text atkBoostText, defBoostText, speBoostText, precBoostText;
+    public TMP_Text attack1, attack2;
     public Slider expSlider;
     
 
@@ -17,13 +19,18 @@ public class MonsterInfoPanel : MonoBehaviour
     private Monster monster;
 
 
-    public Button equip1Btn, equip2Btn, removeEquipBtn;
+    public Button equip1Btn, equip2Btn, removeEquipBtn, attack1Btn, attack2Btn;
     // Start is called before the first frame update
     void Start()
     {
         expSlider.GetComponent<Slider>();
         equip1Btn.GetComponent<Button>();
         equip2Btn.GetComponent<Button>();
+        attack1Btn.GetComponent<Button>();
+        attack2Btn.GetComponent<Button>();
+
+        
+        
         
         //deleteButton.GetComponent<Button>();
 
@@ -33,30 +40,12 @@ public class MonsterInfoPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TouchManager();
+        
     }
 
     public void TouchManager()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-
-        //    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //    Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
-        //    RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-
-        //    //if this tower is clicked on, it can be placed
-        //    if (hit.collider != null)
-        //    {
-        //        if (hit.collider.gameObject.tag == "Equipment")
-        //        {
-        //            var equipment = hit.collider.gameObject.GetComponent<EquipmentItem>();
-        //            GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equipment.equip, equipment.equipDetails.equipSlot);
-        //            gameObject.SetActive(false);
-        //        }
-        //    }
-        //}
+        
     }
 
     public void LoadInfo(Monster thisMonster)
@@ -82,6 +71,7 @@ public class MonsterInfoPanel : MonoBehaviour
 
 
         monster = Instantiate(thisMonster, transform.position, Quaternion.identity);
+        monster.GetComponent<Image>().raycastTarget = false;
         var equips = GameManager.Instance.GetComponent<Items>().equipmentByPrefab;
         var equipment = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
         
@@ -142,7 +132,34 @@ public class MonsterInfoPanel : MonoBehaviour
         defText.text = thisMonster.info.Defense.Value.ToString();
         speText.text = thisMonster.info.Speed.Value.ToString();
         precText.text = thisMonster.info.Precision.Value.ToString();
-        typeText.text = thisMonster.info.type1 + "/" + thisMonster.info.type2;
+
+        atkBoostText.text = "(+ " + (thisMonster.info.Attack.Value - thisMonster.info.Attack.BaseValue) + ")".ToString();
+        defBoostText.text = "(+ " + (thisMonster.info.Defense.Value - thisMonster.info.Defense.BaseValue) + ")".ToString();
+        speBoostText.text = "(+ " + (thisMonster.info.Speed.Value - thisMonster.info.Speed.BaseValue) + ")".ToString();
+        precBoostText.text = "(+ " + (thisMonster.info.Precision.Value - thisMonster.info.Precision.BaseValue) + ")".ToString();
+
+        if (thisMonster.info.Attack.BaseValue != thisMonster.info.Attack.Value)
+        {
+            atkText.color = Color.yellow;
+        }
+
+        if (thisMonster.info.Defense.BaseValue != thisMonster.info.Defense.Value)
+        {
+            defText.color = Color.yellow;
+        }
+
+        if (thisMonster.info.Speed.BaseValue != thisMonster.info.Speed.Value)
+        {
+            speText.color = Color.yellow;
+        }
+
+        if (thisMonster.info.Precision.BaseValue != thisMonster.info.Precision.Value)
+        {
+            precText.color = Color.yellow;
+        }
+
+        attack1.text = thisMonster.info.attack1Name;
+        attack2.text = thisMonster.info.attack2Name;
 
         if (thisMonster.expToLevel.ContainsKey(thisMonster.info.level))
         {
@@ -182,6 +199,7 @@ public class MonsterInfoPanel : MonoBehaviour
         }
         
     }
+
 
 
     public void RemoveEquipmentButton()

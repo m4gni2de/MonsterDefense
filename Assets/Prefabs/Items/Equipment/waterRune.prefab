@@ -12,6 +12,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: waterRune
       objectReference: {fileID: 0}
+    - target: {fileID: 7801907493886734839, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 618f17b5a0f0cb04e8e4b8be0571c959,
+        type: 3}
+    - target: {fileID: 7801907493886734839, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801907493886734839, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801907493886734839, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7801907493886734838, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
         type: 3}
       propertyPath: m_LocalPosition.x

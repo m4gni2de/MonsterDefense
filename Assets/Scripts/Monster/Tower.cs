@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Tower : MonoBehaviour
+public class Tower : MonoBehaviour, IPointerDownHandler
 {
     private int columns, rows;
     private float height, width;
@@ -25,6 +26,9 @@ public class Tower : MonoBehaviour
 
     //bool to determine of the tower being placed is placed over a tile that it can be placed on. if it is, don't let it detect another correct tile, until it is off the current one. used to prevent detection of multiple tiles
     public bool isCorrectTile;
+
+    //bool used to determine if the map of eligible tiles has been displayed or not
+    public bool isTileMap;
 
     //variable for the position of the transform of the tile that the tower will be placed on
     private Vector2 tilePlacementPosition;
@@ -108,7 +112,7 @@ public class Tower : MonoBehaviour
             //if the tower has already been placed, then there is no need to run the methods that have to do with the placement of the tower
             if (isPlaced == false)
             {
-
+                
                 TowerPlacement();
 
             }
@@ -146,6 +150,7 @@ public class Tower : MonoBehaviour
     {
         if (isBeingPlaced == false)
         {
+            
             menuPosition = transform.position;
             if (towerMenu)
             {
@@ -166,6 +171,7 @@ public class Tower : MonoBehaviour
             if (Input.GetTouch(i).phase == TouchPhase.Began)
             {
                 touchTime = Time.time;
+                
             }
             float acumTime = Time.time - touchTime;
 
@@ -175,7 +181,7 @@ public class Tower : MonoBehaviour
                 acumTime = releaseTime - touchTime;
 
                 //shoot a raycast that does not hit the map tile layer, which is layer 9
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), Vector2.zero, 0f, 1 << 8);
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), Vector2.zero, 0f, 1 <<8);
                 //What to do on a tap
                 if (acumTime <= .6f)
                 {
@@ -226,7 +232,7 @@ public class Tower : MonoBehaviour
             else
             {
                 //shoot a raycast that does not hit the map tile layer, which is layer 9
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), Vector2.zero, 0f, 1 << 8);
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), Vector2.zero, 0f, 1 <<8);
 
 
                 isTapped = false;
@@ -239,6 +245,7 @@ public class Tower : MonoBehaviour
                             if (hit.collider.gameObject.name == gameObject.name)
                             {
                                 isBeingPlaced = true;
+                                Map.GetComponent<MonsterInfoMenus>().TowerMenuBtn();
                                 infoMenu.SetActive(true);
                                 Map.GetComponent<MonsterInfoMenus>().activeMonster = hit.collider.gameObject.GetComponent<Monster>();
                             }
@@ -263,8 +270,10 @@ public class Tower : MonoBehaviour
                 var copy = Instantiate(this.gameObject, transform.position, Quaternion.identity);
                 var menu = GameObject.Find("Content");
                 copy.transform.SetParent(menu.transform, true);
+                copy.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
                 copy.name = gameObject.name + " Placeholder" + monster.info.index;
                 copy.tag = "TowerAvatar";
+                copy.layer = 12;
                 copy.GetComponent<Tower>().isPlaced = true;
                 SpriteRenderer[] bodyparts = copy.GetComponentsInChildren<SpriteRenderer>();
 
@@ -287,6 +296,7 @@ public class Tower : MonoBehaviour
 
             if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
+                isTileMap = false;
                 if (isCorrectTile)
                 {
                     //gameObject.transform.localScale = new Vector3(transform.localScale.x * .66f, transform.localScale.y * .66f, transform.localScale.z);
@@ -345,7 +355,7 @@ public class Tower : MonoBehaviour
                     AttackScan();
 
                     gameObject.transform.localScale = new Vector3(2f, 2f, transform.localScale.z);
-
+                    
                     towerMenu.SetActive(false);
 
                 }
@@ -363,6 +373,7 @@ public class Tower : MonoBehaviour
                     mainCamera.GetComponent<CameraMotion>().isFree = true;
                     Destroy(copy);
                     isCopy = false;
+                    towerMenu.SetActive(false);
 
                 }
             }
@@ -421,40 +432,49 @@ public class Tower : MonoBehaviour
     public void CheckForPlacement()
     {
 
-
-
-        Color colorYes = new Color(0.3f, 1.0f, 0.38f, 0.76f);
-        Color colorNo = new Color(1.0f, 0.32f, 0.40f, 0.76f);
-
-        //the tiles that it can be placed on glow green, while the tiles it can't be placed on glow red
-        for (int m = 0; m < maps.Length; m++)
+        if (!isTileMap)
         {
-            if (maps[m].GetComponent<MapTile>().isBuildable == true)
+            isTileMap = true;
+            Color colorYes = new Color(0.3f, 1.0f, 0.38f, 0.76f);
+            Color colorNo = new Color(1.0f, 0.32f, 0.40f, 0.76f);
+
+            //the tiles that it can be placed on glow green, while the tiles it can't be placed on glow red
+            for (int m = 0; m < maps.Length; m++)
             {
-                maps[m].GetComponent<MapTile>().sp.color = colorYes;
-            }
-            else
-            {
-                maps[m].GetComponent<MapTile>().sp.color = colorNo;
-            }
+                if (maps[m].GetComponent<MapTile>().isBuildable == true)
+                {
+                    maps[m].GetComponent<MapTile>().sp.color = colorYes;
+                }
+                else
+                {
+                    maps[m].GetComponent<MapTile>().sp.color = colorNo;
+                }
 
 
+            }
         }
     }
 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var tag = other.gameObject.tag;
-
-        
-        if (tag == "Menu")
-        {
-
-           
-        }
+        if (!this.enabled) return;
 
     }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (!this.enabled) return;
+
+        //var tag = other.gameObject.tag;
+
+        //if (!isPlaced)
+        //{
+        //    gameObject.layer = 8;
+        //}
+    }
+
+
 
 
     //used to detect a new tile that this tower can be placed on. Stay and Exit are used to make sure only 1 tile can be marked as "correct" at once.
@@ -468,16 +488,12 @@ public class Tower : MonoBehaviour
         {
             var tag = other.gameObject.tag;
 
-            Debug.Log(tag);
-            if (tag == "Menu")
-            {
-                
-                return;
-            }
+
+           
             if (isCorrectTile == false)
             {
 
-                if (tag == "MapTile" && !isCorrectTile)
+                if (tag == "MapTile")
                 {
                     Color colorYes = new Color(0.3f, 1.0f, 0.38f, 1.0f);
 
@@ -500,23 +516,29 @@ public class Tower : MonoBehaviour
         if (!this.enabled) return;
 
         //used to detect when this tower is moved off of an eliglbe tower
-        if (!isPlaced)
-        {
+        
             var tag = other.gameObject.tag;
 
-            Debug.Log(tag);
+        if (!isPlaced)
+        {
+
             if (tag == "MapTile")
             {
                 Color colorYes = new Color(0.3f, 1.0f, 0.38f, 0.76f);
 
                 if (other.gameObject.GetComponent<MapTile>().isBuildable == true)
                 {
+
                     other.gameObject.GetComponent<MapTile>().sp.color = colorYes;
                     isCorrectTile = false;
                 }
             }
         }
+           
+        
     }
+
+    
 
 
     //once the tower is placed, allow it to function like one.
@@ -1205,5 +1227,10 @@ public class Tower : MonoBehaviour
                 Destroy(rangeTiles[i]);
             }
         }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+       
     }
 }

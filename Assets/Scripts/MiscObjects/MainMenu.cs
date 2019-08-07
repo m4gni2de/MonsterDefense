@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour
 
     public void WorldMapButton()
     {
-
+        SceneManager.LoadScene("WorldMap");
     }
 
     public void YourHomeButton()

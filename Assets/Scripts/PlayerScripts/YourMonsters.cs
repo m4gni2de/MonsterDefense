@@ -32,9 +32,8 @@ public class YourMonsters : MonoBehaviour
 
         for (int i = 1; i <= GameManager.Instance.monsterCount; i++)
         {
-
-            string json = PlayerPrefs.GetString(i.ToString());
-            yourMonstersDict.Add(i, json);
+                string json = PlayerPrefs.GetString(i.ToString());
+                yourMonstersDict.Add(i, json);
         }
     }
 

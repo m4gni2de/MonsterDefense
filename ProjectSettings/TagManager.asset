@@ -27,7 +27,7 @@ TagManager:
   - MapTile
   - MonsterInfo
   - EquipmentInfo
-  - 
+  - TowerInMenu
   - 
   - 
   - 
@@ -59,4 +59,7 @@ TagManager:
     locked: 0
   - name: GameUI
     uniqueID: 3060817333
+    locked: 0
+  - name: Equipment
+    uniqueID: 1498306221
     locked: 0

@@ -47,7 +47,7 @@ public class Map : MonoBehaviour
         width = gameObject.GetComponent<RectTransform>().rect.width;
         height = gameObject.GetComponent<RectTransform>().rect.height;
 
-        codeInput.GetComponent<TMP_InputField>();
+        
 
         //Debug.Log(height);
 
@@ -57,6 +57,7 @@ public class Map : MonoBehaviour
         if (editorMode == true)
         {
             RandomMap();
+            codeInput.GetComponent<TMP_InputField>();
         }
         else
         {

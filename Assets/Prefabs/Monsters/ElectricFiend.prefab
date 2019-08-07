@@ -948,6 +948,8 @@ GameObject:
   - component: {fileID: 3355086233629130221}
   - component: {fileID: 8542440257997731899}
   - component: {fileID: 867896319040788003}
+  - component: {fileID: 3955923084779995155}
+  - component: {fileID: 2616511876127803423}
   m_Layer: 8
   m_Name: ElectricFiend
   m_TagString: Enemy
@@ -1003,21 +1005,11 @@ MonoBehaviour:
     type1: 
     type2: 
     dexId: 1
-    hpMax: 0
     hpBase: 0
-    hpPot: 0
     atkBase: 0
-    atkStat: 0
-    atkPot: 0
     defBase: 0
-    defPot: 0
-    defStat: 0
     speBase: 0
-    spePot: 0
-    speStat: 0
     precBase: 0
-    precPot: 0
-    precStat: 0
     critBase: 0
     level: 0
     totalExp: 0
@@ -1025,6 +1017,20 @@ MonoBehaviour:
     levelConst: 0
     attack1Name: 
     attack1:
+      Range:
+        BaseValue: 0
+      Power:
+        BaseValue: 0
+      CritChance:
+        BaseValue: 0
+      CritMod:
+        BaseValue: 0
+      EffectChance:
+        BaseValue: 0
+      AttackTime:
+        BaseValue: 0
+      AttackSpeed:
+        BaseValue: 0
       name: 
       id: 0
       description: 
@@ -1036,9 +1042,24 @@ MonoBehaviour:
       critMod: 0
       effectChance: 0
       attackTime: 0
+      attackSpeed: 0
     attack1Animation: {fileID: 0}
     attack2Name: 
     attack2:
+      Range:
+        BaseValue: 0
+      Power:
+        BaseValue: 0
+      CritChance:
+        BaseValue: 0
+      CritMod:
+        BaseValue: 0
+      EffectChance:
+        BaseValue: 0
+      AttackTime:
+        BaseValue: 0
+      AttackSpeed:
+        BaseValue: 0
       name: 
       id: 0
       description: 
@@ -1050,9 +1071,87 @@ MonoBehaviour:
       critMod: 0
       effectChance: 0
       attackTime: 0
+      attackSpeed: 0
     chargeAttack1: 
     chargeAttack2: 
     specialAttack: 
+    equip1Name: 
+    equip1:
+      name: 
+      id: 0
+      description: 
+      equipType: 0
+      typeMonsterReq: 
+      typeMoveReq: 
+      boosts: []
+      cost: 0
+      equipSlot: 0
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+    equip2Name: 
+    equip2:
+      name: 
+      id: 0
+      description: 
+      equipType: 0
+      typeMonsterReq: 
+      typeMoveReq: 
+      boosts: []
+      cost: 0
+      equipSlot: 0
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+    HP:
+      BaseValue: 0
+    HPPotential:
+      BaseValue: 0
+    Attack:
+      BaseValue: 0
+    AttackPotential:
+      BaseValue: 0
+    Defense:
+      BaseValue: 0
+    DefensePotential:
+      BaseValue: 0
+    Speed:
+      BaseValue: 0
+    SpeedPotential:
+      BaseValue: 0
+    Precision:
+      BaseValue: 0
+    PrecisionPotential:
+      BaseValue: 0
+    isEquipped: 0
   specs:
     legs:
     - {fileID: 5871422891703372379}
@@ -1199,6 +1298,14 @@ MonoBehaviour:
     def: 0
     level: 0
     expGiven: 0
+    HP:
+      BaseValue: 0
+    HPPotential:
+      BaseValue: 0
+    Defense:
+      BaseValue: 0
+    DefensePotential:
+      BaseValue: 0
   enemyCanvas: {fileID: 3005451297455857955}
   damageText: {fileID: 865395030920622845, guid: 33e9bf084464ef646b8774eff963dc42,
     type: 3}
@@ -1337,6 +1444,43 @@ PolygonCollider2D:
       - {x: 3.459406, y: -2.348876}
       - {x: 4.225664, y: -1.6563559}
       - {x: 2.8862667, y: 1.0165167}
+--- !u!222 &3955923084779995155
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5871422892129794425}
+  m_CullTransparentMesh: 0
+--- !u!114 &2616511876127803423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5871422892129794425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
 --- !u!1 &5871422892285006604
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,7 +1627,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 51912b90733180643ab6d0c8d53fd139, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1562,7 +1706,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
   m_SortingLayer: 2
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 2acf42f11fb7f6c4196f492125701b73, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1641,7 +1785,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
   m_SortingLayer: 2
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 08e4b4f1c5723d9448118fcddb3395bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
   m_SortingLayer: 2
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: fa88ea08d0f8a434cbba8eb152414fa1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -472,7 +472,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 734cee55b9ca65041a9669faf3767227, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -831,7 +831,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
   m_SortingLayer: 2
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -910,7 +910,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
   m_SortingLayer: 2
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -992,7 +992,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
   m_SortingLayer: 2
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 0a39f11f5da69584b8c63b08c03f2043, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1065,6 +1065,8 @@ GameObject:
   - component: {fileID: 1069376684287513942}
   - component: {fileID: 2405064479762033394}
   - component: {fileID: 1809664376}
+  - component: {fileID: 6819063356772950234}
+  - component: {fileID: 1974356893255233280}
   m_Layer: 8
   m_Name: TerrorBite
   m_TagString: Enemy
@@ -1120,21 +1122,11 @@ MonoBehaviour:
     type1: 
     type2: 
     dexId: 2
-    hpMax: 0
     hpBase: 0
-    hpPot: 0
     atkBase: 0
-    atkStat: 0
-    atkPot: 0
     defBase: 0
-    defPot: 0
-    defStat: 0
     speBase: 0
-    spePot: 0
-    speStat: 0
     precBase: 0
-    precPot: 0
-    precStat: 0
     critBase: 0
     level: 0
     totalExp: 0
@@ -1142,6 +1134,20 @@ MonoBehaviour:
     levelConst: 0
     attack1Name: 
     attack1:
+      Range:
+        BaseValue: 0
+      Power:
+        BaseValue: 0
+      CritChance:
+        BaseValue: 0
+      CritMod:
+        BaseValue: 0
+      EffectChance:
+        BaseValue: 0
+      AttackTime:
+        BaseValue: 0
+      AttackSpeed:
+        BaseValue: 0
       name: 
       id: 0
       description: 
@@ -1153,9 +1159,24 @@ MonoBehaviour:
       critMod: 0
       effectChance: 0
       attackTime: 0
+      attackSpeed: 0
     attack1Animation: {fileID: 0}
     attack2Name: 
     attack2:
+      Range:
+        BaseValue: 0
+      Power:
+        BaseValue: 0
+      CritChance:
+        BaseValue: 0
+      CritMod:
+        BaseValue: 0
+      EffectChance:
+        BaseValue: 0
+      AttackTime:
+        BaseValue: 0
+      AttackSpeed:
+        BaseValue: 0
       name: 
       id: 0
       description: 
@@ -1167,9 +1188,87 @@ MonoBehaviour:
       critMod: 0
       effectChance: 0
       attackTime: 0
+      attackSpeed: 0
     chargeAttack1: 
     chargeAttack2: 
     specialAttack: 
+    equip1Name: 
+    equip1:
+      name: 
+      id: 0
+      description: 
+      equipType: 0
+      typeMonsterReq: 
+      typeMoveReq: 
+      boosts: []
+      cost: 0
+      equipSlot: 0
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+    equip2Name: 
+    equip2:
+      name: 
+      id: 0
+      description: 
+      equipType: 0
+      typeMonsterReq: 
+      typeMoveReq: 
+      boosts: []
+      cost: 0
+      equipSlot: 0
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+    HP:
+      BaseValue: 0
+    HPPotential:
+      BaseValue: 0
+    Attack:
+      BaseValue: 0
+    AttackPotential:
+      BaseValue: 0
+    Defense:
+      BaseValue: 0
+    DefensePotential:
+      BaseValue: 0
+    Speed:
+      BaseValue: 0
+    SpeedPotential:
+      BaseValue: 0
+    Precision:
+      BaseValue: 0
+    PrecisionPotential:
+      BaseValue: 0
+    isEquipped: 0
   specs:
     legs:
     - {fileID: 1069376684287514041}
@@ -1346,6 +1445,14 @@ MonoBehaviour:
     def: 0
     level: 0
     expGiven: 0
+    HP:
+      BaseValue: 0
+    HPPotential:
+      BaseValue: 0
+    Defense:
+      BaseValue: 0
+    DefensePotential:
+      BaseValue: 0
   enemyCanvas: {fileID: 1069376684287513985}
   damageText: {fileID: 865395030920622845, guid: 33e9bf084464ef646b8774eff963dc42,
     type: 3}
@@ -1441,6 +1548,43 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!222 &6819063356772950234
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069376684287514040}
+  m_CullTransparentMesh: 0
+--- !u!114 &1974356893255233280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069376684287514040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
 --- !u!1 &1069376684287514041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,7 +1659,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1641,7 +1785,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1721,7 +1865,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 8f40b777dd7c1ec4d838762070a70240, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1904,7 +2048,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
   m_SortingLayer: 2
-  m_SortingOrder: 5
+  m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: 379ac92d2719712429ac9bb61539e49e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2134,7 +2278,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
   m_SortingLayer: 2
-  m_SortingOrder: 4
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 93577441e1c7f27458cd1423b70de447, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2347,7 +2491,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
   m_SortingLayer: 2
-  m_SortingOrder: 3
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: e896a342155a94b4e9ba1ab5f2ad27ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
