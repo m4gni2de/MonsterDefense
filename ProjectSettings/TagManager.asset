@@ -63,3 +63,6 @@ TagManager:
   - name: Equipment
     uniqueID: 1498306221
     locked: 0
+  - name: PopMenu
+    uniqueID: 2110746739
+    locked: 0

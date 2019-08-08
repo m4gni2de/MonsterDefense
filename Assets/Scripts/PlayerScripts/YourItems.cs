@@ -18,6 +18,7 @@ public class YourItems : MonoBehaviour
     public void GetYourItems()
     {
         yourItemsDict.Clear();
+        equipIds.Clear();
 
         var items = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
         

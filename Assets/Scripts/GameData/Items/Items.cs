@@ -88,6 +88,7 @@ public class AllEquipment
         typeMoveReq = "Water",
         boosts = new string[1] { "Water Type Attacks + 8% Power"},
         atkPowerPercentBonus = .08f,
+        cost = 200,
         equip = new EquippableItem(),
         
 
@@ -97,11 +98,12 @@ public class AllEquipment
     {
         name = "Thunder Rune",
         id = 2,
-        description = "A Rune that boosts Electric Type monster's attack stat by 6",
+        description = "A Rune that boosts Electric Type monster's attack stat by 10%",
         equipType = EquipmentType.Rune,
-        boosts = new string[1] { "+6 Attack" },
+        boosts = new string[1] { "+10% Attack" },
         typeMonsterReq = "Electric",
-        atkBonus = 6,
+        atkPercentBonus = .10f,
+        cost = 200,
         equip = new EquippableItem()
 
     };
@@ -138,11 +140,12 @@ public class Items: MonoBehaviour
     public AllEquipment allEquipment = new AllEquipment();
     public AllConsumables allConsumables = new AllConsumables();
     public AllMonsterCells allMonsterCells = new AllMonsterCells();
+    
 
     public Dictionary<string, GameObject> equipmentByPrefab = new Dictionary<string, GameObject>();
     public Dictionary<string, Equipment> allEquipmentDict = new Dictionary<string, Equipment>();
 
-
+    
     public Dictionary<string, Consumable> allConsumablesDict = new Dictionary<string, Consumable>();
     public Dictionary<string, MonsterCell> allMonsterCellsDict = new Dictionary<string, MonsterCell>();
 
@@ -157,6 +160,7 @@ public class Items: MonoBehaviour
     }
     
     
+   
    
 
     void AddEquipment()

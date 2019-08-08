@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\GameData\MonstersData.cs" />
     <Compile Include="Assets\Scripts\GameData\StatsCalc.cs" />
     <Compile Include="Assets\Scripts\Items\EquipmentItem.cs" />
+    <Compile Include="Assets\Scripts\Items\ItemPopMenu.cs" />
     <Compile Include="Assets\Scripts\MapScripts\EnemySpawn.cs" />
     <Compile Include="Assets\Scripts\MapScripts\Map.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MapDetails.cs" />

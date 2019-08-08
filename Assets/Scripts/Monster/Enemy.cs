@@ -44,10 +44,10 @@ public class Enemy : MonoBehaviour
 
     public LayerMask mapTileLayer;
 
-    private MapTile currentPath;
+    public MapTile currentPath;
     //the current tile that the enemy is on
     public int currentTile;
-    private int currentIndex = 0;
+    public int currentIndex = 0;
     private bool isWaiting = false;
     private float speedStorage = 0;
 
@@ -85,15 +85,17 @@ public class Enemy : MonoBehaviour
         GameObject map = GameObject.FindGameObjectWithTag("Map");
 
         enemyCanvas.GetComponent<Canvas>().sortingLayerName = "Monster";
-        for (int i = 0; i < map.GetComponent<Map>().path.Length; i++)
-        {
-            path[i] = map.GetComponent<Map>().path[i];
-        }
 
-        if (path.Length > 0)
-        {
-            currentPath = path[0];
-        }
+        
+        //for (int i = 0; i < map.GetComponent<Map>().path.Length; i++)
+        //{
+        //    path[i] = map.GetComponent<Map>().path[i];
+        //}
+
+        //if (path.Length > 0)
+        //{
+        //    currentPath = path[0];
+        //}
     }
 
     //this is called from the Monster script. information of this enemy is taken from the Monster Script, but new data is added since it's an "Enemy", so it will very likely be its own unique monster

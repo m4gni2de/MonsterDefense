@@ -32,4 +32,9 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("YourHome");
     }
+
+    public void ItemShop()
+    {
+        SceneManager.LoadScene("ItemShop");
+    }
 }

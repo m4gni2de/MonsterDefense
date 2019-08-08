@@ -163,7 +163,7 @@ public class Stat
             }
         }
 
-        return (float)Math.Round(finalValue, 4);
+        return (float)Math.Round(finalValue, 0);
     }
 
 

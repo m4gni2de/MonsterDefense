@@ -33,11 +33,22 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7801907493886734839, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 50643063262720859, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
         type: 3}
       propertyPath: m_CullTransparentMesh
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4372862001538172372, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a9a4ad4c5d59ee04bbff34adc872f443,
+        type: 3}
     - target: {fileID: 7801907493886734838, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
         type: 3}
       propertyPath: m_LocalPosition.x

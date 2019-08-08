@@ -24,12 +24,20 @@ public class EquipmentItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Monster monster;
     private int slot;
 
+    public SpriteRenderer sp;
+    public Sprite sprite;
+    public Image image;
+
     //used to determine if the equipment item is in your inventory or equipped to a monster;
     public bool isEquipped;
 
     // Start is called before the first frame update
     void Start()
     {
+        sp.GetComponent<SpriteRenderer>();
+        sprite = sp.sprite;
+        image.GetComponent<Image>();
+
         
     }
 

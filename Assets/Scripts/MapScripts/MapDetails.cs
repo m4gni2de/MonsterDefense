@@ -9,10 +9,15 @@ public class MapDetails : MonoBehaviour
     public string mapName;
     public string levelCode;
     public string pathCode;
+
+    
     public MapTile[] path;
     public List<string> pathOrder = new List<string>();
 
+    public List<string> pathCodes = new List<string>();
     
+    
+
     public List<int> enemies = new List<int>();
     public int enemyMax;
     public float spawnX;
@@ -51,7 +56,17 @@ public class MapDetails : MonoBehaviour
         if (allMaps.ContainsKey(mapName))
         {
             levelCode = allMaps[mapName].mapCode;
-            pathCode = allMaps[mapName].pathCode;
+
+           
+
+            //get a list of all possible path codes from the map data and creates a list of them
+            foreach (string pathCode in allMaps[mapName].pathCode)
+            {
+                pathCodes.Add(pathCode);
+                
+                
+            }
+            //pathCode = allMaps[mapName].pathCode;
             enemyMax = allMaps[mapName].enemyMax;
             levelMin = allMaps[mapName].levelMin;
             levelMax = allMaps[mapName].levelMax;
@@ -75,8 +90,7 @@ public class MapDetails : MonoBehaviour
             
 
             
-            spawnPoint.transform.position = new Vector2(spawnX, spawnY);
-            InvokeRepeating("SpawnEnemy", 4f, spawnInterval);
+            
 
 
 
@@ -177,24 +191,35 @@ public class MapDetails : MonoBehaviour
 
         //GameObject[] paths = GameObject.FindGameObjectsWithTag("MapTile");
 
-        //break up the path code in to sections of 3, since each tile is a 3 digit number
-        string[] pathChars = new string[pathCode.Length];
-        int h = 2;
-        for (int i = 0; i < pathCode.Length / 3; i++)
-        {
-            chars[i] = pathCode[h - 2].ToString() + pathCode[h - 1].ToString() + pathCode[h].ToString();
-            h += 3;
-            int tileCheck = int.Parse(chars[i]);
-            path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
-            //path[i] = paths[tileCheck].GetComponent<MapTile>();
-            pathOrder.Add(chars[i]);
+            //make a path code for each possible path, and add them to a Dictionary of PathCodes
+        for (int p = 0; p < pathCodes.Count; p++)
+            {
+                //break up each path code in to sections of 3, since each tile is a 3 digit number, and store them in a dictionary of path codes that an enemy will choose at random upon their spawn
+                //string[] pathChars = new string[pathCode.Length];
+                string[] pathChars = new string[pathCodes[p].Length];
+                string code = pathCodes[p];
+                List<string> pathCode = new List<string>();
+                List<MapTile> pathTiles = new List<MapTile>();
+                
+                
+                int h = 2;
+                for (int i = 0; i < code.Length / 3; i++)
+                {
+                    pathChars[i] = code[h - 2].ToString() + code[h - 1].ToString() + code[h].ToString();
+                    h += 3;
+                    int tileCheck = int.Parse(pathChars[i]);
+                    path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
+                    pathTiles.Add(path[i]);
+                    //Map.path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
+                }
 
-            Map.path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
+               
+            }
+
         }
 
-
-
-        }
+        spawnPoint.transform.position = new Vector2(spawnX, spawnY);
+        InvokeRepeating("SpawnEnemy", 4f, spawnInterval);
     }
 
    
@@ -238,14 +263,46 @@ public class MapDetails : MonoBehaviour
                         enemyMonster.gameObject.name = "Enemy " + enemyMonster.GetComponent<Monster>().info.species;
                         enemyMonster.transform.localScale = new Vector3(1.8f, 1.8f, 1.0f);
 
+                        int r = Random.Range(0, pathCodes.Count);
+
+
+                            //break up each path code in to sections of 3, since each tile is a 3 digit number, and store them in a dictionary of path codes that an enemy will choose at random upon their spawn
+                            //string[] pathChars = new string[pathCode.Length];
+                            string[] pathChars = new string[pathCodes[r].Length];
+                            string code = pathCodes[r];
+                            
+                            int h = 2;
+                            for (int i = 0; i < code.Length / 3; i++)
+                            {
+                                pathChars[i] = code[h - 2].ToString() + code[h - 1].ToString() + code[h].ToString();
+                                h += 3;
+                                int tileCheck = int.Parse(pathChars[i]);
+                                enemyMonster.GetComponent<Enemy>().path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
+
+                            if (enemyMonster.GetComponent<Enemy>().path.Length > 0)
+                            {
+                                enemyMonster.GetComponent<Enemy>().currentPath = enemyMonster.GetComponent<Enemy>().path[0];
+                            }
+                            //Map.path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
+                        }
+
+
+                        
+
+                    }
+
+
                         if (enemyCount >= enemyMax)
                         {
                             CancelInvoke("SpawnEnemy");
                             isOver = true;
                         }
+
+                       
                     }
-                }
                 break;
+            }
+                
             }
         }
         
@@ -255,14 +312,7 @@ public class MapDetails : MonoBehaviour
        
 
 
-        //var enemyMonster = Instantiate(enemy, transform.position, Quaternion.identity);
-        ////x.transform.SetParent(GetComponentInParent<MapTemplate>().gameObject.transform, false);
-        //enemyMonster.transform.position = spawnPoint.transform.position;
-        //enemyMonster.GetComponent<Monster>().isEnemy = true;
-        //enemyMonster.gameObject.tag = "Enemy";
-        //enemyMonster.gameObject.name = "Enemy " + enemyMonster.GetComponent<Monster>().info.species;
-        ////x.transform.localScale = new Vector2(x.transform.localScale.x * .85f, x.transform.localScale.y * .85f);
-    }
+       
 
     // Update is called once per frame
     void Update()

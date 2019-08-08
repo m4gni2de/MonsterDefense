@@ -142,20 +142,36 @@ public class MonsterInfoPanel : MonoBehaviour
         {
             atkText.color = Color.yellow;
         }
+        else
+        {
+            atkText.color = Color.white;
+        }
 
         if (thisMonster.info.Defense.BaseValue != thisMonster.info.Defense.Value)
         {
             defText.color = Color.yellow;
+        }
+        else
+        {
+            defText.color = Color.white;
         }
 
         if (thisMonster.info.Speed.BaseValue != thisMonster.info.Speed.Value)
         {
             speText.color = Color.yellow;
         }
+        else
+        {
+            speText.color = Color.white;
+        }
 
         if (thisMonster.info.Precision.BaseValue != thisMonster.info.Precision.Value)
         {
             precText.color = Color.yellow;
+        }
+        else
+        {
+            precText.color = Color.white;
         }
 
         attack1.text = thisMonster.info.attack1Name;

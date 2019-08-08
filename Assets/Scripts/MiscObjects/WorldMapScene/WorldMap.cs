@@ -26,9 +26,10 @@ public class WorldMap : MonoBehaviour
         foreach (KeyValuePair<string, MapInfo> map in allMaps)
         {
             mapNames.Add(map.Key);
-            mapSelector.AddOptions(mapNames);
+            
         }
 
+        mapSelector.AddOptions(mapNames);
         mapSelector.value = 0;
     }
 
@@ -43,7 +44,6 @@ public class WorldMap : MonoBehaviour
         {
             mapDetails.mapName = mapName;
             mapDetails.levelCode = allMaps[mapName].mapCode;
-            mapDetails.pathCode = allMaps[mapName].pathCode;
             mapDetails.enemyMax = allMaps[mapName].enemyMax;
             mapDetails.levelMin = allMaps[mapName].levelMin;
             mapDetails.levelMax = allMaps[mapName].levelMax;
