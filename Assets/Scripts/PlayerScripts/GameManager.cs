@@ -42,11 +42,7 @@ public class GameManager : MonoBehaviour
 
         if (instance == null) instance = this;
 
-        if (FindObjectsOfType(GetType()).Length > 1)
-        {
-            Destroy(gameObject);
-
-        }
+       
 
         electricAttackColor = new Color(1.0f, 1.0f, 0.0f, 1.0f);
         waterAttackColor = new Color(0.22f, 0.22f, 1.0f, 1.0f);
@@ -54,12 +50,26 @@ public class GameManager : MonoBehaviour
         typeColorDictionary.Add("Electric", electricAttackColor);
         typeColorDictionary.Add("Water", waterAttackColor);
 
-       
-        monsterCount = PlayerPrefs.GetInt("MonsterCount", 0);
-        PlayerPrefs.SetInt("MonsterCount", monsterCount);
+
+        if (PlayerPrefs.HasKey("MonsterCount"))
+        {
+            monsterCount = PlayerPrefs.GetInt("MonsterCount");
+            PlayerPrefs.SetInt("MonsterCount", monsterCount);
+        }
+        else
+        {
+            monsterCount = PlayerPrefs.GetInt("MonsterCount", 0);
+            PlayerPrefs.SetInt("MonsterCount", monsterCount);
+        }
 
 
         //PlayerPrefs.DeleteAll();
+
+        if (FindObjectsOfType(GetType()).Length > 1)
+        {
+            Destroy(gameObject);
+
+        }
 
 
     }

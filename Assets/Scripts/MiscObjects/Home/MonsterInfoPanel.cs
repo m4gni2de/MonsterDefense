@@ -126,6 +126,7 @@ public class MonsterInfoPanel : MonoBehaviour
         }
 
         monsterNameText.text = thisMonster.info.name;
+        typeText.text = thisMonster.info.type1 + "/" + thisMonster.info.type2;
 
         levelText.text = thisMonster.info.level.ToString();
         atkText.text = thisMonster.info.Attack.Value.ToString();

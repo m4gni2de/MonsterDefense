@@ -10,14 +10,14 @@ public class StatsCalc
 {
 
     public Monster Monster;
-    public EquippableItem equippableItem;
+    
     
 
     public StatsCalc(Monster monster)
     {
         float level = (float)monster.info.level;
 
-        equippableItem = new EquippableItem();
+        
         
         
 
@@ -208,7 +208,74 @@ public class StatModifier
 }
 
 
-
-
-
 //*********************End Calcs***********************//
+
+
+
+public class MapTileStatChange
+{
+    public void ApplyTileChanges(Monster monster, MapTile mapTile)
+    {
+        TileInfo tile = mapTile.info;
+
+        if (tile.hpBonus != 0)
+            monster.hp += tile.hpBonus;
+        if (tile.atkBonus != 0)
+            monster.attack += tile.atkBonus;
+        if (tile.defBonus != 0)
+            monster.defense += tile.defBonus;
+        if (tile.speedBonus != 0)
+            monster.speed += tile.speedBonus;
+
+        if (tile.hpPercentBonus != 0)
+            monster.hp *= 1 + tile.hpPercentBonus;
+        if (tile.atkPercentBonus != 0)
+            monster.attack *= 1 + tile.atkPercentBonus;
+        if (tile.defPercentBonus != 0)
+            monster.defense *= 1 + tile.defPercentBonus;
+        if (tile.spePercentBonus != 0)
+            monster.speed *= 1 + tile.spePercentBonus;
+
+        ////if the equipment item is Type protected, check and make sure the types match. If they do, apply bonuses
+        //if (tile.typeMoveReq == monster.info.attack1.type)
+        //{
+
+        //    if (tile.atkPowerBonus != 0)
+        //        monster.info.attack1.Power.AddModifier(new StatModifier(tile.atkPowerBonus, StatModType.Flat, this));
+        //    if (tile.atkRangeBonus != 0)
+        //        monster.info.attack1.Range.AddModifier(new StatModifier(tile.atkRangeBonus, StatModType.Flat, this));
+        //    if (tile.atkTimeBonus != 0)
+        //        monster.info.attack1.AttackTime.AddModifier(new StatModifier(tile.atkTimeBonus, StatModType.Flat, this));
+        //    if (tile.critChanceBonus != 0)
+        //        monster.info.attack1.CritChance.AddModifier(new StatModifier(tile.critChanceBonus, StatModType.Flat, this));
+        //    if (tile.critModBonus != 0)
+        //        monster.info.attack1.CritMod.AddModifier(new StatModifier(tile.critModBonus, StatModType.Flat, this));
+
+        //    if (tile.atkPowerPercentBonus != 0)
+        //        monster.info.attack1.Power.AddModifier(new StatModifier(tile.atkPowerPercentBonus, StatModType.PercentMult, this));
+        //    if (tile.atkTimePercentBonus != 0)
+        //        monster.info.attack1.AttackTime.AddModifier(new StatModifier(tile.atkTimePercentBonus, StatModType.PercentMult, this));
+
+
+        //}
+
+        //if (tile.typeMoveReq == monster.info.attack2.type)
+        //{
+        //    if (tile.atkPowerBonus != 0)
+        //        monster.info.attack2.Power.AddModifier(new StatModifier(tile.atkPowerBonus, StatModType.Flat, this));
+        //    if (tile.atkRangeBonus != 0)
+        //        monster.info.attack2.Range.AddModifier(new StatModifier(tile.atkRangeBonus, StatModType.Flat, this));
+        //    if (tile.atkTimeBonus != 0)
+        //        monster.info.attack2.AttackTime.AddModifier(new StatModifier(tile.atkTimeBonus, StatModType.Flat, this));
+        //    if (tile.critChanceBonus != 0)
+        //        monster.info.attack2.CritChance.AddModifier(new StatModifier(tile.critChanceBonus, StatModType.Flat, this));
+        //    if (tile.critModBonus != 0)
+        //        monster.info.attack2.CritMod.AddModifier(new StatModifier(tile.critModBonus, StatModType.Flat, this));
+
+        //    if (tile.atkPowerPercentBonus != 0)
+        //        monster.info.attack2.Power.AddModifier(new StatModifier(tile.atkPowerPercentBonus, StatModType.PercentMult, this));
+        //    if (tile.atkTimePercentBonus != 0)
+        //        monster.info.attack2.AttackTime.AddModifier(new StatModifier(tile.atkTimePercentBonus, StatModType.PercentMult, this));
+        //}
+    }
+}

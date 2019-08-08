@@ -70,8 +70,8 @@
     <Compile Include="Assets\Scripts\Items\EquipmentItem.cs" />
     <Compile Include="Assets\Scripts\Items\ItemPopMenu.cs" />
     <Compile Include="Assets\Scripts\MapScripts\EnemySpawn.cs" />
-    <Compile Include="Assets\Scripts\MapScripts\Map.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MapDetails.cs" />
+    <Compile Include="Assets\Scripts\MapScripts\MapEditor.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MapTile.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MonsterInfoMenus.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\CameraMotion.cs" />
@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\MiscObjects\Home\YourHome.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\ItemScene\ItemShop.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\MapEditorScene\TileEditorMenu.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\MonsterManager.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\WorldMap.cs" />
     <Compile Include="Assets\Scripts\Monster\Enemy.cs" />

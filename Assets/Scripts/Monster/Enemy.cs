@@ -320,7 +320,7 @@ public class Enemy : MonoBehaviour
 
         if (stats.currentHp <= 0)
         {
-            float expGained = (stats.level + 1 * monster.info.levelConst) / (attacker.info.level + 1 - stats.level);
+            float expGained = (stats.level + 1 * monster.info.levelConst) / (attacker.info.level + (1 /monster.info.levelConst) - stats.level);
 
             if (expGained < 1)
             {

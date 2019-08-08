@@ -302,8 +302,8 @@ namespace TMPro
             item.rectTransform = (RectTransform)itemToggle.transform;
 
             Canvas popupCanvas = GetOrAddComponent<Canvas>(templateGo);
-            popupCanvas.overrideSorting = true;
-            popupCanvas.sortingOrder = 30000;
+            //popupCanvas.overrideSorting = true;
+            //popupCanvas.sortingOrder = 30000;
 
             GetOrAddComponent<GraphicRaycaster>(templateGo);
             GetOrAddComponent<CanvasGroup>(templateGo);

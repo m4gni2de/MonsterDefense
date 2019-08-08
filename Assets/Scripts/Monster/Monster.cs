@@ -99,6 +99,9 @@ public class Monster : MonoBehaviour
     public Dictionary<int, int> expToLevel = new Dictionary<int, int>();
     public Dictionary<int, int> totalExpForLevel = new Dictionary<int, int>();
 
+    //use these as temporary variables to hold the monster's stats while it's on the field. these stats can be manipulated while on the field, but do not affect the monster's stats permanently.
+    public float attack, defense, speed, precision, hp;
+
 
     private void Awake()
     {
@@ -147,8 +150,14 @@ public class Monster : MonoBehaviour
 
         //checks for which items a monster has equipped and apply the appropriate effects
         EquipmentBoosts();
-        
 
+        //gives the monster temporary stats that can be changed in game, without affecting the monster's saved stats
+        attack = info.Attack.Value;
+        defense = info.Defense.Value;
+        speed = info.Speed.Value;
+        precision = info.Precision.Value;
+        hp = info.HP.Value;
+        
 
 
     }
@@ -164,6 +173,10 @@ public class Monster : MonoBehaviour
         {
             enemy.enemyCanvas.SetActive(false);
         }
+
+       
+
+        
     }
 
 
@@ -294,7 +307,7 @@ public class Monster : MonoBehaviour
     }
 
 
-
+    //public void
 
 
     //gets the monster's information from the Game Manager and creates the monster's stats
@@ -542,18 +555,14 @@ public class Monster : MonoBehaviour
         
         
         PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
+
         info = stats.Monster.info;
 
+
         GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
-
-        
-
-        Debug.Log(info.Attack.Value);
-
-        
     }
 
-   
+    
 
     //create the monster's exp curve given it's information from the data scripts
     public void GetExpCurve()
@@ -571,8 +580,8 @@ public class Monster : MonoBehaviour
             else
             {
                 int toNextLevel = Mathf.FloorToInt(Mathf.Pow(i, info.levelConst));
-                expToLevel.Add(i, Mathf.FloorToInt(toNextLevel));
-                totalExp += Mathf.FloorToInt(toNextLevel);
+                expToLevel.Add(i, (int)Mathf.Round(toNextLevel));
+                totalExp += (int)Mathf.Round(toNextLevel);
                 totalExpForLevel.Add(i, totalExp);
             }
 
@@ -603,7 +612,8 @@ public class Monster : MonoBehaviour
     //this is called from the defeated enemy
     public void GainEXP(int expGained)
     {
-        info.totalExp += Mathf.FloorToInt(expGained);
+
+        info.totalExp += (int)Mathf.Round(expGained);
 
         info.koCount += 1;
 
@@ -620,8 +630,8 @@ public class Monster : MonoBehaviour
             if (expGained >= nextLevelDiff)
             {
                 info.level += 1;
-                SetExp();
 
+                SetExp();
 
 
                 //int defBefore = (int)info.defStat;
@@ -630,10 +640,14 @@ public class Monster : MonoBehaviour
                 //int speBefore = (int)info.speStat;
                 //int precBefore = (int)info.precStat;
 
-                
+
 
                 StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
                 GetStats(stats);
+
+
+                return;
+                
 
                 //int defChange = (int)info.defStat - defBefore;
                 //int hpChange = (int)info.hpMax - hpBefore;
@@ -645,6 +659,7 @@ public class Monster : MonoBehaviour
             }
 
             PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
+            
         }
 
         

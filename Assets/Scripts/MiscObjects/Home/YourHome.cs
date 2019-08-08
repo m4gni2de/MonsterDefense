@@ -28,7 +28,9 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     {
         expSlider.GetComponent<Slider>();
         LoadMonsters();
+
         
+
         //SummonItem();
 
     }
@@ -66,17 +68,17 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
         var active = GameManager.Instance.activeTowers;
         //int index = new int();
 
-        List<int> indexes = new List<int>();
+        //List<int> indexes = new List<int>();
 
         for (int i = 1; i <= monsters.Count; i++)
         {
-            //checks the Active Towers dictionary. If a monster appears in it, then it will add that monster to a local list of towers that are on the field
-            if (active.ContainsKey(i))
-            {
-                Monster monster = active[i];
-                indexes.Add(monster.info.index);
-                Debug.Log(indexes[i]);
-            }
+            ////checks the Active Towers dictionary. If a monster appears in it, then it will add that monster to a local list of towers that are on the field
+            //if (active.ContainsKey(i))
+            //{
+            //    Monster monster = active[i];
+            //    indexes.Add(monster.info.index);
+            //    Debug.Log(indexes[i]);
+            //}
 
 
             if (monsters.ContainsKey(i))
@@ -87,13 +89,13 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
                 string species = info.species;
 
-                //if the monster appears on the Active Towers list, skip over the spawning of it
-                if (indexes.Contains(i))
-                {
-                    //
-                }
-                else
-                {
+                ////if the monster appears on the Active Towers list, skip over the spawning of it
+                //if (indexes.Contains(i))
+                //{
+                //    //
+                //}
+                //else
+                //{
                     if (byPrefab.ContainsKey(species))
                     {
                         ///Location of the enemies that spawn
@@ -109,7 +111,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                         monster.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
                         monster.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
                     }
-                }
+                //}
 
 
             }
@@ -151,32 +153,21 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
                     }
 
-                    if (i >= GameManager.Instance.monsterCount)
-                    {
-                        PlayerPrefs.DeleteKey(GameManager.Instance.monsterCount.ToString());
-                        GameManager.Instance.monsterCount -= 1;
-                        PlayerPrefs.SetInt("MonsterCount", GameManager.Instance.monsterCount);
-                        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
-                        Debug.Log(PlayerPrefs.GetInt("MonsterCount"));
-
-
-                        Destroy(activeMonster.gameObject);
-                        infoMenu.SetActive(false);
-                    }
+                    
                 }
 
 
-                //PlayerPrefs.DeleteKey(GameManager.Instance.monsterCount.ToString());
-                //GameManager.Instance.monsterCount -= 1;
-                //PlayerPrefs.SetInt("MonsterCount", GameManager.Instance.monsterCount);
-                //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
-                //Debug.Log(PlayerPrefs.GetInt("MonsterCount"));
+            PlayerPrefs.DeleteKey(GameManager.Instance.monsterCount.ToString());
+            GameManager.Instance.monsterCount -= 1;
+            PlayerPrefs.SetInt("MonsterCount", GameManager.Instance.monsterCount);
+            GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+            Debug.Log(PlayerPrefs.GetInt("MonsterCount"));
 
 
-                //Destroy(activeMonster.gameObject);
-                //infoMenu.SetActive(false);
-            
-            
+            Destroy(activeMonster.gameObject);
+            infoMenu.SetActive(false);
+
+
         }
         else
         {

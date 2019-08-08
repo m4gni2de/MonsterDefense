@@ -6,9 +6,17 @@ using UnityEngine;
 
 public class MapDetails : MonoBehaviour
 {
+    public float width, height;
+    public int columns, rows;
+
     public string mapName;
     public string levelCode;
+    public string tileTypeCode;
     public string pathCode;
+
+    public int tileNumber;
+    public GameObject mapTile, mapCanvas;
+    
 
     
     public MapTile[] path;
@@ -27,7 +35,7 @@ public class MapDetails : MonoBehaviour
     public float spawnInterval;
     public int enemyCount;
 
-    private Map Map;
+    //private Map Map;
 
     public GameObject spawnPoint;
     public GameObject enemy;
@@ -41,9 +49,19 @@ public class MapDetails : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Map = GetComponent<Map>();
-        path = Map.path;
-   
+        //Map = GetComponent<Map>();
+        //path = Map.path;
+
+        width = gameObject.GetComponent<RectTransform>().rect.width;
+        height = gameObject.GetComponent<RectTransform>().rect.height;
+
+
+
+        //Debug.Log(height);
+
+        columns = int.Parse(width.ToString()) / 50;
+        rows = int.Parse(height.ToString()) / 50;
+
     }
 
     public void LoadMap(string name)
@@ -56,7 +74,7 @@ public class MapDetails : MonoBehaviour
         if (allMaps.ContainsKey(mapName))
         {
             levelCode = allMaps[mapName].mapCode;
-
+            tileTypeCode = allMaps[mapName].tileTypeCode;
            
 
             //get a list of all possible path codes from the map data and creates a list of them
@@ -94,13 +112,7 @@ public class MapDetails : MonoBehaviour
 
 
 
-            var width = Map.width;
-        var height = Map.height;
-        var columns = Map.columns;
-        var rows = Map.rows;
-        var tileNumber = Map.tileNumber;
-        var mapTile = Map.mapTile;
-        var mapCanvas = Map.mapCanvas;
+        
 
         string[] chars = new string[levelCode.Length];
 
@@ -109,7 +121,13 @@ public class MapDetails : MonoBehaviour
             chars[i] = levelCode[i].ToString();
         }
 
-        int charCount = 0;
+
+
+
+
+            
+
+            int charCount = 0;
 
         for (int i = 1; i < rows * 2; i++)
         {
@@ -122,50 +140,27 @@ public class MapDetails : MonoBehaviour
 
                 var tile = Instantiate(mapTile, transform.position, Quaternion.identity);
                 var tile2 = Instantiate(mapTile, transform.position, Quaternion.identity);
-                if (chars[charCount] == "0")
-                {
-                    tile.GetComponent<MapTile>().Build();
-                }
-                if (chars[charCount] == "1")
-                {
-                    tile.GetComponent<MapTile>().Dirt();
-                }
-                if (chars[charCount] == "2")
-                {
-                    tile.GetComponent<MapTile>().Water();
-                }
-                if (chars[charCount] == "3")
-                {
-                    tile.GetComponent<MapTile>().Road();
-                }
+
+
+
+                tile.GetComponent<MapTile>().GetType(int.Parse(chars[charCount]));
 
                 tile.GetComponent<MapTile>().tileNumber = tileNumber;
                 tile.name = tileNumber.ToString();
                 tileNumber += 1;
 
+               
+
                 charCount += 1;
 
-                if (chars[charCount] == "0")
-                {
-                    tile2.GetComponent<MapTile>().Build();
-                }
-                if (chars[charCount] == "1")
-                {
-                    tile2.GetComponent<MapTile>().Dirt();
-                }
-                if (chars[charCount] == "2")
-                {
-                    tile2.GetComponent<MapTile>().Water();
-                }
-                if (chars[charCount] == "3")
-                {
-                    tile2.GetComponent<MapTile>().Road();
-                }
 
+                tile2.GetComponent<MapTile>().GetType(int.Parse(chars[charCount]));
 
                 tile2.GetComponent<MapTile>().tileNumber = tileNumber;
                 tile2.name = tileNumber.ToString();
                 tileNumber += 1;
+
+              
 
                 //tile.transform.position = new Vector2(((-height / 4) + (c * 50)), (width / 4) - 6.5f - (i * 27));
                 tile.transform.position = new Vector2((-width / 2) + (i * 50), (height / 2) - (c * 25));
@@ -216,6 +211,17 @@ public class MapDetails : MonoBehaviour
                
             }
 
+        }
+
+        //set the tile attributes based on their attribute code
+        string[] tileChars = new string[tileTypeCode.Length];
+        int g = 1;
+        for (int t = 0; t < tileTypeCode.Length / 2; t++)
+        {
+            tileChars[t] = tileTypeCode[g - 1].ToString() + tileTypeCode[g].ToString();
+            g += 2;
+            int tileCheck = int.Parse(tileChars[t]);
+            GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>().GetAttribute(int.Parse(tileChars[t]));
         }
 
         spawnPoint.transform.position = new Vector2(spawnX, spawnY);
@@ -331,13 +337,13 @@ public class MapDetails : MonoBehaviour
 
 
 
-        var width = Map.width;
-        var height = Map.height;
-        var columns = Map.columns;
-        var rows = Map.rows;
-        var tileNumber = Map.tileNumber;
-        var mapTile = Map.mapTile;
-        var mapCanvas = Map.mapCanvas;
+        //var width = Map.width;
+        //var height = Map.height;
+        //var columns = Map.columns;
+        //var rows = Map.rows;
+        //var tileNumber = Map.tileNumber;
+        //var mapTile = Map.mapTile;
+        //var mapCanvas = Map.mapCanvas;
 
         string[] chars = new string[levelCode.Length];
 
@@ -440,7 +446,7 @@ public class MapDetails : MonoBehaviour
             //path[i] = paths[tileCheck].GetComponent<MapTile>();
             pathOrder.Add(chars[i]);
 
-            Map.path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
+            path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
         }
 
 

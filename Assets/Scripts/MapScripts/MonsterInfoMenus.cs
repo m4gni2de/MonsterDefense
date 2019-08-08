@@ -99,6 +99,13 @@ public class MonsterInfoMenus : MonoBehaviour
                             tower.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
                             tower.gameObject.tag = "Tower";
                             tower.gameObject.name = tower.GetComponent<Monster>().info.species + " " + tower.GetComponent<Monster>().info.index;
+
+                            SpriteRenderer[] sprites = tower.GetComponentsInChildren<SpriteRenderer>();
+
+                            for (int s = 0; s < sprites.Length; s++)
+                            {
+                                sprites[s].sortingLayerName = "GameUI";
+                            }
                         }
                     }
 
@@ -149,10 +156,10 @@ public class MonsterInfoMenus : MonoBehaviour
             attack2BtnText.text = activeMonster.info.attack2Name;
 
             levelText.text = "Level: " + activeMonster.info.level.ToString();
-            atkText.text = "Atk: " + activeMonster.info.Attack.Value.ToString();
-            defText.text = "Def: " + activeMonster.info.Defense.Value.ToString();
-            speText.text = "Speed: " + activeMonster.info.Speed.Value.ToString();
-            precText.text = "Prec: " + activeMonster.info.Precision.Value.ToString();
+            atkText.text = "Atk: " + activeMonster.attack.ToString();
+            defText.text = "Def: " + activeMonster.defense.ToString();
+            speText.text = "Speed: " + activeMonster.speed.ToString();
+            precText.text = "Prec: " + activeMonster.precision.ToString();
             typeText.text = "Type: " + activeMonster.info.type1 + "/" + activeMonster.info.type2;
 
             if (activeMonster.expToLevel.ContainsKey(activeMonster.info.level))
