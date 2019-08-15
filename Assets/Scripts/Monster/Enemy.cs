@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 //each spwned enemy will have unique stats that stem from their base stats as a species, in addition to whatever modifiers are affecting them on the map or from tower effects
 //this script acts as the control panel for a monster spawned as an Enemy. 
@@ -21,14 +22,20 @@ public struct EnemyStats
     public float currentHp;
     public int defPot;
     public int defBase;
+    public int speBase;
+    public int spePot;
     public float def;
+    public float speed;
     public int level;
     public int expGiven;
+    public float evasion;
 
     public Stat HP;
     public Stat HPPotential;
     public Stat Defense;
     public Stat DefensePotential;
+    public Stat Evasion;
+    public Stat Speed;
 };
 
 
@@ -61,6 +68,7 @@ public class Enemy : MonoBehaviour
     private Monster monster;
     
     public EnemyStats stats = new EnemyStats();
+    
     //the enemy's canvas for HP and effects
     public GameObject enemyCanvas;
     //the enemy's HP slider
@@ -68,7 +76,13 @@ public class Enemy : MonoBehaviour
     //the box that appears when an enemy takes damage
     public GameObject damageText;
 
-    
+    private GameObject map;
+
+    //used to determine if this enemy is the active enemy on the enemy menu
+    public bool isActiveEnemy;
+
+    //directions that the enemy is travelling so that the sprite knows to flip or not
+    public bool isLeft, isRight;
 
     private void Awake()
     {
@@ -82,7 +96,7 @@ public class Enemy : MonoBehaviour
         //clears the list of roads to prevent index overflows
         roadsHit.Clear();
         
-        GameObject map = GameObject.FindGameObjectWithTag("Map");
+        map = GameObject.FindGameObjectWithTag("Map");
 
         enemyCanvas.GetComponent<Canvas>().sortingLayerName = "Monster";
 
@@ -202,8 +216,9 @@ public class Enemy : MonoBehaviour
         }
 
 
-        int hpRand = Random.Range(24, 26);
-        int defRand = Random.Range(24, 26);
+        int hpRand = Random.Range(0, 26);
+        int defRand = Random.Range(0, 26);
+        int speRand = Random.Range(0, 26);
         
 
         stats.id = monster.info.dexId;
@@ -217,6 +232,8 @@ public class Enemy : MonoBehaviour
         stats.defPot = defRand;
         stats.defBase = monster.info.defBase;
         stats.level = level;
+        stats.speBase = monster.info.speBase;
+        stats.spePot = speRand;
         monster.info.level = stats.level;
 
         
@@ -238,6 +255,8 @@ public class Enemy : MonoBehaviour
         stats.hpMax = (int)StatsCalc.Monster.info.HP.Value;
         stats.HP.BaseValue = stats.hpMax;
         stats.currentHp = stats.hpMax;
+        stats.speed = (int)StatsCalc.Monster.info.Speed.Value;
+        stats.evasion = StatsCalc.Monster.info.evasionBase;
         enemyHpSlider.maxValue = stats.hpMax;
         enemyHpSlider.value = stats.hpMax;
     }
@@ -260,7 +279,7 @@ public class Enemy : MonoBehaviour
                 TypeInfo defending = GameManager.Instance.monstersData.typeChartDict[stats.type1];
                 TypeChart attack = new TypeChart(attacking, defending, force, resistance);
 
-                OutputDamage(attack, attack.typeModifier, attacker);
+                DealDamage(attack, attack.typeModifier, attacker, critChance, criMod);
 
             }
         }
@@ -288,12 +307,14 @@ public class Enemy : MonoBehaviour
                         TypeInfo defending = GameManager.Instance.monstersData.typeChartDict[stats.type2];
                         TypeChart attack = new TypeChart(attacking, defending, force, resistance);
                         damageMod *= attack.typeModifier;
+                        DealDamage(attack, damageMod, attacker, critChance, criMod);
 
-                        OutputDamage(attack, damageMod, attacker);
                     }
+
                 }
 
 
+               
 
 
             }
@@ -303,35 +324,84 @@ public class Enemy : MonoBehaviour
     }
 
     //when the attack animation hits the enemy, deal the damage. this method is invoked from the AttackEffects script. Also gives information about the attacking monster, so if an enemy is destroyed, it can tell which monster destroyed it
-    public void OutputDamage(TypeChart atk, float damageMod, Monster attacker)
+    public void DealDamage(TypeChart atk, float damageMod, Monster attacker, float critChance, float critMod)
     {
 
-        //Debug.Log(damageMod);
+        
         float damageTaken = Mathf.Round(atk.totalDamage * damageMod);
-        //spawn the box to display damage done and change the properties
-        var damage = Instantiate(damageText, transform.position, Quaternion.identity);
-        damage.transform.SetParent(enemyCanvas.transform, false);
-        damage.GetComponentInChildren<TMP_Text>().text = "-" + damageTaken.ToString();
-        Destroy(damage, damage.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
 
+        float critRand = Random.Range(0f, 100f);
 
+        
+
+        float rand = Random.Range(0f, 100f);
+
+        
+        //check to see if the attack misses by comparing the enemies' dodge stat with a number from 1-100. if the enemy dodges, deal 0 damage and spawn the word DODGE instead of a damage value
+        if (rand >= stats.evasion)
+        {
+            //check and see if the attack is a critical hit, and if so, change the damage output and color of the font to indicate a crit
+            if (critRand <= critChance)
+            {
+                damageTaken = damageTaken * (1 + critMod);
+                //spawn the box to display damage done and change the properties
+                var damage = Instantiate(damageText, transform.position, Quaternion.identity);
+                damage.transform.SetParent(enemyCanvas.transform, false);
+                damage.GetComponentInChildren<TMP_Text>().text = "-" + damageTaken + "!";
+                damage.GetComponentInChildren<TMP_Text>().color = Color.yellow;
+                Destroy(damage, damage.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+            }
+            else
+            {
+                //spawn the box to display damage done and change the properties to signify a critical hit
+                var damage = Instantiate(damageText, transform.position, Quaternion.identity);
+                damage.transform.SetParent(enemyCanvas.transform, false);
+                damage.GetComponentInChildren<TMP_Text>().text = "-" + damageTaken.ToString();
+                Destroy(damage, damage.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+            }
+            
+        }
+        else
+        {
+            //spawn the box to display damage done and change the properties to "DODGE" if the enemy succesfully evades
+            var damage = Instantiate(damageText, transform.position, Quaternion.identity);
+            damage.transform.SetParent(enemyCanvas.transform, false);
+            damage.GetComponentInChildren<TMP_Text>().text = "Dodge!";
+            Destroy(damage, damage.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+            damageTaken = 0;
+        }
+
+        
         stats.currentHp -= damageTaken;
         enemyHpSlider.value = stats.currentHp;
 
+        //if the enemy's HP falls below 0, it is destroyed and the monster that destroyed it gains EXP
         if (stats.currentHp <= 0)
         {
+            if (isActiveEnemy)
+            {
+                map.GetComponentInChildren<EnemyInfoPanel>().enemyInfoMenu.SetActive(false);
+            }
             float expGained = (stats.level + 1 * monster.info.levelConst) / (attacker.info.level + (1 /monster.info.levelConst) - stats.level);
 
             if (expGained < 1)
             {
                 expGained = 1;
             }
-            attacker.GainEXP((int)expGained);
-            Debug.Log(expGained);
+            attacker.GainEXP((int)Mathf.Round(expGained));
+
             Destroy(gameObject);
         }
-        
-        Debug.Log("Current HP: " + stats.currentHp + "  & Damage Taken: " + damageTaken);
+
+        //Debug.Log("Current HP: " + stats.currentHp + "  & Damage Taken: " + damageTaken);
+
+       
+    }
+
+    //called from the EnemyInfoPanel script
+    public void ToggleActiveStatus()
+    {
+        isActiveEnemy = !isActiveEnemy;
     }
 
 
@@ -489,7 +559,7 @@ public class Enemy : MonoBehaviour
         //}
     }
 
-    void Pause()
+    public void Pause()
     {
         isWaiting = !isWaiting;
     }
@@ -503,7 +573,8 @@ public class Enemy : MonoBehaviour
         {
             monster.specs.legPos[i] = monster.specs.legs[i].transform.position;
             averageLegPos.x += monster.specs.legPos[i].x;
-            averageLegPos.y += monster.specs.legPos[i].y - (monster.specs.legs[i].GetComponent<RectTransform>().rect.height * 2);
+            //averageLegPos.y += monster.specs.legPos[i].y - (monster.specs.legs[i].GetComponent<RectTransform>().rect.height * 2);
+            averageLegPos.y += monster.specs.legPos[i].y - (monster.GetComponent<RectTransform>().rect.height);
 
         }
         averageLegPos = new Vector3(averageLegPos.x / monster.specs.legPos.Length, averageLegPos.y / monster.specs.legPos.Length, averageLegPos.z);
@@ -526,8 +597,24 @@ public class Enemy : MonoBehaviour
 
             float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
             //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            
         }
 
+        if (targetPosition.x >= currentPosition.x)
+        {
+            isRight = true;
+            isLeft = false;
+            monster.puppet.flip = true;
+            
+        }
+        else
+        {
+            isRight = false;
+            isLeft = true;
+            monster.puppet.flip = false;
+        }
+
+        
 
         //This code rotates the 'mover' based on how close it is to the waypoint
         // If the moving object isn't that close to the waypoint
@@ -573,6 +660,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
+   
+
 
 
     private void NextPath()
@@ -608,4 +697,6 @@ public class Enemy : MonoBehaviour
 
         //currentPath = path[currentIndex];
     }
+
+    
 }

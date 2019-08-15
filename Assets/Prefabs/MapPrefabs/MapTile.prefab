@@ -104,9 +104,11 @@ MonoBehaviour:
   isAttackTarget: 0
   isShowingRange: 0
   isCountingDown: 0
+  monsterOn: {fileID: 0}
+  hasMonster: 0
   towersInRange: []
   dirt: {fileID: 21300000, guid: b96d3fcc1ccdb964683f6ad0775ec9ea, type: 3}
-  water: {fileID: 21300000, guid: 2d08ce887f5150a4d86a51ab5dda8b81, type: 3}
+  water: {fileID: 21300000, guid: 5ed3716f76f1748438f94ab7e4c7deb3, type: 3}
   grass: {fileID: 21300000, guid: b27a1646af6e1e44e96ca8e99f8cb9d6, type: 3}
   road: {fileID: 21300000, guid: b4e98879eb7dd814a913c4786231bc38, type: 3}
   blank: {fileID: 21300000, guid: 8368e93dbcd1b734f993a68980a4f589, type: 3}
@@ -114,6 +116,41 @@ MonoBehaviour:
   waitSeconds: 0
   speedOut: 0
   tileColor: {r: 0, g: 0, b: 0, a: 0}
+  tileAtt: 0
+  tileAttInt: 0
+  tileType: 0
+  tileTypeInt: 0
+  info:
+    type: 
+    attribute: 
+    level: 0
+    maxLevel: 0
+    statBoost: 
+    boostPercentage: 0
+    description: 
+    hpBonus: 0
+    atkBonus: 0
+    defBonus: 0
+    speedBonus: 0
+    precBonus: 0
+    atkPowerBonus: 0
+    atkTimeBonus: 0
+    atkRangeBonus: 0
+    critModBonus: 0
+    critChanceBonus: 0
+    hpPercentBonus: 0
+    atkPercentBonus: 0
+    defPercentBonus: 0
+    spePercentBonus: 0
+    precPercentBonus: 0
+    atkPowerPercentBonus: 0
+    atkTimePercentBonus: 0
+    evasionPercentBonus: 0
+  tileSprites:
+  - {fileID: 21300000, guid: 5ed3716f76f1748438f94ab7e4c7deb3, type: 3}
+  - {fileID: 21300000, guid: e3b63f31b98be7041821daab159b59d6, type: 3}
+  - {fileID: 21300000, guid: f4a3cec5a9fc10d478d0ef325def0512, type: 3}
+  - {fileID: 21300000, guid: 5496b960b1df6334c8f66ce6ee7db06d, type: 3}
 --- !u!60 &84742495945837051
 PolygonCollider2D:
   m_ObjectHideFlags: 0

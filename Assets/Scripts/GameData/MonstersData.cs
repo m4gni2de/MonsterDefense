@@ -22,6 +22,10 @@ public struct MonsterData
     public float levelConst;
     public string[] baseAttacks;
 
+    public int staminaBase;
+    public int energyGenBase;
+    public float energyCost;
+
 };
 
 [System.Serializable]
@@ -33,53 +37,48 @@ public class MonsterDataRoot
 
 public class AllMonsterData
 {
-    public MonsterData ElectricFiend = new MonsterData
+    public MonsterData Lichenthrope = new MonsterData
     {
         id = 1,
-        species = "ElectricFiend",
-        type1 = "Electric",
+        species = "Lichenthrope",
+        type1 = "Nature",
         type2 = "none",
-        hpBase = 65,
-        atkBase = 70,
-        defBase = 40,
-        speBase = 55,
-        precBase = 101,
+        hpBase = 131,
+        atkBase = 120,
+        defBase = 118,
+        speBase = 44,
+        precBase = 86,
         maxLevel = 100,
-        levelConst = 1.8f,
-        baseAttacks = new string[2] { "Thunder", "Volt Strike" },
+        levelConst = 1.9f,
+        baseAttacks = new string[2] { "Thunder", "Misty Spray" },
+        staminaBase = 70,
+        energyGenBase = 77,
+        energyCost = 7f,
     };
 
-    public MonsterData MrMister = new MonsterData
-    {
-        id = 2,
-        species = "MrMister",
-        type1 = "Water",
-        type2 = "Magic",
-        hpBase = 98,
-        atkBase = 44,
-        defBase = 30,
-        speBase = 39,
-        precBase = 110,
-        maxLevel = 100,
-        levelConst = 1.8f,
-        baseAttacks = new string[2] { "Misty Spray", "Aqua Dart" },
-    };
 
-    public MonsterData TerrorBite = new MonsterData
-    {
-        id = 3,
-        species = "TerrorBite",
-        type1 = "Shadow",
-        type2 = "none",
-        hpBase = 104,
-        atkBase = 86,
-        defBase = 53,
-        speBase = 64,
-        precBase = 133,
-        maxLevel = 100,
-        levelConst = 1.8f,
-        baseAttacks = new string[2] { "Misty Spray", "Aqua Dart" },
-    };
+    //public MonsterData MrMister = new MonsterData
+    //{
+    //    id = 2,
+    //    species = "MrMister",
+    //    type1 = "Water",
+    //    type2 = "Magic",
+    //    hpBase = 98,
+    //    atkBase = 44,
+    //    defBase = 30,
+    //    speBase = 39,
+    //    precBase = 110,
+    //    maxLevel = 100,
+    //    levelConst = 1.8f,
+    //    baseAttacks = new string[2] { "Misty Spray", "Aqua Dart" },
+    //    staminaBase = 90,
+    //    energyGenBase = 95,
+    //    energyCost = 5.5f,
+    //};
+
+   
+
+    
 }
 
 public class MonstersData : MonoBehaviour
@@ -110,17 +109,10 @@ public class MonstersData : MonoBehaviour
 
     public void AllMonsters()
     {
-        monstersAllDict.Add(allMonsterData.ElectricFiend.species, allMonsterData.ElectricFiend);
-        monsterPrefabsDict.Add(allMonsterData.ElectricFiend.species, monsterPrefabs[0]);
-        monstersByIdDict.Add(allMonsterData.ElectricFiend.id, allMonsterData.ElectricFiend.species);
-
-        monstersAllDict.Add(allMonsterData.MrMister.species, allMonsterData.MrMister);
-        monsterPrefabsDict.Add(allMonsterData.MrMister.species, monsterPrefabs[1]);
-        monstersByIdDict.Add(allMonsterData.MrMister.id, allMonsterData.MrMister.species);
-
-        monstersAllDict.Add(allMonsterData.TerrorBite.species, allMonsterData.TerrorBite);
-        monsterPrefabsDict.Add(allMonsterData.TerrorBite.species, monsterPrefabs[2]);
-        monstersByIdDict.Add(allMonsterData.TerrorBite.id, allMonsterData.TerrorBite.species);
+       
+        monstersAllDict.Add(allMonsterData.Lichenthrope.species, allMonsterData.Lichenthrope);
+        monsterPrefabsDict.Add(allMonsterData.Lichenthrope.species, monsterPrefabs[0]);
+        monstersByIdDict.Add(allMonsterData.Lichenthrope.id, allMonsterData.Lichenthrope.species);
     }
 
     public void AllTypes()
@@ -129,6 +121,7 @@ public class MonstersData : MonoBehaviour
         typeChartDict.Add(allTypes.Water.name, allTypes.Water);
         typeChartDict.Add(allTypes.Magic.name, allTypes.Magic);
         typeChartDict.Add(allTypes.Shadow.name, allTypes.Shadow);
+        typeChartDict.Add(allTypes.Nature.name, allTypes.Nature);
     }
 
 
@@ -205,6 +198,16 @@ public class MonsterTypeDetails
     {
         name = "Shadow",
         id = 4,
+        noChange = new string[5] { "Normal", "Fire", "Water", "Electric", "Ice" },
+        resist = new string[3] { "Mechanical", "Shadow", "Nature" },
+        weakTo = new string[1] { "Magic" },
+        immune = new string[0] { },
+    };
+
+    public TypeInfo Nature = new TypeInfo
+    {
+        name = "Nature",
+        id = 5,
         noChange = new string[5] { "Normal", "Fire", "Water", "Electric", "Ice" },
         resist = new string[3] { "Mechanical", "Shadow", "Nature" },
         weakTo = new string[1] { "Magic" },

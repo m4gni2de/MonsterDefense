@@ -14,6 +14,7 @@ TagManager:
   - Monster
   - Menu
   - Equipment
+  - MonsterIcon
   layers:
   - Default
   - TransparentFX
@@ -53,6 +54,15 @@ TagManager:
     locked: 0
   - name: MapTiles
     uniqueID: 287597833
+    locked: 0
+  - name: Mesh
+    uniqueID: 96480255
+    locked: 0
+  - name: Bones
+    uniqueID: 1121571957
+    locked: 0
+  - name: Controls
+    uniqueID: 3640219403
     locked: 0
   - name: Monster
     uniqueID: 796913427

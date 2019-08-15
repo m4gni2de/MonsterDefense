@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class MonsterInfoMenus : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class MonsterInfoMenus : MonoBehaviour
     private GameObject map;
 
     //variable for the window that pops up to show your list of unused towers, ready to place them
-    public GameObject towerMenu, infoMenu;
+    public GameObject towerMenu, infoMenu, enemyInfoMenu;
     public GameObject menuContentView;
     public GameObject menuCanvas;
 
@@ -25,7 +26,7 @@ public class MonsterInfoMenus : MonoBehaviour
 
     public GameObject towerBase;
 
-    public TMP_Text monsterName, attack1BtnText, attack2BtnText, levelText, atkText, defText, speText, precText, typeText, toLevelText;
+    public TMP_Text monsterName, attack1BtnText, attack2BtnText, levelText, atkText, defText, speText, precText, typeText, toLevelText, evasText, enGenText, enCostText;
     public Slider expSlider;
 
     //bool to make sure the towers in the list of towers only spawns one time
@@ -92,7 +93,7 @@ public class MonsterInfoMenus : MonoBehaviour
                             //tower.transform.position = new Vector3(towers[i - 1].transform.position.x, towers[i - 1].transform.position.y, tower.transform.position.z);
                             tower.transform.SetParent(menuContentView.transform, false);
                             tower.transform.position = new Vector3(towerBase.transform.position.x, towerBase.transform.position.y - ((i - 1) * 60), tower.transform.position.z);
-                            tower.transform.localScale = new Vector3(tower.transform.localScale.x * 1.1f, tower.transform.localScale.y * 1.1f, tower.transform.localScale.z);
+                            tower.transform.localScale = new Vector3(tower.transform.localScale.x * 2, tower.transform.localScale.y * 2, tower.transform.localScale.z);
                             //***************************HERE************************
                             tower.GetComponent<Monster>().isTower = true;
                             tower.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
@@ -139,8 +140,10 @@ public class MonsterInfoMenus : MonoBehaviour
                     //GameManager.Instance.overworldMenu.GetComponentInChildren<OverworldInfoMenu>().activeMonster = hit.collider.gameObject.GetComponent<Monster>();
 
                     infoMenu.SetActive(true);
+                    enemyInfoMenu.SetActive(false);
                     activeMonster = hit.collider.gameObject.GetComponent<Monster>();
                 }
+                
             }
         }
 
@@ -161,6 +164,9 @@ public class MonsterInfoMenus : MonoBehaviour
             speText.text = "Speed: " + activeMonster.speed.ToString();
             precText.text = "Prec: " + activeMonster.precision.ToString();
             typeText.text = "Type: " + activeMonster.info.type1 + "/" + activeMonster.info.type2;
+            evasText.text = "Evasion: " + activeMonster.evasion + "%";
+            enGenText.text = "En Gen: " + Math.Round((activeMonster.energyGeneration / 60), 2) + " /s";
+            enCostText.text = "Cost: " + activeMonster.energyCost;
 
             if (activeMonster.expToLevel.ContainsKey(activeMonster.info.level))
             {
@@ -238,7 +244,7 @@ public class MonsterInfoMenus : MonoBehaviour
         {
             menuMovements += 1;
 
-            if (menuMovements <= (110 * menuCanvas.transform.localScale.x))
+            if (menuMovements <= (170 * menuCanvas.transform.localScale.x))
             {
                 loadTowerBtn.GetComponent<Button>().interactable = false;
                 towerMenu.transform.Translate(Vector3.left, Space.World);
@@ -256,7 +262,7 @@ public class MonsterInfoMenus : MonoBehaviour
             menuMovements += 1;
 
 
-            if (menuMovements <= (110 * menuCanvas.transform.localScale.x))
+            if (menuMovements <= (170 * menuCanvas.transform.localScale.x))
             {
                 loadTowerBtn.GetComponent<Button>().interactable = false;
                 towerMenu.transform.Translate(Vector3.right, Space.World);
@@ -310,7 +316,7 @@ public class MonsterInfoMenus : MonoBehaviour
         map = GameObject.FindGameObjectWithTag("Map");
 
 
-        var random = Random.Range(1, GameManager.Instance.monstersData.monstersByIdDict.Count + 1);
+        var random = UnityEngine.Random.Range(1, GameManager.Instance.monstersData.monstersByIdDict.Count + 1);
         var byId = GameManager.Instance.monstersData.monstersByIdDict;
         var byPrefab = GameManager.Instance.monstersData.monsterPrefabsDict;
 

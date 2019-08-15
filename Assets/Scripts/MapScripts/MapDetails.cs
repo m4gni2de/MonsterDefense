@@ -4,6 +4,18 @@ using UnityEngine;
 
 
 
+
+[System.Serializable]
+public struct MapInformation
+{
+    public float playerEnergy;
+    public int playerEnergyMax;
+    public float energyRate;
+    public int mapHealthMax;
+    public float mapHealthCurrent;
+
+};
+
 public class MapDetails : MonoBehaviour
 {
     public float width, height;
@@ -35,7 +47,7 @@ public class MapDetails : MonoBehaviour
     public float spawnInterval;
     public int enemyCount;
 
-    //private Map Map;
+    
 
     public GameObject spawnPoint;
     public GameObject enemy;
@@ -45,6 +57,8 @@ public class MapDetails : MonoBehaviour
     //bool used to determine if the map is ending it's current run
     public bool isOver;
 
+    public MapInformation mapInformation = new MapInformation();
+    public GameObject mapInfoMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +83,9 @@ public class MapDetails : MonoBehaviour
         var allMaps = GameManager.Instance.GetComponent<Maps>().allMapsDict;
 
         mapName = name;
+
+        mapInformation.playerEnergy = 10;
+        mapInformation.playerEnergyMax = 100;
 
 
         if (allMaps.ContainsKey(mapName))
@@ -114,12 +131,12 @@ public class MapDetails : MonoBehaviour
 
         
 
-        string[] chars = new string[levelCode.Length];
+            string[] chars = new string[levelCode.Length];
 
-        for (int i = 0; i < levelCode.Length; i++)
-        {
-            chars[i] = levelCode[i].ToString();
-        }
+            for (int i = 0; i < levelCode.Length; i++)
+            {
+                chars[i] = levelCode[i].ToString();
+            }
 
 
 
@@ -187,7 +204,7 @@ public class MapDetails : MonoBehaviour
         //GameObject[] paths = GameObject.FindGameObjectsWithTag("MapTile");
 
             //make a path code for each possible path, and add them to a Dictionary of PathCodes
-        for (int p = 0; p < pathCodes.Count; p++)
+            for (int p = 0; p < pathCodes.Count; p++)
             {
                 //break up each path code in to sections of 3, since each tile is a 3 digit number, and store them in a dictionary of path codes that an enemy will choose at random upon their spawn
                 //string[] pathChars = new string[pathCode.Length];
@@ -203,6 +220,7 @@ public class MapDetails : MonoBehaviour
                     pathChars[i] = code[h - 2].ToString() + code[h - 1].ToString() + code[h].ToString();
                     h += 3;
                     int tileCheck = int.Parse(pathChars[i]);
+                    
                     path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
                     pathTiles.Add(path[i]);
                     //Map.path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
@@ -211,8 +229,6 @@ public class MapDetails : MonoBehaviour
                
             }
 
-        }
-
         //set the tile attributes based on their attribute code
         string[] tileChars = new string[tileTypeCode.Length];
         int g = 1;
@@ -220,12 +236,15 @@ public class MapDetails : MonoBehaviour
         {
             tileChars[t] = tileTypeCode[g - 1].ToString() + tileTypeCode[g].ToString();
             g += 2;
-            int tileCheck = int.Parse(tileChars[t]);
-            GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>().GetAttribute(int.Parse(tileChars[t]));
+            GameObject.Find(t.ToString()).GetComponent<MapTile>().GetAttribute(int.Parse(tileChars[t]));
         }
 
         spawnPoint.transform.position = new Vector2(spawnX, spawnY);
         InvokeRepeating("SpawnEnemy", 4f, spawnInterval);
+
+        }
+
+       
     }
 
    
@@ -237,6 +256,7 @@ public class MapDetails : MonoBehaviour
         //var random = Random.Range(enemies[0], enemies[enemies.Count - 1]);
         var rand = Random.Range(0, 1001);
         int random = new int();
+        int randomLevel = Random.Range(levelMin, levelMax + 1);
         var byId = GameManager.Instance.monstersData.monstersByIdDict;
         var byPrefab = GameManager.Instance.monstersData.monsterPrefabsDict;
 
@@ -264,7 +284,7 @@ public class MapDetails : MonoBehaviour
                         var enemyMonster = Instantiate(byPrefab[species], transform.position, Quaternion.identity);
                         enemyMonster.transform.position = spawnPoint.transform.position;
                         enemyMonster.GetComponent<Monster>().isEnemy = true;
-                        enemyMonster.GetComponent<Enemy>().SetEnemyStats(random);
+                        enemyMonster.GetComponent<Enemy>().SetEnemyStats(randomLevel);
                         enemyMonster.gameObject.tag = "Enemy";
                         enemyMonster.gameObject.name = "Enemy " + enemyMonster.GetComponent<Monster>().info.species;
                         enemyMonster.transform.localScale = new Vector3(1.8f, 1.8f, 1.0f);
@@ -454,5 +474,49 @@ public class MapDetails : MonoBehaviour
         //}
 
 
+    }
+
+    //this is invoked by a monster's tower script, and sometimes an enemy script. used to control the energy growth rate
+    public void MapEnergyRate(float Rate)
+    {
+        float rate = (float)System.Math.Round(Rate, 2);
+
+        mapInformation.energyRate += rate;
+
+        
+    }
+
+    //this is invoked by a monster's tower script, and sometimes an enemy script
+    public void AddMapEnergy(float Added)
+    {
+        float added = (float)System.Math.Round(Added, 2);
+
+        mapInformation.playerEnergy += added;
+
+        if (mapInformation.playerEnergy > mapInformation.playerEnergyMax)
+        {
+            mapInformation.playerEnergy = mapInformation.playerEnergyMax;
+        }
+
+        mapInformation.playerEnergy = (float)System.Math.Round(mapInformation.playerEnergy, 2);
+    }
+
+    //this is invoked by a monster's tower script, and sometimes an enemy script
+    public void UseMapEnergy(float Removed)
+    {
+        float removed = (float)System.Math.Round(Removed, 2);
+
+        mapInformation.playerEnergy -= removed;
+
+        if (mapInformation.playerEnergy < 0)
+        {
+            mapInformation.playerEnergy = 0;
+        }
+    }
+
+    
+    public void MapMenuControl()
+    {
+        mapInfoMenu.SetActive(!mapInfoMenu.activeSelf);
     }
 }

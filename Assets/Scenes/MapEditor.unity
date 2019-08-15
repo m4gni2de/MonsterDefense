@@ -4445,7 +4445,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1234149963
-  m_SortingLayer: 3
+  m_SortingLayer: 6
   m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: dc987d78126b5c347b32ae52eb8cd408, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6427,7 +6427,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: f5c858741302f294293520d265e4ec1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6475,7 +6475,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7365,7 +7365,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1234149963
-  m_SortingLayer: 3
+  m_SortingLayer: 6
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: f5c858741302f294293520d265e4ec1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -8507,6 +8507,7 @@ MonoBehaviour:
   activeMonster: {fileID: 0}
   towerMenu: {fileID: 201479931428352031}
   infoMenu: {fileID: 201479932538365914}
+  enemyInfoMenu: {fileID: 0}
   menuContentView: {fileID: 201479932743701316}
   menuCanvas: {fileID: 0}
   loadTowerBtn: {fileID: 0}
@@ -8524,6 +8525,9 @@ MonoBehaviour:
   precText: {fileID: 201479931060616111}
   typeText: {fileID: 201479932571868061}
   toLevelText: {fileID: 201479931989453216}
+  evasText: {fileID: 0}
+  enGenText: {fileID: 0}
+  enCostText: {fileID: 0}
   expSlider: {fileID: 201479931785676176}
   towersFilled: 0
 --- !u!224 &1039797798024575089

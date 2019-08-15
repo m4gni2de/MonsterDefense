@@ -52,6 +52,9 @@ public class MapEditor : MonoBehaviour
         TileAttributes.Add("01", "Water");
         TileAttributes.Add("02", "Fire");
         TileAttributes.Add("03", "Nature");
+        TileAttributes.Add("04", "Magic");
+        TileAttributes.Add("05", "Electric");
+        TileAttributes.Add("06", "Poison");
 
 
     }
@@ -97,7 +100,7 @@ public class MapEditor : MonoBehaviour
 
 
 
-                int rand = Random.Range(0, TileValues.Count - 1);
+                int rand = Random.Range(0, TileValues.Count -1);
                 int randType = Random.Range(0, TileAttributes.Count);
                 string type = "";
                 
@@ -114,13 +117,7 @@ public class MapEditor : MonoBehaviour
                 var tile = Instantiate(mapTile, transform.position, Quaternion.identity);
                 var tile2 = Instantiate(mapTile, transform.position, Quaternion.identity);
 
-                //picks a random tile attribute for the tile to have
-                if (TileAttributes.ContainsKey(type))
-                {
-
-                    tile.GetComponent<MapTile>().GetAttribute(randType);
-                    tileAttCode += type;
-                }
+               
 
                 //picks a random tile type for the tile to have
                 if (TileValues.ContainsKey(rand.ToString()))
@@ -128,6 +125,14 @@ public class MapEditor : MonoBehaviour
 
                     tile.GetComponent<MapTile>().GetType(rand);
                     levelCode += rand.ToString();
+                }
+
+                //picks a random tile attribute for the tile to have
+                if (TileAttributes.ContainsKey(type))
+                {
+
+                    tile.GetComponent<MapTile>().GetAttribute(randType);
+                    tileAttCode += type;
                 }
 
                 tile.GetComponent<MapTile>().tileNumber = tileNumber;
@@ -171,13 +176,7 @@ public class MapEditor : MonoBehaviour
                     type2 = randType.ToString();
                 }
 
-                //picks a random tile attribute for the tile to have
-                if (TileAttributes.ContainsKey(type))
-                {
-                    tile2.GetComponent<MapTile>().GetAttribute(randType2);
-                    tileAttCode += type;
-
-                }
+               
 
                 int rand2 = Random.Range(0, TileValues.Count - 1);
 
@@ -187,6 +186,14 @@ public class MapEditor : MonoBehaviour
 
                     tile2.GetComponent<MapTile>().GetType(rand2);
                     levelCode += rand2.ToString();
+                }
+
+                //picks a random tile attribute for the tile to have
+                if (TileAttributes.ContainsKey(type))
+                {
+                    tile2.GetComponent<MapTile>().GetAttribute(randType2);
+                    tileAttCode += type;
+
                 }
 
                 tile2.GetComponent<MapTile>().tileNumber = tileNumber;

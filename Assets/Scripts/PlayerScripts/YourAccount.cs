@@ -11,7 +11,10 @@ public struct AccountInfo
     public string password;
     public string userId;
 
-    public int currency;
+    public int playerLevel;
+    public int playerExp;
+    public int coins;
+
 
 };
     public class YourAccount : MonoBehaviour

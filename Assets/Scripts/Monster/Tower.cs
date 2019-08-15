@@ -15,6 +15,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     //private Map Map;
     private GameObject Map;
     private GameObject levelTile;
+    private MapInformation mapInformation;
 
     //bool to determine if the tower is looking for a tile or not, and bool to see if the tower has been placed already. 
     public bool isBeingPlaced, isPlaced;
@@ -80,6 +81,12 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     //use this to pre-load the attack animation that the monster has
     public GameObject attack1Animation, attack2Animation;
 
+    //objects for the monster's bones and non boned character model
+    public GameObject boneStructure, frontModel;
+    private GameObject monsterIcon;
+
+    //bool to determine is the player has enough energy to summon this monster or not
+    public bool isSummonable;
 
 
     // Start is called before the first frame update
@@ -92,6 +99,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         mainCamera = GameObject.Find("Main Camera");
         //Map = GameObject.FindGameObjectWithTag("Map").GetComponent<Map>();
         Map = GameObject.FindGameObjectWithTag("Map");
+        mapInformation = Map.GetComponent<MapDetails>().mapInformation;
         infoMenu = Map.GetComponent<MonsterInfoMenus>().infoMenu;
         towerMenu = Map.GetComponent<MonsterInfoMenus>().towerMenu;
         levelTile = Map.GetComponent<MapDetails>().mapTile;
@@ -99,46 +107,76 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         //load the monster's info as a json string
         string json = JsonUtility.ToJson(GetComponent<Monster>().info);
         monsterMotion = GetComponent<Animator>();
+        monsterIcon = GetComponent<Monster>().monsterIcon;
 
-        var animationsDict = GameManager.Instance.baseAttacks.attackAnimationsDict;
+        
+
 
         //set the animations for each attack based on the attack's name
+        var animationsDict = GameManager.Instance.baseAttacks.attackAnimationsDict;
+
+       
         if (animationsDict.ContainsKey(monster.info.attack1.name))
         {
             attack1Animation = animationsDict[monster.info.attack1.name];
         }
 
-       
+        if (animationsDict.ContainsKey(monster.info.attack2.name))
+        {
+            attack2Animation = animationsDict[monster.info.attack2.name];
+        }
+
+        
+
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-       
-            //if the tower has already been placed, then there is no need to run the methods that have to do with the placement of the tower
-            if (isPlaced == false)
+        Debug.Log(mapInformation.playerEnergy);
+        if (mapInformation.playerEnergy >= monster.energyCost)
+        {
+            isSummonable = true;
+        }
+        else
+        {
+            isSummonable = false;
+        }
+
+
+        //if the tower has already been placed, then there is no need to run the methods that have to do with the placement of the tower
+        if (isPlaced == false)
+        {
+            //frontModel.SetActive(true);
+            monsterIcon.SetActive(true);
+            monsterIcon.GetComponentInChildren<Canvas>().overrideSorting = true;
+            monsterIcon.GetComponentInChildren<Canvas>().sortingLayerName = "GameUI";
+            boneStructure.SetActive(false);
+
+            if (isSummonable)
             {
-                
                 TowerPlacement();
-
             }
 
+        }
 
 
 
-            if (isIdle)
-            {
-                monsterMotion.SetBool("isIdle", true);
-                
-            }
-            else
-            {
-                monsterMotion.SetBool("isIdle", false);
-            }
 
-            //use this to scan for attack ranges for incoming enemies
-            if (isScanning)
+        //if (isIdle)
+        //{
+        //    monsterMotion.SetBool("isIdle", true);
+
+        //}
+        //else
+        //{
+        //    monsterMotion.SetBool("isIdle", false);
+        //}
+
+        //use this to scan for attack ranges for incoming enemies
+        if (isScanning)
             {
                 AttackTimer();
             }
@@ -146,6 +184,9 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
         if (isPlaced == true)
         {
+            //frontModel.SetActive(false);
+            monsterIcon.SetActive(false);
+            boneStructure.SetActive(true);
             TowerInfo();
 
         }
@@ -275,6 +316,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
                 isCopy = true;
                 var copy = Instantiate(this.gameObject, transform.position, Quaternion.identity);
+                copy.GetComponent<Monster>().frontModel.SetActive(true);
                 var menu = GameObject.Find("Content");
                 copy.transform.SetParent(menu.transform, true);
                 copy.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
@@ -306,36 +348,29 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 isTileMap = false;
                 if (isCorrectTile)
                 {
+                    //add this monster's energy rate to the energy rate per second being generated by your active monsters
+                    //every second, add the monster's energy to the player's available energy for the map
+                    InvokeRepeating("TowerEnergy", 0, 1);
+
+
+                    Map.GetComponent<MapDetails>().MapEnergyRate(monster.energyGeneration);
+                    Map.GetComponent<MapDetails>().UseMapEnergy(monster.energyCost);
+                    mapInformation.playerEnergy -= monster.energyCost;
+
+
                     gameObject.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
                     //set the current tile to hold this monster's data as the monster on that tile
                     mapTileOn.MonsterOnTile(gameObject.GetComponent<Monster>());
                     //creates local variables for the height of the monster's legs and the relative position to the monster's body the legs are
-                    float legHeight = new float();
-                    Vector2 legPos = new Vector2();
+                    
                     
 
-                    //loops through all of the monsters legs to get their average height
-                    for (int i = 0; i < specs.legs.Length; i++)
-                    {
-                        specs.legPos[i] = specs.legs[i].transform.position;
-                        legHeight += specs.legs[i].GetComponent<RectTransform>().rect.height;
-                        legPos = specs.legs[0].transform.localPosition;
-                        
-                    }
-                    //gets the average height of the monsters legs
-                    legHeight = legHeight / specs.legs.Length;
-
-                    //places the monster on the tile that is selected, at a position off-set relative to the height of the monster's legs
-                    //transform.position = new Vector2(tilePlacementPosition.x, tilePlacementPosition.y - ((legHeight / specs.legs[0].transform.localScale.y) * legPos.y));
-                    transform.position = new Vector2(tilePlacementPosition.x, tilePlacementPosition.y - ((legHeight / specs.legs[0].transform.localScale.y) * legPos.y));
+                    
+                    transform.position = new Vector2(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height);
+                    
                     
                    
-                    //make the feet of the monster unable to move so they act as an anchor for the monster
-                    for (int m = 0; m < specs.legs.Length; m++)
-                    {
-                        specs.legs[m].GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-                        specs.legs[m].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-                    }
+                    
 
 
                     SpriteRenderer[] sprites = gameObject.GetComponentsInChildren<SpriteRenderer>();
@@ -400,44 +435,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
 
 
-            //if (Input.GetMouseButtonDown(0))
-            //{
-            //    if (isBeingPlaced == false)
-            //    {
-            //        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //        Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
-            //        RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-
-            //       //if this tower is clicked on, it can be placed
-            //        if (hit.collider != null)
-            //        {
-            //            if (hit.collider.gameObject.name == gameObject.name)
-            //            {
-            //                isBeingPlaced = true;
-
-            //            }
-            //        }
-            //        //
-            //    }
-
-            //    if (isBeingPlaced == true)
-            //    {
-            //        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //        Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
-            //        RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-
-            //        CheckForPlacement();
-            //        //if (hit.collider != null)
-            //        //{
-            //        //    if (hit.collider.gameObject.name == gameObject.name)
-            //        //    {
-
-            //        //    }
-            //        //}
-            //    }
-            //}
+           
         }
     }
 
@@ -466,6 +464,16 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
             }
         }
+    }
+
+    //this is used to add energy to the player's total for the map, as well as check to make sure this monster has enough energy to be summoned
+    public void TowerEnergy()
+    {
+        if (isPlaced)
+        {
+            Map.GetComponent<MapDetails>().AddMapEnergy(monster.energyGeneration);
+        }
+        
     }
 
 
@@ -497,7 +505,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
         
 
-        if (!isPlaced)
+        if (isBeingPlaced)
         {
             var tag = other.gameObject.tag;
 
@@ -533,7 +541,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         
             var tag = other.gameObject.tag;
 
-        if (!isPlaced)
+        if (isBeingPlaced)
         {
 
             if (tag == "MapTile")
@@ -629,7 +637,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 {
                     isAttacking = true;
                     BaseAttack attack = monster.info.attack2;
-                    var attackSprite = Instantiate(attack1Animation, transform.position, Quaternion.identity);
+                    var attackSprite = Instantiate(attack2Animation, transform.position, Quaternion.identity);
                     attackSprite.GetComponent<AttackEffects>().AttackMotion(enemy.transform.position - gameObject.transform.position);
                     attackSprite.gameObject.name = attack.name;
                     attackSprite.GetComponent<AttackEffects>().FromAttacker(attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
@@ -753,17 +761,20 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             {
                 left = maps[tileOn - 28 * r].GetComponent<MapTile>();
 
-              
-                    if (left.transform.position.x > transform.position.x)
-                    {
-                        left = maps[tileOn - 28].GetComponent<MapTile>();
+                if (left.transform.position.x > transform.position.x && tileOn -28 >= 0)
+                {
+                    left = maps[tileOn - 28].GetComponent<MapTile>();
+                }
+                else
+                {
+                    left = maps[tileOn].GetComponent<MapTile>();
+                }
 
-                        if (left.transform.position.x > transform.position.x)
-                        {
-                            left = maps[tileOn].GetComponent<MapTile>();
+                if (left.transform.position.x > transform.position.x)
+                {
+                    left = maps[tileOn].GetComponent<MapTile>();
 
-                        }
-                    }
+                }
             }
 
             atkRange1List.Add(left.tileNumber);
@@ -779,12 +790,11 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 {
                     right = maps[tileOn + 28].GetComponent<MapTile>();
 
+                }
 
-                    if (right.transform.position.x < transform.position.x)
-                    {
-                        right = maps[tileOn].GetComponent<MapTile>();
-
-                    }
+                if (right.transform.position.x < transform.position.x)
+                {
+                    right = maps[tileOn].GetComponent<MapTile>();
 
                 }
 
@@ -986,16 +996,20 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             {
                 left = maps[tileOn - 28 * r].GetComponent<MapTile>();
 
-                    if (left.transform.position.x > transform.position.x)
-                    {
-                        left = maps[tileOn - 28].GetComponent<MapTile>();
+                if (left.transform.position.x > transform.position.x && tileOn - 28 >= 0)
+                {
+                    left = maps[tileOn - 28].GetComponent<MapTile>();
+                }
+                else
+                {
+                    left = maps[tileOn].GetComponent<MapTile>();
+                }
 
-                        if (left.transform.position.x > transform.position.x)
-                        {
-                            left = maps[tileOn].GetComponent<MapTile>();
+                if (left.transform.position.x > transform.position.x)
+                {
+                    left = maps[tileOn].GetComponent<MapTile>();
 
-                        }
-                    }
+                }
             }
             atkRange2List.Add(left.tileNumber);
             left.AttackRange(monster);
@@ -1008,15 +1022,14 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
 
                 if (right.transform.position.x < transform.position.x)
-                {
-                    right = maps[tileOn + 28].GetComponent<MapTile>();
-
-
-                    if (right.transform.position.x < transform.position.x)
                     {
-                        right = maps[tileOn].GetComponent<MapTile>();
+                    right = maps[tileOn + 28].GetComponent<MapTile>();
+    
+                     }
 
-                    }
+                if (right.transform.position.x < transform.position.x)
+                {
+                    right = maps[tileOn].GetComponent<MapTile>();
 
                 }
 

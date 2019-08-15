@@ -11,6 +11,10 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     public GameObject homeCanvas, infoMenu, deleteButton, menuCanvas, equipListObject, equipPlacement;
     public Renderer spawnArea;
 
+    public GameObject monsterSprite;
+    public GameObject[] monsterSprites;
+    public int monsterSpriteTotal;
+
     //public TMP_Text monsterName, levelText, atkText, defText, speText, precText, typeText, toNextLevelText;
     public Monster activeMonster;
 
@@ -21,11 +25,29 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
     public GameObject monsterInfoMenu;
 
-   
+
+    private void Awake()
+    {
+        monsterSpriteTotal = 0;
+        
+
+        for (int c = 0; c < 5; c++)
+        {
+            for (int r = 0; r < 4; r++)
+            {
+                monsterSprites[monsterSpriteTotal] = Instantiate(monsterSprite, homeCanvas.transform.position, Quaternion.identity);
+                monsterSprites[monsterSpriteTotal].transform.SetParent(homeCanvas.transform, true);
+                monsterSprites[monsterSpriteTotal].transform.position = new Vector3(monsterSprite.transform.position.x + (r * 100), monsterSprite.transform.position.y - (c * 100), monsterSprite.transform.position.z);
+                monsterSpriteTotal += 1;
+            }
+
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        
         expSlider.GetComponent<Slider>();
         LoadMonsters();
 
@@ -37,6 +59,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
     public void LoadMonsters()
     {
+        monsterSpriteTotal = 0;
         //if there are monsters that are showing, delete them to avoid duplicates
         GameObject[] mons = GameObject.FindGameObjectsWithTag("Monster");
 
@@ -47,7 +70,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
             {
                 Destroy(mons[m]);
 
-                if (m >= mons.Length)
+                if (m >= mons.Length - 1)
                 {
                     DisplayMonsters();
                 }
@@ -104,9 +127,15 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                         float y1 = spawnArea.transform.position.y - spawnArea.bounds.size.y / 2;
                         float y2 = spawnArea.transform.position.y + spawnArea.bounds.size.y / 2;
                         var spawnPoint = new Vector2(Random.Range(x1, x2), Random.Range(y1, y2));
-                        var monster = Instantiate(byPrefab[species], transform.position, Quaternion.identity);
+                    //var monster = Instantiate(byPrefab[species], transform.position, Quaternion.identity);
+                        monsterSprites[i -1] = Instantiate(byPrefab[species], monsterSprites[i - 1].transform.position, Quaternion.identity);
+                        var monster = monsterSprites[i - 1];
                         monster.transform.SetParent(homeCanvas.transform, true);
-                        monster.transform.position = spawnPoint;
+                        monster.GetComponent<Monster>().monsterIcon.SetActive(true);
+                        monster.GetComponent<Tower>().boneStructure.SetActive(false);
+                        //monster.transform.position = spawnPoint;
+                        //monster.transform.position = monsterSprites[i - 1].transform.position;
+                        monster.GetComponent<Monster>().monsterIcon.transform.localScale = new Vector3(transform.localScale.x * 3, transform.localScale.y * 3, transform.localScale.z);
                         monster.tag = "Monster";
                         monster.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
                         monster.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
@@ -150,22 +179,34 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                     {
                         info.index -= 1;
                         PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
+                        
 
+                    }
+
+                    if (i >= GameManager.Instance.monsterCount)
+                    {
+                        PlayerPrefs.DeleteKey(GameManager.Instance.monsterCount.ToString());
+                        GameManager.Instance.monsterCount -= 1;
+                        PlayerPrefs.SetInt("MonsterCount", GameManager.Instance.monsterCount);
+                        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+                        Debug.Log(PlayerPrefs.GetInt("MonsterCount"));
+                        Destroy(activeMonster.gameObject);
+                        infoMenu.SetActive(false);
+                        LoadMonsters();
                     }
 
                     
                 }
 
 
-            PlayerPrefs.DeleteKey(GameManager.Instance.monsterCount.ToString());
-            GameManager.Instance.monsterCount -= 1;
-            PlayerPrefs.SetInt("MonsterCount", GameManager.Instance.monsterCount);
-            GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
-            Debug.Log(PlayerPrefs.GetInt("MonsterCount"));
+            //PlayerPrefs.DeleteKey(GameManager.Instance.monsterCount.ToString());
+            //GameManager.Instance.monsterCount -= 1;
+            //PlayerPrefs.SetInt("MonsterCount", GameManager.Instance.monsterCount);
+            //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+            //Debug.Log(PlayerPrefs.GetInt("MonsterCount"));
 
 
-            Destroy(activeMonster.gameObject);
-            infoMenu.SetActive(false);
+           
 
 
         }
@@ -194,14 +235,19 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
             if (byPrefab.ContainsKey(species))
             {
 
-                var monster = Instantiate(byPrefab[species], map.transform.position, Quaternion.identity);
-                monster.transform.SetParent(map.gameObject.transform, true);
+                var monster = Instantiate(byPrefab[species], homeCanvas.transform.position, Quaternion.identity);
+                monster.transform.SetParent(homeCanvas.transform, true);
+                monster.GetComponent<Monster>().monsterIcon.SetActive(true);
+                monster.GetComponent<Tower>().boneStructure.SetActive(false);
+                monster.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
                 monster.transform.position = new Vector3(0f, 0f, 10f);
                 monster.tag = "Monster";
                 monster.GetComponent<Monster>().SummonNewMonster(monster.GetComponent<Monster>().info.species);
-
+                //monster.transform.position = spawnPoint;
+                monster.GetComponent<Monster>().monsterIcon.transform.localScale = new Vector3(transform.localScale.x * 3, transform.localScale.y * 3, transform.localScale.z);
+                //monster.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
                 activeMonster = monster.GetComponent<Monster>();
-                GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+                //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
             }
         }
 
@@ -317,6 +363,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
             activeMonster = hit.gameObject.GetComponent<Monster>();
 
             infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(activeMonster);
+
             }
         }
 

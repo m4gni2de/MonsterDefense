@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Collections.ObjectModel;
 using TMPro;
 
 public class MonsterInfoPanel : MonoBehaviour
 {
     public GameObject monsterSprite, equip1, equip2, type1, type2;
     public GameObject equipMenu, equipObject;
-    public TMP_Text monsterNameText, levelText, atkText, defText, speText, precText, typeText, toNextLevelText;
-    public TMP_Text atkBoostText, defBoostText, speBoostText, precBoostText;
+    public TMP_Text monsterNameText, levelText, atkText, defText, speText, precText, typeText, toNextLevelText, evasionText, energyGenText, energyCostText;
+    public TMP_Text atkBoostText, defBoostText, speBoostText, precBoostText, evasBoostText, enGenBoostText, costBoostText;
     public TMP_Text attack1, attack2;
     public Slider expSlider;
     
 
     private GameObject e1, e2;
     public bool isEquip1, isEquip2;
-    private Monster monster;
+    private Monster monster, clickedMonsterIcon;
 
 
     public Button equip1Btn, equip2Btn, removeEquipBtn, attack1Btn, attack2Btn;
@@ -69,9 +71,12 @@ public class MonsterInfoPanel : MonoBehaviour
         equip1Btn.GetComponent<Image>().sprite = null;
         equip2Btn.GetComponent<Image>().sprite = null;
 
-
+        clickedMonsterIcon = thisMonster;
         monster = Instantiate(thisMonster, transform.position, Quaternion.identity);
+        monster.GetComponent<Monster>().frontModel.SetActive(true);
         monster.GetComponent<Image>().raycastTarget = false;
+        monster.GetComponent<Monster>().frontModel.transform.localScale = new Vector3(18f, 18f, 1f);
+        clickedMonsterIcon.gameObject.GetComponentInChildren<MonsterIcon>().IconVisibility("Default");
         var equips = GameManager.Instance.GetComponent<Items>().equipmentByPrefab;
         var equipment = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
         
@@ -133,11 +138,17 @@ public class MonsterInfoPanel : MonoBehaviour
         defText.text = thisMonster.info.Defense.Value.ToString();
         speText.text = thisMonster.info.Speed.Value.ToString();
         precText.text = thisMonster.info.Precision.Value.ToString();
+        evasionText.text = thisMonster.info.evasionBase + "%";
+        energyGenText.text = Math.Round(thisMonster.energyGeneration / 60, 2) + " /s";
+        energyCostText.text = thisMonster.info.EnergyCost.Value.ToString();
 
         atkBoostText.text = "(+ " + (thisMonster.info.Attack.Value - thisMonster.info.Attack.BaseValue) + ")".ToString();
         defBoostText.text = "(+ " + (thisMonster.info.Defense.Value - thisMonster.info.Defense.BaseValue) + ")".ToString();
         speBoostText.text = "(+ " + (thisMonster.info.Speed.Value - thisMonster.info.Speed.BaseValue) + ")".ToString();
         precBoostText.text = "(+ " + (thisMonster.info.Precision.Value - thisMonster.info.Precision.BaseValue) + ")".ToString();
+        evasBoostText.text = "(+ " + (thisMonster.info.evasionBase - thisMonster.info.evasionBase) + ")".ToString();
+        enGenBoostText.text = "(+ " + (thisMonster.info.EnergyGeneration.BaseValue - thisMonster.info.EnergyGeneration.Value) + ")".ToString();
+        costBoostText.text = "(+ " + (thisMonster.info.EnergyCost.Value - thisMonster.info.EnergyCost.BaseValue) + ")".ToString();
 
         if (thisMonster.info.Attack.BaseValue != thisMonster.info.Attack.Value)
         {
@@ -173,6 +184,33 @@ public class MonsterInfoPanel : MonoBehaviour
         else
         {
             precText.color = Color.white;
+        }
+
+        //if (thisMonster.info.Evasion.BaseValue != thisMonster.info.Evasion.Value)
+        //{
+        //    evasionText.color = Color.yellow;
+        //}
+        //else
+        //{
+        //    evasionText.color = Color.white;
+        //}
+
+        //if (thisMonster.info.EnergyGeneration.BaseValue != thisMonster.info.EnergyGeneration.Value)
+        //{
+        //    energyGenText.color = Color.yellow;
+        //}
+        //else
+        //{
+        //    energyGenText.color = Color.white;
+        //}
+
+        if (thisMonster.info.EnergyCost.BaseValue != thisMonster.info.EnergyCost.Value)
+        {
+            energyCostText.color = Color.yellow;
+        }
+        else
+        {
+            energyCostText.color = Color.white;
         }
 
         attack1.text = thisMonster.info.attack1Name;
@@ -231,6 +269,7 @@ public class MonsterInfoPanel : MonoBehaviour
 
     private void OnDisable()
     {
+        clickedMonsterIcon.gameObject.GetComponentInChildren<MonsterIcon>().IconVisibility("GameUI");
         Destroy(monster.gameObject);
 
 

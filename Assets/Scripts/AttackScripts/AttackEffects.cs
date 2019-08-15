@@ -71,9 +71,11 @@ public class AttackEffects : MonoBehaviour
     {
         var tag = other.gameObject.tag;
 
+        
 
         if (tag == "Enemy")
         {
+
             enemy = other.gameObject.GetComponent<Monster>();
             enemy.GetComponent<Enemy>().OutputDamage(AttackName, AttackType, AtkPower, AtkStat, AttackerLevel, CritChance, CritMod, attacker);
             gameObject.GetComponent<PolygonCollider2D>().enabled = false;

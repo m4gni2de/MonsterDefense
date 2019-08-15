@@ -11,6 +11,9 @@ public enum TileAttribute
     Water,
     Fire,
     Nature,
+    Magic,
+    Electric,
+    Poison,
 };
 
 [System.Serializable]
@@ -20,6 +23,30 @@ public enum TileType
     Dirt,
     Water,
     Path,
+};
+
+[System.Serializable]
+public enum BoostType
+{
+    HPBonus, 
+    AtkBonus, 
+    DefBonus, 
+    SpeedBonus, 
+    PrecBonus, 
+    AtkPowerBonus, 
+    AtkTimeBonus, 
+    AtkRangeBonus, 
+    CritModBonus, 
+    CritChanceBonus, 
+    HpPercentBonus,
+    AtkPercentBonus,
+    DefPercentBonus,
+    SpePercentBonus,
+    AtkPowerPercentBonus,
+    AtkTimePercentBonus,
+    EvasionPercentBonus,
+
+    
 };
 
 [System.Serializable]
@@ -52,6 +79,7 @@ public struct TileInfo
     public float precPercentBonus;
     public float atkPowerPercentBonus;
     public float atkTimePercentBonus;
+    public float evasionPercentBonus;
 
 };
 public class MapTile : MonoBehaviour
@@ -85,7 +113,7 @@ public class MapTile : MonoBehaviour
     //list of all of the towers that have this tile in their attack range
     public List<Monster> towersInRange = new List<Monster>();
 
-    
+
     //the sprite of the tile
     public Sprite dirt, water, grass, road, blank;
 
@@ -109,6 +137,8 @@ public class MapTile : MonoBehaviour
 
     public TileInfo info = new TileInfo();
 
+    
+
     private void Awake()
     {
         sp.GetComponent<SpriteRenderer>();
@@ -116,6 +146,9 @@ public class MapTile : MonoBehaviour
 
 
         sprite = sp.sprite;
+
+        
+        
     }
 
     // Start is called before the first frame update
@@ -154,7 +187,7 @@ public class MapTile : MonoBehaviour
     public void Build()
     {
         //sp.color = Color.black;
-        sp.sprite = grass;
+        sp.sprite = dirt;
         isBuildable = true;
         
     }
@@ -220,10 +253,22 @@ public class MapTile : MonoBehaviour
     {
         tileAttInt = tileInt;
 
+        var sprites = GameManager.Instance.GetComponent<Maps>().allTileSpritesDict;
+        
+
         tileAtt = (TileAttribute)Enum.ToObject(typeof(TileAttribute), tileInt);
         //Debug.Log(tileAtt);
 
         info.attribute = tileAtt.ToString();
+
+        if (tileInt != 0 &&  tileType != TileType.Path && tileType != TileType.Build)
+        {
+            if (sprites.ContainsKey(tileInt))
+            {
+                sp.sprite = sprites[tileInt];
+            }
+        }
+
         info.atkBonus = 100;
     }
 
@@ -294,11 +339,12 @@ public class MapTile : MonoBehaviour
         {
             //changes the current tile of the enemy to the tile that it enters
             enemy.gameObject.GetComponent<Enemy>().currentTile = tileNumber;
-
+            
 
             var tag = other.gameObject.tag;
             if (tag == "Leg")
             {
+                Debug.Log(tag);
                 if (isAttackTarget)
                 {
                     //send over the monster that is on the target tile so the attacking monster knows what enemy to target

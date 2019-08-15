@@ -88,9 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterPrefabs:
-  - {fileID: 5871422892129794425, guid: dc68128d8495cd44d9929ea44bd62aba, type: 3}
-  - {fileID: 406626606817169688, guid: f0fa2c9e996f0534686bca2332a68786, type: 3}
-  - {fileID: 1069376684287514040, guid: 962cbf99526f4264c9dcad332dfd2e62, type: 3}
+  - {fileID: 123078352882209571, guid: b9e802c2ecb6b8f46baaa297d60de0d9, type: 3}
 --- !u!114 &3861695980770531831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,3 +152,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d516e12cdfd7a479d9f8363d30d14d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileSprites:
+  - {fileID: 21300000, guid: 5ed3716f76f1748438f94ab7e4c7deb3, type: 3}
+  - {fileID: 21300000, guid: e3b63f31b98be7041821daab159b59d6, type: 3}
+  - {fileID: 21300000, guid: f4a3cec5a9fc10d478d0ef325def0512, type: 3}
+  - {fileID: 21300000, guid: 8ccbb2728e56242479f4dd14a91ae024, type: 3}
+  - {fileID: 21300000, guid: 157bd938bd0e96b4ea505ffd8bdb83ef, type: 3}
+  - {fileID: 21300000, guid: 5496b960b1df6334c8f66ce6ee7db06d, type: 3}
+  tileTypeSprites:
+  - {fileID: 21300000, guid: b27a1646af6e1e44e96ca8e99f8cb9d6, type: 3}
+  - {fileID: 21300000, guid: c53053bffa3f44141addf0768e4b109a, type: 3}

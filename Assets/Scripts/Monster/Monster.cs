@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Puppet2D;
+using TMPro;
 
 
 
@@ -22,10 +23,15 @@ public struct MonsterInfo
     public int speBase;
     public int precBase;
     public float critBase;
+    public float evasionBase;
+    public int staminaBase;
+    public int staminaMax;
     public int level;
     public int totalExp;
     public int maxLevel;
     public float levelConst;
+    public float energyGenBase;
+    public float energyCost;
     
 
 
@@ -56,6 +62,12 @@ public struct MonsterInfo
     public Stat SpeedPotential;
     public Stat Precision;
     public Stat PrecisionPotential;
+
+    //new stats that need to be worked on
+    
+    public Stat Stamina;
+    public Stat EnergyGeneration;
+    public Stat EnergyCost;
 
     public int koCount;
 
@@ -100,7 +112,16 @@ public class Monster : MonoBehaviour
     public Dictionary<int, int> totalExpForLevel = new Dictionary<int, int>();
 
     //use these as temporary variables to hold the monster's stats while it's on the field. these stats can be manipulated while on the field, but do not affect the monster's stats permanently.
-    public float attack, defense, speed, precision, hp;
+    public float attack, defense, speed, precision, hp, evasion, stamina, energyCost, energyGeneration;
+
+
+    public Animator monsterMotion;
+
+    //the puppet controller script that acts as the trigger for a monster's motions in the animator
+    public Puppet2D_GlobalControl puppet;
+
+    public GameObject monsterIcon, frontModel;
+    
 
 
     private void Awake()
@@ -113,7 +134,10 @@ public class Monster : MonoBehaviour
         tower = GetComponent<Tower>();
         enemy = GetComponent<Enemy>();
 
-        
+        monsterMotion.GetComponent<Animator>();
+        puppet.GetComponent<Puppet2D_GlobalControl>();
+
+       
 
         GetExpCurve();
 
@@ -124,6 +148,7 @@ public class Monster : MonoBehaviour
             enemy.enabled = true;
             tower.enabled = false;
             //SetMonsterStats();
+            monsterMotion.SetBool("isEnemy", true);
 
         }
         if (isTower)
@@ -157,6 +182,10 @@ public class Monster : MonoBehaviour
         speed = info.Speed.Value;
         precision = info.Precision.Value;
         hp = info.HP.Value;
+        evasion = info.evasionBase;
+        stamina = info.Stamina.Value;
+        energyCost = info.EnergyCost.Value;
+        energyGeneration = info.EnergyGeneration.Value;
         
 
 
@@ -332,8 +361,11 @@ public class Monster : MonoBehaviour
             info.defBase = dict[name].defBase;
             info.speBase = dict[name].speBase;
             info.precBase = dict[name].precBase;
+            info.staminaBase = dict[name].staminaBase;
             info.maxLevel = dict[name].maxLevel;
             info.levelConst = dict[name].levelConst;
+            info.energyCost = dict[name].energyCost;
+            info.energyGenBase = dict[name].energyGenBase;
 
             //for each of the attacks this monster has in its base attack array, choose 2 at random to give to this monster
             int rand = Random.Range(0, dict[name].baseAttacks.Length - 1);
@@ -467,6 +499,7 @@ public class Monster : MonoBehaviour
                 info.defBase = dict[name].defBase;
                 info.speBase = dict[name].speBase;
                 info.precBase = dict[name].precBase;
+                info.staminaBase = dict[name].staminaBase;
                 info.level = 1;
                 info.totalExp = 0;
                 info.AttackPotential.BaseValue = Random.Range(0, 26);
@@ -539,7 +572,7 @@ public class Monster : MonoBehaviour
         }
 
         //set the json info for the monster as a playerpref so it can be used against when the game turns off
-        PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
+        //PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
 
 
 
@@ -558,6 +591,16 @@ public class Monster : MonoBehaviour
 
         info = stats.Monster.info;
 
+
+        attack = info.Attack.Value;
+        defense = info.Defense.Value;
+        speed = info.Speed.Value;
+        precision = info.Precision.Value;
+        hp = info.HP.Value;
+        evasion = info.evasionBase;
+        stamina = info.Stamina.Value;
+        energyCost = info.EnergyCost.Value;
+        energyGeneration = info.EnergyGeneration.Value / 60;
 
         GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
     }
@@ -658,6 +701,7 @@ public class Monster : MonoBehaviour
                 //Debug.Log("Previous Defense: " + defBefore + " New Defense: " + info.defStat + " Defense Change: +" + defChange);
             }
 
+            
             PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
             
         }
