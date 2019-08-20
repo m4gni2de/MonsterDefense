@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6317396937658932168}
   - component: {fileID: 9114463754745283373}
   - component: {fileID: 3307614182744774667}
+  - component: {fileID: 7763244925051536580}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -70,11 +71,123 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca35faf306461364383a3fe27d9dde53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackAnimations:
-  - {fileID: 6816625118016498558, guid: 1cbc38a74a8622848a7a37da85eb0095, type: 3}
-  - {fileID: 4764289248257230966, guid: a574070b861ab0f4bb9ab59bc39cd01e, type: 3}
-  - {fileID: 8854931403561263675, guid: eb98379b936e863499dd42b793274762, type: 3}
-  - {fileID: 5534219836665935086, guid: 34b0176da6f84f8478a1cf98eb04937f, type: 3}
+  allBaseAttacks:
+    thunder:
+      Range:
+        BaseValue: 0
+      Power:
+        BaseValue: 0
+      CritChance:
+        BaseValue: 0
+      CritMod:
+        BaseValue: 0
+      EffectChance:
+        BaseValue: 0
+      AttackTime:
+        BaseValue: 0
+      AttackSpeed:
+        BaseValue: 0
+      name: Thunder
+      id: 0
+      description: A quick jolt of electricity
+      type: Electric
+      effectName: Paralysis
+      range: 1
+      power: 95
+      critChance: 1
+      critMod: 1
+      effectChance: 0.2
+      attackTime: 0.4
+      attackSpeed: 10
+      attackAnimation: {fileID: 6816625118016498558, guid: 1cbc38a74a8622848a7a37da85eb0095,
+        type: 3}
+    voltStrike:
+      Range:
+        BaseValue: 0
+      Power:
+        BaseValue: 0
+      CritChance:
+        BaseValue: 0
+      CritMod:
+        BaseValue: 0
+      EffectChance:
+        BaseValue: 0
+      AttackTime:
+        BaseValue: 0
+      AttackSpeed:
+        BaseValue: 0
+      name: Volt Strike
+      id: 1
+      description: A powerful blast of electricity
+      type: Electric
+      effectName: Paralysis
+      range: 2
+      power: 130
+      critChance: 1
+      critMod: 1
+      effectChance: 0.25
+      attackTime: 2.4
+      attackSpeed: 10
+      attackAnimation: {fileID: 4764289248257230966, guid: a574070b861ab0f4bb9ab59bc39cd01e,
+        type: 3}
+    mistySpray:
+      Range:
+        BaseValue: 0
+      Power:
+        BaseValue: 0
+      CritChance:
+        BaseValue: 0
+      CritMod:
+        BaseValue: 0
+      EffectChance:
+        BaseValue: 0
+      AttackTime:
+        BaseValue: 0
+      AttackSpeed:
+        BaseValue: 0
+      name: Misty Spray
+      id: 2
+      description: A soft spray of mist.
+      type: Water
+      effectName: Deafen
+      range: 2
+      power: 75
+      critChance: 1
+      critMod: 1
+      effectChance: 0.15
+      attackTime: 0.2
+      attackSpeed: 10
+      attackAnimation: {fileID: 5534219836665935086, guid: 34b0176da6f84f8478a1cf98eb04937f,
+        type: 3}
+    aquaDart:
+      Range:
+        BaseValue: 0
+      Power:
+        BaseValue: 0
+      CritChance:
+        BaseValue: 0
+      CritMod:
+        BaseValue: 0
+      EffectChance:
+        BaseValue: 0
+      AttackTime:
+        BaseValue: 0
+      AttackSpeed:
+        BaseValue: 0
+      name: Aqua Dart
+      id: 3
+      description: A soft spray of mist.
+      type: Water
+      effectName: Confusion
+      range: 3
+      power: 105
+      critChance: 1
+      critMod: 1
+      effectChance: 0.1
+      attackTime: 0.4
+      attackSpeed: 10
+      attackAnimation: {fileID: 8854931403561263675, guid: eb98379b936e863499dd42b793274762,
+        type: 3}
 --- !u!114 &6317396937658932165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,8 +200,182 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c12719e028093444a74f30cf34eb5b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterPrefabs:
-  - {fileID: 123078352882209571, guid: b9e802c2ecb6b8f46baaa297d60de0d9, type: 3}
+  allMonsterData:
+    Lichenthrope:
+      monsterPrefab: {fileID: 123078352882209571, guid: b9e802c2ecb6b8f46baaa297d60de0d9,
+        type: 3}
+      id: 1
+      species: Lichenthrope
+      type1: Nature
+      type2: none
+      hpBase: 131
+      atkBase: 120
+      defBase: 118
+      speBase: 44
+      precBase: 86
+      maxLevel: 100
+      levelConst: 1.9
+      baseAttacks:
+      - Thunder
+      - Misty Spray
+      staminaBase: 70
+      energyGenBase: 77
+      energyCost: 7
+  allTypes:
+    Normal:
+      name: Normal
+      id: 0
+      noChange:
+      - Normal
+      - Fire
+      - Water
+      - Electric
+      - Ice
+      - Mechanical
+      - Shadow
+      - Nature
+      - Magic
+      resist: []
+      weakTo: []
+      immune: []
+      typeSprite: {fileID: 21300000, guid: 9fe6a498cd8d8284c8786cd5159a7fc5, type: 3}
+    Electric:
+      name: Electric
+      id: 1
+      noChange:
+      - Normal
+      - Fire
+      - Shadow
+      - Ice
+      - Water
+      resist:
+      - Electric
+      - Mechanical
+      - Magic
+      weakTo:
+      - Nature
+      - Fire
+      immune: []
+      typeSprite: {fileID: 21300052, guid: 9fe6a498cd8d8284c8786cd5159a7fc5, type: 3}
+    Water:
+      name: Water
+      id: 2
+      noChange:
+      - Normal
+      - Magic
+      - Shadow
+      - Nature
+      resist:
+      - Fire
+      - Water
+      weakTo:
+      - Electric
+      - Mechanical
+      - Ice
+      immune: []
+      typeSprite: {fileID: 21300010, guid: 9fe6a498cd8d8284c8786cd5159a7fc5, type: 3}
+    Magic:
+      name: Magic
+      id: 3
+      noChange:
+      - Normal
+      - Fire
+      - Water
+      - Mechanical
+      - Magic
+      - Ice
+      resist:
+      - Electric
+      weakTo:
+      - Shadow
+      - Nature
+      immune: []
+      typeSprite: {fileID: 21300054, guid: 9fe6a498cd8d8284c8786cd5159a7fc5, type: 3}
+    Shadow:
+      name: Shadow
+      id: 4
+      noChange:
+      - Normal
+      - Fire
+      - Water
+      - Electric
+      - Ice
+      resist:
+      - Mechanical
+      - Shadow
+      - Nature
+      weakTo:
+      - Magic
+      immune: []
+      typeSprite: {fileID: 21300018, guid: 9fe6a498cd8d8284c8786cd5159a7fc5, type: 3}
+    Nature:
+      name: Nature
+      id: 5
+      noChange:
+      - Normal
+      - Fire
+      - Water
+      - Electric
+      - Ice
+      resist:
+      - Mechanical
+      - Shadow
+      - Nature
+      weakTo:
+      - Magic
+      immune: []
+      typeSprite: {fileID: 21300042, guid: 9fe6a498cd8d8284c8786cd5159a7fc5, type: 3}
+    Ice:
+      name: Ice
+      id: 6
+      noChange:
+      - Normal
+      - Fire
+      - Water
+      - Electric
+      - Ice
+      - Mechanical
+      - Shadow
+      - Nature
+      - Magic
+      resist: []
+      weakTo: []
+      immune: []
+      typeSprite: {fileID: 21300036, guid: 9fe6a498cd8d8284c8786cd5159a7fc5, type: 3}
+    Mechanical:
+      name: Mechanical
+      id: 7
+      noChange:
+      - Normal
+      - Fire
+      - Water
+      - Electric
+      - Ice
+      - Mechanical
+      - Shadow
+      - Nature
+      - Magic
+      resist: []
+      weakTo: []
+      immune: []
+      typeSprite: {fileID: 21300012, guid: 9fe6a498cd8d8284c8786cd5159a7fc5, type: 3}
+    Fire:
+      name: Fire
+      id: 8
+      noChange:
+      - Normal
+      - Fire
+      - Water
+      - Electric
+      - Ice
+      - Mechanical
+      - Shadow
+      - Nature
+      - Magic
+      resist: []
+      weakTo: []
+      immune: []
+      typeSprite: {fileID: 21300002, guid: 9fe6a498cd8d8284c8786cd5159a7fc5, type: 3}
 --- !u!114 &3861695980770531831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,9 +388,163 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d72972839c3c75b4e827d6b04b36556e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipmentPrefabs:
-  - {fileID: 4368197986439467350, guid: 7c61404d0fec41b4390da3fcfa06f12b, type: 3}
-  - {fileID: 5789758863304333923, guid: 28bcc60d84f9bf848ab2ef92d9c5b95d, type: 3}
+  allEquipment:
+    AquaRune:
+      name: Aqua Rune
+      id: 1
+      equipPrefab: {fileID: 4368197986439467350, guid: 7c61404d0fec41b4390da3fcfa06f12b,
+        type: 3}
+      description: A Rune that boosts Water Type attacks from Water Type monsters
+        by 8%
+      equipType: 0
+      typeMonsterReq: Water
+      typeMoveReq: Water
+      boosts:
+      - Water Type Attacks + 8% Power
+      cost: 200
+      equipSlot: 0
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0.08
+      atkTimePercentBonus: 0
+      evasionPercentBonus: 0
+    ThunderRune:
+      name: Thunder Rune
+      id: 2
+      equipPrefab: {fileID: 5789758863304333923, guid: 28bcc60d84f9bf848ab2ef92d9c5b95d,
+        type: 3}
+      description: A Rune that boosts an Electric Type monster's attack stat by 10%
+      equipType: 0
+      typeMonsterReq: Electric
+      typeMoveReq: 
+      boosts:
+      - +10% Attack
+      cost: 200
+      equipSlot: 0
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0.1
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+      evasionPercentBonus: 0
+    NatureRune:
+      name: Nature Rune
+      id: 3
+      equipPrefab: {fileID: 3553604302827932507, guid: 3dae25d64d1b0df44a187a2604cefa1e,
+        type: 3}
+      description: A Rune that boosts a Nature Type monster's attack stat by 10%
+      equipType: 0
+      typeMonsterReq: Nature
+      typeMoveReq: 
+      boosts:
+      - +10% Attack
+      cost: 200
+      equipSlot: 0
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0.1
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+      evasionPercentBonus: 0
+    MagicRune:
+      name: Magic Rune
+      id: 4
+      equipPrefab: {fileID: 2124033237139775962, guid: 87039a0b871edab4a8a8478b7e40297c,
+        type: 3}
+      description: A Rune that boosts a Magic Type monster's attack stat by 10%
+      equipType: 0
+      typeMonsterReq: Magic
+      typeMoveReq: 
+      boosts:
+      - +10% Attack
+      cost: 200
+      equipSlot: 0
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0.1
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+      evasionPercentBonus: 0
+    ShadowRune:
+      name: Shadow Rune
+      id: 5
+      equipPrefab: {fileID: 8244102681076737041, guid: 73551d3bb08a9d147974a0c0692ee409,
+        type: 3}
+      description: A Rune that boosts a Shadow Type monster's attack stat by 10%
+      equipType: 0
+      typeMonsterReq: Shadow
+      typeMoveReq: 
+      boosts:
+      - +10% Attack
+      cost: 200
+      equipSlot: 0
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0.1
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+      evasionPercentBonus: 0
 --- !u!114 &4431932798214555854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,6 +557,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b9e7e219fbc8a40bb975efddedf07b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  account:
+    username: 
+    emailAddress: 
+    password: 
+    userId: 
+    playerLevel: 0
+    playerExp: 0
+    coins: 0
 --- !u!114 &6317396937658932168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,3 +611,112 @@ MonoBehaviour:
   tileTypeSprites:
   - {fileID: 21300000, guid: b27a1646af6e1e44e96ca8e99f8cb9d6, type: 3}
   - {fileID: 21300000, guid: c53053bffa3f44141addf0768e4b109a, type: 3}
+--- !u!114 &7763244925051536580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317396937658932167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9beeb450a8aa42f428071cf41ec3177e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allStatuses:
+    Burn:
+      name: Burn
+      effectType: Fire
+      hpDrop: 0.04
+      atkDrop: 0
+      defDrop: 0
+      speDrop: 0
+      precDrop: 0
+      atkPowerDrop: 0
+      atkTimeDrop: 0
+      evasionDrop: 0
+      enGenDrop: 0
+      speedDrop: 0
+      duration: 30
+      interval: 3
+      statusSprite: {fileID: 21300000, guid: 3e8e14b5d54af9f49b0a081c43084a40, type: 3}
+    FrostBite:
+      name: Frost Bite
+      effectType: Ice
+      hpDrop: 0
+      atkDrop: 0
+      defDrop: 0.2
+      speDrop: 0.15
+      precDrop: 0
+      atkPowerDrop: 0
+      atkTimeDrop: 0
+      evasionDrop: 0
+      enGenDrop: 0
+      speedDrop: 0
+      duration: 30
+      interval: 30
+      statusSprite: {fileID: 21300002, guid: 3e8e14b5d54af9f49b0a081c43084a40, type: 3}
+    Paralysis:
+      name: Paralysis
+      effectType: Electric
+      hpDrop: 0
+      atkDrop: 0
+      defDrop: 0
+      speDrop: 0.25
+      precDrop: 0
+      atkPowerDrop: 0
+      atkTimeDrop: 0
+      evasionDrop: 0.45
+      enGenDrop: 0
+      speedDrop: 0
+      duration: 30
+      interval: 30
+      statusSprite: {fileID: 21300030, guid: 3e8e14b5d54af9f49b0a081c43084a40, type: 3}
+    Poison:
+      name: Poison
+      effectType: Nature
+      hpDrop: 0.02
+      atkDrop: 0
+      defDrop: 0.01
+      speDrop: 0
+      precDrop: 0
+      atkPowerDrop: 0
+      atkTimeDrop: 0
+      evasionDrop: 0.45
+      enGenDrop: 0
+      speedDrop: 0
+      duration: 30
+      interval: 4
+      statusSprite: {fileID: 21300008, guid: 3e8e14b5d54af9f49b0a081c43084a40, type: 3}
+    Deafen:
+      name: Deafen
+      effectType: Shadow
+      hpDrop: 0
+      atkDrop: 0
+      defDrop: 0
+      speDrop: 0.03
+      precDrop: 0
+      atkPowerDrop: 0
+      atkTimeDrop: 0
+      evasionDrop: 0.06
+      enGenDrop: 0
+      speedDrop: 0
+      duration: 30
+      interval: 4
+      statusSprite: {fileID: 21300010, guid: 3e8e14b5d54af9f49b0a081c43084a40, type: 3}
+    Confusion:
+      name: Confusion
+      effectType: Magic
+      hpDrop: 0
+      atkDrop: 0
+      defDrop: 0
+      speDrop: 0.55
+      precDrop: 0
+      atkPowerDrop: 0
+      atkTimeDrop: 0
+      evasionDrop: 0.3
+      enGenDrop: 0
+      speedDrop: 0
+      duration: 30
+      interval: 30
+      statusSprite: {fileID: 21300012, guid: 3e8e14b5d54af9f49b0a081c43084a40, type: 3}

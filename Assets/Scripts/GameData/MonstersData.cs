@@ -9,6 +9,7 @@ using System;
 [System.Serializable]
 public struct MonsterData
 {
+    public GameObject monsterPrefab;
     public int id;
     public string species;
     public string type1;
@@ -25,6 +26,7 @@ public struct MonsterData
     public int staminaBase;
     public int energyGenBase;
     public float energyCost;
+    
 
 };
 
@@ -34,7 +36,7 @@ public class MonsterDataRoot
     public MonsterData MonsterData;
 }
 
-
+[System.Serializable]
 public class AllMonsterData
 {
     public MonsterData Lichenthrope = new MonsterData
@@ -54,6 +56,7 @@ public class AllMonsterData
         staminaBase = 70,
         energyGenBase = 77,
         energyCost = 7f,
+        
     };
 
 
@@ -83,15 +86,17 @@ public class AllMonsterData
 
 public class MonstersData : MonoBehaviour
 {
-    public GameObject[] monsterPrefabs;
+    
+    
 
     public AllMonsterData allMonsterData = new AllMonsterData();
     public MonsterTypeDetails allTypes = new MonsterTypeDetails();
     public Dictionary<string, MonsterData> monstersAllDict = new Dictionary<string, MonsterData>();
-    public Dictionary<string, GameObject> monsterPrefabsDict = new Dictionary<string, GameObject>();
     public Dictionary<int, string> monstersByIdDict = new Dictionary<int, string>();
 
     public Dictionary<string, TypeInfo> typeChartDict = new Dictionary<string, TypeInfo>();
+
+    
 
    
 
@@ -111,7 +116,6 @@ public class MonstersData : MonoBehaviour
     {
        
         monstersAllDict.Add(allMonsterData.Lichenthrope.species, allMonsterData.Lichenthrope);
-        monsterPrefabsDict.Add(allMonsterData.Lichenthrope.species, monsterPrefabs[0]);
         monstersByIdDict.Add(allMonsterData.Lichenthrope.id, allMonsterData.Lichenthrope.species);
     }
 
@@ -122,6 +126,11 @@ public class MonstersData : MonoBehaviour
         typeChartDict.Add(allTypes.Magic.name, allTypes.Magic);
         typeChartDict.Add(allTypes.Shadow.name, allTypes.Shadow);
         typeChartDict.Add(allTypes.Nature.name, allTypes.Nature);
+        typeChartDict.Add(allTypes.Fire.name, allTypes.Fire);
+        typeChartDict.Add(allTypes.Ice.name, allTypes.Ice);
+        typeChartDict.Add(allTypes.Mechanical.name, allTypes.Mechanical);
+        typeChartDict.Add(allTypes.Normal.name, allTypes.Mechanical);
+
     }
 
 
@@ -152,6 +161,7 @@ public struct TypeInfo
     public string[] resist;
     public string[] weakTo;
     public string[] immune;
+    public Sprite typeSprite;
 
 };
 
@@ -161,9 +171,20 @@ public class Types
     public TypeInfo TypeInfo;
 }
 
-
+[System.Serializable]
 public class MonsterTypeDetails
 {
+    public TypeInfo Normal = new TypeInfo
+    {
+        name = "Normal",
+        id = 0,
+        noChange = new string[9] { "Normal", "Fire", "Water", "Electric", "Ice", "Mechanical", "Shadow", "Nature", "Magic" },
+        resist = new string[0] { },
+        weakTo = new string[0] { },
+        immune = new string[0] { },
+    };
+
+
     public TypeInfo Electric = new TypeInfo
     {
         name = "Electric",
@@ -211,6 +232,36 @@ public class MonsterTypeDetails
         noChange = new string[5] { "Normal", "Fire", "Water", "Electric", "Ice" },
         resist = new string[3] { "Mechanical", "Shadow", "Nature" },
         weakTo = new string[1] { "Magic" },
+        immune = new string[0] { },
+    };
+
+    public TypeInfo Ice = new TypeInfo
+    {
+        name = "Ice",
+        id = 6,
+        noChange = new string[9] { "Normal", "Fire", "Water", "Electric", "Ice", "Mechanical", "Shadow", "Nature", "Magic" },
+        resist = new string[0] { },
+        weakTo = new string[0] { },
+        immune = new string[0] { },
+    };
+
+    public TypeInfo Mechanical = new TypeInfo
+    {
+        name = "Mechanical",
+        id = 7,
+        noChange = new string[9] { "Normal", "Fire", "Water", "Electric", "Ice", "Mechanical", "Shadow", "Nature", "Magic" },
+        resist = new string[0] { },
+        weakTo = new string[0] { },
+        immune = new string[0] { },
+    };
+
+    public TypeInfo Fire = new TypeInfo
+    {
+        name = "Fire",
+        id = 8,
+        noChange = new string[9] { "Normal", "Fire", "Water", "Electric", "Ice", "Mechanical", "Shadow", "Nature", "Magic" },
+        resist = new string[0] { },
+        weakTo = new string[0] { },
         immune = new string[0] { },
     };
 }
@@ -275,6 +326,7 @@ public class TypeChart
 
     }
 }
+
 
 
 

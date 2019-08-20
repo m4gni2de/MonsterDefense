@@ -8,11 +8,28 @@ public enum EquipmentType
 {
     Rune,
 }
+
+public enum ItemType
+{
+    Equipment,
+    Consumable, 
+    Cell
+}
+
+
+public struct AllItem
+{
+    public string name;
+    public ItemType itemType;
+}
+
+
 [System.Serializable]
 public struct Equipment
 {
     public string name;
     public int id;
+    public GameObject equipPrefab;
     public string description;
     public EquipmentType equipType;
     public string typeMonsterReq;
@@ -43,12 +60,8 @@ public struct Equipment
 
     public EquippableItem equip;
     
-
-    
-
-
-
 };
+
 
 public struct Consumable
 {
@@ -77,6 +90,7 @@ public class ItemsRoot
     public MonsterCell MonsterCell;
 }
 
+[System.Serializable]
 public class AllEquipment 
 {
     public Equipment AquaRune = new Equipment
@@ -99,7 +113,7 @@ public class AllEquipment
     {
         name = "Thunder Rune",
         id = 2,
-        description = "A Rune that boosts Electric Type monster's attack stat by 10%",
+        description = "A Rune that boosts an Electric Type monster's attack stat by 10%",
         equipType = EquipmentType.Rune,
         boosts = new string[1] { "+10% Attack" },
         typeMonsterReq = "Electric",
@@ -107,6 +121,94 @@ public class AllEquipment
         cost = 200,
         equip = new EquippableItem()
 
+    };
+
+    public Equipment NatureRune = new Equipment
+    {
+        name = "Nature Rune",
+        id = 3,
+        description = "A Rune that boosts a Nature Type monster's attack stat by 10%",
+        equipType = EquipmentType.Rune,
+        boosts = new string[1] { "+10% Attack" },
+        typeMonsterReq = "Nature",
+        atkPercentBonus = .10f,
+        cost = 200,
+        equip = new EquippableItem()
+
+    };
+
+    public Equipment MagicRune = new Equipment
+    {
+        name = "Magic Rune",
+        id = 4,
+        description = "A Rune that boosts a Magic Type monster's attack stat by 10%",
+        equipType = EquipmentType.Rune,
+        boosts = new string[1] { "+10% Attack" },
+        typeMonsterReq = "Magic",
+        atkPercentBonus = .10f,
+        cost = 200,
+        equip = new EquippableItem()
+
+    };
+
+    public Equipment ShadowRune = new Equipment
+    {
+        name = "Shadow Rune",
+        id = 5,
+        description = "A Rune that boosts a Shadow Type monster's attack stat by 10%",
+        equipType = EquipmentType.Rune,
+        boosts = new string[1] { "+10% Attack" },
+        typeMonsterReq = "Shadow",
+        atkPercentBonus = .10f,
+        cost = 200,
+        equip = new EquippableItem()
+
+    };
+}
+
+
+public class AllItems
+{
+    public AllItem AquaRune = new AllItem
+    {
+        name = "Aqua Rune",
+        itemType = ItemType.Equipment,
+    };
+
+    public AllItem ThunderRune = new AllItem
+    {
+        name = "Thunder Rune",
+        itemType = ItemType.Equipment,
+    };
+
+    public AllItem NatureRune = new AllItem
+    {
+        name = "Nature Rune",
+        itemType = ItemType.Equipment,
+    };
+
+    public AllItem MagicRune = new AllItem
+    {
+        name = "Magic Rune",
+        itemType = ItemType.Equipment,
+    };
+
+    public AllItem ShadowRune = new AllItem
+    {
+        name = "Shadow Rune",
+        itemType = ItemType.Equipment,
+    };
+
+    public AllItem ExpBoost = new AllItem
+    {
+        name = "Exp Boost",
+        itemType = ItemType.Consumable,
+    };
+
+    public AllItem LichenthropeCell = new AllItem
+    {
+        name = "Lichenthrope Cell",
+        itemType = ItemType.Cell,
     };
 }
 
@@ -124,29 +226,32 @@ public class AllConsumables
 
 public class AllMonsterCells
 {
-    public MonsterCell TerrorBiteCell = new MonsterCell
+    public MonsterCell LichenthropeCell = new MonsterCell
     {
-        name = "Terror Bite Cell",
-        hostMonster = "TerrorBite",
+        name = "Lichenthrope Cell",
+        hostMonster = "Lichenthrope",
         id = 1,
-        description = "A cell from Terror Bite."
+        description = "A cell from Lichenthrope."
 
     };
 }
 
+
+
 public class Items: MonoBehaviour
 {
-    public GameObject[] equipmentPrefabs;
+    
 
     public AllEquipment allEquipment = new AllEquipment();
     public AllConsumables allConsumables = new AllConsumables();
     public AllMonsterCells allMonsterCells = new AllMonsterCells();
-    
+    public AllItems allItems = new AllItems();
 
-    public Dictionary<string, GameObject> equipmentByPrefab = new Dictionary<string, GameObject>();
+
+    public Dictionary<string, AllItem> allItemsDict = new Dictionary<string, AllItem>();
+
+    
     public Dictionary<string, Equipment> allEquipmentDict = new Dictionary<string, Equipment>();
-
-    
     public Dictionary<string, Consumable> allConsumablesDict = new Dictionary<string, Consumable>();
     public Dictionary<string, MonsterCell> allMonsterCellsDict = new Dictionary<string, MonsterCell>();
 
@@ -154,23 +259,38 @@ public class Items: MonoBehaviour
     {
         //equipEffects = GetComponent<EquipEffects>();
 
-        
+        AddItems();
         AddEquipment();
         AddConsumables();
         AddCells();
+        
     }
-    
-    
-   
-   
 
+   
+    
+    
+   //creates dictionary for all items together
+   void AddItems()
+    {
+        allItemsDict.Add(allItems.AquaRune.name, allItems.AquaRune);
+        allItemsDict.Add(allItems.ThunderRune.name, allItems.ThunderRune);
+        allItemsDict.Add(allItems.NatureRune.name, allItems.NatureRune);
+        allItemsDict.Add(allItems.MagicRune.name, allItems.MagicRune);
+        allItemsDict.Add(allItems.ShadowRune.name, allItems.MagicRune);
+        allItemsDict.Add(allItems.ExpBoost.name, allItems.ExpBoost);
+        allItemsDict.Add(allItems.LichenthropeCell.name, allItems.LichenthropeCell);
+    }
+
+    
     void AddEquipment()
     {
         allEquipmentDict.Add(allEquipment.AquaRune.name, allEquipment.AquaRune);
         allEquipmentDict.Add(allEquipment.ThunderRune.name, allEquipment.ThunderRune);
+        allEquipmentDict.Add(allEquipment.NatureRune.name, allEquipment.NatureRune);
+        allEquipmentDict.Add(allEquipment.MagicRune.name, allEquipment.MagicRune);
+        allEquipmentDict.Add(allEquipment.ShadowRune.name, allEquipment.ShadowRune);
 
-        equipmentByPrefab.Add(allEquipment.AquaRune.name, equipmentPrefabs[0]);
-        equipmentByPrefab.Add(allEquipment.ThunderRune.name, equipmentPrefabs[1]);
+        
     }
 
 
@@ -181,7 +301,7 @@ public class Items: MonoBehaviour
 
     void AddCells()
     {
-        allMonsterCellsDict.Add(allMonsterCells.TerrorBiteCell.hostMonster, allMonsterCells.TerrorBiteCell);
+        allMonsterCellsDict.Add(allMonsterCells.LichenthropeCell.hostMonster, allMonsterCells.LichenthropeCell);
        
     }
 

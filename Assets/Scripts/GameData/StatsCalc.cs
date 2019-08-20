@@ -39,9 +39,17 @@ public class StatsCalc
         monster.info.EnergyCost.BaseValue = (int)monster.info.energyCost;
         monster.info.EnergyGeneration.BaseValue = (monster.info.energyGenBase);
 
-      
-       
 
+        monster.tempStats.HP.BaseValue = monster.info.HP.BaseValue;
+        monster.tempStats.Defense.BaseValue = monster.info.Defense.BaseValue;
+        monster.tempStats.Attack.BaseValue = monster.info.Attack.BaseValue;
+        monster.tempStats.Speed.BaseValue = monster.info.Speed.BaseValue;
+        monster.tempStats.Precision.BaseValue = monster.info.Precision.BaseValue;
+        monster.tempStats.Stamina.BaseValue = monster.info.Stamina.BaseValue;
+        monster.tempStats.EnergyCost.BaseValue = monster.info.EnergyCost.BaseValue;
+        monster.tempStats.EnergyGeneration.BaseValue = monster.info.EnergyGeneration.BaseValue;
+        monster.tempStats.evasionBase = monster.info.evasionBase;
+        monster.tempStats.critBase = monster.info.critBase;
 
         Monster = monster;
     }
@@ -224,22 +232,33 @@ public class MapTileStatChange
         TileInfo tile = mapTile.info;
 
         if (tile.hpBonus != 0)
-            monster.hp += tile.hpBonus;
+            //monster.hp += tile.hpBonus;
+            monster.tempStats.HP.AddModifier(new StatModifier(tile.hpBonus, StatModType.Flat, this));
         if (tile.atkBonus != 0)
-            monster.attack += tile.atkBonus;
+            //monster.attack += tile.atkBonus;
+            monster.tempStats.Attack.AddModifier(new StatModifier(tile.atkBonus, StatModType.Flat, this));
         if (tile.defBonus != 0)
-            monster.defense += tile.defBonus;
+            //monster.defense += tile.defBonus;
+            monster.tempStats.Defense.AddModifier(new StatModifier(tile.defBonus, StatModType.Flat, this));
         if (tile.speedBonus != 0)
-            monster.speed += tile.speedBonus;
+            //monster.speed += tile.speedBonus;
+            monster.tempStats.Speed.AddModifier(new StatModifier(tile.speedBonus, StatModType.Flat, this));
 
         if (tile.hpPercentBonus != 0)
-            monster.hp *= 1 + tile.hpPercentBonus;
+            //monster.hp *= 1 + tile.hpPercentBonus;
+            monster.tempStats.HP.AddModifier(new StatModifier(tile.hpPercentBonus, StatModType.PercentMult, this));
         if (tile.atkPercentBonus != 0)
-            monster.attack *= 1 + tile.atkPercentBonus;
+            //monster.attack *= 1 + tile.atkPercentBonus;
+            monster.tempStats.Attack.AddModifier(new StatModifier(tile.atkPercentBonus, StatModType.PercentMult, this));
         if (tile.defPercentBonus != 0)
-            monster.defense *= 1 + tile.defPercentBonus;
+            //if (tile.defPercentBonus != 0)
+            monster.tempStats.Defense.AddModifier(new StatModifier(tile.defPercentBonus, StatModType.PercentMult, this));
+        if (tile.precPercentBonus != 0)
+            //monster.defense *= 1 + tile.defPercentBonus;
+            monster.tempStats.Precision.AddModifier(new StatModifier(tile.precPercentBonus, StatModType.PercentMult, this));
         if (tile.spePercentBonus != 0)
-            monster.speed *= 1 + tile.spePercentBonus;
+            //monster.speed *= 1 + tile.spePercentBonus;
+            monster.tempStats.Speed.AddModifier(new StatModifier(tile.speedBonus, StatModType.PercentMult, this));
 
         ////if the equipment item is Type protected, check and make sure the types match. If they do, apply bonuses
         //if (tile.typeMoveReq == monster.info.attack1.type)

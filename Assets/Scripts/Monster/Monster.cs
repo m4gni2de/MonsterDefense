@@ -36,13 +36,15 @@ public struct MonsterInfo
 
 
     public string attack1Name;
-    public BaseAttack attack1;
-    public GameObject attack1Animation;
+    //public BaseAttack attack1;
     public string attack2Name;
-    public BaseAttack attack2;
-    public string chargeAttack1;
-    public string chargeAttack2;
-    public string specialAttack;
+    //public BaseAttack attack2;
+
+
+    //public GameObject attack1Animation;
+    //public string chargeAttack1;
+    //public string chargeAttack2;
+    //public string specialAttack;
 
     public string equip1Name;
     public Equipment equip1;
@@ -76,6 +78,31 @@ public struct MonsterInfo
 
 };
 
+//these stats can change during a map without effecting it's permanent stats
+[System.Serializable]
+public struct TempStats
+{
+    public Stat HP;
+    public Stat HPPotential;
+    public Stat Attack;
+    public Stat AttackPotential;
+    public Stat Defense;
+    public Stat DefensePotential;
+    public Stat Speed;
+    public Stat SpeedPotential;
+    public Stat Precision;
+    public Stat PrecisionPotential;
+    public Stat Stamina;
+    public Stat EnergyGeneration;
+    public Stat EnergyCost;
+    public float evasionBase;
+    public float critBase;
+
+    
+    public BaseAttack attack1;
+    public BaseAttack attack2;
+}
+
 [System.Serializable]
 public struct MonsterSpecs
 {
@@ -86,12 +113,13 @@ public struct MonsterSpecs
 };
 public class Monster : MonoBehaviour
 {
-   
+
 
 
 
     public MonsterInfo info = new MonsterInfo();
     public MonsterSpecs specs = new MonsterSpecs();
+    public TempStats tempStats = new TempStats();
     //public AllBaseAttacks allBaseAttacks = new AllBaseAttacks();
     //private BaseAttacks baseAttacks;
 
@@ -112,7 +140,7 @@ public class Monster : MonoBehaviour
     public Dictionary<int, int> totalExpForLevel = new Dictionary<int, int>();
 
     //use these as temporary variables to hold the monster's stats while it's on the field. these stats can be manipulated while on the field, but do not affect the monster's stats permanently.
-    public float attack, defense, speed, precision, hp, evasion, stamina, energyCost, energyGeneration;
+    //public float attack, defense, speed, precision, hp, evasion, stamina, energyCost, energyGeneration;
 
 
     public Animator monsterMotion;
@@ -121,23 +149,36 @@ public class Monster : MonoBehaviour
     public Puppet2D_GlobalControl puppet;
 
     public GameObject monsterIcon, frontModel;
-    
+
+    //list to keep track of the tiles that are boosting this monster while it's on the map. this list is added to from the maptile script itself
+    public List<MapTile> boostTiles = new List<MapTile>();
+
+    //list to keep track of the monsters statuses afflictions and their timers
+    //public Dictionary<Status, StatusTimer> statuses = new Dictionary<Status, StatusTimer>();
+    public List<Status> statuses = new List<Status>();
+    //use these icons to display a monster's current statuses
+    public GameObject[] statusIcons;
 
 
     private void Awake()
     {
-        
+
+
     }
     // Start is called before the first frame update
     void Start()
     {
+        var attacksDict = GameManager.Instance.baseAttacks.baseAttackDict;
+
+
         tower = GetComponent<Tower>();
         enemy = GetComponent<Enemy>();
 
+
         monsterMotion.GetComponent<Animator>();
         puppet.GetComponent<Puppet2D_GlobalControl>();
+        boostTiles.Clear();
 
-       
 
         GetExpCurve();
 
@@ -176,18 +217,66 @@ public class Monster : MonoBehaviour
         //checks for which items a monster has equipped and apply the appropriate effects
         EquipmentBoosts();
 
-        //gives the monster temporary stats that can be changed in game, without affecting the monster's saved stats
-        attack = info.Attack.Value;
-        defense = info.Defense.Value;
-        speed = info.Speed.Value;
-        precision = info.Precision.Value;
-        hp = info.HP.Value;
-        evasion = info.evasionBase;
-        stamina = info.Stamina.Value;
-        energyCost = info.EnergyCost.Value;
-        energyGeneration = info.EnergyGeneration.Value;
-        
+        //gives the monster temporary stats that can be changed in game, without affecting the monster's saved stats. these values are changed during a game, not anything in monster.info
+        //attack = info.Attack.Value;
+        //defense = info.Defense.Value;
+        //speed = info.Speed.Value;
+        //precision = info.Precision.Value;
+        //hp = info.HP.Value;
+        //evasion = info.evasionBase;
+        //stamina = info.Stamina.Value;
+        //energyCost = info.EnergyCost.Value;
+        //energyGeneration = info.EnergyGeneration.Value;
 
+        tempStats.HP.BaseValue = info.HP.Value;
+        tempStats.Defense.BaseValue = info.Defense.Value;
+        tempStats.Attack.BaseValue = info.Attack.Value;
+        tempStats.Speed.BaseValue = info.Speed.Value;
+        tempStats.Precision.BaseValue = info.Precision.Value;
+        tempStats.Stamina.BaseValue = info.Stamina.Value;
+        tempStats.EnergyCost.BaseValue = info.EnergyCost.Value;
+        tempStats.EnergyGeneration.BaseValue = info.EnergyGeneration.Value;
+        tempStats.evasionBase = info.evasionBase;
+        tempStats.critBase = info.critBase;
+
+        //AllStatuses status = new AllStatuses();
+        //Status status2 = status.Burn;
+        //Status status3 = status.Poison;
+
+        //AddStatus(status2);
+        //AddStatus(status3);
+
+        //load in the attacks of the monster
+        if (attacksDict.ContainsKey(info.attack1Name))
+        {
+
+            BaseAttack attack = attacksDict[info.attack1Name];
+
+            tempStats.attack1 = attack;
+            tempStats.attack1.Power.BaseValue = attack.power;
+            tempStats.attack1.Range.BaseValue = attack.range;
+            tempStats.attack1.CritChance.BaseValue = attack.critChance;
+            tempStats.attack1.CritMod.BaseValue = attack.critMod;
+            tempStats.attack1.EffectChance.BaseValue = attack.effectChance;
+            tempStats.attack1.AttackTime.BaseValue = attack.attackTime;
+            tempStats.attack1.AttackSpeed.BaseValue = attack.attackSpeed;
+
+
+        }
+
+        if (attacksDict.ContainsKey(info.attack2Name))
+        {
+            BaseAttack attack = attacksDict[info.attack2Name];
+
+            tempStats.attack2 = attack;
+            tempStats.attack2.Power.BaseValue = attack.power;
+            tempStats.attack2.Range.BaseValue = attack.range;
+            tempStats.attack2.CritChance.BaseValue = attack.critChance;
+            tempStats.attack2.CritMod.BaseValue = attack.critMod;
+            tempStats.attack2.EffectChance.BaseValue = attack.effectChance;
+            tempStats.attack2.AttackTime.BaseValue = attack.attackTime;
+            tempStats.attack2.AttackSpeed.BaseValue = attack.attackSpeed;
+        }
 
     }
 
@@ -203,9 +292,9 @@ public class Monster : MonoBehaviour
             enemy.enemyCanvas.SetActive(false);
         }
 
-       
 
-        
+
+
     }
 
 
@@ -248,7 +337,7 @@ public class Monster : MonoBehaviour
             info.equip1Name = equip.name;
             info.equippable1.Equip(gameObject.GetComponent<Monster>(), 1);
 
-            
+
             StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
             GetStats(stats);
         }
@@ -258,14 +347,14 @@ public class Monster : MonoBehaviour
             info.equip2Name = equip.name;
             info.equippable2.Equip(gameObject.GetComponent<Monster>(), 2);
 
-            
+
             StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
             GetStats(stats);
         }
         //if (info.equip1Name == "none" || info.equip1Name == null)
         //{
         //    info.equip1Name = equip.name;
-            
+
         //    EquipmentBoosts();
 
         //    bool isLevelUp = true;
@@ -273,7 +362,7 @@ public class Monster : MonoBehaviour
         //    GetStats(stats);
         //    return;
         //}
-        
+
 
         //if (info.equip2Name == "none" || info.equip2Name == null)
         //{
@@ -283,10 +372,10 @@ public class Monster : MonoBehaviour
         //    bool isLevelUp = true;
         //    StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>(), isLevelUp);
         //    GetStats(stats);
-            
+
         //}
 
-        
+
 
     }
 
@@ -328,11 +417,11 @@ public class Monster : MonoBehaviour
 
         int itemCount = PlayerPrefs.GetInt(equip.name);
         PlayerPrefs.SetInt(equip.name, itemCount + 1);
-        
+
         StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
         GetStats(stats);
 
-        Debug.Log(itemCount);
+
     }
 
 
@@ -344,7 +433,7 @@ public class Monster : MonoBehaviour
     {
 
         var attacksDict = GameManager.Instance.baseAttacks.baseAttackDict;
-       
+
         var equip = GameManager.Instance.items.allEquipmentDict;
         var dict = GameManager.Instance.monstersData.monstersAllDict;
         var name = info.species;
@@ -392,7 +481,7 @@ public class Monster : MonoBehaviour
 
         }
 
-       
+
 
 
         //sets the monster's nickname to its name if there isn't a nickname
@@ -404,19 +493,19 @@ public class Monster : MonoBehaviour
         //load in the attacks of the monster
         if (attacksDict.ContainsKey(info.attack1Name))
         {
-            
+
             BaseAttack attack = attacksDict[info.attack1Name];
-            
 
-            info.attack1.Power.BaseValue = attack.power;
-            info.attack1.Range.BaseValue = attack.range;
-            info.attack1.CritChance.BaseValue = attack.critChance;
-            info.attack1.CritMod.BaseValue = attack.critMod;
-            info.attack1.EffectChance.BaseValue = attack.effectChance;
-            info.attack1.AttackTime.BaseValue = attack.attackTime;
-            info.attack1.AttackSpeed.BaseValue = attack.attackSpeed;
 
-           
+            tempStats.attack1.Power.BaseValue = attack.power;
+            tempStats.attack1.Range.BaseValue = attack.range;
+            tempStats.attack1.CritChance.BaseValue = attack.critChance;
+            tempStats.attack1.CritMod.BaseValue = attack.critMod;
+            tempStats.attack1.EffectChance.BaseValue = attack.effectChance;
+            tempStats.attack1.AttackTime.BaseValue = attack.attackTime;
+            tempStats.attack1.AttackSpeed.BaseValue = attack.attackSpeed;
+
+
 
         }
 
@@ -424,17 +513,17 @@ public class Monster : MonoBehaviour
         {
             BaseAttack attack = attacksDict[info.attack2Name];
 
-            info.attack2.Power.BaseValue = attack.power;
-            info.attack2.Range.BaseValue = attack.range;
-            info.attack2.CritChance.BaseValue = attack.critChance;
-            info.attack2.CritMod.BaseValue = attack.critMod;
-            info.attack2.EffectChance.BaseValue = attack.effectChance;
-            info.attack2.AttackTime.BaseValue = attack.attackTime;
-            info.attack2.AttackSpeed.BaseValue = attack.attackSpeed;
+            tempStats.attack2.Power.BaseValue = attack.power;
+            tempStats.attack2.Range.BaseValue = attack.range;
+            tempStats.attack2.CritChance.BaseValue = attack.critChance;
+            tempStats.attack2.CritMod.BaseValue = attack.critMod;
+            tempStats.attack2.EffectChance.BaseValue = attack.effectChance;
+            tempStats.attack2.AttackTime.BaseValue = attack.attackTime;
+            tempStats.attack2.AttackSpeed.BaseValue = attack.attackSpeed;
         }
 
-        
-            
+
+
 
         //if the monster has equipment attached to it, set their value to "none" to avoid Null Exceptions
         if (info.equip1Name == null)
@@ -448,29 +537,29 @@ public class Monster : MonoBehaviour
 
 
 
-        
+
 
         //if this monster is an enemy, then fill in the stats for the enemy with randomized values for Potential
         if (isEnemy)
         {
-            
+
             //enemy.SetEnemyStats();
 
         }
         //if it is NOT an enemy, then it already has prefab stats, so get those
         else
         {
-            
+
 
             StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
-            GetStats(stats);           
-            
+            GetStats(stats);
+
         }
 
-        
+
     }
 
-   
+
 
     //when a new monster is being summoned, it's stats are randomized within the bounds of its species. Creates a new Playerpref for the amount of monsters, along with a playerpref string for the json object for the newly summoned object
     public void SummonNewMonster(string name)
@@ -482,7 +571,6 @@ public class Monster : MonoBehaviour
             int monsterCount = GameManager.Instance.monsterCount + 1;
 
             var attacksDict = GameManager.Instance.baseAttacks.baseAttackDict;
-            var animationsDict = GameManager.Instance.baseAttacks.attackAnimationsDict;
 
             var dict = GameManager.Instance.monstersData.monstersAllDict;
 
@@ -554,14 +642,14 @@ public class Monster : MonoBehaviour
             if (attacksDict.ContainsKey(info.attack1Name))
             {
                 BaseAttack attack = attacksDict[info.attack1Name];
-                info.attack1 = attack;
+                tempStats.attack1 = attack;
 
             }
 
             if (attacksDict.ContainsKey(info.attack2Name))
             {
                 BaseAttack attack = attacksDict[info.attack2Name];
-                info.attack2 = attack;
+                tempStats.attack2 = attack;
             }
 
             //StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
@@ -585,27 +673,137 @@ public class Monster : MonoBehaviour
     //****************The following methods are for calculating the stats of the monster***********//
     public void GetStats(StatsCalc stats)
     {
-        
-        
+
+
         PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
 
         info = stats.Monster.info;
+        tempStats = stats.Monster.tempStats;
 
 
-        attack = info.Attack.Value;
-        defense = info.Defense.Value;
-        speed = info.Speed.Value;
-        precision = info.Precision.Value;
-        hp = info.HP.Value;
-        evasion = info.evasionBase;
-        stamina = info.Stamina.Value;
-        energyCost = info.EnergyCost.Value;
-        energyGeneration = info.EnergyGeneration.Value / 60;
+        //attack = info.Attack.Value;
+        //defense = info.Defense.Value;
+        //speed = info.Speed.Value;
+        //precision = info.Precision.Value;
+        //hp = info.HP.Value;
+        //evasion = info.evasionBase;
+        //stamina = info.Stamina.Value;
+        //energyCost = info.EnergyCost.Value;
+        //energyGeneration = info.EnergyGeneration.Value;
 
         GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
     }
 
-    
+
+    //statuses are added from monster attacks or from tiles on the map. they are added here and the statuses being calculating
+    public void AddStatus(Status status)
+    {
+        StatusTimer timer = new StatusTimer(gameObject.GetComponent<Monster>(), status);
+        StartCoroutine(timer.TriggerEffect());
+        statuses.Add(status);
+        if (GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict.ContainsKey(status.name))
+        {
+            statusIcons[statuses.Count - 1].GetComponent<SpriteRenderer>().sprite = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict[status.name].statusSprite;
+        }
+
+
+    }
+
+    //removing a status is also called from the AllStatusEffects script. Remove the called status and set the status icons to show the correct statuses
+    public void RemoveStatus(Status status)
+    {
+        for (int i = 0; i < statusIcons.Length; i++)
+        {
+            statusIcons[i].GetComponent<SpriteRenderer>().sprite = null;
+        }
+
+        statuses.Remove(status);
+
+        for (int i = 0; i < statuses.Count; i++)
+        {
+            statusIcons[i].GetComponent<SpriteRenderer>().sprite = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict[statuses[i].name].statusSprite;
+        }
+
+    }
+
+    //called from the StatusTimer
+    public void TriggerStatus(Status status, StatusTimer timer, float acumTime, StatusEffects effect)
+    {
+       
+        if (isEnemy)
+        {
+            effect.ProcEffect(timer);
+            enemy.CalculateStatus(effect);
+            
+
+            //if the monster has been inflicted with the status for longer than the duration that the status can be inflicted for, then it is no longer afflicted. if not, run the status trigger again
+            if (acumTime <= status.duration)
+            {
+                StartCoroutine(timer.TriggerEffect());
+                var display = Instantiate(enemy.damageText, transform.position, Quaternion.identity);
+                display.transform.SetParent(enemy.enemyCanvas.transform, true);
+                display.GetComponentInChildren<TMP_Text>().text = "-" + status.name;
+                Destroy(display, display.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+
+            }
+            else
+            {
+                if (statuses.Contains(status))
+                {
+                    effect.HealStatus(this, status, true);
+                }
+            }
+        }
+        else
+        {
+            //StatusEffects effect = new StatusEffects(this, status, false);
+            effect.ProcEffect(timer);
+            CalculateStatus(effect);
+
+            //if the monster has been inflicted with the status for longer than the duration that the status can be inflicted for, then it is no longer afflicted. if not, run the status trigger again
+            if (acumTime <= status.duration)
+            {
+                
+                StartCoroutine(timer.TriggerEffect());
+                var display = Instantiate(enemy.damageText, transform.position, Quaternion.identity);
+                display.transform.SetParent(enemy.enemyCanvas.transform, false);
+                display.GetComponentInChildren<TMP_Text>().text = "-" + status.name;
+                Destroy(display, display.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+            }
+            else
+            {
+                if (statuses.Contains(status))
+                {
+                    effect.HealStatus(this, status, false);
+                }
+            }
+        }
+
+
+        
+    }
+
+    public void CalculateStatus(StatusEffects effect)
+    {
+
+        tempStats = effect.Monster.tempStats;
+
+        
+        //attack = effect.Monster.attack;
+        //defense = effect.Monster.defense;
+        //evasion = effect.Monster.evasion;
+        //hp = effect.Monster.hp;
+        //speed = effect.Monster.speed;
+        //energyGeneration = effect.Monster.energyGeneration;
+        //precision = effect.Monster.precision;
+
+        //if (hp <= 0)
+        //{
+        //    hp = 1;
+        //};
+    }
+
+
 
     //create the monster's exp curve given it's information from the data scripts
     public void GetExpCurve()
@@ -688,6 +886,11 @@ public class Monster : MonoBehaviour
                 StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
                 GetStats(stats);
 
+                for (int b = 0; b < boostTiles.Count; b++)
+                {
+                    MapTileStatChange tile = new MapTileStatChange();
+                    tile.ApplyTileChanges(gameObject.GetComponent<Monster>(), boostTiles[b]);
+                }
 
                 return;
                 

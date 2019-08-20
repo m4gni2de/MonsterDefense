@@ -59,6 +59,7 @@ public class MapDetails : MonoBehaviour
 
     public MapInformation mapInformation = new MapInformation();
     public GameObject mapInfoMenu;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -258,7 +259,7 @@ public class MapDetails : MonoBehaviour
         int random = new int();
         int randomLevel = Random.Range(levelMin, levelMax + 1);
         var byId = GameManager.Instance.monstersData.monstersByIdDict;
-        var byPrefab = GameManager.Instance.monstersData.monsterPrefabsDict;
+        var monstersDict = GameManager.Instance.monstersData.monstersAllDict;
 
         //checks the random number against all of the spawn rates for the map. once the number is less than a spawn rate for one of the enemies, then it's in that enemy's range, and that enemy will spawn. the enemy's and their rates will be 
         //in ascending order in the map object so this method will works
@@ -278,10 +279,10 @@ public class MapDetails : MonoBehaviour
                 {
                     string species = byId[random];
 
-                    if (byPrefab.ContainsKey(species))
+                    if (monstersDict.ContainsKey(species))
                     {
                         enemyCount += 1;
-                        var enemyMonster = Instantiate(byPrefab[species], transform.position, Quaternion.identity);
+                        var enemyMonster = Instantiate(monstersDict[species].monsterPrefab, transform.position, Quaternion.identity);
                         enemyMonster.transform.position = spawnPoint.transform.position;
                         enemyMonster.GetComponent<Monster>().isEnemy = true;
                         enemyMonster.GetComponent<Enemy>().SetEnemyStats(randomLevel);

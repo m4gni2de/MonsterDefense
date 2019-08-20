@@ -310,7 +310,10 @@ public class MapTile : MonoBehaviour
 
         if (monster.info.type1 == info.attribute || monster.info.type2 == info.attribute)
         {
+            //apply the tile changes to the monster
             change.ApplyTileChanges(monster, gameObject.GetComponent<MapTile>());
+            //add the tile to the monster's list of boosted tiles
+            monster.boostTiles.Add(gameObject.GetComponent<MapTile>());
         }
     }
 
@@ -344,7 +347,7 @@ public class MapTile : MonoBehaviour
             var tag = other.gameObject.tag;
             if (tag == "Leg")
             {
-                Debug.Log(tag);
+
                 if (isAttackTarget)
                 {
                     //send over the monster that is on the target tile so the attacking monster knows what enemy to target

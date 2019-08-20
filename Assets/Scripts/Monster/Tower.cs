@@ -89,6 +89,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     public bool isSummonable;
 
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -113,17 +115,17 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
 
         //set the animations for each attack based on the attack's name
-        var animationsDict = GameManager.Instance.baseAttacks.attackAnimationsDict;
+        var attacksDict = GameManager.Instance.baseAttacks.baseAttackDict;
 
        
-        if (animationsDict.ContainsKey(monster.info.attack1.name))
+        if (attacksDict.ContainsKey(monster.tempStats.attack1.name))
         {
-            attack1Animation = animationsDict[monster.info.attack1.name];
+            attack1Animation = attacksDict[monster.tempStats.attack1.name].attackAnimation;
         }
 
-        if (animationsDict.ContainsKey(monster.info.attack2.name))
+        if (attacksDict.ContainsKey(monster.tempStats.attack2.name))
         {
-            attack2Animation = animationsDict[monster.info.attack2.name];
+            attack2Animation = attacksDict[monster.tempStats.attack2.name].attackAnimation;
         }
 
         
@@ -136,7 +138,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     void Update()
     {
         Debug.Log(mapInformation.playerEnergy);
-        if (mapInformation.playerEnergy >= monster.energyCost)
+        //if (mapInformation.playerEnergy >= monster.energyCost)
+        if (mapInformation.playerEnergy >= monster.tempStats.EnergyCost.Value)
         {
             isSummonable = true;
         }
@@ -353,9 +356,13 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     InvokeRepeating("TowerEnergy", 0, 1);
 
 
-                    Map.GetComponent<MapDetails>().MapEnergyRate(monster.energyGeneration);
-                    Map.GetComponent<MapDetails>().UseMapEnergy(monster.energyCost);
-                    mapInformation.playerEnergy -= monster.energyCost;
+                    //Map.GetComponent<MapDetails>().MapEnergyRate(monster.energyGeneration / 60);
+                    //Map.GetComponent<MapDetails>().UseMapEnergy(monster.energyCost);
+                    //mapInformation.playerEnergy -= monster.energyCost;
+
+                    Map.GetComponent<MapDetails>().MapEnergyRate(monster.tempStats.EnergyGeneration.Value / 60);
+                    Map.GetComponent<MapDetails>().UseMapEnergy(monster.tempStats.EnergyCost.Value);
+                    mapInformation.playerEnergy -= monster.tempStats.EnergyCost.Value;
 
 
                     gameObject.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
@@ -471,7 +478,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     {
         if (isPlaced)
         {
-            Map.GetComponent<MapDetails>().AddMapEnergy(monster.energyGeneration);
+            //Map.GetComponent<MapDetails>().AddMapEnergy(monster.energyGeneration / 60);
+            Map.GetComponent<MapDetails>().AddMapEnergy(monster.tempStats.EnergyGeneration.Value / 60);
         }
         
     }
@@ -613,7 +621,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         if (isScanning && !isAttacking)
         {
             Enemy enemy = target.GetComponent<Enemy>();
-            float def = enemy.stats.def;
+            //float def = enemy.stats.def;
+            float def = enemy.stats.Defense.Value;
             float hp = enemy.stats.currentHp;
             string type1 = enemy.stats.type1;
             string type2 = enemy.stats.type2;
@@ -622,26 +631,48 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             {
                 if (atkRange1List.Contains(enemy.currentTile))
                 {
+                    if (enemy.transform.position.x >= transform.position.x)
+                    {
+                        monster.puppet.flip = true;
+
+                    }
+                    else
+                    {
+                        monster.puppet.flip = false;
+                    }
+
                     isAttacking = true;
-                    BaseAttack attack = monster.info.attack1;
+                    BaseAttack attack = monster.tempStats.attack1;
                     var attackSprite = Instantiate(attack1Animation, transform.position, Quaternion.identity);
                     attackSprite.GetComponent<AttackEffects>().AttackMotion(enemy.transform.position - gameObject.transform.position);
                     attackSprite.gameObject.name = attack.name;
-                    attackSprite.GetComponent<AttackEffects>().FromAttacker(attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-                    Debug.Log(monster.info.Attack.Value);
+                    //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+                    attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+                    
                 }
             }
             else
             {
                 if (atkRange2List.Contains(enemy.currentTile))
                 {
+                    if (enemy.transform.position.x >= transform.position.x)
+                    {
+                        monster.puppet.flip = true;
+
+                    }
+                    else
+                    {
+                        monster.puppet.flip = false;
+                    }
+
                     isAttacking = true;
-                    BaseAttack attack = monster.info.attack2;
+                    BaseAttack attack = monster.tempStats.attack2;
                     var attackSprite = Instantiate(attack2Animation, transform.position, Quaternion.identity);
                     attackSprite.GetComponent<AttackEffects>().AttackMotion(enemy.transform.position - gameObject.transform.position);
                     attackSprite.gameObject.name = attack.name;
-                    attackSprite.GetComponent<AttackEffects>().FromAttacker(attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-                    Debug.Log(monster.info.Attack.Value);
+                    //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+                    attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+
                 }
             }
 
@@ -660,11 +691,11 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
             if (attackNumber == 1)
             {
-                attackTime = monster.info.attack1.attackTime;
+                attackTime = monster.tempStats.attack1.attackTime;
             }
             else
             {
-                attackTime = monster.info.attack2.attackTime; 
+                attackTime = monster.tempStats.attack2.attackTime; 
             }
 
             if (acumTime >= attackTime)
@@ -689,8 +720,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         var aimDirection = Quaternion.Euler(0, 0, aimAngle * Mathf.Rad2Deg) * Vector2.up;
 
 
-        int range = monster.info.attack1.range;
-        int range2 = monster.info.attack2.range;
+        int range = monster.tempStats.attack1.range;
+        int range2 = monster.tempStats.attack2.range;
 
         //int range = 2;
 
@@ -1225,14 +1256,14 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         if (attackNumber == 1)
         {
             attackList = atkRange1List;
-            type = monster.info.attack1.type;
-            name = monster.info.attack1.name;
+            type = monster.tempStats.attack1.type;
+            name = monster.tempStats.attack1.name;
         }
         if (attackNumber == 2)
         {
             attackList = atkRange2List;
-            type = monster.info.attack2.type;
-            name = monster.info.attack2.name;
+            type = monster.tempStats.attack2.type;
+            name = monster.tempStats.attack2.name;
         }
 
 

@@ -44,45 +44,45 @@ public class EquippableItem
                     monster.info.Speed.AddModifier(new StatModifier(equip.spePercentBonus, StatModType.PercentMult, this));
 
                 //if the equipment item is Type protected, check and make sure the types match. If they do, apply bonuses
-                if (equip.typeMoveReq == monster.info.attack1.type)
+                if (equip.typeMoveReq == monster.tempStats.attack1.type)
                 {
 
                     if (equip.atkPowerBonus != 0)
-                        monster.info.attack1.Power.AddModifier(new StatModifier(equip.atkPowerBonus, StatModType.Flat, this));
+                        monster.tempStats.attack1.Power.AddModifier(new StatModifier(equip.atkPowerBonus, StatModType.Flat, this));
                     if (equip.atkRangeBonus != 0)
-                        monster.info.attack1.Range.AddModifier(new StatModifier(equip.atkRangeBonus, StatModType.Flat, this));
+                        monster.tempStats.attack1.Range.AddModifier(new StatModifier(equip.atkRangeBonus, StatModType.Flat, this));
                     if (equip.atkTimeBonus != 0)
-                        monster.info.attack1.AttackTime.AddModifier(new StatModifier(equip.atkTimeBonus, StatModType.Flat, this));
+                        monster.tempStats.attack1.AttackTime.AddModifier(new StatModifier(equip.atkTimeBonus, StatModType.Flat, this));
                     if (equip.critChanceBonus != 0)
-                        monster.info.attack1.CritChance.AddModifier(new StatModifier(equip.critChanceBonus, StatModType.Flat, this));
+                        monster.tempStats.attack1.CritChance.AddModifier(new StatModifier(equip.critChanceBonus, StatModType.Flat, this));
                     if (equip.critModBonus != 0)
-                        monster.info.attack1.CritMod.AddModifier(new StatModifier(equip.critModBonus, StatModType.Flat, this));
+                        monster.tempStats.attack1.CritMod.AddModifier(new StatModifier(equip.critModBonus, StatModType.Flat, this));
 
                     if (equip.atkPowerPercentBonus != 0)
-                        monster.info.attack1.Power.AddModifier(new StatModifier(equip.atkPowerPercentBonus, StatModType.PercentMult, this));
+                        monster.tempStats.attack1.Power.AddModifier(new StatModifier(equip.atkPowerPercentBonus, StatModType.PercentMult, this));
                     if (equip.atkTimePercentBonus != 0)
-                        monster.info.attack1.AttackTime.AddModifier(new StatModifier(equip.atkTimePercentBonus, StatModType.PercentMult, this));
+                        monster.tempStats.attack1.AttackTime.AddModifier(new StatModifier(equip.atkTimePercentBonus, StatModType.PercentMult, this));
 
 
                 }
 
-                if (equip.typeMoveReq == monster.info.attack2.type)
+                if (equip.typeMoveReq == monster.tempStats.attack2.type)
                 {
                     if (equip.atkPowerBonus != 0)
-                        monster.info.attack2.Power.AddModifier(new StatModifier(equip.atkPowerBonus, StatModType.Flat, this));
+                        monster.tempStats.attack2.Power.AddModifier(new StatModifier(equip.atkPowerBonus, StatModType.Flat, this));
                     if (equip.atkRangeBonus != 0)
-                        monster.info.attack2.Range.AddModifier(new StatModifier(equip.atkRangeBonus, StatModType.Flat, this));
+                        monster.tempStats.attack2.Range.AddModifier(new StatModifier(equip.atkRangeBonus, StatModType.Flat, this));
                     if (equip.atkTimeBonus != 0)
-                        monster.info.attack2.AttackTime.AddModifier(new StatModifier(equip.atkTimeBonus, StatModType.Flat, this));
+                        monster.tempStats.attack2.AttackTime.AddModifier(new StatModifier(equip.atkTimeBonus, StatModType.Flat, this));
                     if (equip.critChanceBonus != 0)
-                        monster.info.attack2.CritChance.AddModifier(new StatModifier(equip.critChanceBonus, StatModType.Flat, this));
+                        monster.tempStats.attack2.CritChance.AddModifier(new StatModifier(equip.critChanceBonus, StatModType.Flat, this));
                     if (equip.critModBonus != 0)
-                        monster.info.attack2.CritMod.AddModifier(new StatModifier(equip.critModBonus, StatModType.Flat, this));
+                        monster.tempStats.attack2.CritMod.AddModifier(new StatModifier(equip.critModBonus, StatModType.Flat, this));
 
                     if (equip.atkPowerPercentBonus != 0)
-                        monster.info.attack2.Power.AddModifier(new StatModifier(equip.atkPowerPercentBonus, StatModType.PercentMult, this));
+                        monster.tempStats.attack2.Power.AddModifier(new StatModifier(equip.atkPowerPercentBonus, StatModType.PercentMult, this));
                     if (equip.atkTimePercentBonus != 0)
-                        monster.info.attack2.AttackTime.AddModifier(new StatModifier(equip.atkTimePercentBonus, StatModType.PercentMult, this));
+                        monster.tempStats.attack2.AttackTime.AddModifier(new StatModifier(equip.atkTimePercentBonus, StatModType.PercentMult, this));
 
                 }
 
@@ -119,45 +119,45 @@ public class EquippableItem
                     monster.info.Speed.AddModifier(new StatModifier(equip.spePercentBonus, StatModType.PercentMult, this));
 
                 //if the equipment item is Type protected, check and make sure the types match. If they do, apply bonuses
-                if (equip.typeMoveReq == monster.info.attack1.type)
+                if (equip.typeMoveReq == monster.tempStats.attack1.type)
                 {
 
                     if (equip.atkPowerBonus != 0)
-                        monster.info.attack1.Power.AddModifier(new StatModifier(equip.atkPowerBonus, StatModType.Flat, this));
+                        monster.tempStats.attack1.Power.AddModifier(new StatModifier(equip.atkPowerBonus, StatModType.Flat, this));
                     if (equip.atkRangeBonus != 0)
-                        monster.info.attack1.Range.AddModifier(new StatModifier(equip.atkRangeBonus, StatModType.Flat, this));
+                        monster.tempStats.attack1.Range.AddModifier(new StatModifier(equip.atkRangeBonus, StatModType.Flat, this));
                     if (equip.atkTimeBonus != 0)
-                        monster.info.attack1.AttackTime.AddModifier(new StatModifier(equip.atkTimeBonus, StatModType.Flat, this));
+                        monster.tempStats.attack1.AttackTime.AddModifier(new StatModifier(equip.atkTimeBonus, StatModType.Flat, this));
                     if (equip.critChanceBonus != 0)
-                        monster.info.attack1.CritChance.AddModifier(new StatModifier(equip.critChanceBonus, StatModType.Flat, this));
+                        monster.tempStats.attack1.CritChance.AddModifier(new StatModifier(equip.critChanceBonus, StatModType.Flat, this));
                     if (equip.critModBonus != 0)
-                        monster.info.attack1.CritMod.AddModifier(new StatModifier(equip.critModBonus, StatModType.Flat, this));
+                        monster.tempStats.attack1.CritMod.AddModifier(new StatModifier(equip.critModBonus, StatModType.Flat, this));
 
                     if (equip.atkPowerPercentBonus != 0)
-                        monster.info.attack1.Power.AddModifier(new StatModifier(equip.atkPowerPercentBonus, StatModType.PercentMult, this));
+                        monster.tempStats.attack1.Power.AddModifier(new StatModifier(equip.atkPowerPercentBonus, StatModType.PercentMult, this));
                     if (equip.atkTimePercentBonus != 0)
-                        monster.info.attack1.AttackTime.AddModifier(new StatModifier(equip.atkTimePercentBonus, StatModType.PercentMult, this));
+                        monster.tempStats.attack1.AttackTime.AddModifier(new StatModifier(equip.atkTimePercentBonus, StatModType.PercentMult, this));
 
 
                 }
 
-                if (equip.typeMoveReq == monster.info.attack2.type)
+                if (equip.typeMoveReq == monster.tempStats.attack2.type)
                 {
                     if (equip.atkPowerBonus != 0)
-                        monster.info.attack2.Power.AddModifier(new StatModifier(equip.atkPowerBonus, StatModType.Flat, this));
+                        monster.tempStats.attack2.Power.AddModifier(new StatModifier(equip.atkPowerBonus, StatModType.Flat, this));
                     if (equip.atkRangeBonus != 0)
-                        monster.info.attack2.Range.AddModifier(new StatModifier(equip.atkRangeBonus, StatModType.Flat, this));
+                        monster.tempStats.attack2.Range.AddModifier(new StatModifier(equip.atkRangeBonus, StatModType.Flat, this));
                     if (equip.atkTimeBonus != 0)
-                        monster.info.attack2.AttackTime.AddModifier(new StatModifier(equip.atkTimeBonus, StatModType.Flat, this));
+                        monster.tempStats.attack2.AttackTime.AddModifier(new StatModifier(equip.atkTimeBonus, StatModType.Flat, this));
                     if (equip.critChanceBonus != 0)
-                        monster.info.attack2.CritChance.AddModifier(new StatModifier(equip.critChanceBonus, StatModType.Flat, this));
+                        monster.tempStats.attack2.CritChance.AddModifier(new StatModifier(equip.critChanceBonus, StatModType.Flat, this));
                     if (equip.critModBonus != 0)
-                        monster.info.attack2.CritMod.AddModifier(new StatModifier(equip.critModBonus, StatModType.Flat, this));
+                        monster.tempStats.attack2.CritMod.AddModifier(new StatModifier(equip.critModBonus, StatModType.Flat, this));
 
                     if (equip.atkPowerPercentBonus != 0)
-                        monster.info.attack2.Power.AddModifier(new StatModifier(equip.atkPowerPercentBonus, StatModType.PercentMult, this));
+                        monster.tempStats.attack2.Power.AddModifier(new StatModifier(equip.atkPowerPercentBonus, StatModType.PercentMult, this));
                     if (equip.atkTimePercentBonus != 0)
-                        monster.info.attack2.AttackTime.AddModifier(new StatModifier(equip.atkTimePercentBonus, StatModType.PercentMult, this));
+                        monster.tempStats.attack2.AttackTime.AddModifier(new StatModifier(equip.atkTimePercentBonus, StatModType.PercentMult, this));
 
                 }
 
@@ -178,21 +178,21 @@ public class EquippableItem
         monster.info.Speed.RemoveAllModifiersFromSource(this);
         monster.info.Precision.RemoveAllModifiersFromSource(this);
 
-        monster.info.attack1.Power.RemoveAllModifiersFromSource(this);
-        monster.info.attack1.Range.RemoveAllModifiersFromSource(this);
-        monster.info.attack1.AttackSpeed.RemoveAllModifiersFromSource(this);
-        monster.info.attack1.AttackTime.RemoveAllModifiersFromSource(this);
-        monster.info.attack1.CritChance.RemoveAllModifiersFromSource(this);
-        monster.info.attack1.CritMod.RemoveAllModifiersFromSource(this);
-        monster.info.attack1.EffectChance.RemoveAllModifiersFromSource(this);
+        monster.tempStats.attack1.Power.RemoveAllModifiersFromSource(this);
+        monster.tempStats.attack1.Range.RemoveAllModifiersFromSource(this);
+        monster.tempStats.attack1.AttackSpeed.RemoveAllModifiersFromSource(this);
+        monster.tempStats.attack1.AttackTime.RemoveAllModifiersFromSource(this);
+        monster.tempStats.attack1.CritChance.RemoveAllModifiersFromSource(this);
+        monster.tempStats.attack1.CritMod.RemoveAllModifiersFromSource(this);
+        monster.tempStats.attack1.EffectChance.RemoveAllModifiersFromSource(this);
 
-        monster.info.attack2.Power.RemoveAllModifiersFromSource(this);
-        monster.info.attack2.Range.RemoveAllModifiersFromSource(this);
-        monster.info.attack2.AttackSpeed.RemoveAllModifiersFromSource(this);
-        monster.info.attack2.AttackTime.RemoveAllModifiersFromSource(this);
-        monster.info.attack2.CritChance.RemoveAllModifiersFromSource(this);
-        monster.info.attack2.CritMod.RemoveAllModifiersFromSource(this);
-        monster.info.attack2.EffectChance.RemoveAllModifiersFromSource(this);
+        monster.tempStats.attack2.Power.RemoveAllModifiersFromSource(this);
+        monster.tempStats.attack2.Range.RemoveAllModifiersFromSource(this);
+        monster.tempStats.attack2.AttackSpeed.RemoveAllModifiersFromSource(this);
+        monster.tempStats.attack2.AttackTime.RemoveAllModifiersFromSource(this);
+        monster.tempStats.attack2.CritChance.RemoveAllModifiersFromSource(this);
+        monster.tempStats.attack2.CritMod.RemoveAllModifiersFromSource(this);
+        monster.tempStats.attack2.EffectChance.RemoveAllModifiersFromSource(this);
 
 
     }

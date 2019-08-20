@@ -24,18 +24,27 @@ public struct EnemyStats
     public int defBase;
     public int speBase;
     public int spePot;
-    public float def;
-    public float speed;
+    //public float def;
+    //public float speed;
     public int level;
     public int expGiven;
     public float evasion;
 
     public Stat HP;
     public Stat HPPotential;
+    public Stat Attack;
+    public Stat AttackPotential;
     public Stat Defense;
     public Stat DefensePotential;
-    public Stat Evasion;
     public Stat Speed;
+    public Stat SpeedPotential;
+    public Stat Precision;
+    public Stat PrecisionPotential;
+    public Stat Stamina;
+    public Stat EnergyGeneration;
+    public Stat EnergyCost;
+    public float evasionBase;
+    public float critBase;
 };
 
 
@@ -100,7 +109,7 @@ public class Enemy : MonoBehaviour
 
         enemyCanvas.GetComponent<Canvas>().sortingLayerName = "Monster";
 
-        
+        monster = GetComponent<Monster>();
         //for (int i = 0; i < map.GetComponent<Map>().path.Length; i++)
         //{
         //    path[i] = map.GetComponent<Map>().path[i];
@@ -177,13 +186,13 @@ public class Enemy : MonoBehaviour
             BaseAttack attack = attacksDict[monster.info.attack1Name];
 
 
-            monster.info.attack1.Power.BaseValue = attack.power;
-            monster.info.attack1.Range.BaseValue = attack.range;
-            monster.info.attack1.CritChance.BaseValue = attack.critChance;
-            monster.info.attack1.CritMod.BaseValue = attack.critMod;
-            monster.info.attack1.EffectChance.BaseValue = attack.effectChance;
-            monster.info.attack1.AttackTime.BaseValue = attack.attackTime;
-            monster.info.attack1.AttackSpeed.BaseValue = attack.attackSpeed;
+            monster.tempStats.attack1.Power.BaseValue = attack.power;
+            monster.tempStats.attack1.Range.BaseValue = attack.range;
+            monster.tempStats.attack1.CritChance.BaseValue = attack.critChance;
+            monster.tempStats.attack1.CritMod.BaseValue = attack.critMod;
+            monster.tempStats.attack1.EffectChance.BaseValue = attack.effectChance;
+            monster.tempStats.attack1.AttackTime.BaseValue = attack.attackTime;
+            monster.tempStats.attack1.AttackSpeed.BaseValue = attack.attackSpeed;
 
 
 
@@ -193,13 +202,13 @@ public class Enemy : MonoBehaviour
         {
             BaseAttack attack = attacksDict[monster.info.attack2Name];
 
-            monster.info.attack2.Power.BaseValue = attack.power;
-            monster.info.attack2.Range.BaseValue = attack.range;
-            monster.info.attack2.CritChance.BaseValue = attack.critChance;
-            monster.info.attack2.CritMod.BaseValue = attack.critMod;
-            monster.info.attack2.EffectChance.BaseValue = attack.effectChance;
-            monster.info.attack2.AttackTime.BaseValue = attack.attackTime;
-            monster.info.attack2.AttackSpeed.BaseValue = attack.attackSpeed;
+            monster.tempStats.attack2.Power.BaseValue = attack.power;
+            monster.tempStats.attack2.Range.BaseValue = attack.range;
+            monster.tempStats.attack2.CritChance.BaseValue = attack.critChance;
+            monster.tempStats.attack2.CritMod.BaseValue = attack.critMod;
+            monster.tempStats.attack2.EffectChance.BaseValue = attack.effectChance;
+            monster.tempStats.attack2.AttackTime.BaseValue = attack.attackTime;
+            monster.tempStats.attack2.AttackSpeed.BaseValue = attack.attackSpeed;
         }
 
 
@@ -250,15 +259,32 @@ public class Enemy : MonoBehaviour
 
     public void GetEnemyStats(StatsCalc StatsCalc)
     {
-        stats.def = (int)StatsCalc.Monster.info.Defense.Value;
-        stats.Defense.BaseValue = stats.def;
+        //stats.def = (int)StatsCalc.Monster.info.Defense.Value;
+        //stats.Defense.BaseValue = (int)StatsCalc.Monster.info.Defense.Value;
+        stats.Defense.BaseValue = (int)StatsCalc.Monster.info.Defense.Value;
+        //stats.hpMax = (int)StatsCalc.Monster.info.HP.Value;
         stats.hpMax = (int)StatsCalc.Monster.info.HP.Value;
         stats.HP.BaseValue = stats.hpMax;
         stats.currentHp = stats.hpMax;
-        stats.speed = (int)StatsCalc.Monster.info.Speed.Value;
+        //stats.speed = (int)StatsCalc.Monster.info.Speed.Value;
+        stats.Speed.BaseValue = (int)StatsCalc.Monster.info.Speed.Value;
         stats.evasion = StatsCalc.Monster.info.evasionBase;
         enemyHpSlider.maxValue = stats.hpMax;
         enemyHpSlider.value = stats.hpMax;
+    }
+
+
+    public void CalculateStatus(StatusEffects effect)
+    {
+
+        stats = effect.Enemy.stats;
+        stats.currentHp = effect.Enemy.stats.HP.Value;
+        enemyHpSlider.value = stats.currentHp;
+
+        if (stats.currentHp <= 0)
+        {
+            stats.currentHp = 1;
+        };
     }
 
 
@@ -266,20 +292,22 @@ public class Enemy : MonoBehaviour
 
 
     //gets the attacker information from the attack sprite that hits the enemy, and then calculate the damage. method invoked from the Attack Effects script
-    public void OutputDamage(string atkName, string atkType, int atkPower, float atkStat, int attackerLevel, float critChance, float criMod, Monster attacker)
+    public void OutputDamage(string atkName, string atkType, int atkPower, float atkStat, int attackerLevel, float critChance, float criMod, Monster attacker, BaseAttack baseAttack)
     {
         if (stats.type2 == "none" || stats.type2 == null || stats.type2 == "")
         {
             if (GameManager.Instance.monstersData.typeChartDict.ContainsKey(atkType) && GameManager.Instance.monstersData.typeChartDict.ContainsKey(stats.type1))
             {
-                float force = (((attackerLevel * 2) / 5) + 2) * atkPower * (atkStat / stats.def);
-                float resistance = 38 * (stats.def / atkStat);
+                float force = (((attackerLevel * 2) / 5) + 2) * atkPower * (atkStat / stats.Defense.Value);
+                //float force = (((attackerLevel * 2) / 5) + 2) * atkPower * (atkStat / stats.def);
+                //float resistance = 38 * (stats.def / atkStat);
+                float resistance = 38 * (stats.Defense.Value / atkStat);
 
                 TypeInfo attacking = GameManager.Instance.monstersData.typeChartDict[atkType];
                 TypeInfo defending = GameManager.Instance.monstersData.typeChartDict[stats.type1];
                 TypeChart attack = new TypeChart(attacking, defending, force, resistance);
 
-                DealDamage(attack, attack.typeModifier, attacker, critChance, criMod);
+                DealDamage(attack, attack.typeModifier, attacker, critChance, criMod, baseAttack);
 
             }
         }
@@ -287,8 +315,10 @@ public class Enemy : MonoBehaviour
         {
             if (GameManager.Instance.monstersData.typeChartDict.ContainsKey(atkType) && GameManager.Instance.monstersData.typeChartDict.ContainsKey(stats.type1) && GameManager.Instance.monstersData.typeChartDict.ContainsKey(stats.type2))
             {
-                float force = (((attackerLevel * 2) / 5) + 2) * atkPower * (atkStat / stats.def);
-                float resistance = 38 * (stats.def / atkStat);
+                float force = (((attackerLevel * 2) / 5) + 2) * atkPower * (atkStat / stats.Defense.Value);
+                //float force = (((attackerLevel * 2) / 5) + 2) * atkPower * (atkStat / stats.def);
+                //float resistance = 38 * (stats.def / atkStat);
+                float resistance = 38 * (stats.Defense.Value / atkStat);
                 float damageMod = new float();
 
 
@@ -307,7 +337,7 @@ public class Enemy : MonoBehaviour
                         TypeInfo defending = GameManager.Instance.monstersData.typeChartDict[stats.type2];
                         TypeChart attack = new TypeChart(attacking, defending, force, resistance);
                         damageMod *= attack.typeModifier;
-                        DealDamage(attack, damageMod, attacker, critChance, criMod);
+                        DealDamage(attack, damageMod, attacker, critChance, criMod, baseAttack);
 
                     }
 
@@ -324,17 +354,15 @@ public class Enemy : MonoBehaviour
     }
 
     //when the attack animation hits the enemy, deal the damage. this method is invoked from the AttackEffects script. Also gives information about the attacking monster, so if an enemy is destroyed, it can tell which monster destroyed it
-    public void DealDamage(TypeChart atk, float damageMod, Monster attacker, float critChance, float critMod)
+    public void DealDamage(TypeChart atk, float damageMod, Monster attacker, float critChance, float critMod, BaseAttack attack)
     {
-
+        var statuses = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict;
         
         float damageTaken = Mathf.Round(atk.totalDamage * damageMod);
 
         float critRand = Random.Range(0f, 100f);
-
-        
-
         float rand = Random.Range(0f, 100f);
+        float statusRand = Random.Range(0f, 100f);
 
         
         //check to see if the attack misses by comparing the enemies' dodge stat with a number from 1-100. if the enemy dodges, deal 0 damage and spawn the word DODGE instead of a damage value
@@ -358,6 +386,28 @@ public class Enemy : MonoBehaviour
                 damage.transform.SetParent(enemyCanvas.transform, false);
                 damage.GetComponentInChildren<TMP_Text>().text = "-" + damageTaken.ToString();
                 Destroy(damage, damage.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+            }
+
+            
+            //if the attack hits and it has a chance to inflict a secondary status, that is calculated here
+            if (attack.effectName != "none")
+            {
+                if (statusRand <= attack.effectChance * 100)
+                {
+                    //checks if the monster is already inflicted with this status. if they are not, then the monster is now inflicted. 
+                    if (statuses.ContainsKey(attack.effectName)){
+
+                        if (monster.statuses.Contains(statuses[attack.effectName]))
+                        {
+                            //
+                        }
+                        else
+                        {
+
+                            monster.AddStatus(statuses[attack.effectName]);
+                        }
+                    }
+                }
             }
             
         }

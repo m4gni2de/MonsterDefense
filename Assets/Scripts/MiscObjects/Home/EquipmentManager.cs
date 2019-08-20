@@ -60,42 +60,70 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler
 
         isEquipping = true;
 
-        var items = GameManager.Instance.GetComponent<YourItems>().yourItemsDict;
-        var equipIds = GameManager.Instance.GetComponent<YourItems>().equipIds;
+        var allItems = GameManager.Instance.items.allItemsDict;
         var allEquips = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
-        var equipByPrefab = GameManager.Instance.GetComponent<Items>().equipmentByPrefab;
+        
 
+        int i = 1;
 
-        for (int i = 1; i <= equipIds.Count; i++)
+        //loops through all the items in the game, checks them against a playerpref of the same name. if the playerpref exists, then the player has at least 1 of that item. Add those items to a Dictionary of your items
+        foreach (KeyValuePair<string, Equipment> items in allEquips)
         {
-
-            if (equipIds.ContainsKey(i))
+            string name = items.Key;
+            if (PlayerPrefs.HasKey(name))
             {
-                string name = equipIds[i];
+                Equipment item = allEquips[name];
+                int itemCount = PlayerPrefs.GetInt(item.name);
+                var x = Instantiate(allEquips[item.name].equipPrefab, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
+                x.transform.SetParent(transform, true);
+                x.GetComponent<EquipmentItem>().EquipItemInfo(item);
+                x.transform.localScale = Vector3.one;
+                x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
+                x.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
-                if (PlayerPrefs.HasKey(name))
+                if (item.typeMonsterReq == monster.info.type1 || item.typeMonsterReq == monster.info.type2)
                 {
-                    Equipment item = allEquips[name];
-                    int itemCount = PlayerPrefs.GetInt(item.name);
-                    var x = Instantiate(equipByPrefab[item.name], new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
-                    x.transform.SetParent(transform, true);
-                    x.GetComponent<EquipmentItem>().EquipItemInfo(item);
-                    x.transform.localScale = Vector3.one;
-                    x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-                    x.GetComponent<SpriteRenderer>().sortingOrder = 1;
-
-                    if (item.typeMonsterReq ==  monster.info.type1 || item.typeMonsterReq == monster.info.type2)
-                    {
-                        
-                    }
-                    else
-                    {
-                        x.name = "Ineligible";
-                    }
 
                 }
+                else
+                {
+                    x.name = "Ineligible";
+                }
+                i += 1;
             }
         }
+
+
+        //for (int i = 1; i <= equipIds.Count; i++)
+        //{
+
+        //    if (equipIds.ContainsKey(i))
+        //    {
+        //        string name = equipIds[i];
+
+        //        if (PlayerPrefs.HasKey(name))
+        //        {
+        //            Equipment item = allEquips[name];
+        //            int itemCount = PlayerPrefs.GetInt(item.name);
+        //            var x = Instantiate(equipByPrefab[item.name], new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
+        //            x.transform.SetParent(transform, true);
+        //            x.GetComponent<EquipmentItem>().EquipItemInfo(item);
+        //            x.transform.localScale = Vector3.one;
+        //            x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
+        //            x.GetComponent<SpriteRenderer>().sortingOrder = 1;
+
+        //            if (item.typeMonsterReq ==  monster.info.type1 || item.typeMonsterReq == monster.info.type2)
+        //            {
+                        
+        //            }
+        //            else
+        //            {
+        //                x.name = "Ineligible";
+        //            }
+
+        //        }
+        //    }
+        //}
 
        
 
@@ -105,33 +133,52 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler
     public void LoadEquipment()
     {
         isEquipping = false;
-        var items = GameManager.Instance.GetComponent<YourItems>().yourItemsDict;
-        var equipIds = GameManager.Instance.GetComponent<YourItems>().equipIds;
+        
+        var allItems = GameManager.Instance.items.allItemsDict;
         var allEquips = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
-        var equipByPrefab = GameManager.Instance.GetComponent<Items>().equipmentByPrefab;
 
+        int i = 1;
 
-        for (int i = 1; i <= equipIds.Count; i++)
+        //loops through all the items in the game, checks them against a playerpref of the same name. if the playerpref exists, then the player has at least 1 of that item. Add those items to a Dictionary of your items
+        foreach (KeyValuePair<string, Equipment> items in allEquips)
         {
-
-            if (equipIds.ContainsKey(i))
+            string name = items.Key;
+            if (PlayerPrefs.HasKey(name))
             {
-                string name = equipIds[i];
-
-                if (PlayerPrefs.HasKey(name))
-                {
-                    Equipment item = allEquips[name];
-                    int itemCount = PlayerPrefs.GetInt(item.name);
-                    var x = Instantiate(equipByPrefab[item.name], new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
-                    x.transform.SetParent(transform, true);
-                    x.GetComponent<EquipmentItem>().EquipItemInfo(item);
-                    x.transform.localScale = Vector3.one;
-                    x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-                    x.GetComponent<SpriteRenderer>().sortingOrder = 1;
-
-                }
+                Equipment item = allEquips[name];
+                int itemCount = PlayerPrefs.GetInt(item.name);
+                var x = Instantiate(allEquips[item.name].equipPrefab, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
+                x.transform.SetParent(transform, true);
+                x.GetComponent<EquipmentItem>().EquipItemInfo(item);
+                x.transform.localScale = Vector3.one;
+                x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
+                x.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                i += 1;
             }
         }
+
+
+        //for (int i = 1; i <= equipIds.Count; i++)
+        //{
+
+        //    if (equipIds.ContainsKey(i))
+        //    {
+        //        string name = equipIds[i];
+
+        //        if (PlayerPrefs.HasKey(name))
+        //        {
+        //            Equipment item = allEquips[name];
+        //            int itemCount = PlayerPrefs.GetInt(item.name);
+        //            var x = Instantiate(equipByPrefab[item.name], new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
+        //            x.transform.SetParent(transform, true);
+        //            x.GetComponent<EquipmentItem>().EquipItemInfo(item);
+        //            x.transform.localScale = Vector3.one;
+        //            x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
+        //            x.GetComponent<SpriteRenderer>().sortingOrder = 1;
+
+        //        }
+        //    }
+        //}
     }
 
     public void OnPointerDown(PointerEventData eventData)

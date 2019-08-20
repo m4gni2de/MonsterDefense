@@ -23,17 +23,18 @@ public class EnemySpawn : MonoBehaviour
     {
         var random = Random.Range(1, GameManager.Instance.monstersData.monstersByIdDict.Count + 1);
         var byId = GameManager.Instance.monstersData.monstersByIdDict;
-        var byPrefab = GameManager.Instance.monstersData.monsterPrefabsDict;
+        var monsters = GameManager.Instance.monstersData.monstersAllDict;
+        
 
         //picks a random number. then translates that number to the Monsters by Id Dictionary. Then takes that number, and summons a prefab based on the name of the matching key
         if (byId.ContainsKey(random))
         {
             string species = byId[random];
 
-            if (byPrefab.ContainsKey(species))
+            if (monsters.ContainsKey(species))
             {
 
-                var enemyMonster = Instantiate(byPrefab[species], transform.position, Quaternion.identity);
+                var enemyMonster = Instantiate(monsters[species].monsterPrefab, transform.position, Quaternion.identity);
                 enemyMonster.transform.position = spawnPoint.transform.position;
                 enemyMonster.GetComponent<Monster>().isEnemy = true;
                 enemyMonster.gameObject.tag = "Enemy";

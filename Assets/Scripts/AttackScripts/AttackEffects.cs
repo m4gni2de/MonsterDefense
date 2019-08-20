@@ -17,6 +17,7 @@ public class AttackEffects : MonoBehaviour
     public int AtkPower, AttackerLevel;
     public string AttackName, AttackType;
     public Monster attacker;
+    public BaseAttack Attack;
     // Start is called before the first frame update
 
     
@@ -44,9 +45,9 @@ public class AttackEffects : MonoBehaviour
     }
 
     //recieve attacker information from the Tower Template script. holds data about the attack and attacker
-    public void FromAttacker(string atkName, string atkType, float atkStat, int attackPower, int attackerLevel, float critChance, float critMod, Monster attackingMonster)
+    public void FromAttacker(BaseAttack attack, string atkName, string atkType, float atkStat, int attackPower, int attackerLevel, float critChance, float critMod, Monster attackingMonster)
     {
-        Debug.Log(attackPower);
+
         AtkPower = attackPower;
         AtkStat = atkStat;
         AttackerLevel = attackerLevel;
@@ -55,7 +56,7 @@ public class AttackEffects : MonoBehaviour
         CritChance = critChance;
         CritMod = critMod;
         attacker = attackingMonster;
-
+        Attack = attack;
 
     }
 
@@ -77,7 +78,7 @@ public class AttackEffects : MonoBehaviour
         {
 
             enemy = other.gameObject.GetComponent<Monster>();
-            enemy.GetComponent<Enemy>().OutputDamage(AttackName, AttackType, AtkPower, AtkStat, AttackerLevel, CritChance, CritMod, attacker);
+            enemy.GetComponent<Enemy>().OutputDamage(AttackName, AttackType, AtkPower, AtkStat, AttackerLevel, CritChance, CritMod, attacker, Attack);
             gameObject.GetComponent<PolygonCollider2D>().enabled = false;
             Destroy(gameObject, .5f);
         }

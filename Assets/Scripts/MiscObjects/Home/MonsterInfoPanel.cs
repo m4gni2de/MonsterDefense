@@ -52,6 +52,8 @@ public class MonsterInfoPanel : MonoBehaviour
 
     public void LoadInfo(Monster thisMonster)
     {
+        var types = GameManager.Instance.monstersData.typeChartDict;
+
         if (monster)
         {
             Destroy(monster.gameObject);
@@ -76,15 +78,21 @@ public class MonsterInfoPanel : MonoBehaviour
         monster.GetComponent<Monster>().frontModel.SetActive(true);
         monster.GetComponent<Image>().raycastTarget = false;
         monster.GetComponent<Monster>().frontModel.transform.localScale = new Vector3(18f, 18f, 1f);
-        clickedMonsterIcon.gameObject.GetComponentInChildren<MonsterIcon>().IconVisibility("Default");
-        var equips = GameManager.Instance.GetComponent<Items>().equipmentByPrefab;
+        //clickedMonsterIcon.gameObject.GetComponentInChildren<MonsterIcon>().IconVisibility("Default");
+        gameObject.GetComponentInParent<YourHome>().HideAllMonsters();
+
+        if (types.ContainsKey(monster.info.type1))
+        {
+            type1.GetComponent<SpriteRenderer>().sprite = types[monster.info.type1].typeSprite;
+        }
+        
         var equipment = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
         
 
         //show the equipment item for Slot 1
-        if (equips.ContainsKey(monster.info.equip1Name))
+        if (equipment.ContainsKey(monster.info.equip1Name))
         {
-            e1 = Instantiate(equips[monster.info.equip1Name], equipObject.transform.position, Quaternion.identity);
+            e1 = Instantiate(equipment[monster.info.equip1Name].equipPrefab, equipObject.transform.position, Quaternion.identity);
             e1.transform.SetParent(equipObject.transform, false);
             e1.transform.position = new Vector3(-1000f, -1000f, -1000f);
             e1.GetComponent<EquipmentItem>().GetEquipInfo(equipment[thisMonster.info.equip1Name], thisMonster, 1);
@@ -101,9 +109,9 @@ public class MonsterInfoPanel : MonoBehaviour
         }
 
         //show the equipment item for Slot 2
-        if (equips.ContainsKey(monster.info.equip2Name))
+        if (equipment.ContainsKey(monster.info.equip2Name))
         {
-            e2 = Instantiate(equips[monster.info.equip2Name], equipObject.transform.position, Quaternion.identity);
+            e2 = Instantiate(equipment[monster.info.equip2Name].equipPrefab, equipObject.transform.position, Quaternion.identity);
             e2.transform.SetParent(equipObject.transform, false);
             e2.transform.position = new Vector3(-1000f, -1000f, -1000f);
             e2.GetComponent<EquipmentItem>().GetEquipInfo(equipment[thisMonster.info.equip2Name], thisMonster, 2);
@@ -139,7 +147,8 @@ public class MonsterInfoPanel : MonoBehaviour
         speText.text = thisMonster.info.Speed.Value.ToString();
         precText.text = thisMonster.info.Precision.Value.ToString();
         evasionText.text = thisMonster.info.evasionBase + "%";
-        energyGenText.text = Math.Round(thisMonster.energyGeneration / 60, 2) + " /s";
+        //energyGenText.text = Math.Round(thisMonster.energyGeneration / 60, 2) + " /s";
+        energyGenText.text = Math.Round(thisMonster.tempStats.EnergyGeneration.Value / 60, 2) + " /s";
         energyCostText.text = thisMonster.info.EnergyCost.Value.ToString();
 
         atkBoostText.text = "(+ " + (thisMonster.info.Attack.Value - thisMonster.info.Attack.BaseValue) + ")".ToString();
@@ -269,7 +278,9 @@ public class MonsterInfoPanel : MonoBehaviour
 
     private void OnDisable()
     {
-        clickedMonsterIcon.gameObject.GetComponentInChildren<MonsterIcon>().IconVisibility("GameUI");
+
+        //clickedMonsterIcon.gameObject.GetComponentInChildren<MonsterIcon>().IconVisibility("GameUI");
+        gameObject.GetComponentInParent<YourHome>().ShowAllMonsters();
         Destroy(monster.gameObject);
 
 

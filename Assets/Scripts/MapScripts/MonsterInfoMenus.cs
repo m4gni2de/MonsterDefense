@@ -32,6 +32,10 @@ public class MonsterInfoMenus : MonoBehaviour
     //bool to make sure the towers in the list of towers only spawns one time
     public bool towersFilled;
 
+    //the main Camera on the map
+    public Camera mainCamera;
+   
+
     private void Awake()
     {
 
@@ -40,7 +44,7 @@ public class MonsterInfoMenus : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
         LoadYourTowers();
         
 
@@ -53,7 +57,7 @@ public class MonsterInfoMenus : MonoBehaviour
             towersFilled = true;
             var monsters = GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict;
             var byId = GameManager.Instance.monstersData.monstersByIdDict;
-            var byPrefab = GameManager.Instance.monstersData.monsterPrefabsDict;
+            var monstersDict = GameManager.Instance.monstersData.monstersAllDict;
             var active = GameManager.Instance.activeTowers;
             //int index = new int();
 
@@ -62,12 +66,12 @@ public class MonsterInfoMenus : MonoBehaviour
             for (int i = 1; i <= monsters.Count; i++)
             {
                 //checks the Active Towers dictionary. If a monster appears in it, then it will add that monster to a local list of towers that are on the field
-                if (active.ContainsKey(i))
-                {
-                    Monster monster = active[i];
-                    indexes.Add(monster.info.index);
-                    Debug.Log(indexes[i]);
-                }
+                //if (active.ContainsKey(i - 1))
+                //{
+                //    Monster monster = active[i - 1];
+                //    indexes.Add(monster.info.index);
+                //    Debug.Log(indexes[i]);
+                //}
 
 
                 if (monsters.ContainsKey(i))
@@ -79,17 +83,17 @@ public class MonsterInfoMenus : MonoBehaviour
                     string species = info.species;
 
                     //if the monster appears on the Active Towers list, skip over the spawning of it
-                    if (indexes.Contains(i))
-                    {
-                        //
-                    }
-                    else
-                    {
-                        if (byPrefab.ContainsKey(species))
+                    //if (indexes.Contains(i))
+                    //{
+                    //    //
+                    //}
+                    //else
+                    //{
+                        if (monstersDict.ContainsKey(species))
                         {
 
                             //int towerCount = GameManager.Instance.activeTowers.Count;
-                            var tower = Instantiate(byPrefab[species], menuContentView.transform.position, Quaternion.identity);
+                            var tower = Instantiate(monstersDict[species].monsterPrefab, menuContentView.transform.position, Quaternion.identity);
                             //tower.transform.position = new Vector3(towers[i - 1].transform.position.x, towers[i - 1].transform.position.y, tower.transform.position.z);
                             tower.transform.SetParent(menuContentView.transform, false);
                             tower.transform.position = new Vector3(towerBase.transform.position.x, towerBase.transform.position.y - ((i - 1) * 60), tower.transform.position.z);
@@ -107,7 +111,7 @@ public class MonsterInfoMenus : MonoBehaviour
                             {
                                 sprites[s].sortingLayerName = "GameUI";
                             }
-                        }
+                        //}
                     }
 
 
@@ -123,6 +127,7 @@ public class MonsterInfoMenus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
 
@@ -142,6 +147,7 @@ public class MonsterInfoMenus : MonoBehaviour
                     infoMenu.SetActive(true);
                     enemyInfoMenu.SetActive(false);
                     activeMonster = hit.collider.gameObject.GetComponent<Monster>();
+                    
                 }
                 
             }
@@ -158,15 +164,25 @@ public class MonsterInfoMenus : MonoBehaviour
             attack1BtnText.text = activeMonster.info.attack1Name;
             attack2BtnText.text = activeMonster.info.attack2Name;
 
+            //levelText.text = "Level: " + activeMonster.info.level.ToString();
+            //atkText.text = "Atk: " + Math.Round(activeMonster.attack, 0).ToString();
+            //defText.text = "Def: " + Math.Round(activeMonster.defense, 0).ToString();
+            //speText.text = "Speed: " + Math.Round(activeMonster.speed, 0).ToString();
+            //precText.text = "Prec: " + Math.Round(activeMonster.precision, 0).ToString();
+            //typeText.text = "Type: " + activeMonster.info.type1 + "/" + activeMonster.info.type2;
+            //evasText.text = "Evasion: " + Math.Round(activeMonster.evasion, 0) + "%";
+            //enGenText.text = "En Gen: " + Math.Round((activeMonster.energyGeneration / 60), 2) + " /s";
+            //enCostText.text = "Cost: " + activeMonster.energyCost;
+
             levelText.text = "Level: " + activeMonster.info.level.ToString();
-            atkText.text = "Atk: " + activeMonster.attack.ToString();
-            defText.text = "Def: " + activeMonster.defense.ToString();
-            speText.text = "Speed: " + activeMonster.speed.ToString();
-            precText.text = "Prec: " + activeMonster.precision.ToString();
+            atkText.text = "Atk: " + Math.Round(activeMonster.tempStats.Attack.Value, 0).ToString();
+            defText.text = "Def: " + Math.Round(activeMonster.tempStats.Defense.Value, 0).ToString();
+            speText.text = "Speed: " + Math.Round(activeMonster.tempStats.Speed.Value, 0).ToString();
+            precText.text = "Prec: " + Math.Round(activeMonster.tempStats.Precision.Value, 0).ToString();
             typeText.text = "Type: " + activeMonster.info.type1 + "/" + activeMonster.info.type2;
-            evasText.text = "Evasion: " + activeMonster.evasion + "%";
-            enGenText.text = "En Gen: " + Math.Round((activeMonster.energyGeneration / 60), 2) + " /s";
-            enCostText.text = "Cost: " + activeMonster.energyCost;
+            evasText.text = "Evasion: " + Math.Round(activeMonster.tempStats.evasionBase, 0) + "%";
+            enGenText.text = "En Gen: " + Math.Round((activeMonster.tempStats.EnergyGeneration.Value / 60), 2) + " /s";
+            enCostText.text = "Cost: " + activeMonster.tempStats.EnergyCost;
 
             if (activeMonster.expToLevel.ContainsKey(activeMonster.info.level))
             {
@@ -318,17 +334,17 @@ public class MonsterInfoMenus : MonoBehaviour
 
         var random = UnityEngine.Random.Range(1, GameManager.Instance.monstersData.monstersByIdDict.Count + 1);
         var byId = GameManager.Instance.monstersData.monstersByIdDict;
-        var byPrefab = GameManager.Instance.monstersData.monsterPrefabsDict;
+        var monstersDict = GameManager.Instance.monstersData.monstersAllDict;
 
         //picks a random number. then translates that number to the Monsters by Id Dictionary. Then takes that number, and summons a prefab based on the name of the matching key
         if (byId.ContainsKey(random))
         {
             string species = byId[random];
 
-            if (byPrefab.ContainsKey(species))
+            if (monstersDict.ContainsKey(species))
             {
 
-                var monster = Instantiate(byPrefab[species], map.transform.position, Quaternion.identity);
+                var monster = Instantiate(monstersDict[species].monsterPrefab, map.transform.position, Quaternion.identity);
                 monster.transform.SetParent(map.gameObject.transform, true);
                 monster.transform.position = new Vector3(0f, 0f, 10f);
 
@@ -365,6 +381,15 @@ public class MonsterInfoMenus : MonoBehaviour
         activeMonster.GetComponent<Tower>().attackNumber = 2;
         monsterName.text = activeMonster.info.name;
         activeMonster.GetComponent<Tower>().AttackRangeUI();
+    }
+
+    //use this to snap the camera to the active monster
+    public void FindMonsterBtn()
+    {
+        
+        mainCamera.transform.position = new Vector3(activeMonster.transform.position.x, activeMonster.transform.position.y, -10f);
+        mainCamera.orthographicSize = 35;
+        
     }
 
 }

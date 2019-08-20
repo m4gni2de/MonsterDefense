@@ -13,6 +13,7 @@ public class ItemPopMenu : MonoBehaviour
     public Button buyButton, sellButton;
 
     public string activeItemName;
+    public GameObject activeItem;
 
     //public Items item;
 
@@ -28,7 +29,7 @@ public class ItemPopMenu : MonoBehaviour
         
     }
 
-    public void DisplayEquipment(EquipmentItem equip)
+    public void DisplayEquipment(EquipmentItem equip, GameObject obj)
     {
         itemSprite.GetComponent<SpriteRenderer>().sprite = equip.GetComponent<Image>().sprite;
         nameText.text = equip.equip.name;
@@ -42,6 +43,7 @@ public class ItemPopMenu : MonoBehaviour
         sellCostText.text = "Sell For: " + sellValue;
 
         activeItemName = equip.equip.name;
+        activeItem = obj;
         
     }
 
@@ -52,9 +54,10 @@ public class ItemPopMenu : MonoBehaviour
         PlayerPrefs.SetInt(activeItemName, itemCount + 1);
 
         GameManager.Instance.GetComponent<YourItems>().GetYourItems();
-        
 
-        GetComponentInParent<ItemShop>().DisplayYourItems();
+
+        //GetComponentInParent<ItemShop>().DisplayYourItems();
+        GetComponentInParent<ItemShop>().UpdateItem();
         gameObject.SetActive(false);
 
     }

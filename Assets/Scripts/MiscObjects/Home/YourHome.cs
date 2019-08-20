@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using System.IO;
 
 public class YourHome : MonoBehaviour, IPointerDownHandler
 {
@@ -87,8 +88,19 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     {
         var monsters = GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict;
         var byId = GameManager.Instance.monstersData.monstersByIdDict;
-        var byPrefab = GameManager.Instance.monstersData.monsterPrefabsDict;
+        var monstersDict = GameManager.Instance.monstersData.monstersAllDict;
         var active = GameManager.Instance.activeTowers;
+
+        //var playerInfo = GameManager.Instance.GetComponent<YourAccount>().account;
+        //string yourMonsters = Application.persistentDataPath + "/Saves/" + playerInfo.username + "/monsters.txt";
+        
+        //string[] lines = File.ReadAllLines(yourMonsters);
+
+        //StreamWriter monsterFile;
+
+        
+
+
         //int index = new int();
 
         //List<int> indexes = new List<int>();
@@ -108,6 +120,11 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
             {
                 string monsterJson = monsters[i];
                 var info = JsonUtility.FromJson<MonsterInfo>(monsterJson);
+                //monsterFile = File.AppendText(yourMonsters);
+                //monsterFile.WriteLine(monsterJson);
+                //monsterFile.Close();
+
+
 
 
                 string species = info.species;
@@ -119,7 +136,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                 //}
                 //else
                 //{
-                    if (byPrefab.ContainsKey(species))
+                    if (monstersDict.ContainsKey(species))
                     {
                         ///Location of the enemies that spawn
                         float x1 = spawnArea.transform.position.x - spawnArea.bounds.size.x / 2;
@@ -128,7 +145,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                         float y2 = spawnArea.transform.position.y + spawnArea.bounds.size.y / 2;
                         var spawnPoint = new Vector2(Random.Range(x1, x2), Random.Range(y1, y2));
                     //var monster = Instantiate(byPrefab[species], transform.position, Quaternion.identity);
-                        monsterSprites[i -1] = Instantiate(byPrefab[species], monsterSprites[i - 1].transform.position, Quaternion.identity);
+                        monsterSprites[i -1] = Instantiate(monstersDict[species].monsterPrefab, monsterSprites[i - 1].transform.position, Quaternion.identity);
                         var monster = monsterSprites[i - 1];
                         monster.transform.SetParent(homeCanvas.transform, true);
                         monster.GetComponent<Monster>().monsterIcon.SetActive(true);
@@ -139,7 +156,8 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                         monster.tag = "Monster";
                         monster.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
                         monster.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
-                    }
+                        monsterSpriteTotal += 1;
+                }
                 //}
 
 
@@ -225,17 +243,17 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
         var random = Random.Range(1, GameManager.Instance.monstersData.monstersByIdDict.Count + 1);
         var byId = GameManager.Instance.monstersData.monstersByIdDict;
-        var byPrefab = GameManager.Instance.monstersData.monsterPrefabsDict;
+        var monstersDict = GameManager.Instance.monstersData.monstersAllDict;
 
         //picks a random number. then translates that number to the Monsters by Id Dictionary. Then takes that number, and summons a prefab based on the name of the matching key
         if (byId.ContainsKey(random))
         {
             string species = byId[random];
 
-            if (byPrefab.ContainsKey(species))
+            if (monstersDict.ContainsKey(species))
             {
 
-                var monster = Instantiate(byPrefab[species], homeCanvas.transform.position, Quaternion.identity);
+                var monster = Instantiate(monstersDict[species].monsterPrefab, homeCanvas.transform.position, Quaternion.identity);
                 monster.transform.SetParent(homeCanvas.transform, true);
                 monster.GetComponent<Monster>().monsterIcon.SetActive(true);
                 monster.GetComponent<Tower>().boneStructure.SetActive(false);
@@ -413,5 +431,24 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     public void DeleteAllPrefs()
     {
         PlayerPrefs.DeleteAll();
+    }
+
+    //called from the MonsterInfoPanel script to hide all of the monster Icons behind the new menu
+    public void HideAllMonsters()
+    {
+        for (int i = 0; i < monsterSpriteTotal; i++)
+        {
+            
+            monsterSprites[i].gameObject.GetComponentInChildren<MonsterIcon>().IconVisibility("Default");
+        }
+    }
+
+    //called from the MonsterInfoPanel script to put all of the Monster icons back and visible
+    public void ShowAllMonsters()
+    {
+        for (int i = 0; i < monsterSpriteTotal; i++)
+        {
+            monsterSprites[i].gameObject.GetComponentInChildren<MonsterIcon>().IconVisibility("GameUI");
+        }
     }
 }

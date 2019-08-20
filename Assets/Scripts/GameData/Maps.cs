@@ -43,8 +43,8 @@ public class AllMaps
         enemyMax = 50,
         spawnX = 0f,
         spawnY = -194f,
-        levelMin = 1,
-        levelMax = 4,
+        levelMin = 88,
+        levelMax = 91,
         spawnInterval = 40.8f,
         mapId = 0,
 
@@ -63,7 +63,7 @@ public class AllMaps
         spawnY = -205f,
         levelMin = 1,
         levelMax = 4,
-        spawnInterval = 40.8f,
+        spawnInterval = 3.8f,
         mapId = 1,
 
     };

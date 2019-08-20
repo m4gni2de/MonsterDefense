@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.IO;
+using System;
 
 [System.Serializable]
 public struct AccountInfo
@@ -17,16 +18,30 @@ public struct AccountInfo
 
 
 };
-    public class YourAccount : MonoBehaviour
+public class YourAccount : MonoBehaviour
 {
 
-    //public AccountInfo account = new AccountInfo();
+    public AccountInfo account = new AccountInfo();
+    
+
+
+    private void Awake()
+    {
+        
+
+    }
+
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        // PlayerPrefs.SetString(username, JsonUtility.ToJson(account));
+       
+
     }
+
+    
 
     // Update is called once per frame
     void Update()

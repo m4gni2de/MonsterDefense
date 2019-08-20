@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 [System.Serializable]
 public struct EquipmentDetails
@@ -30,6 +31,8 @@ public class EquipmentItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     //used to determine if the equipment item is in your inventory or equipped to a monster;
     public bool isEquipped;
+
+    public TMP_Text valueText;
 
     // Start is called before the first frame update
     void Start()

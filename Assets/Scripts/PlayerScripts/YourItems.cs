@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class YourItems : MonoBehaviour
 {
-    public Dictionary<string, int> yourItemsDict = new Dictionary<string, int>();
-    public Dictionary<int, string> equipIds = new Dictionary<int, string>();
+    
+
+    //make a Dictionary of all of your items
+    public Dictionary<string, int> yourInventory = new Dictionary<string, int>();
+    public Dictionary<string, int> yourEquipment = new Dictionary<string, int>();
 
 
     // Start is called before the first frame update
@@ -17,37 +20,37 @@ public class YourItems : MonoBehaviour
 
     public void GetYourItems()
     {
-        yourItemsDict.Clear();
-        equipIds.Clear();
+        yourInventory.Clear();
+        yourEquipment.Clear();
 
-        var items = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
-        
-        
-        int i = 1;
+        var equips = GameManager.Instance.items.allEquipmentDict;
+        var allItems = GameManager.Instance.items.allItemsDict;
 
-        //makes a dictionary of all of the equipment items and their id's
-        foreach (KeyValuePair<string, Equipment> equips in items)
+
+
+        //loops through all the items in the game, checks them against a playerpref of the same name. if the playerpref exists, then the player has at least 1 of that item. Add those items to a Dictionary of your items
+        foreach (KeyValuePair<string, AllItem> item in allItems)
         {
-            equipIds.Add(equips.Value.id, equips.Key);
-            
 
-            if (equipIds.ContainsKey(i))
+            if (PlayerPrefs.HasKey(item.Key))
             {
-                if (items.ContainsKey(equipIds[i]))
-                {
-                    Equipment item = items[equipIds[i]];
-                    int itemCount = PlayerPrefs.GetInt(item.name);
-                    yourItemsDict.Add(item.name, itemCount);
-                }
-            }
+                yourInventory.Add(item.Key, PlayerPrefs.GetInt(item.Key));
 
-            i += 1;
+                if (equips.ContainsKey(item.Key))
+                {
+                    
+                    yourEquipment.Add(item.Key, PlayerPrefs.GetInt(item.Key));
+
+                }
+                
+              
+            }
         }
 
-       
 
-        
-       
+
+
+
 
     }
 

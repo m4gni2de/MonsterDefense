@@ -28,6 +28,8 @@ public struct BaseAttack
     public float attackTime;
     public float attackSpeed;
 
+    public GameObject attackAnimation;
+
 };
 
 [System.Serializable]
@@ -36,7 +38,7 @@ public class BaseAttackRoot
     public BaseAttack BaseAttack;
 }
 
-
+[System.Serializable]
 //put all of the base attacks here
 public class AllBaseAttacks
 {
@@ -46,7 +48,7 @@ public class AllBaseAttacks
         id = 0,
         description = "A quick jolt of electricity",
         type = "Electric",
-        effectName = "Paralyze",
+        effectName = "Paralysis",
         range = 1,
         power = 95,
         critChance = 1f,
@@ -71,7 +73,7 @@ public class AllBaseAttacks
         id = 1,
         description = "A powerful blast of electricity",
         type = "Electric",
-        effectName = "Paralyze",
+        effectName = "Paralysis",
         range = 2,
         power = 130,
         critChance = 1f,
@@ -94,7 +96,7 @@ public class AllBaseAttacks
         id = 2,
         description = "A soft spray of mist.",
         type = "Water",
-        effectName = "Blind",
+        effectName = "Deafen",
         range = 2,
         power = 75,
         critChance = 1f,
@@ -118,7 +120,7 @@ public class AllBaseAttacks
         id = 3,
         description = "A soft spray of mist.",
         type = "Water",
-        effectName = "Slow",
+        effectName = "Confusion",
         range = 3,
         power = 105,
         critChance = 1f,
@@ -141,11 +143,11 @@ public class AllBaseAttacks
 
 public class BaseAttacks : MonoBehaviour
 {
-    public GameObject[] attackAnimations;
+   
 
     public AllBaseAttacks allBaseAttacks = new AllBaseAttacks();
     public Dictionary<string, BaseAttack> baseAttackDict = new Dictionary<string, BaseAttack>();
-    public Dictionary<string, GameObject> attackAnimationsDict = new Dictionary<string, GameObject>();
+    
 
 
 
@@ -153,9 +155,6 @@ public class BaseAttacks : MonoBehaviour
     private void Awake()
     {
         SetBaseAttacks();
-        SetAttackAnimations();
-
-
     }
 
     public void SetBaseAttacks()
@@ -165,16 +164,11 @@ public class BaseAttacks : MonoBehaviour
         baseAttackDict.Add(allBaseAttacks.aquaDart.name, allBaseAttacks.aquaDart);
         baseAttackDict.Add(allBaseAttacks.mistySpray.name, allBaseAttacks.mistySpray);
 
+
     }
 
 
-    public void SetAttackAnimations()
-    {
-        attackAnimationsDict.Add(allBaseAttacks.thunder.name, attackAnimations[0]);
-        attackAnimationsDict.Add(allBaseAttacks.voltStrike.name, attackAnimations[1]);
-        attackAnimationsDict.Add(allBaseAttacks.aquaDart.name, attackAnimations[2]);
-        attackAnimationsDict.Add(allBaseAttacks.mistySpray.name, attackAnimations[3]);
-    }
+   
 
     // Start is called before the first frame update
     void Start()
