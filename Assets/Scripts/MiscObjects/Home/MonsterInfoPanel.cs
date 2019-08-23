@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections.ObjectModel;
 using TMPro;
+using Puppet2D;
 
 public class MonsterInfoPanel : MonoBehaviour
 {
@@ -74,10 +75,23 @@ public class MonsterInfoPanel : MonoBehaviour
         equip2Btn.GetComponent<Image>().sprite = null;
 
         clickedMonsterIcon = thisMonster;
+
+        //summon a copy of the monster and it's bone structure so it can do idle animations
         monster = Instantiate(thisMonster, transform.position, Quaternion.identity);
-        monster.GetComponent<Monster>().frontModel.SetActive(true);
+        //monster.GetComponent<Monster>().frontModel.SetActive(true);
+        monster.GetComponent<Tower>().boneStructure.SetActive(true);
+
+        //loop through all of the meshes of the body and make their sorting layer higher than this menu so they are visible
+        for (int i = 0; i < monster.bodyParts.bodyMeshes.Length; i++)
+        {
+            monster.bodyParts.bodyMeshes[i].GetComponent<Renderer>().sortingLayerName = "GameUI";
+        }
+        
         monster.GetComponent<Image>().raycastTarget = false;
-        monster.GetComponent<Monster>().frontModel.transform.localScale = new Vector3(18f, 18f, 1f);
+        monster.transform.localScale = new Vector3(monster.transform.localScale.x * 2.3f, monster.transform.localScale.y * 2.3f, 1f);
+
+
+        //monster.GetComponent<Monster>().frontModel.transform.localScale = new Vector3(18f, 18f, 1f);
         //clickedMonsterIcon.gameObject.GetComponentInChildren<MonsterIcon>().IconVisibility("Default");
         gameObject.GetComponentInParent<YourHome>().HideAllMonsters();
 
@@ -85,7 +99,20 @@ public class MonsterInfoPanel : MonoBehaviour
         {
             type1.GetComponent<SpriteRenderer>().sprite = types[monster.info.type1].typeSprite;
         }
-        
+        else
+        {
+            type1.GetComponent<SpriteRenderer>().sprite = null;
+        }
+
+        if (types.ContainsKey(monster.info.type2))
+        {
+            type2.GetComponent<SpriteRenderer>().sprite = types[monster.info.type2].typeSprite;
+        }
+        else
+        {
+            type2.GetComponent<SpriteRenderer>().sprite = null;
+        }
+
         var equipment = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
         
 
@@ -275,11 +302,10 @@ public class MonsterInfoPanel : MonoBehaviour
 
 
 
-
-    private void OnDisable()
+    public void ClosePanel()
     {
-
         //clickedMonsterIcon.gameObject.GetComponentInChildren<MonsterIcon>().IconVisibility("GameUI");
+
         gameObject.GetComponentInParent<YourHome>().ShowAllMonsters();
         Destroy(monster.gameObject);
 
@@ -294,7 +320,10 @@ public class MonsterInfoPanel : MonoBehaviour
             Destroy(e2.gameObject);
         }
 
+        gameObject.SetActive(false);
     }
+
+    
 
 
 }

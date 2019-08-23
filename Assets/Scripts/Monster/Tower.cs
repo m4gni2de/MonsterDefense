@@ -234,7 +234,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 //shoot a raycast that does not hit the map tile layer, which is layer 9
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), Vector2.zero, 0f, 1 <<8);
                 //What to do on a tap
-                if (acumTime <= .6f)
+                if (acumTime <= 1f)
                 {
                     isTapped = true;
 
@@ -282,27 +282,30 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             }
             else
             {
-                //shoot a raycast that does not hit the map tile layer, which is layer 9
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), Vector2.zero, 0f, 1 <<8);
+                //if (acumTime >= .7f)
+                //{
+                    //shoot a raycast that does not hit the map tile layer, which is layer 9
+                    RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), Vector2.zero, 0f, 1 << 8);
 
 
-                isTapped = false;
-                if (isBeingPlaced == false)
-                {
-                    if (hit)
+                    isTapped = false;
+                    if (isBeingPlaced == false)
                     {
-                        if (hit.collider != null)
+                        if (hit)
                         {
-                            if (hit.collider.gameObject.name == gameObject.name)
+                            if (hit.collider != null)
                             {
-                                isBeingPlaced = true;
-                                Map.GetComponent<MonsterInfoMenus>().TowerMenuBtn();
-                                infoMenu.SetActive(true);
-                                Map.GetComponent<MonsterInfoMenus>().activeMonster = hit.collider.gameObject.GetComponent<Monster>();
+                                if (hit.collider.gameObject.name == gameObject.name)
+                                {
+                                    isBeingPlaced = true;
+                                    Map.GetComponent<MonsterInfoMenus>().TowerMenuBtn();
+                                    infoMenu.SetActive(true);
+                                    Map.GetComponent<MonsterInfoMenus>().activeMonster = hit.collider.gameObject.GetComponent<Monster>();
+                                }
                             }
                         }
                     }
-                }
+                //}
 
             }
 
@@ -631,17 +634,33 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             {
                 if (atkRange1List.Contains(enemy.currentTile))
                 {
-                    if (enemy.transform.position.x >= transform.position.x)
+                    if (monster.info.name != "Lichenthrope")
                     {
-                        monster.puppet.flip = true;
+                        if (enemy.transform.position.x <= transform.position.x)
+                        {
+                            monster.puppet.flip = true;
 
+                        }
+                        else
+                        {
+                            monster.puppet.flip = false;
+                        }
                     }
                     else
                     {
-                        monster.puppet.flip = false;
+                        if (enemy.transform.position.x >= transform.position.x)
+                        {
+                            monster.puppet.flip = true;
+
+                        }
+                        else
+                        {
+                            monster.puppet.flip = false;
+                        }
                     }
 
                     isAttacking = true;
+                    monster.monsterMotion.SetBool("isAttacking", true);
                     BaseAttack attack = monster.tempStats.attack1;
                     var attackSprite = Instantiate(attack1Animation, transform.position, Quaternion.identity);
                     attackSprite.GetComponent<AttackEffects>().AttackMotion(enemy.transform.position - gameObject.transform.position);
@@ -666,6 +685,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     }
 
                     isAttacking = true;
+                    monster.monsterMotion.SetBool("isAttacking", true);
                     BaseAttack attack = monster.tempStats.attack2;
                     var attackSprite = Instantiate(attack2Animation, transform.position, Quaternion.identity);
                     attackSprite.GetComponent<AttackEffects>().AttackMotion(enemy.transform.position - gameObject.transform.position);
@@ -725,505 +745,35 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
         //int range = 2;
 
+        //for (int i = 0; i <= range; i++)
+        //{
 
-        for (int r = 0; r <= range; r++)
-        {
-            MapTile down = maps[tileOn].GetComponent<MapTile>();
-            MapTile up = maps[tileOn].GetComponent<MapTile>();
-            MapTile left = maps[tileOn].GetComponent<MapTile>();
-            MapTile right = maps[tileOn].GetComponent<MapTile>();
+        //get the total and difference of your tile's row and column coordinate. filter through them to determine the range of an attack given its range3
+        int total = maps[tileOn].GetComponent<MapTile>().info.row + maps[tileOn].GetComponent<MapTile>().info.column;
+        int difference = maps[tileOn].GetComponent<MapTile>().info.row - maps[tileOn].GetComponent<MapTile>().info.column;
 
-
-            //MapTile down = maps[tileOn + 26 * r].GetComponent<MapTile>();
-            //atkRange1List.Add(down.tileNumber);
-            //down.AttackRange(monster);
-            //MapTile up = maps[tileOn - 26 * r].GetComponent<MapTile>();
-            //atkRange1List.Add(up.tileNumber);
-            //up.AttackRange(monster);
-            //MapTile left = maps[tileOn - 2 * r].GetComponent<MapTile>();
-            //atkRange1List.Add(left.tileNumber);
-            //left.AttackRange(monster);
-            //MapTile right = maps[tileOn + (2 * r)].GetComponent<MapTile>();
-            //atkRange1List.Add(right.tileNumber);
-            //right.AttackRange(monster);
-
-
-            if (tileOn + 2 * r < maps.Length)
+            for (int a = 0; a < maps.Length; a++)
             {
-                down = maps[tileOn + 2 * r].GetComponent<MapTile>();
+                int check = maps[a].GetComponent<MapTile>().info.row + maps[a].GetComponent<MapTile>().info.column;
+                int check2 = maps[a].GetComponent<MapTile>().info.row - maps[a].GetComponent<MapTile>().info.column;
 
-                if (down.transform.position.y > transform.position.y)
-                {
-                    down = maps[tileOn + 2].GetComponent<MapTile>();
-
-                }
-
-
-                if (down.transform.position.y > transform.position.y)
-                {
-                    down = maps[tileOn].GetComponent<MapTile>();
-                }
-
-
-            }
-            atkRange1List.Add(down.tileNumber);
-            down.AttackRange(monster);
-
-            if (tileOn - 2 * r >= 0)
-            {
-                up = maps[tileOn - 2 * r].GetComponent<MapTile>();
-
-                if (up.transform.position.y < transform.position.y)
-                {
-                    up = maps[tileOn - 2].GetComponent<MapTile>();
-                }
-
-                if (up.transform.position.y < transform.position.y)
-                {
-                    up = maps[tileOn].GetComponent<MapTile>();
-                }
-
-
-            }
-            atkRange1List.Add(up.tileNumber);
-            up.AttackRange(monster);
-
-            if (tileOn - 28 * r >= 0)
-            {
-                left = maps[tileOn - 28 * r].GetComponent<MapTile>();
-
-                if (left.transform.position.x > transform.position.x && tileOn -28 >= 0)
-                {
-                    left = maps[tileOn - 28].GetComponent<MapTile>();
-                }
-                else
-                {
-                    left = maps[tileOn].GetComponent<MapTile>();
-                }
-
-                if (left.transform.position.x > transform.position.x)
-                {
-                    left = maps[tileOn].GetComponent<MapTile>();
-
-                }
-            }
-
-            atkRange1List.Add(left.tileNumber);
-            left.AttackRange(monster);
-
-
-            if (tileOn + (28 * r) < maps.Length)
-            {
-                right = maps[tileOn + (28 * r)].GetComponent<MapTile>();
-
-
-                if (right.transform.position.x < transform.position.x)
-                {
-                    right = maps[tileOn + 28].GetComponent<MapTile>();
-
-                }
-
-                if (right.transform.position.x < transform.position.x)
-                {
-                    right = maps[tileOn].GetComponent<MapTile>();
-
-                }
-
-            }
-
-            atkRange1List.Add(right.tileNumber);
-            right.AttackRange(monster);
-
-
-
-
-            RaycastHit2D[] hitVert = Physics2D.RaycastAll(down.transform.position, Vector2.up, up.transform.position.y - down.transform.position.y);
-            RaycastHit2D[] hitHorz = Physics2D.RaycastAll(right.transform.position, Vector2.left, right.transform.position.x - left.transform.position.x);
-
-
-            //RaycastHit2D[] hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
-            RaycastHit2D[] hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(up.transform.position.x - left.transform.position.x, up.transform.position.y - left.transform.position.y), (tileRect.localScale.x * r));
-
-
-            //RaycastHit2D[] hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r));
-            RaycastHit2D[] hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(right.transform.position.x - up.transform.position.x, right.transform.position.y - up.transform.position.y), (tileRect.localScale.x * r));
-
-
-            //RaycastHit2D[] hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
-            RaycastHit2D[] hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(left.transform.position.x - down.transform.position.x, left.transform.position.y - down.transform.position.y), (tileRect.localScale.x * r));
-
-
-            //RaycastHit2D[] hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r));
-            RaycastHit2D[] hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(down.transform.position.x - right.transform.position.x, down.transform.position.y - right.transform.position.y), (tileRect.localScale.x * r));
-
-
-
-            if (maps[tileOn].GetComponent<MapTile>() == down)
-            {
-                hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r - 1));
-                hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r - 1));
-                hitLeftDown = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r));
-                hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
-            }
-
-            if (maps[tileOn].GetComponent<MapTile>() == up)
-            {
-                hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, .58f), tileRect.localScale.x * r);
-                hitRightUp = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, .58f), tileRect.localScale.x * r);
-                hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r - 1));
-                hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r - 1));
-            }
-
-            if (right.transform.position.x - maps[tileOn].transform.position.x > maps[tileOn].transform.position.x - left.transform.position.x)
-            {
-                hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), tileRect.localScale.x * r);
-                hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
-            }
-
-            if (right.transform.position.x - maps[tileOn].transform.position.x < maps[tileOn].transform.position.x - left.transform.position.x)
-            {
-                hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), tileRect.localScale.x * r);
-                hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r));
-            }
-
-
-            if (down.transform.position.y - maps[tileOn].transform.position.y < maps[tileOn].transform.position.y - up.transform.position.y)
-            {
-                hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, .58f), tileRect.localScale.x * r);
-                hitRightUp = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
-            }
-
-            if (down.transform.position.y - maps[tileOn].transform.position.y > maps[tileOn].transform.position.y - up.transform.position.y)
-            {
-                hitLeftDown = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, -.58f), tileRect.localScale.x * r);
-                hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
-
-               
-            }
-           
-
-     
-
-
-            for (int i = 0; i < hitVert.Length; i++)
-            {
-                if (hitVert[i].collider.gameObject.tag == "MapTile")
-                {
-                    //hitVert[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-                    atkRange1List.Add(hitVert[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-                    hitVert[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-                }
-            }
-
-            for (int i = 0; i < hitHorz.Length; i++)
-            {
-                if (hitHorz[i].collider.gameObject.tag == "MapTile")
-                {
-
-                    //hitHorz[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-                    atkRange1List.Add(hitHorz[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-                    hitHorz[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-                }
-            }
-
-
-            for (int i = 0; i < hitLeftUp.Length; i++)
-            {
-                if (hitLeftUp[i].collider.gameObject.tag == "MapTile")
-                {
-                    //hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-                    atkRange1List.Add(hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-                    hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-                }
-            }
-
-            for (int i = 0; i < hitRightUp.Length; i++)
-            {
-                if (hitRightUp[i].collider.gameObject.tag == "MapTile")
-                {
-                    //hitRightUp[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-                    atkRange1List.Add(hitRightUp[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-                    hitRightUp[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-                }
-            }
-
-            for (int i = 0; i < hitLeftDown.Length; i++)
-            {
-                if (hitLeftDown[i].collider.gameObject.tag == "MapTile")
-                {
-                    //hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-                    atkRange1List.Add(hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-                    hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-                }
-            }
-
-            for (int i = 0; i < hitRightDown.Length; i++)
-            {
-                if (hitRightDown[i].collider.gameObject.tag == "MapTile")
-                {
-                    //hitRightDown[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-                    atkRange1List.Add(hitRightDown[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-                    hitRightDown[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-                }
-            }
-
-
-            //if (r == range)
-            //{
-            //    isScanning = true;
-            //}
-        }
-
-        for (int r = 0; r <= range2; r++)
-        {
-
-            MapTile down = maps[tileOn].GetComponent<MapTile>();
-            MapTile up = maps[tileOn].GetComponent<MapTile>();
-            MapTile left = maps[tileOn].GetComponent<MapTile>();
-            MapTile right = maps[tileOn].GetComponent<MapTile>();
-
-            if (tileOn + 2 * r < maps.Length)
-            {
-                down = maps[tileOn + 2 * r].GetComponent<MapTile>();
-
-                if (down.transform.position.y > transform.position.y)
-                {
-                    down = maps[tileOn + 2].GetComponent<MapTile>();
-
-                   
-                }
-
-                if (down.transform.position.y > transform.position.y)
-                {
-                    down = maps[tileOn].GetComponent<MapTile>();
-                }
-
-
-            }
-            atkRange2List.Add(down.tileNumber);
-            down.AttackRange(monster);
-
-            if (tileOn - 2 * r >= 0)
-            {
-                up = maps[tileOn - 2 * r].GetComponent<MapTile>();
-
-                if (up.transform.position.y < transform.position.y)
-                {
-                    up = maps[tileOn - 2].GetComponent<MapTile>();
-
-                }
-
-                if (up.transform.position.y < transform.position.y)
-                {
-                    up = maps[tileOn].GetComponent<MapTile>();
-                }
-
-            }
-
-            atkRange2List.Add(up.tileNumber);
-            up.AttackRange(monster);
-
-            if (tileOn - 28 * r >= 0)
-            {
-                left = maps[tileOn - 28 * r].GetComponent<MapTile>();
-
-                if (left.transform.position.x > transform.position.x && tileOn - 28 >= 0)
-                {
-                    left = maps[tileOn - 28].GetComponent<MapTile>();
-                }
-                else
-                {
-                    left = maps[tileOn].GetComponent<MapTile>();
-                }
-
-                if (left.transform.position.x > transform.position.x)
-                {
-                    left = maps[tileOn].GetComponent<MapTile>();
-
-                }
-            }
-            atkRange2List.Add(left.tileNumber);
-            left.AttackRange(monster);
-
-
-
-            if (tileOn + (28 * r) < maps.Length)
-            {
-                right = maps[tileOn + (28 * r)].GetComponent<MapTile>();
-
-
-                if (right.transform.position.x < transform.position.x)
+                    if (total <= check + (2 * range) && total >= check - (2 * range) &&  difference <= check2 + (2 * range) && difference >= check2 - (2 * range))
                     {
-                    right = maps[tileOn + 28].GetComponent<MapTile>();
-    
-                     }
+                        Debug.Log(maps[a].GetComponent<MapTile>().tileNumber);
 
-                if (right.transform.position.x < transform.position.x)
-                {
-                    right = maps[tileOn].GetComponent<MapTile>();
-
-                }
-
-            }
-            atkRange2List.Add(right.tileNumber);
-            right.AttackRange(monster);
-
-
-            //MapTile down = maps[tileOn + 26 * r].GetComponent<MapTile>();
-            //atkRange2List.Add(down.tileNumber);
-            //down.AttackRange(monster);
-
-            //MapTile up = maps[tileOn - 26 * r].GetComponent<MapTile>();
-            //atkRange2List.Add(up.tileNumber);
-            //up.AttackRange(monster);
-
-            //MapTile left = maps[tileOn - 2 * r].GetComponent<MapTile>();
-            //atkRange2List.Add(left.tileNumber);
-            //left.AttackRange(monster);
-
-
-            //MapTile right = maps[tileOn + (2 * r)].GetComponent<MapTile>();
-            //atkRange2List.Add(right.tileNumber);
-            //right.AttackRange(monster);
-
-
-
-
-
-            RaycastHit2D[] hitVert = Physics2D.RaycastAll(down.transform.position, Vector2.up, up.transform.position.y - down.transform.position.y);
-            RaycastHit2D[] hitHorz = Physics2D.RaycastAll(right.transform.position, Vector2.left, right.transform.position.x - left.transform.position.x);
-
-
-            
-
-            //RaycastHit2D[] hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
-            RaycastHit2D[] hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(up.transform.position.x - left.transform.position.x, up.transform.position.y - left.transform.position.y), (tileRect.localScale.x * r));
-
-
-            //RaycastHit2D[] hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r));
-            RaycastHit2D[] hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(right.transform.position.x - up.transform.position.x, right.transform.position.y - up.transform.position.y), (tileRect.localScale.x * r));
-
-
-            //RaycastHit2D[] hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
-            RaycastHit2D[] hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(left.transform.position.x - down.transform.position.x, left.transform.position.y - down.transform.position.y), (tileRect.localScale.x * r));
-
-
-            //RaycastHit2D[] hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r));
-            RaycastHit2D[] hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(down.transform.position.x - right.transform.position.x, down.transform.position.y - right.transform.position.y), (tileRect.localScale.x * r));
-
-
-
-            if (maps[tileOn].GetComponent<MapTile>() == down)
-            {
-                hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r - 1));
-                hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r - 1));
-                hitLeftDown = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r));
-                hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
-            }
-
-            if (maps[tileOn].GetComponent<MapTile>() == up)
-            {
-                hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(-1f, .58f), tileRect.localScale.x * r - 1);
-                hitRightUp = Physics2D.RaycastAll(right.transform.position, new Vector2(1f, .58f), tileRect.localScale.x * r - 1);
-                hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r - 1));
-                hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r - 1));
-            }
-
-            if (right.transform.position.x - maps[tileOn].transform.position.x > maps[tileOn].transform.position.x - left.transform.position.x)
-            {
-                hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), tileRect.localScale.x * r);
-                hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
-            }
-
-            if (right.transform.position.x - maps[tileOn].transform.position.x < maps[tileOn].transform.position.x - left.transform.position.x)
-            {
-                hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), tileRect.localScale.x * r);
-                hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r));
-            }
-
-
-
-            if (down.transform.position.y - maps[tileOn].transform.position.y < maps[tileOn].transform.position.y - up.transform.position.y)
-            {
-                hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, .58f), tileRect.localScale.x * r);
-                hitRightUp = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
-                
-            }
-
-            if (down.transform.position.y - maps[tileOn].transform.position.y > maps[tileOn].transform.position.y - up.transform.position.y)
-            {
-                hitLeftDown = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, -.58f), tileRect.localScale.x * r);
-                hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
-            }
-
-
-            for (int i = 0; i < hitVert.Length; i++)
-            {
-                if (hitVert[i].collider.gameObject.tag == "MapTile")
-                {
-                    //hitVert[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-                    atkRange2List.Add(hitVert[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-                    hitVert[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-                }
-            }
-
-            for (int i = 0; i < hitHorz.Length; i++)
-            {
-                if (hitHorz[i].collider.gameObject.tag == "MapTile")
-                {
-                    if (hitHorz[i].collider.gameObject.transform.position.x >= transform.position.x + (28 * range2) && (hitHorz[i].collider.gameObject.transform.position.x <= transform.position.x - (28 * range2)))
-                    {
-                        //hitHorz[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-                        atkRange2List.Add(hitHorz[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-                        hitHorz[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
+                        atkRange1List.Add(maps[a].GetComponent<MapTile>().tileNumber);
+                        maps[a].GetComponent<MapTile>().AttackRange(monster);
                     }
-                }
-            }
 
+                    if (total <= check + (2 * range2) && total >= check - (2 * range2) && difference <= check2 + (2 * range2) && difference >= check2 - (2 * range2))
+                    {
+                        Debug.Log(maps[a].GetComponent<MapTile>().tileNumber);
 
-            for (int i = 0; i < hitLeftUp.Length; i++)
-            {
-                if (hitLeftUp[i].collider.gameObject.tag == "MapTile")
-                {
-                    //hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-                    atkRange2List.Add(hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-                    hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-                }
-            }
+                        atkRange2List.Add(maps[a].GetComponent<MapTile>().tileNumber);
+                        maps[a].GetComponent<MapTile>().AttackRange(monster);
+                    }
 
-            for (int i = 0; i < hitRightUp.Length; i++)
-            {
-                if (hitRightUp[i].collider.gameObject.tag == "MapTile")
-                {
-
-                    //hitRightUp[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-                    atkRange2List.Add(hitRightUp[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-                    hitRightUp[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-                }
-            }
-
-            for (int i = 0; i < hitLeftDown.Length; i++)
-            {
-                if (hitLeftDown[i].collider.gameObject.tag == "MapTile")
-                {
-                    //hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-                    atkRange2List.Add(hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-                    hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-                }
-            }
-
-            for (int i = 0; i < hitRightDown.Length; i++)
-            {
-                if (hitRightDown[i].collider.gameObject.tag == "MapTile")
-                {
-                    //hitRightDown[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-                    atkRange2List.Add(hitRightDown[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-                    hitRightDown[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-                }
-            }
-
-            //once all of the attack ranges cycle through, make this tower the active monster on the map
-            if (r == range2)
+            if (a >= maps.Length - 1)
             {
 
                 isScanning = true;
@@ -1231,6 +781,546 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 //GameManager.Instance.overworldMenu.GetComponent<OverworldInfoMenu>().activeMonster = monster;
             }
         }
+            //Debug.Log("Row: " + maps[tileOn].GetComponent<MapTile>().info.row + " / Column: " + maps[tileOn].GetComponent<MapTile>().info.column);
+            //Debug.Log(maps[tileOn].GetComponent<MapTile>().info.row + 1);
+        
+        //}
+
+        
+        //    for (int a = 0; a < maps.Length; a++)
+        //    {
+        //        int check = maps[a].GetComponent<MapTile>().info.row + maps[a].GetComponent<MapTile>().info.column;
+        //        int check2 = maps[a].GetComponent<MapTile>().info.row - maps[a].GetComponent<MapTile>().info.column;
+
+        //    //if (maps[tileOn].GetComponent<MapTile>().info.row <= maps[a].GetComponent<MapTile>().info.row + (2 * i) && maps[tileOn].GetComponent<MapTile>().info.row >= maps[a].GetComponent<MapTile>().info.row - (2 * i) && maps[tileOn].GetComponent<MapTile>().info.column > maps[a].GetComponent<MapTile>().info.column - (2  *i) && maps[tileOn].GetComponent<MapTile>().info.column < maps[a].GetComponent<MapTile>().info.column + (2 * i))
+        //        if (total <= check + (2 * range2) && total >= check - (2 * range2) && difference <= check2 + (2 * range2) && difference >= check2 - (2 * range2))
+        //        {
+        //            Debug.Log(maps[a].GetComponent<MapTile>().tileNumber);
+
+        //            atkRange2List.Add(maps[a].GetComponent<MapTile>().tileNumber);
+        //            maps[a].GetComponent<MapTile>().AttackRange(monster);
+        //        }
+
+        //    //once all of the attack ranges cycle through, make this tower the active monster on the map
+        //    if (a >= maps.Length - 1)
+        //    {
+
+        //        isScanning = true;
+        //        attackNumber = 1;
+        //        //GameManager.Instance.overworldMenu.GetComponent<OverworldInfoMenu>().activeMonster = monster;
+        //    }
+        //}
+        //Debug.Log("Row: " + maps[tileOn].GetComponent<MapTile>().info.row + " / Column: " + maps[tileOn].GetComponent<MapTile>().info.column);
+        //Debug.Log(maps[tileOn].GetComponent<MapTile>().info.row + 1);
+
+
+
+
+        //for (int r = 0; r <= range; r++)
+        //{
+        //    MapTile down = maps[tileOn].GetComponent<MapTile>();
+        //    MapTile up = maps[tileOn].GetComponent<MapTile>();
+        //    MapTile left = maps[tileOn].GetComponent<MapTile>();
+        //    MapTile right = maps[tileOn].GetComponent<MapTile>();
+
+
+        //    //MapTile down = maps[tileOn + 26 * r].GetComponent<MapTile>();
+        //    //atkRange1List.Add(down.tileNumber);
+        //    //down.AttackRange(monster);
+        //    //MapTile up = maps[tileOn - 26 * r].GetComponent<MapTile>();
+        //    //atkRange1List.Add(up.tileNumber);
+        //    //up.AttackRange(monster);
+        //    //MapTile left = maps[tileOn - 2 * r].GetComponent<MapTile>();
+        //    //atkRange1List.Add(left.tileNumber);
+        //    //left.AttackRange(monster);
+        //    //MapTile right = maps[tileOn + (2 * r)].GetComponent<MapTile>();
+        //    //atkRange1List.Add(right.tileNumber);
+        //    //right.AttackRange(monster);
+
+
+        //    if (tileOn + 2 * r < maps.Length)
+        //    {
+        //        down = maps[tileOn + 2 * r].GetComponent<MapTile>();
+
+        //        if (down.transform.position.y > transform.position.y)
+        //        {
+        //            down = maps[tileOn + 2].GetComponent<MapTile>();
+
+        //        }
+
+
+        //        if (down.transform.position.y > transform.position.y)
+        //        {
+        //            down = maps[tileOn].GetComponent<MapTile>();
+        //        }
+
+
+        //    }
+        //    atkRange1List.Add(down.tileNumber);
+        //    down.AttackRange(monster);
+
+        //    if (tileOn - 2 * r >= 0)
+        //    {
+        //        up = maps[tileOn - 2 * r].GetComponent<MapTile>();
+
+        //        if (up.transform.position.y < transform.position.y)
+        //        {
+        //            up = maps[tileOn - 2].GetComponent<MapTile>();
+        //        }
+
+        //        if (up.transform.position.y < transform.position.y)
+        //        {
+        //            up = maps[tileOn].GetComponent<MapTile>();
+        //        }
+
+
+        //    }
+        //    atkRange1List.Add(up.tileNumber);
+        //    up.AttackRange(monster);
+
+        //    if (tileOn - 28 * r >= 0)
+        //    {
+        //        left = maps[tileOn - 28 * r].GetComponent<MapTile>();
+
+        //        if (left.transform.position.x > transform.position.x && tileOn -28 >= 0)
+        //        {
+        //            left = maps[tileOn - 28].GetComponent<MapTile>();
+        //        }
+        //        else
+        //        {
+        //            left = maps[tileOn].GetComponent<MapTile>();
+        //        }
+
+        //        if (left.transform.position.x > transform.position.x)
+        //        {
+        //            left = maps[tileOn].GetComponent<MapTile>();
+
+        //        }
+        //    }
+
+        //    atkRange1List.Add(left.tileNumber);
+        //    left.AttackRange(monster);
+
+
+        //    if (tileOn + (28 * r) < maps.Length)
+        //    {
+        //        right = maps[tileOn + (28 * r)].GetComponent<MapTile>();
+
+
+        //        if (right.transform.position.x < transform.position.x)
+        //        {
+        //            right = maps[tileOn + 28].GetComponent<MapTile>();
+
+        //        }
+
+        //        if (right.transform.position.x < transform.position.x)
+        //        {
+        //            right = maps[tileOn].GetComponent<MapTile>();
+
+        //        }
+
+        //    }
+
+        //    atkRange1List.Add(right.tileNumber);
+        //    right.AttackRange(monster);
+
+
+
+
+        //    RaycastHit2D[] hitVert = Physics2D.RaycastAll(down.transform.position, Vector2.up, up.transform.position.y - down.transform.position.y);
+        //    RaycastHit2D[] hitHorz = Physics2D.RaycastAll(right.transform.position, Vector2.left, right.transform.position.x - left.transform.position.x);
+
+
+        //    //RaycastHit2D[] hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
+        //    RaycastHit2D[] hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(up.transform.position.x - left.transform.position.x, up.transform.position.y - left.transform.position.y), (tileRect.localScale.x * r));
+
+
+        //    //RaycastHit2D[] hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r));
+        //    RaycastHit2D[] hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(right.transform.position.x - up.transform.position.x, right.transform.position.y - up.transform.position.y), (tileRect.localScale.x * r));
+
+
+        //    //RaycastHit2D[] hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
+        //    RaycastHit2D[] hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(left.transform.position.x - down.transform.position.x, left.transform.position.y - down.transform.position.y), (tileRect.localScale.x * r));
+
+
+        //    //RaycastHit2D[] hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r));
+        //    RaycastHit2D[] hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(down.transform.position.x - right.transform.position.x, down.transform.position.y - right.transform.position.y), (tileRect.localScale.x * r));
+
+
+
+        //    if (maps[tileOn].GetComponent<MapTile>() == down)
+        //    {
+        //        hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r - 1));
+        //        hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r - 1));
+        //        hitLeftDown = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r));
+        //        hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
+        //    }
+
+        //    if (maps[tileOn].GetComponent<MapTile>() == up)
+        //    {
+        //        hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, .58f), tileRect.localScale.x * r);
+        //        hitRightUp = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, .58f), tileRect.localScale.x * r);
+        //        hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r - 1));
+        //        hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r - 1));
+        //    }
+
+        //    if (right.transform.position.x - maps[tileOn].transform.position.x > maps[tileOn].transform.position.x - left.transform.position.x)
+        //    {
+        //        hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), tileRect.localScale.x * r);
+        //        hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
+        //    }
+
+        //    if (right.transform.position.x - maps[tileOn].transform.position.x < maps[tileOn].transform.position.x - left.transform.position.x)
+        //    {
+        //        hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), tileRect.localScale.x * r);
+        //        hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r));
+        //    }
+
+
+        //    if (down.transform.position.y - maps[tileOn].transform.position.y < maps[tileOn].transform.position.y - up.transform.position.y)
+        //    {
+        //        hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, .58f), tileRect.localScale.x * r);
+        //        hitRightUp = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
+        //    }
+
+        //    if (down.transform.position.y - maps[tileOn].transform.position.y > maps[tileOn].transform.position.y - up.transform.position.y)
+        //    {
+        //        hitLeftDown = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, -.58f), tileRect.localScale.x * r);
+        //        hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
+
+
+        //    }
+
+
+
+
+
+        //    for (int i = 0; i < hitVert.Length; i++)
+        //    {
+        //        if (hitVert[i].collider.gameObject.tag == "MapTile")
+        //        {
+        //            //hitVert[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
+        //            atkRange1List.Add(hitVert[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
+        //            hitVert[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
+        //        }
+        //    }
+
+        //    for (int i = 0; i < hitHorz.Length; i++)
+        //    {
+        //        if (hitHorz[i].collider.gameObject.tag == "MapTile")
+        //        {
+
+        //            //hitHorz[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
+        //            atkRange1List.Add(hitHorz[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
+        //            hitHorz[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
+        //        }
+        //    }
+
+
+        //    for (int i = 0; i < hitLeftUp.Length; i++)
+        //    {
+        //        if (hitLeftUp[i].collider.gameObject.tag == "MapTile")
+        //        {
+        //            //hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
+        //            atkRange1List.Add(hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
+        //            hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
+        //        }
+        //    }
+
+        //    for (int i = 0; i < hitRightUp.Length; i++)
+        //    {
+        //        if (hitRightUp[i].collider.gameObject.tag == "MapTile")
+        //        {
+        //            //hitRightUp[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
+        //            atkRange1List.Add(hitRightUp[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
+        //            hitRightUp[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
+        //        }
+        //    }
+
+        //    for (int i = 0; i < hitLeftDown.Length; i++)
+        //    {
+        //        if (hitLeftDown[i].collider.gameObject.tag == "MapTile")
+        //        {
+        //            //hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
+        //            atkRange1List.Add(hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
+        //            hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
+        //        }
+        //    }
+
+        //    for (int i = 0; i < hitRightDown.Length; i++)
+        //    {
+        //        if (hitRightDown[i].collider.gameObject.tag == "MapTile")
+        //        {
+        //            //hitRightDown[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
+        //            atkRange1List.Add(hitRightDown[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
+        //            hitRightDown[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
+        //        }
+        //    }
+
+
+        //    //if (r == range)
+        //    //{
+        //    //    isScanning = true;
+        //    //}
+        //}
+
+        //for (int r = 0; r <= range2; r++)
+        //{
+
+        //    MapTile down = maps[tileOn].GetComponent<MapTile>();
+        //    MapTile up = maps[tileOn].GetComponent<MapTile>();
+        //    MapTile left = maps[tileOn].GetComponent<MapTile>();
+        //    MapTile right = maps[tileOn].GetComponent<MapTile>();
+
+        //    if (tileOn + 2 * r < maps.Length)
+        //    {
+        //        down = maps[tileOn + 2 * r].GetComponent<MapTile>();
+
+        //        if (down.transform.position.y > transform.position.y)
+        //        {
+        //            down = maps[tileOn + 2].GetComponent<MapTile>();
+
+
+        //        }
+
+        //        if (down.transform.position.y > transform.position.y)
+        //        {
+        //            down = maps[tileOn].GetComponent<MapTile>();
+        //        }
+
+
+        //    }
+        //    atkRange2List.Add(down.tileNumber);
+        //    down.AttackRange(monster);
+
+        //    if (tileOn - 2 * r >= 0)
+        //    {
+        //        up = maps[tileOn - 2 * r].GetComponent<MapTile>();
+
+        //        if (up.transform.position.y < transform.position.y)
+        //        {
+        //            up = maps[tileOn - 2].GetComponent<MapTile>();
+
+        //        }
+
+        //        if (up.transform.position.y < transform.position.y)
+        //        {
+        //            up = maps[tileOn].GetComponent<MapTile>();
+        //        }
+
+        //    }
+
+        //    atkRange2List.Add(up.tileNumber);
+        //    up.AttackRange(monster);
+
+        //    if (tileOn - 28 * r >= 0)
+        //    {
+        //        left = maps[tileOn - 28 * r].GetComponent<MapTile>();
+
+        //        if (left.transform.position.x > transform.position.x && tileOn - 28 >= 0)
+        //        {
+        //            left = maps[tileOn - 28].GetComponent<MapTile>();
+        //        }
+        //        else
+        //        {
+        //            left = maps[tileOn].GetComponent<MapTile>();
+        //        }
+
+        //        if (left.transform.position.x > transform.position.x)
+        //        {
+        //            left = maps[tileOn].GetComponent<MapTile>();
+
+        //        }
+        //    }
+        //    atkRange2List.Add(left.tileNumber);
+        //    left.AttackRange(monster);
+
+
+
+        //    if (tileOn + (28 * r) < maps.Length)
+        //    {
+        //        right = maps[tileOn + (28 * r)].GetComponent<MapTile>();
+
+
+        //        if (right.transform.position.x < transform.position.x)
+        //            {
+        //            right = maps[tileOn + 28].GetComponent<MapTile>();
+
+        //             }
+
+        //        if (right.transform.position.x < transform.position.x)
+        //        {
+        //            right = maps[tileOn].GetComponent<MapTile>();
+
+        //        }
+
+        //    }
+        //    atkRange2List.Add(right.tileNumber);
+        //    right.AttackRange(monster);
+
+
+        //    //MapTile down = maps[tileOn + 26 * r].GetComponent<MapTile>();
+        //    //atkRange2List.Add(down.tileNumber);
+        //    //down.AttackRange(monster);
+
+        //    //MapTile up = maps[tileOn - 26 * r].GetComponent<MapTile>();
+        //    //atkRange2List.Add(up.tileNumber);
+        //    //up.AttackRange(monster);
+
+        //    //MapTile left = maps[tileOn - 2 * r].GetComponent<MapTile>();
+        //    //atkRange2List.Add(left.tileNumber);
+        //    //left.AttackRange(monster);
+
+
+        //    //MapTile right = maps[tileOn + (2 * r)].GetComponent<MapTile>();
+        //    //atkRange2List.Add(right.tileNumber);
+        //    //right.AttackRange(monster);
+
+
+
+
+
+        //    RaycastHit2D[] hitVert = Physics2D.RaycastAll(down.transform.position, Vector2.up, up.transform.position.y - down.transform.position.y);
+        //    RaycastHit2D[] hitHorz = Physics2D.RaycastAll(right.transform.position, Vector2.left, right.transform.position.x - left.transform.position.x);
+
+
+
+
+        //    //RaycastHit2D[] hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
+        //    RaycastHit2D[] hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(up.transform.position.x - left.transform.position.x, up.transform.position.y - left.transform.position.y), (tileRect.localScale.x * r));
+
+
+        //    //RaycastHit2D[] hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r));
+        //    RaycastHit2D[] hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(right.transform.position.x - up.transform.position.x, right.transform.position.y - up.transform.position.y), (tileRect.localScale.x * r));
+
+
+        //    //RaycastHit2D[] hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
+        //    RaycastHit2D[] hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(left.transform.position.x - down.transform.position.x, left.transform.position.y - down.transform.position.y), (tileRect.localScale.x * r));
+
+
+        //    //RaycastHit2D[] hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r));
+        //    RaycastHit2D[] hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(down.transform.position.x - right.transform.position.x, down.transform.position.y - right.transform.position.y), (tileRect.localScale.x * r));
+
+
+
+        //    if (maps[tileOn].GetComponent<MapTile>() == down)
+        //    {
+        //        hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r - 1));
+        //        hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r - 1));
+        //        hitLeftDown = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r));
+        //        hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
+        //    }
+
+        //    if (maps[tileOn].GetComponent<MapTile>() == up)
+        //    {
+        //        hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(-1f, .58f), tileRect.localScale.x * r - 1);
+        //        hitRightUp = Physics2D.RaycastAll(right.transform.position, new Vector2(1f, .58f), tileRect.localScale.x * r - 1);
+        //        hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r - 1));
+        //        hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r - 1));
+        //    }
+
+        //    if (right.transform.position.x - maps[tileOn].transform.position.x > maps[tileOn].transform.position.x - left.transform.position.x)
+        //    {
+        //        hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), tileRect.localScale.x * r);
+        //        hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
+        //    }
+
+        //    if (right.transform.position.x - maps[tileOn].transform.position.x < maps[tileOn].transform.position.x - left.transform.position.x)
+        //    {
+        //        hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), tileRect.localScale.x * r);
+        //        hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r));
+        //    }
+
+
+
+        //    if (down.transform.position.y - maps[tileOn].transform.position.y < maps[tileOn].transform.position.y - up.transform.position.y)
+        //    {
+        //        hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, .58f), tileRect.localScale.x * r);
+        //        hitRightUp = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
+
+        //    }
+
+        //    if (down.transform.position.y - maps[tileOn].transform.position.y > maps[tileOn].transform.position.y - up.transform.position.y)
+        //    {
+        //        hitLeftDown = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, -.58f), tileRect.localScale.x * r);
+        //        hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
+        //    }
+
+
+        //    for (int i = 0; i < hitVert.Length; i++)
+        //    {
+        //        if (hitVert[i].collider.gameObject.tag == "MapTile")
+        //        {
+        //            //hitVert[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
+        //            atkRange2List.Add(hitVert[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
+        //            hitVert[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
+        //        }
+        //    }
+
+        //    for (int i = 0; i < hitHorz.Length; i++)
+        //    {
+        //        if (hitHorz[i].collider.gameObject.tag == "MapTile")
+        //        {
+        //            if (hitHorz[i].collider.gameObject.transform.position.x >= transform.position.x + (28 * range2) && (hitHorz[i].collider.gameObject.transform.position.x <= transform.position.x - (28 * range2)))
+        //            {
+        //                //hitHorz[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
+        //                atkRange2List.Add(hitHorz[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
+        //                hitHorz[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
+        //            }
+        //        }
+        //    }
+
+
+        //    for (int i = 0; i < hitLeftUp.Length; i++)
+        //    {
+        //        if (hitLeftUp[i].collider.gameObject.tag == "MapTile")
+        //        {
+        //            //hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
+        //            atkRange2List.Add(hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
+        //            hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
+        //        }
+        //    }
+
+        //    for (int i = 0; i < hitRightUp.Length; i++)
+        //    {
+        //        if (hitRightUp[i].collider.gameObject.tag == "MapTile")
+        //        {
+
+        //            //hitRightUp[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
+        //            atkRange2List.Add(hitRightUp[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
+        //            hitRightUp[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
+        //        }
+        //    }
+
+        //    for (int i = 0; i < hitLeftDown.Length; i++)
+        //    {
+        //        if (hitLeftDown[i].collider.gameObject.tag == "MapTile")
+        //        {
+        //            //hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
+        //            atkRange2List.Add(hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
+        //            hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
+        //        }
+        //    }
+
+        //    for (int i = 0; i < hitRightDown.Length; i++)
+        //    {
+        //        if (hitRightDown[i].collider.gameObject.tag == "MapTile")
+        //        {
+        //            //hitRightDown[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
+        //            atkRange2List.Add(hitRightDown[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
+        //            hitRightDown[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
+        //        }
+        //    }
+
+        //    //once all of the attack ranges cycle through, make this tower the active monster on the map
+        //    if (r == range2)
+        //    {
+
+        //        isScanning = true;
+        //        attackNumber = 1;
+        //        //GameManager.Instance.overworldMenu.GetComponent<OverworldInfoMenu>().activeMonster = monster;
+        //    }
+        //}
 
     }
 

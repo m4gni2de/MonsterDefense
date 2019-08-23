@@ -60,28 +60,28 @@ public class AllMonsterData
     };
 
 
-    //public MonsterData MrMister = new MonsterData
-    //{
-    //    id = 2,
-    //    species = "MrMister",
-    //    type1 = "Water",
-    //    type2 = "Magic",
-    //    hpBase = 98,
-    //    atkBase = 44,
-    //    defBase = 30,
-    //    speBase = 39,
-    //    precBase = 110,
-    //    maxLevel = 100,
-    //    levelConst = 1.8f,
-    //    baseAttacks = new string[2] { "Misty Spray", "Aqua Dart" },
-    //    staminaBase = 90,
-    //    energyGenBase = 95,
-    //    energyCost = 5.5f,
-    //};
+    public MonsterData Armordan = new MonsterData
+    {
+        id = 2,
+        species = "Armordan",
+        type1 = "Normal",
+        type2 = "Mechanical",
+        hpBase = 98,
+        atkBase = 96,
+        defBase = 130,
+        speBase = 39,
+        precBase = 140,
+        maxLevel = 100,
+        levelConst = 1.9f,
+        baseAttacks = new string[2] { "Volt Strike", "Aqua Dart" },
+        staminaBase = 90,
+        energyGenBase = 95,
+        energyCost = 5.5f,
+    };
 
-   
 
-    
+
+
 }
 
 public class MonstersData : MonoBehaviour
@@ -116,7 +116,9 @@ public class MonstersData : MonoBehaviour
     {
        
         monstersAllDict.Add(allMonsterData.Lichenthrope.species, allMonsterData.Lichenthrope);
+        monstersAllDict.Add(allMonsterData.Armordan.species, allMonsterData.Armordan);
         monstersByIdDict.Add(allMonsterData.Lichenthrope.id, allMonsterData.Lichenthrope.species);
+        monstersByIdDict.Add(allMonsterData.Armordan.id, allMonsterData.Armordan.species);
     }
 
     public void AllTypes()
@@ -129,7 +131,7 @@ public class MonstersData : MonoBehaviour
         typeChartDict.Add(allTypes.Fire.name, allTypes.Fire);
         typeChartDict.Add(allTypes.Ice.name, allTypes.Ice);
         typeChartDict.Add(allTypes.Mechanical.name, allTypes.Mechanical);
-        typeChartDict.Add(allTypes.Normal.name, allTypes.Mechanical);
+        typeChartDict.Add(allTypes.Normal.name, allTypes.Normal);
 
     }
 

@@ -360,6 +360,11 @@ public class Enemy : MonoBehaviour
         
         float damageTaken = Mathf.Round(atk.totalDamage * damageMod);
 
+        if (damageTaken <= 0)
+        {
+            damageTaken = 1;
+        }
+
         float critRand = Random.Range(0f, 100f);
         float rand = Random.Range(0f, 100f);
         float statusRand = Random.Range(0f, 100f);
@@ -368,6 +373,8 @@ public class Enemy : MonoBehaviour
         //check to see if the attack misses by comparing the enemies' dodge stat with a number from 1-100. if the enemy dodges, deal 0 damage and spawn the word DODGE instead of a damage value
         if (rand >= stats.evasion)
         {
+            monster.monsterMotion.SetBool("isHit", true);
+            
             //check and see if the attack is a critical hit, and if so, change the damage output and color of the font to indicate a crit
             if (critRand <= critChance)
             {
@@ -375,6 +382,7 @@ public class Enemy : MonoBehaviour
                 //spawn the box to display damage done and change the properties
                 var damage = Instantiate(damageText, transform.position, Quaternion.identity);
                 damage.transform.SetParent(enemyCanvas.transform, false);
+                damage.transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
                 damage.GetComponentInChildren<TMP_Text>().text = "-" + damageTaken + "!";
                 damage.GetComponentInChildren<TMP_Text>().color = Color.yellow;
                 Destroy(damage, damage.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
@@ -384,6 +392,7 @@ public class Enemy : MonoBehaviour
                 //spawn the box to display damage done and change the properties to signify a critical hit
                 var damage = Instantiate(damageText, transform.position, Quaternion.identity);
                 damage.transform.SetParent(enemyCanvas.transform, false);
+                damage.transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
                 damage.GetComponentInChildren<TMP_Text>().text = "-" + damageTaken.ToString();
                 Destroy(damage, damage.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
             }
@@ -413,9 +422,11 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            monster.monsterMotion.SetBool("isDodge", true);
             //spawn the box to display damage done and change the properties to "DODGE" if the enemy succesfully evades
             var damage = Instantiate(damageText, transform.position, Quaternion.identity);
             damage.transform.SetParent(enemyCanvas.transform, false);
+            damage.transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
             damage.GetComponentInChildren<TMP_Text>().text = "Dodge!";
             Destroy(damage, damage.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
             damageTaken = 0;
@@ -635,6 +646,7 @@ public class Enemy : MonoBehaviour
 
         // Get the moving objects current position of its legs
         Vector3 currentPosition = averageLegPos;
+        //Vector3 currentPosition = new Vector3(monster.transform.position.x, monster.transform.position.y + gameObject.GetComponent<RectTransform>().rect.height, 1f);
 
         // Get the target waypoints position
         Vector3 targetPosition = currentPath.transform.position;
@@ -650,18 +662,37 @@ public class Enemy : MonoBehaviour
             
         }
 
-        if (targetPosition.x >= currentPosition.x)
+        if (monster.info.name != "Lichenthrope")
         {
-            isRight = true;
-            isLeft = false;
-            monster.puppet.flip = true;
-            
+            if (targetPosition.x <= currentPosition.x)
+            {
+                isRight = true;
+                isLeft = false;
+                monster.puppet.flip = true;
+
+            }
+            else
+            {
+                isRight = false;
+                isLeft = true;
+                monster.puppet.flip = false;
+            }
         }
         else
         {
-            isRight = false;
-            isLeft = true;
-            monster.puppet.flip = false;
+            if (targetPosition.x >= currentPosition.x)
+            {
+                isRight = true;
+                isLeft = false;
+                monster.puppet.flip = true;
+
+            }
+            else
+            {
+                isRight = false;
+                isLeft = true;
+                monster.puppet.flip = false;
+            }
         }
 
         

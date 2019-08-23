@@ -146,11 +146,6 @@ MonoBehaviour:
     atkPowerPercentBonus: 0
     atkTimePercentBonus: 0
     evasionPercentBonus: 0
-  tileSprites:
-  - {fileID: 21300000, guid: 5ed3716f76f1748438f94ab7e4c7deb3, type: 3}
-  - {fileID: 21300000, guid: e3b63f31b98be7041821daab159b59d6, type: 3}
-  - {fileID: 21300000, guid: f4a3cec5a9fc10d478d0ef325def0512, type: 3}
-  - {fileID: 21300000, guid: 5496b960b1df6334c8f66ce6ee7db06d, type: 3}
 --- !u!60 &84742495945837051
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -178,8 +173,8 @@ PolygonCollider2D:
     m_Paths:
     - - {x: -0.015441708, y: 0.2696132}
       - {x: -0.4966022, y: 0.024516499}
-      - {x: -0.43374285, y: 0.004751612}
-      - {x: -0.43374285, y: 0.008149462}
+      - {x: -0.4918642, y: 0.021762738}
+      - {x: -0.4550068, y: 0.0038966797}
       - {x: -0.05563517, y: -0.18127032}
       - {x: -0.014569883, y: -0.19485815}
       - {x: 0.3793675, y: -0.00845088}

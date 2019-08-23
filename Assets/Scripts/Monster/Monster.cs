@@ -159,6 +159,9 @@ public class Monster : MonoBehaviour
     //use these icons to display a monster's current statuses
     public GameObject[] statusIcons;
 
+    //script used to access the meshes that make up the monster
+    public MeshBodyParts bodyParts;
+
 
     private void Awake()
     {
@@ -278,6 +281,7 @@ public class Monster : MonoBehaviour
             tempStats.attack2.AttackSpeed.BaseValue = attack.attackSpeed;
         }
 
+       
     }
 
     // Update is called once per frame

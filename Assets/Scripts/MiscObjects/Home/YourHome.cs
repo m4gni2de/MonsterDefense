@@ -32,9 +32,9 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
         monsterSpriteTotal = 0;
         
 
-        for (int c = 0; c < 5; c++)
+        for (int c = 0; c < 3; c++)
         {
-            for (int r = 0; r < 4; r++)
+            for (int r = 0; r < 5; r++)
             {
                 monsterSprites[monsterSpriteTotal] = Instantiate(monsterSprite, homeCanvas.transform.position, Quaternion.identity);
                 monsterSprites[monsterSpriteTotal].transform.SetParent(homeCanvas.transform, true);
@@ -64,6 +64,8 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
         //if there are monsters that are showing, delete them to avoid duplicates
         GameObject[] mons = GameObject.FindGameObjectsWithTag("Monster");
 
+
+        
         if (mons.Length > 0)
         {
 
@@ -208,6 +210,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                         PlayerPrefs.SetInt("MonsterCount", GameManager.Instance.monsterCount);
                         GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
                         Debug.Log(PlayerPrefs.GetInt("MonsterCount"));
+                        var position = activeMonster.transform.position;
                         Destroy(activeMonster.gameObject);
                         infoMenu.SetActive(false);
                         LoadMonsters();
@@ -252,19 +255,24 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
             if (monstersDict.ContainsKey(species))
             {
-
-                var monster = Instantiate(monstersDict[species].monsterPrefab, homeCanvas.transform.position, Quaternion.identity);
+                var position = monsterSprites[monsterSpriteTotal].transform.position;
+                monsterSprites[monsterSpriteTotal] = Instantiate(monstersDict[species].monsterPrefab, monsterSprites[monsterSpriteTotal].transform.position, Quaternion.identity);
+                var monster = monsterSprites[monsterSpriteTotal];
+               
+                //var monster = Instantiate(monstersDict[species].monsterPrefab, homeCanvas.transform.position, Quaternion.identity);
                 monster.transform.SetParent(homeCanvas.transform, true);
                 monster.GetComponent<Monster>().monsterIcon.SetActive(true);
                 monster.GetComponent<Tower>().boneStructure.SetActive(false);
                 monster.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
-                monster.transform.position = new Vector3(0f, 0f, 10f);
+                //monster.transform.position = new Vector3(0f, 0f, 10f);
+                monster.transform.position = position;
                 monster.tag = "Monster";
                 monster.GetComponent<Monster>().SummonNewMonster(monster.GetComponent<Monster>().info.species);
                 //monster.transform.position = spawnPoint;
                 monster.GetComponent<Monster>().monsterIcon.transform.localScale = new Vector3(transform.localScale.x * 3, transform.localScale.y * 3, transform.localScale.z);
                 //monster.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
                 activeMonster = monster.GetComponent<Monster>();
+                monsterSpriteTotal += 1;
                 //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
             }
         }
@@ -432,6 +440,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     {
         PlayerPrefs.DeleteAll();
     }
+
 
     //called from the MonsterInfoPanel script to hide all of the monster Icons behind the new menu
     public void HideAllMonsters()

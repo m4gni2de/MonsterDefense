@@ -8530,6 +8530,7 @@ MonoBehaviour:
   enCostText: {fileID: 0}
   expSlider: {fileID: 201479931785676176}
   towersFilled: 0
+  mainCamera: {fileID: 0}
 --- !u!224 &1039797798024575089
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8908,7 +8909,106 @@ MonoBehaviour:
   tileNumber: 0
   mapTile: {fileID: 504203571771387818, guid: 42051998af0b7324590a2d750fc5b774, type: 3}
   mapCanvas: {fileID: 1430899805}
-  path: []
+  path:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   pathOrder: []
   pathCodes: []
   enemies: 
@@ -8920,8 +9020,14 @@ MonoBehaviour:
   spawnInterval: 0
   enemyCount: 0
   spawnPoint: {fileID: 201479932154600371}
-  enemy: {fileID: 2322080368950832027, guid: fecfd61aa9aeb6d4789e2d53045666b5, type: 3}
   isOver: 0
+  mapInformation:
+    playerEnergy: 0
+    playerEnergyMax: 0
+    energyRate: 0
+    mapHealthMax: 0
+    mapHealthCurrent: 0
+  mapInfoMenu: {fileID: 0}
 --- !u!114 &4630039514979879823
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -93,7 +93,7 @@ public class EnemyInfoPanel : MonoBehaviour
                 for (int i = 0; i < statusSprites.Length; i++)
                 {
                     statusSprites[i].GetComponent<SpriteRenderer>().sprite = activeEnemy.GetComponent<Monster>().statusIcons[i].GetComponent<SpriteRenderer>().sprite;
-                    statusSprites[i].transform.localScale = new Vector3(8, 6, statusSprites[i].transform.localScale.z);
+                    statusSprites[i].transform.localScale = new Vector3(7, 3.5f, statusSprites[i].transform.localScale.z);
                 }
 
             

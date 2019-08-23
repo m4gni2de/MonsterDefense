@@ -6,6 +6,7 @@ using TMPro;
 public class MonsterIcon : MonoBehaviour
 {
     public TMP_Text nameText, levelText;
+    //public SpriteRenderer sp;
     public Canvas canvas;
     
 
@@ -14,6 +15,7 @@ public class MonsterIcon : MonoBehaviour
     {
         nameText.GetComponent<TMP_Text>();
         levelText.GetComponent<TMP_Text>();
+        //sp.GetComponent<SpriteRenderer>();
         canvas.sortingLayerName = "GameUI";
     }
 
@@ -27,6 +29,8 @@ public class MonsterIcon : MonoBehaviour
             levelText.text = GetComponentInParent<Monster>().info.level.ToString();  
         }
     }
+
+    
 
 
     //these methods are called from other scripts to hide or show the icon in different menus

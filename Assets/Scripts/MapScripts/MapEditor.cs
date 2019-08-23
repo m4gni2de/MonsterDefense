@@ -70,7 +70,7 @@ public class MapEditor : MonoBehaviour
         width = gameObject.GetComponent<RectTransform>().rect.width;
         height = gameObject.GetComponent<RectTransform>().rect.height;
 
-        
+
 
         //Debug.Log(height);
 
@@ -262,6 +262,7 @@ public class MapEditor : MonoBehaviour
 
         mapDetails.LoadMap(code);
 
+
         return;
         
         
@@ -292,6 +293,7 @@ public class MapEditor : MonoBehaviour
                     //change the clicked tile to a pathway for enemies
                     if (pathDesign == true)
                     {
+                        
                         
                         
                         //replace tile with a road tile

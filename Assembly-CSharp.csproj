@@ -60,7 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Monsters\Animations\AnimationScripts\IdleTime.cs" />
     <Compile Include="Assets\Monsters\Animations\BiPedal\BiPedalMotionControl.cs" />
+    <Compile Include="Assets\Puppet2D\FightingGame\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\Puppet2D\FightingGame\Scripts\FighterAIController.cs" />
+    <Compile Include="Assets\Puppet2D\FightingGame\Scripts\FighterRandomIndex.cs" />
+    <Compile Include="Assets\Puppet2D\Platformer\Scripts\PlatformerSimpleController.cs" />
     <Compile Include="Assets\Puppet2D\Scripts\Puppet2D_AngleLimitNode.cs" />
     <Compile Include="Assets\Puppet2D\Scripts\Puppet2d_AnimatorController.cs" />
     <Compile Include="Assets\Puppet2D\Scripts\Puppet2D_BakeAnimation.cs" />
@@ -145,6 +150,7 @@
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\MapInfoMenu.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\WorldMap.cs" />
     <Compile Include="Assets\Scripts\Monster\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Monster\MeshBodyParts.cs" />
     <Compile Include="Assets\Scripts\Monster\Monster.cs" />
     <Compile Include="Assets\Scripts\Monster\MonsterIcon.cs" />
     <Compile Include="Assets\Scripts\Monster\Motion.cs" />

@@ -61,6 +61,9 @@ public struct TileInfo
     public float boostPercentage;
     public string description;
 
+    public int row;
+    public int column;
+
     public int hpBonus;
     public int atkBonus;
     public int defBonus;
@@ -136,6 +139,7 @@ public class MapTile : MonoBehaviour
     public int tileTypeInt;
 
     public TileInfo info = new TileInfo();
+    
 
     
 
@@ -156,6 +160,7 @@ public class MapTile : MonoBehaviour
     {
         startingSprite = sp.sprite;
         tileColor = sp.color;
+        
     }
 
     // Update is called once per frame
@@ -187,7 +192,8 @@ public class MapTile : MonoBehaviour
     public void Build()
     {
         //sp.color = Color.black;
-        sp.sprite = dirt;
+        //sp.sprite = dirt;
+        sp.sprite = blank;
         isBuildable = true;
         
     }

@@ -49,6 +49,8 @@ public class WorldMap : MonoBehaviour
             mapDetails.levelMin = allMaps[mapName].levelMin;
             mapDetails.levelMax = allMaps[mapName].levelMax;
             mapDetails.spawnInterval = allMaps[mapName].spawnInterval;
+            mapDetails.width = allMaps[mapName].width;
+            mapDetails.height = allMaps[mapName].height;
 
             mapDetails.LoadMap(mapName);
             mapObject.transform.position = new Vector2(0f, 0f);

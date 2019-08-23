@@ -35,7 +35,7 @@ public class AllStatuses
         name = "Burn",
         effectType = "Fire",
         hpDrop = -.04f,
-        duration = 5f,
+        duration = 30f,
         interval = 3f,
     };
 
@@ -69,7 +69,7 @@ public class AllStatuses
         evasionDrop = -.45f,
         hpDrop = -.02f,
         defDrop = -.01f,
-        duration = 8f,
+        duration = 30f,
         interval = 4f,
     };
 
