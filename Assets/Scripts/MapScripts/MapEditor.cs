@@ -8,10 +8,9 @@ public class MapEditor : MonoBehaviour
 {
     public float width, height;
     public int columns, rows;
-    //string to represent the code that represents the level
-    public string levelCode;
+    
 
-    public string tileAttCode;
+    
     //the number of the tile as it's spawned
     public int tileNumber;
 
@@ -39,14 +38,21 @@ public class MapEditor : MonoBehaviour
 
     public GameObject tileEditorMenu;
 
+   
+
 
     void Awake()
     {
 
-        TileValues.Add("0", "Build");
-        TileValues.Add("1", "Dirt");
-        TileValues.Add("2", "Water");
-        TileValues.Add("3", "Path");
+        //TileValues.Add("0", "Build");
+        //TileValues.Add("1", "Dirt");
+        //TileValues.Add("2", "Water");
+        //TileValues.Add("3", "Path");
+
+
+        
+
+
 
         TileAttributes.Add("00", "None");
         TileAttributes.Add("01", "Water");
@@ -89,6 +95,163 @@ public class MapEditor : MonoBehaviour
     }
 
 
+    //public void RandomMap()
+    //{
+    //    for (int i = 1; i < rows * 2; i++)
+    //    {
+    //        //Debug.Log(i);
+
+    //        for (int c = 1; c <= columns; c++)
+    //        {
+
+
+
+    //            int rand = Random.Range(0, TileValues.Count -1);
+    //            int randType = Random.Range(0, TileAttributes.Count);
+    //            string type = "";
+
+
+    //            if (randType < 10)
+    //            {
+    //                type = "0" + randType;
+    //            }
+    //            else
+    //            {
+    //               type = randType.ToString();
+    //            }
+
+    //            var tile = Instantiate(mapTile, transform.position, Quaternion.identity);
+    //            var tile2 = Instantiate(mapTile, transform.position, Quaternion.identity);
+
+
+
+    //            ////picks a random tile type for the tile to have
+    //            //if (TileValues.ContainsKey(rand.ToString()))
+    //            //{
+
+    //            //    tile.GetComponent<MapTile>().GetType(rand);
+    //            //    levelCode += rand.ToString();
+    //            //}
+
+
+
+    //            //picks a random tile attribute for the tile to have
+    //            if (TileAttributes.ContainsKey(type))
+    //            {
+
+    //                tile.GetComponent<MapTile>().GetAttribute(randType);
+    //                tileAttCode += type;
+    //            }
+
+    //            tile.GetComponent<MapTile>().tileNumber = tileNumber;
+    //            tile.name = tileNumber.ToString();
+    //            tileNumber += 1;
+
+    //            //if (rand == 0)
+    //            //{
+    //            //    tile.GetComponent<MapTile>().Build();
+    //            //    levelCode += "0";
+    //            //}
+    //            //if (rand == 1)
+    //            //{
+    //            //    tile.GetComponent<MapTile>().Dirt();
+    //            //    levelCode += "1";
+    //            //}
+    //            //if (rand == 2)
+    //            //{
+    //            //    tile.GetComponent<MapTile>().Water();
+    //            //    levelCode += "2";
+    //            //}
+    //            //if (rand == 3)
+    //            //{
+    //            //    tile.GetComponent<MapTile>().Road();
+    //            //    levelCode += "3";
+    //            //}
+
+
+
+    //            //*******************************************************************TILE 1 AND 2 SEPARATOR**********************8
+
+
+    //            int randType2 = Random.Range(0, TileAttributes.Count);
+    //            string type2 = "";
+    //            if (randType2 < 10)
+    //            {
+    //                type2 = "0" + randType2;
+    //            }
+    //            else
+    //            {
+    //                type2 = randType.ToString();
+    //            }
+
+
+
+    //            int rand2 = Random.Range(0, TileValues.Count - 1);
+
+    //            ////picks a random tile type for the tile to have
+    //            //if (TileValues.ContainsKey(rand2.ToString()))
+    //            //{
+
+    //            //    tile2.GetComponent<MapTile>().GetType(rand2);
+    //            //    levelCode += rand2.ToString();
+    //            //}
+
+    //            //picks a random tile attribute for the tile to have
+    //            if (TileAttributes.ContainsKey(type))
+    //            {
+    //                tile2.GetComponent<MapTile>().GetAttribute(randType2);
+    //                tileAttCode += type;
+
+    //            }
+
+    //            tile2.GetComponent<MapTile>().tileNumber = tileNumber;
+    //            tile2.name = tileNumber.ToString();
+    //            tileNumber += 1;
+
+    //            //if (rand2 == 0)
+    //            //{
+    //            //    tile2.GetComponent<MapTile>().Build();
+    //            //    levelCode += "0";
+    //            //}
+    //            //if (rand2 == 1)
+    //            //{
+    //            //    tile2.GetComponent<MapTile>().Dirt();
+    //            //    levelCode += "1";
+    //            //}
+    //            //if (rand2 == 2)
+    //            //{
+    //            //    tile2.GetComponent<MapTile>().Water();
+    //            //    levelCode += "2";
+    //            //}
+    //            //if (rand2 == 3)
+    //            //{
+    //            //    tile2.GetComponent<MapTile>().Road();
+    //            //    levelCode += "3";
+    //            //}
+
+
+
+
+    //            tile.transform.position = new Vector2((-width/2) + (i * 50), (height/2) - (c * 25));
+    //            tile.GetComponent<SpriteRenderer>().sortingOrder = (int)-tile.transform.position.y;
+    //            tile2.transform.position = new Vector2((-width/2) + (i * 50) + 25, (height/2) - (c * 25) + 12.5f);
+    //            tile2.GetComponent<SpriteRenderer>().sortingOrder = (int)-tile2.transform.position.y;
+
+    //            tile.transform.SetParent(mapCanvas.transform, false);
+    //            tile2.transform.SetParent(mapCanvas.transform, false);
+
+
+
+
+    //        }
+
+
+
+
+
+    //    }
+    //}
+
     public void RandomMap()
     {
         for (int i = 1; i < rows * 2; i++)
@@ -100,10 +263,10 @@ public class MapEditor : MonoBehaviour
 
 
 
-                int rand = Random.Range(0, TileValues.Count -1);
+                
                 int randType = Random.Range(0, TileAttributes.Count);
                 string type = "";
-                
+
 
                 if (randType < 10)
                 {
@@ -111,54 +274,27 @@ public class MapEditor : MonoBehaviour
                 }
                 else
                 {
-                   type = randType.ToString();
+                    type = randType.ToString();
                 }
-                
+
                 var tile = Instantiate(mapTile, transform.position, Quaternion.identity);
                 var tile2 = Instantiate(mapTile, transform.position, Quaternion.identity);
 
-               
-
-                //picks a random tile type for the tile to have
-                if (TileValues.ContainsKey(rand.ToString()))
-                {
-
-                    tile.GetComponent<MapTile>().GetType(rand);
-                    levelCode += rand.ToString();
-                }
 
                 //picks a random tile attribute for the tile to have
                 if (TileAttributes.ContainsKey(type))
                 {
 
                     tile.GetComponent<MapTile>().GetAttribute(randType);
-                    tileAttCode += type;
+                    mapDetails.mapCode += type;
+                    
                 }
 
                 tile.GetComponent<MapTile>().tileNumber = tileNumber;
                 tile.name = tileNumber.ToString();
                 tileNumber += 1;
 
-                //if (rand == 0)
-                //{
-                //    tile.GetComponent<MapTile>().Build();
-                //    levelCode += "0";
-                //}
-                //if (rand == 1)
-                //{
-                //    tile.GetComponent<MapTile>().Dirt();
-                //    levelCode += "1";
-                //}
-                //if (rand == 2)
-                //{
-                //    tile.GetComponent<MapTile>().Water();
-                //    levelCode += "2";
-                //}
-                //if (rand == 3)
-                //{
-                //    tile.GetComponent<MapTile>().Road();
-                //    levelCode += "3";
-                //}
+                
 
 
 
@@ -176,23 +312,17 @@ public class MapEditor : MonoBehaviour
                     type2 = randType.ToString();
                 }
 
-               
+
 
                 int rand2 = Random.Range(0, TileValues.Count - 1);
 
-                //picks a random tile type for the tile to have
-                if (TileValues.ContainsKey(rand2.ToString()))
-                {
-
-                    tile2.GetComponent<MapTile>().GetType(rand2);
-                    levelCode += rand2.ToString();
-                }
+                
 
                 //picks a random tile attribute for the tile to have
-                if (TileAttributes.ContainsKey(type))
+                if (TileAttributes.ContainsKey(type2))
                 {
                     tile2.GetComponent<MapTile>().GetAttribute(randType2);
-                    tileAttCode += type;
+                    mapDetails.mapCode += type2;
 
                 }
 
@@ -200,33 +330,9 @@ public class MapEditor : MonoBehaviour
                 tile2.name = tileNumber.ToString();
                 tileNumber += 1;
 
-                //if (rand2 == 0)
-                //{
-                //    tile2.GetComponent<MapTile>().Build();
-                //    levelCode += "0";
-                //}
-                //if (rand2 == 1)
-                //{
-                //    tile2.GetComponent<MapTile>().Dirt();
-                //    levelCode += "1";
-                //}
-                //if (rand2 == 2)
-                //{
-                //    tile2.GetComponent<MapTile>().Water();
-                //    levelCode += "2";
-                //}
-                //if (rand2 == 3)
-                //{
-                //    tile2.GetComponent<MapTile>().Road();
-                //    levelCode += "3";
-                //}
-
-
-
-
-                tile.transform.position = new Vector2((-width/2) + (i * 50), (height/2) - (c * 25));
+                tile.transform.position = new Vector2((-width / 2) + (i * 50), (height / 2) - (c * 25));
                 tile.GetComponent<SpriteRenderer>().sortingOrder = (int)-tile.transform.position.y;
-                tile2.transform.position = new Vector2((-width/2) + (i * 50) + 25, (height/2) - (c * 25) + 12.5f);
+                tile2.transform.position = new Vector2((-width / 2) + (i * 50) + 25, (height / 2) - (c * 25) + 12.5f);
                 tile2.GetComponent<SpriteRenderer>().sortingOrder = (int)-tile2.transform.position.y;
 
                 tile.transform.SetParent(mapCanvas.transform, false);
@@ -270,6 +376,8 @@ public class MapEditor : MonoBehaviour
         
     }
 
+   
+
 
     //get information on the map tiles that were clicked
     public void CheckTile()
@@ -293,32 +401,19 @@ public class MapEditor : MonoBehaviour
                     //change the clicked tile to a pathway for enemies
                     if (pathDesign == true)
                     {
-                        
-                        
-                        
+
                         //replace tile with a road tile
                         tile.GetComponent<MapTile>().Road();
-                        levelCode = levelCode.Remove(tile.GetComponent<MapTile>().tileNumber, 1);
-                        levelCode = levelCode.Insert(tile.GetComponent<MapTile>().tileNumber, "3");
-
                     }
 
-                    //change the clicked tile to accept a tower for players
-                    if (buildDesign == true)
-                    {
-                        //replace tile with a buildable tile
-                        tile.GetComponent<MapTile>().Build();
-                        levelCode = levelCode.Remove(tile.GetComponent<MapTile>().tileNumber, 1);
-                        levelCode = levelCode.Insert(tile.GetComponent<MapTile>().tileNumber, "0");
-                    }
 
                     //click the paths in order to make a path. if pathDesign and pathDirection are both true, you can make a path and set it next in the list of pathways at the same time
                     if (pathDirection == true)
                     {
                         if (tile.GetComponent<MapTile>().isRoad == true)
                         {
-                            pathList.Add(tile.GetComponent<MapTile>().tileNumber);
-                            path[pathList.Count - 1] = tile.GetComponent<MapTile>();
+                            //pathList.Add(tile.GetComponent<MapTile>().tileNumber);
+                            //path[pathList.Count - 1] = tile.GetComponent<MapTile>();
 
                             if (tile.GetComponent<MapTile>().tileNumber < 10)
                             {

@@ -23,8 +23,8 @@ public class MapDetails : MonoBehaviour
     
 
     public string mapName;
-    public string levelCode;
-    public string tileTypeCode;
+    public string mapCode;
+    //public string tileTypeCode;
     public string pathCode;
 
     public int tileNumber;
@@ -92,8 +92,8 @@ public class MapDetails : MonoBehaviour
 
         if (allMaps.ContainsKey(mapName))
         {
-            levelCode = allMaps[mapName].mapCode;
-            tileTypeCode = allMaps[mapName].tileTypeCode;
+            mapCode = allMaps[mapName].mapCode;
+            
            
 
             //get a list of all possible path codes from the map data and creates a list of them
@@ -138,12 +138,12 @@ public class MapDetails : MonoBehaviour
 
         
 
-            string[] chars = new string[levelCode.Length];
+            //string[] chars = new string[levelCode.Length];
 
-            for (int i = 0; i < levelCode.Length; i++)
-            {
-                chars[i] = levelCode[i].ToString();
-            }
+            //for (int i = 0; i < levelCode.Length; i++)
+            //{
+            //    chars[i] = levelCode[i].ToString();
+            //}
 
 
 
@@ -167,7 +167,7 @@ public class MapDetails : MonoBehaviour
 
 
 
-                    tile.GetComponent<MapTile>().GetType(int.Parse(chars[charCount]));
+                    //tile.GetComponent<MapTile>().GetType(int.Parse(chars[charCount]));
 
                     tile.GetComponent<MapTile>().tileNumber = tileNumber;
                     tile.name = tileNumber.ToString();
@@ -180,7 +180,7 @@ public class MapDetails : MonoBehaviour
                 charCount += 1;
 
 
-                tile2.GetComponent<MapTile>().GetType(int.Parse(chars[charCount]));
+                //tile2.GetComponent<MapTile>().GetType(int.Parse(chars[charCount]));
 
                 tile2.GetComponent<MapTile>().tileNumber = tileNumber;
                 tile2.name = tileNumber.ToString();
@@ -210,9 +210,21 @@ public class MapDetails : MonoBehaviour
 
 
         }
+            //set the tile attributes based on their attribute code
+            string[] tileChars = new string[mapCode.Length];
+            int g = 1;
+            for (int t = 0; t < mapCode.Length / 2; t++)
+            {
+                tileChars[t] = mapCode[g - 1].ToString() + mapCode[g].ToString();
+                g += 2;
+                var tile = GameObject.Find(t.ToString()).GetComponent<MapTile>();
+                tile.GetAttribute(int.Parse(tileChars[t]));
+                tile.Build();
+            }
 
 
-        //GameObject[] paths = GameObject.FindGameObjectsWithTag("MapTile");
+
+            //GameObject[] paths = GameObject.FindGameObjectsWithTag("MapTile");
 
             //make a path code for each possible path, and add them to a Dictionary of PathCodes
             for (int p = 0; p < pathCodes.Count; p++)
@@ -233,6 +245,7 @@ public class MapDetails : MonoBehaviour
                     int tileCheck = int.Parse(pathChars[i]);
                     
                     path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
+                    path[i].Road();
                     pathTiles.Add(path[i]);
                     //Map.path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
                 }
@@ -240,17 +253,11 @@ public class MapDetails : MonoBehaviour
                
             }
 
-        //set the tile attributes based on their attribute code
-        string[] tileChars = new string[tileTypeCode.Length];
-        int g = 1;
-        for (int t = 0; t < tileTypeCode.Length / 2; t++)
-        {
-            tileChars[t] = tileTypeCode[g - 1].ToString() + tileTypeCode[g].ToString();
-            g += 2;
-            GameObject.Find(t.ToString()).GetComponent<MapTile>().GetAttribute(int.Parse(tileChars[t]));
-        }
+            
 
-        spawnPoint.transform.position = new Vector2(spawnX, spawnY);
+
+
+            spawnPoint.transform.position = new Vector2(spawnX, spawnY);
         InvokeRepeating("SpawnEnemy", 4f, spawnInterval);
 
         }

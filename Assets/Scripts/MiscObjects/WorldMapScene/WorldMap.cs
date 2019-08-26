@@ -44,7 +44,7 @@ public class WorldMap : MonoBehaviour
         if (allMaps.ContainsKey(mapName))
         {
             mapDetails.mapName = mapName;
-            mapDetails.levelCode = allMaps[mapName].mapCode;
+            mapDetails.mapCode = allMaps[mapName].mapCode;
             mapDetails.enemyMax = allMaps[mapName].enemyMax;
             mapDetails.levelMin = allMaps[mapName].levelMin;
             mapDetails.levelMax = allMaps[mapName].levelMax;

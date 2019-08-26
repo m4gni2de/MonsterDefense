@@ -70,9 +70,10 @@ public class TileEditorMenu : MonoBehaviour
 
     public void AttributeValueChange()
     {
+
         activeTile.GetAttribute(attChangeDrop.value);
         SetActiveTile(activeTile);
-        string attCode = GetComponentInParent<MapEditor>().tileAttCode;
+        string mapCode = GetComponentInParent<MapDetails>().mapCode;
         string attValue = "";
 
         if (attChangeDrop.value < 10)
@@ -84,10 +85,10 @@ public class TileEditorMenu : MonoBehaviour
             attValue = attChangeDrop.value.ToString();
         }
 
-        attCode = attCode.Remove(activeTile.GetComponent<MapTile>().tileNumber *2, 2);
-        attCode = attCode.Insert(activeTile.GetComponent<MapTile>().tileNumber *2, attValue);
+        mapCode = mapCode.Remove(activeTile.tileNumber * 2, 2);
+        mapCode = mapCode.Insert(activeTile.tileNumber * 2, attValue);
 
-        GetComponentInParent<MapEditor>().tileAttCode = attCode;
+        GetComponentInParent<MapDetails>().mapCode = mapCode;
         typeBtn.interactable = true;
     }
 

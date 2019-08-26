@@ -674,14 +674,29 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             {
                 if (atkRange2List.Contains(enemy.currentTile))
                 {
-                    if (enemy.transform.position.x >= transform.position.x)
+                    if (monster.info.name != "Lichenthrope")
                     {
-                        monster.puppet.flip = true;
+                        if (enemy.transform.position.x <= transform.position.x)
+                        {
+                            monster.puppet.flip = true;
 
+                        }
+                        else
+                        {
+                            monster.puppet.flip = false;
+                        }
                     }
                     else
                     {
-                        monster.puppet.flip = false;
+                        if (enemy.transform.position.x >= transform.position.x)
+                        {
+                            monster.puppet.flip = true;
+
+                        }
+                        else
+                        {
+                            monster.puppet.flip = false;
+                        }
                     }
 
                     isAttacking = true;
@@ -759,7 +774,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
                     if (total <= check + (2 * range) && total >= check - (2 * range) &&  difference <= check2 + (2 * range) && difference >= check2 - (2 * range))
                     {
-                        Debug.Log(maps[a].GetComponent<MapTile>().tileNumber);
+                        
 
                         atkRange1List.Add(maps[a].GetComponent<MapTile>().tileNumber);
                         maps[a].GetComponent<MapTile>().AttackRange(monster);
@@ -767,7 +782,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
                     if (total <= check + (2 * range2) && total >= check - (2 * range2) && difference <= check2 + (2 * range2) && difference >= check2 - (2 * range2))
                     {
-                        Debug.Log(maps[a].GetComponent<MapTile>().tileNumber);
+
 
                         atkRange2List.Add(maps[a].GetComponent<MapTile>().tileNumber);
                         maps[a].GetComponent<MapTile>().AttackRange(monster);

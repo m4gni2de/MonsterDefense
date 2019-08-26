@@ -210,27 +210,10 @@ public class Monster : MonoBehaviour
             tower.enabled = false;
         }
 
-
-        //expSlider.GetComponent<Slider>();
-
-        //make a new equipable for each buff/nerf that a monster will have. each ability, equippment, etc, will have their own equippable
-        //info.equippable1 = new EquippableItem();
-        //info.equippable2 = new EquippableItem();
-
         //checks for which items a monster has equipped and apply the appropriate effects
         EquipmentBoosts();
 
         //gives the monster temporary stats that can be changed in game, without affecting the monster's saved stats. these values are changed during a game, not anything in monster.info
-        //attack = info.Attack.Value;
-        //defense = info.Defense.Value;
-        //speed = info.Speed.Value;
-        //precision = info.Precision.Value;
-        //hp = info.HP.Value;
-        //evasion = info.evasionBase;
-        //stamina = info.Stamina.Value;
-        //energyCost = info.EnergyCost.Value;
-        //energyGeneration = info.EnergyGeneration.Value;
-
         tempStats.HP.BaseValue = info.HP.Value;
         tempStats.Defense.BaseValue = info.Defense.Value;
         tempStats.Attack.BaseValue = info.Attack.Value;
@@ -296,39 +279,18 @@ public class Monster : MonoBehaviour
             enemy.enemyCanvas.SetActive(false);
         }
 
-
-
-
     }
 
 
     //Get the increased stats from the monster's equipment
     public void EquipmentBoosts()
     {
-
-        //EquippableItem equippableItem;
-
-        //equippableItem = new EquippableItem();
-        //equippableItem.Equip(gameObject.GetComponent<Monster>());
         info.equippable1 = new EquippableItem();
         info.equippable2 = new EquippableItem();
 
 
         info.equippable1.Equip(gameObject.GetComponent<Monster>(), 1);
         info.equippable2.Equip(gameObject.GetComponent<Monster>(), 2);
-        //info.equippable.Equip(gameObject.GetComponent<Monster>());
-
-
-        //if (info.equip1Name != null || info.equip1Name != "none")
-        //{
-        //    info.equippable1.Equip(gameObject.GetComponent<Monster>(), info.equip1);
-        //}
-
-        //if (info.equip2Name != null || info.equip2Name != "none")
-        //{
-        //    info.equippable2.Equip(gameObject.GetComponent<Monster>(), info.equip2);
-        //}
-
 
     }
 
@@ -355,32 +317,6 @@ public class Monster : MonoBehaviour
             StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
             GetStats(stats);
         }
-        //if (info.equip1Name == "none" || info.equip1Name == null)
-        //{
-        //    info.equip1Name = equip.name;
-
-        //    EquipmentBoosts();
-
-        //    bool isLevelUp = true;
-        //    StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>(), isLevelUp);
-        //    GetStats(stats);
-        //    return;
-        //}
-
-
-        //if (info.equip2Name == "none" || info.equip2Name == null)
-        //{
-        //    info.equip2Name = equip.name;
-        //    EquipmentBoosts();
-
-        //    bool isLevelUp = true;
-        //    StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>(), isLevelUp);
-        //    GetStats(stats);
-
-        //}
-
-
-
     }
 
     //unequip an item from this monster
@@ -403,21 +339,6 @@ public class Monster : MonoBehaviour
             info.equip2 = new Equipment();
 
         }
-
-
-        //if (slot == 1)
-        //{
-
-        //    info.equip1Name = "none";
-        //    info.equip1 = new Equipment();
-
-        //}
-        //if (slot == 2)
-        //{
-        //    info.equip2Name = "none";
-        //    info.equip2 = new Equipment();
-
-        //}
 
         int itemCount = PlayerPrefs.GetInt(equip.name);
         PlayerPrefs.SetInt(equip.name, itemCount + 1);
@@ -655,20 +576,9 @@ public class Monster : MonoBehaviour
                 BaseAttack attack = attacksDict[info.attack2Name];
                 tempStats.attack2 = attack;
             }
-
-            //StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
-            //GetStats(stats);
-
             SetMonsterStats();
 
         }
-
-        //set the json info for the monster as a playerpref so it can be used against when the game turns off
-        //PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
-
-
-
-
     }
 
 
@@ -683,17 +593,6 @@ public class Monster : MonoBehaviour
 
         info = stats.Monster.info;
         tempStats = stats.Monster.tempStats;
-
-
-        //attack = info.Attack.Value;
-        //defense = info.Defense.Value;
-        //speed = info.Speed.Value;
-        //precision = info.Precision.Value;
-        //hp = info.HP.Value;
-        //evasion = info.evasionBase;
-        //stamina = info.Stamina.Value;
-        //energyCost = info.EnergyCost.Value;
-        //energyGeneration = info.EnergyGeneration.Value;
 
         GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
     }
@@ -791,20 +690,7 @@ public class Monster : MonoBehaviour
     {
 
         tempStats = effect.Monster.tempStats;
-
-        
-        //attack = effect.Monster.attack;
-        //defense = effect.Monster.defense;
-        //evasion = effect.Monster.evasion;
-        //hp = effect.Monster.hp;
-        //speed = effect.Monster.speed;
-        //energyGeneration = effect.Monster.energyGeneration;
-        //precision = effect.Monster.precision;
-
-        //if (hp <= 0)
-        //{
-        //    hp = 1;
-        //};
+ 
     }
 
 
@@ -848,9 +734,6 @@ public class Monster : MonoBehaviour
             int toNextLevel = expToLevel[info.level + 1];
             int totalNextLevel = totalExpForLevel[info.level + 1];
             int nextLevelDiff = totalNextLevel - info.totalExp;
-
-            //expSlider.maxValue = (float)toNextLevel;
-            //expSlider.value = toNextLevel - nextLevelDiff;
         }
     }
 
@@ -861,9 +744,6 @@ public class Monster : MonoBehaviour
         info.totalExp += (int)Mathf.Round(expGained);
 
         info.koCount += 1;
-
-        //Debug.Log("EXP Gained: " + expGained);
-       
 
         if (expToLevel.ContainsKey(info.level))
         {
@@ -877,35 +757,10 @@ public class Monster : MonoBehaviour
                 info.level += 1;
 
                 SetExp();
-
-
-                //int defBefore = (int)info.defStat;
-                //int hpBefore = (int)info.hpMax;
-                //int atkBefore = (int)info.atkStat;
-                //int speBefore = (int)info.speStat;
-                //int precBefore = (int)info.precStat;
-
-
-
                 StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
                 GetStats(stats);
 
-                for (int b = 0; b < boostTiles.Count; b++)
-                {
-                    MapTileStatChange tile = new MapTileStatChange();
-                    tile.ApplyTileChanges(gameObject.GetComponent<Monster>(), boostTiles[b]);
-                }
-
                 return;
-                
-
-                //int defChange = (int)info.defStat - defBefore;
-                //int hpChange = (int)info.hpMax - hpBefore;
-                //int atkChange = (int)info.atkStat - atkBefore;
-                //int speChange = (int)info.speStat - speBefore;
-                //int precChange = (int)info.precStat - precBefore;
-
-                //Debug.Log("Previous Defense: " + defBefore + " New Defense: " + info.defStat + " Defense Change: +" + defChange);
             }
 
             

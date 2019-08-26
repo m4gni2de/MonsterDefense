@@ -39,15 +39,15 @@ public class StatsCalc
         monster.info.EnergyCost.BaseValue = (int)monster.info.energyCost;
         monster.info.EnergyGeneration.BaseValue = (monster.info.energyGenBase);
 
-
-        monster.tempStats.HP.BaseValue = monster.info.HP.BaseValue;
-        monster.tempStats.Defense.BaseValue = monster.info.Defense.BaseValue;
-        monster.tempStats.Attack.BaseValue = monster.info.Attack.BaseValue;
-        monster.tempStats.Speed.BaseValue = monster.info.Speed.BaseValue;
-        monster.tempStats.Precision.BaseValue = monster.info.Precision.BaseValue;
-        monster.tempStats.Stamina.BaseValue = monster.info.Stamina.BaseValue;
-        monster.tempStats.EnergyCost.BaseValue = monster.info.EnergyCost.BaseValue;
-        monster.tempStats.EnergyGeneration.BaseValue = monster.info.EnergyGeneration.BaseValue;
+        //sets the monster's temporary stats, using it's permanent stats as a base
+        monster.tempStats.HP.BaseValue = monster.info.HP.Value;
+        monster.tempStats.Defense.BaseValue = monster.info.Defense.Value;
+        monster.tempStats.Attack.BaseValue = monster.info.Attack.Value;
+        monster.tempStats.Speed.BaseValue = monster.info.Speed.Value;
+        monster.tempStats.Precision.BaseValue = monster.info.Precision.Value;
+        monster.tempStats.Stamina.BaseValue = monster.info.Stamina.Value;
+        monster.tempStats.EnergyCost.BaseValue = monster.info.EnergyCost.Value;
+        monster.tempStats.EnergyGeneration.BaseValue = monster.info.EnergyGeneration.Value;
         monster.tempStats.evasionBase = monster.info.evasionBase;
         monster.tempStats.critBase = monster.info.critBase;
 
@@ -207,6 +207,7 @@ public class StatModifier
         Order = order;
         Source = source; // Assign Source to our new input parameter
 
+        Debug.Log(source);
 
     }
 

@@ -20,8 +20,6 @@ public enum TileAttribute
 public enum TileType
 {
     Build,
-    Dirt,
-    Water,
     Path,
 };
 
@@ -118,7 +116,7 @@ public class MapTile : MonoBehaviour
 
 
     //the sprite of the tile
-    public Sprite dirt, water, grass, road, blank;
+    public Sprite road, blank;
 
     //the number at which the tile spawned
     public int tileNumber;
@@ -193,67 +191,23 @@ public class MapTile : MonoBehaviour
     {
         //sp.color = Color.black;
         //sp.sprite = dirt;
-        sp.sprite = blank;
+        //sp.sprite = blank;
         isBuildable = true;
         
     }
 
-    //invoke this method if the tile is going to be used as a pathway for monsters
-    public void Dirt()
-    {
-        //sp.color = Color.green;
-        sp.sprite = dirt;
-        
-    }
-
-    //invoke this method if the tile is going to be used as a water tile
-    public void Water()
-    {
-        //sp.color = Color.blue;
-        sp.sprite = water;
-        
-    }
 
     public void Road()
     {
         //sp.color = Color.blue;
         sp.sprite = road;
-
+        isBuildable = false;
         isRoad = true;
         
     }
 
 
-    //TYPE AND ATTRIBUTE GOTTEN FROM THE MAP EDITOR OR MAP DETAILS SCRIPT
-    public void GetType(int a)
-    {
-        tileTypeInt = a;
-        tileType = (TileType)Enum.ToObject(typeof(TileType), tileTypeInt);
-
-        if (tileType == TileType.Build)
-        {
-            Build();
-        }
-
-        if (tileType == TileType.Dirt)
-        {
-            Dirt();
-        }
-
-        if (tileType == TileType.Path)
-        {
-            Road();
-        }
-
-        if (tileType == TileType.Water)
-        {
-            Water();
-        }
-
-        info.type = tileType.ToString();
-        
-
-    }
+   
 
     public void GetAttribute(int tileInt)
     {
@@ -267,7 +221,8 @@ public class MapTile : MonoBehaviour
 
         info.attribute = tileAtt.ToString();
 
-        if (tileInt != 0 &&  tileType != TileType.Path && tileType != TileType.Build)
+
+        if (!isRoad)
         {
             if (sprites.ContainsKey(tileInt))
             {

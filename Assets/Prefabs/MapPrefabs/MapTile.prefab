@@ -107,9 +107,6 @@ MonoBehaviour:
   monsterOn: {fileID: 0}
   hasMonster: 0
   towersInRange: []
-  dirt: {fileID: 21300000, guid: b96d3fcc1ccdb964683f6ad0775ec9ea, type: 3}
-  water: {fileID: 21300000, guid: 5ed3716f76f1748438f94ab7e4c7deb3, type: 3}
-  grass: {fileID: 21300000, guid: b27a1646af6e1e44e96ca8e99f8cb9d6, type: 3}
   road: {fileID: 21300000, guid: b4e98879eb7dd814a913c4786231bc38, type: 3}
   blank: {fileID: 21300000, guid: 8368e93dbcd1b734f993a68980a4f589, type: 3}
   tileNumber: 0
@@ -128,6 +125,8 @@ MonoBehaviour:
     statBoost: 
     boostPercentage: 0
     description: 
+    row: 0
+    column: 0
     hpBonus: 0
     atkBonus: 0
     defBonus: 0
