@@ -24,6 +24,15 @@ public enum TileType
 };
 
 [System.Serializable]
+public enum PathDirection
+{
+    NE,
+    NW,
+    SE, 
+    SW,
+};
+
+[System.Serializable]
 public enum BoostType
 {
     HPBonus, 
@@ -89,6 +98,10 @@ public class MapTile : MonoBehaviour
     private Sprite sprite;
     private Sprite startingSprite;
 
+    //road sprite on top of the tile sprite, as well as the array of possible road sprites
+    public SpriteRenderer roadSprite;
+    public Sprite[] roadSprites;
+
     //makes the tile a tile that your monsters can be placed on
     public bool isBuildable;
 
@@ -137,13 +150,21 @@ public class MapTile : MonoBehaviour
     public int tileTypeInt;
 
     public TileInfo info = new TileInfo();
-    
 
-    
+    public string pathDirection;
+    //this is used to check for paths that are on different paths, but overlap. if this happens, use the 4 way intersection sprite
+    public int pathCount;
 
+    //public GameObject reflector;
+    //public GameObject reflectorCamera;
+    //private Camera camera;
+    //public Renderer Renderer;
+
+    public static int cameraDepth;
     private void Awake()
     {
         sp.GetComponent<SpriteRenderer>();
+        roadSprite.GetComponent<SpriteRenderer>();
         sprite = GetComponent<Sprite>();
 
 
@@ -200,9 +221,10 @@ public class MapTile : MonoBehaviour
     public void Road()
     {
         //sp.color = Color.blue;
-        sp.sprite = road;
+        //sp.sprite = road;
         isBuildable = false;
         isRoad = true;
+        pathCount += 1;
         
     }
 
@@ -214,13 +236,21 @@ public class MapTile : MonoBehaviour
         tileAttInt = tileInt;
 
         var sprites = GameManager.Instance.GetComponent<Maps>().allTileSpritesDict;
-        
+
 
         tileAtt = (TileAttribute)Enum.ToObject(typeof(TileAttribute), tileInt);
         //Debug.Log(tileAtt);
 
         info.attribute = tileAtt.ToString();
 
+        if (tileInt == 1)
+        {
+            //reflector.SetActive(true);
+            //reflectorCamera.SetActive(true);
+            //camera = reflectorCamera.GetComponent<Camera>();
+            //camera.depth = cameraDepth;
+            //cameraDepth -= 1;
+        }
 
         if (!isRoad)
         {
@@ -314,7 +344,7 @@ public class MapTile : MonoBehaviour
                     //send over the monster that is on the target tile so the attacking monster knows what enemy to target
                     foreach (Monster monster in towersInRange)
                     {
-                        monster.GetComponent<Tower>().Attack(enemy);
+                        monster.GetComponent<Tower>().Attack(enemy, gameObject.GetComponent<MapTile>());
                     }
                 }
             }

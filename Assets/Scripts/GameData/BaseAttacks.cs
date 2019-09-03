@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public struct BaseAttack
 {
+    //Stats are filled in when the monster using it becomes active, to account for stat buffs and drops
     public Stat Range;
     public Stat Power;
     public Stat CritChance;
@@ -13,6 +14,7 @@ public struct BaseAttack
     public Stat EffectChance;
     public Stat AttackTime;
     public Stat AttackSpeed;
+    public Stat AttackSlow;
 
 
     public string name;
@@ -27,8 +29,14 @@ public struct BaseAttack
     public float effectChance;
     public float attackTime;
     public float attackSpeed;
+    //length of time a monster is slowed when hit by this attack
+    public float hitSlowTime;
+    //either projectile or physical
+    public string attackType;
 
     public GameObject attackAnimation;
+    
+    
 
 };
 
@@ -56,13 +64,15 @@ public class AllBaseAttacks
         attackTime = 0.4f,
         effectChance = .20f,
         attackSpeed = 10f,
-        Range = new Stat(),
-        Power = new Stat(),
-        CritChance = new Stat(),
-        CritMod = new Stat(),
-        AttackTime = new Stat(),
-        AttackSpeed = new Stat(),
-        EffectChance = new Stat(),
+        hitSlowTime = .2f,
+        attackType = "Projectile",
+        //Range = new Stat(),
+        //Power = new Stat(),
+        //CritChance = new Stat(),
+        //CritMod = new Stat(),
+        //AttackTime = new Stat(),
+        //AttackSpeed = new Stat(),
+        //EffectChance = new Stat(),
         
 
     };
@@ -81,13 +91,15 @@ public class AllBaseAttacks
         attackTime = 2.4f,
         effectChance = .25f,
         attackSpeed = 10f,
-        Range = new Stat(),
-        Power = new Stat(),
-        CritChance = new Stat(),
-        CritMod = new Stat(),
-        AttackTime = new Stat(),
-        AttackSpeed = new Stat(),
-        EffectChance = new Stat(),
+        hitSlowTime = .6f,
+        attackType = "Projectile",
+        //Range = new Stat(),
+        //Power = new Stat(),
+        //CritChance = new Stat(),
+        //CritMod = new Stat(),
+        //AttackTime = new Stat(),
+        //AttackSpeed = new Stat(),
+        //EffectChance = new Stat(),
     };
 
     public BaseAttack mistySpray = new BaseAttack
@@ -104,14 +116,16 @@ public class AllBaseAttacks
         attackTime = 0.2f,
         effectChance = .15f,
         attackSpeed = 10f,
-        Range = new Stat(),
-        Power = new Stat(),
-        CritChance = new Stat(),
-        CritMod = new Stat(),
-        AttackTime = new Stat(),
-        AttackSpeed = new Stat(),
-        EffectChance = new Stat(),
-        
+        hitSlowTime = .25f,
+        attackType = "Projectile",
+        //Range = new Stat(),
+        //Power = new Stat(),
+        //CritChance = new Stat(),
+        //CritMod = new Stat(),
+        //AttackTime = new Stat(),
+        //AttackSpeed = new Stat(),
+        //EffectChance = new Stat(),
+
     };
 
     public BaseAttack aquaDart = new BaseAttack
@@ -128,13 +142,34 @@ public class AllBaseAttacks
         attackTime = 0.4f,
         effectChance = .10f,
         attackSpeed = 10f,
-        Range = new Stat(),
-        Power = new Stat(),
-        CritChance = new Stat(),
-        CritMod = new Stat(),
-        AttackTime = new Stat(),
-        AttackSpeed = new Stat(),
-        EffectChance = new Stat(),
+        hitSlowTime = .15f,
+        attackType = "Projectile",
+        //Range = new Stat(),
+        //Power = new Stat(),
+        //CritChance = new Stat(),
+        //CritMod = new Stat(),
+        //AttackTime = new Stat(),
+        //AttackSpeed = new Stat(),
+        //EffectChance = new Stat(),
+    };
+
+    public BaseAttack shadowBP = new BaseAttack
+    {
+        name = "Shadow Blaze Punch",
+        id = 4,
+        description = "A punch that calls upon power from the Underworld.",
+        type = "Shadow",
+        effectName = "Burn",
+        range = 2,
+        power = 115,
+        critChance = 1f,
+        critMod = 1f,
+        attackTime = 0.7f,
+        effectChance = .10f,
+        attackSpeed = 10f,
+        hitSlowTime = .35f,
+        attackType = "Physical",
+        
     };
 
 

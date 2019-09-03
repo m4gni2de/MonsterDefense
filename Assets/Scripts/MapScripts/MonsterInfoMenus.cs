@@ -4,8 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using UnityEngine.EventSystems;
 
-public class MonsterInfoMenus : MonoBehaviour
+public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 {
     public Monster activeMonster;
     private GameObject map;
@@ -14,6 +15,11 @@ public class MonsterInfoMenus : MonoBehaviour
     public GameObject towerMenu, infoMenu, enemyInfoMenu;
     public GameObject menuContentView;
     public GameObject menuCanvas;
+    public GameObject popMenuCanvas, popMenuObject;
+
+    
+
+    
 
     //variables for the motion of the Tower Menu
     public GameObject loadTowerBtn;
@@ -28,6 +34,7 @@ public class MonsterInfoMenus : MonoBehaviour
 
     public TMP_Text monsterName, attack1BtnText, attack2BtnText, levelText, atkText, defText, speText, precText, typeText, toLevelText, evasText, enGenText, enCostText;
     public Slider expSlider;
+    public Image type1, type2, equip1, equip2;
 
     //bool to make sure the towers in the list of towers only spawns one time
     public bool towersFilled;
@@ -96,7 +103,7 @@ public class MonsterInfoMenus : MonoBehaviour
                             var tower = Instantiate(monstersDict[species].monsterPrefab, menuContentView.transform.position, Quaternion.identity);
                             //tower.transform.position = new Vector3(towers[i - 1].transform.position.x, towers[i - 1].transform.position.y, tower.transform.position.z);
                             tower.transform.SetParent(menuContentView.transform, false);
-                            tower.transform.position = new Vector3(towerBase.transform.position.x, towerBase.transform.position.y - ((i - 1) * 60), tower.transform.position.z);
+                            tower.transform.position = new Vector3(towerBase.transform.position.x, towerBase.transform.position.y - ((i - 1) * 60), -2f);
                             tower.transform.localScale = new Vector3(tower.transform.localScale.x * 2, tower.transform.localScale.y * 2, tower.transform.localScale.z);
                             //***************************HERE************************
                             tower.GetComponent<Monster>().isTower = true;
@@ -158,7 +165,12 @@ public class MonsterInfoMenus : MonoBehaviour
 
         if (activeMonster)
         {
+            type1.GetComponent<Image>();
+            type2.GetComponent<Image>();
 
+
+            var types = GameManager.Instance.monstersData.typeChartDict;
+            var equips = GameManager.Instance.items.allEquipmentDict;
 
             monsterName.text = activeMonster.info.name;
             attack1BtnText.text = activeMonster.info.attack1Name;
@@ -179,10 +191,10 @@ public class MonsterInfoMenus : MonoBehaviour
             defText.text = "Def: " + Math.Round(activeMonster.tempStats.Defense.Value, 0).ToString();
             speText.text = "Speed: " + Math.Round(activeMonster.tempStats.Speed.Value, 0).ToString();
             precText.text = "Prec: " + Math.Round(activeMonster.tempStats.Precision.Value, 0).ToString();
-            typeText.text = "Type: " + activeMonster.info.type1 + "/" + activeMonster.info.type2;
+            //typeText.text = "Type: " + activeMonster.info.type1 + "/" + activeMonster.info.type2;
             evasText.text = "Evasion: " + Math.Round(activeMonster.tempStats.evasionBase, 0) + "%";
             enGenText.text = "En Gen: " + Math.Round((activeMonster.tempStats.EnergyGeneration.Value / 60), 2) + " /s";
-            enCostText.text = "Cost: " + activeMonster.tempStats.EnergyCost;
+            enCostText.text = "Cost: " + activeMonster.tempStats.EnergyCost.Value;
 
             if (activeMonster.expToLevel.ContainsKey(activeMonster.info.level))
             {
@@ -194,6 +206,64 @@ public class MonsterInfoMenus : MonoBehaviour
                 expSlider.value = toNextLevel - nextLevelDiff;
 
                 toLevelText.text = "EXP Until Level Up: " + nextLevelDiff.ToString();
+            }
+
+            //checks the monster's type against the type sprites and changes their images to match the correct type sprite
+            if (types.ContainsKey(activeMonster.info.type1))
+            {
+                type1.GetComponent<Image>().sprite = types[activeMonster.info.type1].typeSprite;
+                type1.GetComponent<Image>().color = Color.white;
+                //type1.transform.localScale = new Vector3(3.5f, 1.25f, type1.transform.localScale.z);
+                type1.name = activeMonster.info.type1;
+            }
+            else
+            {
+                type1.GetComponent<Image>().sprite = null;
+                type1.name = "Type1";
+            }
+
+            if (types.ContainsKey(activeMonster.info.type2))
+            {
+                type2.GetComponent<Image>().sprite = types[activeMonster.info.type2].typeSprite;
+                type2.GetComponent<Image>().color = Color.white;
+                //type2.transform.localScale = new Vector3(3.5f, 1.25f, type2.transform.localScale.z);
+                type2.name = activeMonster.info.type2;
+            }
+            else
+            {
+                type2.GetComponent<Image>().sprite = null;
+                type2.GetComponent<Image>().color = Color.clear;
+                type2.name = "Type2";
+            }
+
+
+            //checks the monster's equipment and displays the matching sprites if there is equipment on the monster
+            if (equips.ContainsKey(activeMonster.info.equip1Name))
+            {
+                equip1.GetComponent<Image>().sprite = equips[activeMonster.info.equip1Name].equipPrefab.GetComponent<SpriteRenderer>().sprite;
+                equip1.GetComponent<Image>().color = Color.white;
+                //type1.transform.localScale = new Vector3(3.5f, 1.25f, type1.transform.localScale.z);
+                equip1.name = activeMonster.info.equip1Name;
+            }
+            else
+            {
+                equip1.GetComponent<Image>().sprite = null;
+                equip1.GetComponent<Image>().color = Color.clear;
+                equip1.name = "Equip1";
+            }
+
+            if (equips.ContainsKey(activeMonster.info.equip2Name))
+            {
+                equip2.GetComponent<Image>().sprite = equips[activeMonster.info.equip2Name].equipPrefab.GetComponent<SpriteRenderer>().sprite;
+                equip2.GetComponent<Image>().color = Color.white;
+                //type2.transform.localScale = new Vector3(3.5f, 1.25f, type2.transform.localScale.z);
+                equip2.name = activeMonster.info.equip2Name;
+            }
+            else
+            {
+                equip2.GetComponent<Image>().sprite = null;
+                equip2.GetComponent<Image>().color = Color.clear;
+                equip2.name = "Equip2";
             }
 
 
@@ -254,6 +324,7 @@ public class MonsterInfoMenus : MonoBehaviour
         }
     }
 
+    //use this to slide the tower menu back and forth towards its resting place or its open place
     public void MoveTowerMenu()
     {
         if (isClicked)
@@ -303,16 +374,8 @@ public class MonsterInfoMenus : MonoBehaviour
         towerMenu.SetActive(true);
         isClicked = !isClicked;
         InvokeRepeating("MoveTowerMenu", 0f, .001f);
-
-
-
-        
-        
+ 
         //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = false;
-
-
-
-
     }
 
     public void TowerMenuClose()
@@ -390,6 +453,44 @@ public class MonsterInfoMenus : MonoBehaviour
         mainCamera.transform.position = new Vector3(activeMonster.transform.position.x, activeMonster.transform.position.y, -10f);
         mainCamera.orthographicSize = 35;
         
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+
+        if (eventData.pointerEnter)
+        {
+            var tag = eventData.pointerEnter.gameObject.tag;
+            var hit = eventData.pointerEnter.gameObject;
+
+            
+
+            //objects with the scriptable object tag are image sprites that can be touched by the player to reveal information about the thing touched in a pop menu
+            if (tag == "ScriptableObject")
+            {
+                var items = GameManager.Instance.items.allItemsDict;
+                var types = GameManager.Instance.monstersData.typeChartDict;
+
+                //checks to see if the item hit was an item. if it was, fill the box with information about the item
+                if (items.ContainsKey(hit.name))
+                {
+                        popMenuObject.SetActive(true);
+                        popMenuObject.GetComponent<PopMenuObject>().AcceptObect(hit.name, items[hit.name]);
+                }
+
+                //checks to see if the item hit was a type. if it was, fill the box with information about the type
+                if (types.ContainsKey(hit.name))
+                {
+                    popMenuObject.SetActive(true);
+                    popMenuObject.GetComponent<PopMenuObject>().AcceptObect(hit.name, types[hit.name]);
+                }
+
+            }
+
+        }
+
+
+
     }
 
 }

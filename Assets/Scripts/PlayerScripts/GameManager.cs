@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     //the overworld menu shown in the game itself
     public GameObject overworldMenu;
 
+    
+
     //these varibales will be used to store your monster data offline as playerprefs. monsterCount will be a 3 digit number that corresponds to the number of monsters a player has
     public int monsterCount;
     public string monsterJson;

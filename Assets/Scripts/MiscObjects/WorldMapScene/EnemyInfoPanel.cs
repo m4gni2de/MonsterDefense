@@ -20,6 +20,9 @@ public class EnemyInfoPanel : MonoBehaviour
     //the main camera of the map
     public Camera mainCamera;
 
+    //pop menu that is designed to display overlayed information
+    public GameObject popMenuObject;
+
     // Start is called before the first frame update
     void Start()
     {

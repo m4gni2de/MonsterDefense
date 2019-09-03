@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Monsters\Animations\AnimationScripts\IdleTime.cs" />
-    <Compile Include="Assets\Monsters\Animations\BiPedal\BiPedalMotionControl.cs" />
+    <Compile Include="Assets\Monsters\Animations\BiPedal\MotionControl.cs" />
     <Compile Include="Assets\Puppet2D\FightingGame\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Puppet2D\FightingGame\Scripts\FighterAIController.cs" />
     <Compile Include="Assets\Puppet2D\FightingGame\Scripts\FighterRandomIndex.cs" />
@@ -139,26 +139,32 @@
     <Compile Include="Assets\Scripts\MapScripts\MonsterInfoMenus.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\AccountScene\AccountManagement.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\CameraMotion.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\CameraRenderer.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\EquipmentManager.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterInfoPanel.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\YourHome.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\ItemScene\ItemShop.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\MainMenu.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\MapEditorScene\TileEditorMenu.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\MenuMovement.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\MonsterManager.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\PopMenuObject.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\EnemyInfoPanel.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\MapInfoMenu.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\MapTileMenu.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\WorldMap.cs" />
     <Compile Include="Assets\Scripts\Monster\Enemy.cs" />
     <Compile Include="Assets\Scripts\Monster\MeshBodyParts.cs" />
     <Compile Include="Assets\Scripts\Monster\Monster.cs" />
     <Compile Include="Assets\Scripts\Monster\MonsterIcon.cs" />
+    <Compile Include="Assets\Scripts\Monster\MonsterNew.cs" />
     <Compile Include="Assets\Scripts\Monster\Motion.cs" />
     <Compile Include="Assets\Scripts\Monster\Tower.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\YourAccount.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\YourItems.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\YourMonsters.cs" />
+    <Compile Include="Assets\Scripts\SortingLayerExposed.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -200,6 +206,7 @@
     <None Include="Assets\Resources\masterText.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\Puppet2D\Shaders\unlitTransparentDouble.shader" />
+    <None Include="Assets\MapUI\Tiles\TileTextures\ReflectionShader.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
@@ -210,6 +217,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\Kenney\Particle samples\License.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />

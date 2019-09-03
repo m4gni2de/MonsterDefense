@@ -41,11 +41,6 @@ public struct MonsterInfo
     //public BaseAttack attack2;
 
 
-    //public GameObject attack1Animation;
-    //public string chargeAttack1;
-    //public string chargeAttack2;
-    //public string specialAttack;
-
     public string equip1Name;
     public Equipment equip1;
     public string equip2Name;
@@ -113,8 +108,6 @@ public struct MonsterSpecs
 };
 public class Monster : MonoBehaviour
 {
-
-
 
 
     public MonsterInfo info = new MonsterInfo();
@@ -246,6 +239,7 @@ public class Monster : MonoBehaviour
             tempStats.attack1.EffectChance.BaseValue = attack.effectChance;
             tempStats.attack1.AttackTime.BaseValue = attack.attackTime;
             tempStats.attack1.AttackSpeed.BaseValue = attack.attackSpeed;
+            tempStats.attack1.AttackSlow.BaseValue = attack.hitSlowTime;
 
 
         }
@@ -262,6 +256,7 @@ public class Monster : MonoBehaviour
             tempStats.attack2.EffectChance.BaseValue = attack.effectChance;
             tempStats.attack2.AttackTime.BaseValue = attack.attackTime;
             tempStats.attack2.AttackSpeed.BaseValue = attack.attackSpeed;
+            tempStats.attack2.AttackSlow.BaseValue = attack.hitSlowTime;
         }
 
        
@@ -429,6 +424,7 @@ public class Monster : MonoBehaviour
             tempStats.attack1.EffectChance.BaseValue = attack.effectChance;
             tempStats.attack1.AttackTime.BaseValue = attack.attackTime;
             tempStats.attack1.AttackSpeed.BaseValue = attack.attackSpeed;
+            tempStats.attack1.AttackSlow.BaseValue = attack.hitSlowTime;
 
 
 
@@ -445,6 +441,7 @@ public class Monster : MonoBehaviour
             tempStats.attack2.EffectChance.BaseValue = attack.effectChance;
             tempStats.attack2.AttackTime.BaseValue = attack.attackTime;
             tempStats.attack2.AttackSpeed.BaseValue = attack.attackSpeed;
+            tempStats.attack2.AttackSlow.BaseValue = attack.hitSlowTime;
         }
 
 
@@ -491,6 +488,7 @@ public class Monster : MonoBehaviour
     {
         bool haskey = PlayerPrefs.HasKey("MonsterCount");
 
+       
         if (haskey)
         {
             int monsterCount = GameManager.Instance.monsterCount + 1;
@@ -754,11 +752,7 @@ public class Monster : MonoBehaviour
             
             if (expGained >= nextLevelDiff)
             {
-                info.level += 1;
-
-                SetExp();
-                StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
-                GetStats(stats);
+                OnLevelUp();
 
                 return;
             }
@@ -771,5 +765,14 @@ public class Monster : MonoBehaviour
         
 
 
+    }
+
+    public void OnLevelUp()
+    {
+        info.level += 1;
+
+        SetExp();
+        StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
+        GetStats(stats);
     }
 }

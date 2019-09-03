@@ -9,7 +9,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
 {
     public GameObject itemSprite, shopItemSprite;
     public TMP_Text itemQuantity, shopItemCost;
-    public GameObject[] itemSprites, shopItemSprites;
+    public GameObject[] itemSprites, shopItemSprites, itemList, shopItemList;
     public TMP_Text[] itemQuantities, shopItemCosts;
     public GameObject itemScrollContent, shopScrollContent, itemPopMenu;
 
@@ -39,7 +39,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
                 //shopItemSprites[shopSpriteTotal] = Instantiate(shopItemSprite, shopScrollContent.transform.position, Quaternion.identity);
                 //shopItemCosts[shopSpriteTotal] = shopItemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
                 //shopItemSprites[shopSpriteTotal].transform.SetParent(shopScrollContent.transform, true);
-                //shopItemSprites[shopSpriteTotal].transform.position = new Vector3(shopItemSprite.transform.position.x + (r * shopScrollContent.GetComponent<RectTransform>().rect.width / 7), shopItemSprite.transform.position.y - (c * 30), shopItemSprite.transform.position.z);
+                //shopItemSprites[shopSpriteTotal].transform.position = new Vector3(shopItemSprite.transform.position.x + (r * shopScrollContent.GetComponent<RectTransform>().rect.width / 6), shopItemSprite.transform.position.y - (c * 35), shopItemSprite.transform.position.z);
                 //shopSpriteTotal += 1;
 
 
@@ -221,46 +221,26 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
 
         int row = 0;
         float rowCheck = 0f;
+        
 
         foreach (KeyValuePair<string, Equipment> equipment in allEquips)
         {
             string name = equipment.Key;
 
-            //Equipment item = allEquips[name];
-
-            ////var x = Instantiate(equipByPrefab[item.name], new Vector2(itemSprite.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
-            ////shopItemSprites[shopSpriteTotal] = Instantiate(equipByPrefab[item.name], shopItemSprites[shopSpriteTotal].transform.position, Quaternion.identity);
-
-            //shopItemSprites[shopSpriteTotal] = Instantiate(equipByPrefab[item.name], shopItemSprites[shopSpriteTotal].transform.position, Quaternion.identity);
-            //shopItemSprites[shopSpriteTotal].transform.SetParent(shopScrollContent.transform, true);
-            //shopItemSprites[shopSpriteTotal].GetComponent<EquipmentItem>().EquipItemInfo(item);
-            ////itemSprites[itemSpriteTotal].transform.localScale = new Vector3(10, 10, 10);
-            //shopItemSprites[shopSpriteTotal].GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-            //shopItemSprites[shopSpriteTotal].GetComponent<SpriteRenderer>().sortingOrder = 1;
-            //shopItemSprites[shopSpriteTotal].GetComponent<SpriteRenderer>().sprite = null;
-            //shopItemCosts[shopSpriteTotal].text = item.cost.ToString();
-            //Vector3 position = shopItemCosts[shopSpriteTotal].transform.position;
-            //shopItemCosts[shopSpriteTotal].transform.SetParent(shopItemSprites[shopSpriteTotal].transform, true);
-            //shopItemCosts[shopSpriteTotal].transform.position = position;
-            ////itemQuantities[itemSpriteTotal].name = itemCount.ToString();
-            ////shopItemSprites[shopSpriteTotal].transform.position = new Vector3(shopItemSprite.transform.position.x + (shopSpriteTotal * shopScrollContent.GetComponent<RectTransform>().rect.width / 6), shopItemSprite.transform.position.y - (row * 30), shopItemSprite.transform.position.z);
-            //shopItemSprites[shopSpriteTotal].transform.position = new Vector3(shopItemSprite.transform.position.x + ((rowCheck *4) * shopScrollContent.GetComponent<RectTransform>().rect.width / 6), shopItemSprite.transform.position.y - (row * 35), shopItemSprite.transform.position.z);
-
-            //shopSpriteTotal += 1;
-
-
-            //itemSpriteTotal += 1;
-            //rowCheck += .25f;
-
-            //if (rowCheck > .8f)
-            //{
-            //    rowCheck = 0f;
-            //    row += 1;
-            //}
-
-
             Equipment item = allEquips[name];
             int itemCount = PlayerPrefs.GetInt(item.name);
+
+
+
+
+            //shopItemSprites[shopSpriteTotal].GetComponent<Image>().sprite = item.equipPrefab.GetComponent<SpriteRenderer>().sprite;
+            //shopItemSprites[shopSpriteTotal].GetComponent<SpriteRenderer>().sprite = null;
+            //shopItemSprites[shopSpriteTotal].transform.localScale = new Vector3(175f, 175f, 1f);
+            //shopItemSprites[shopSpriteTotal].tag = "Equipment";
+            //itemQuantities[shopSpriteTotal] = itemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
+            //shopItemSprites[shopSpriteTotal].transform.SetParent(shopScrollContent.transform, true);
+
+
 
             shopItemSprites[shopSpriteTotal] = Instantiate(allEquips[item.name].equipPrefab, shopScrollContent.transform.position, Quaternion.identity);
             //itemQuantities[shopSpriteTotal] = itemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
@@ -285,7 +265,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
             //itemQuantities[shopSpriteTotal].text = PlayerPrefs.GetInt(item.name).ToString();
 
 
-            shopSpriteTotal += 1;
+            //shopSpriteTotal += 1;
             rowCheck += .25f;
 
             if (rowCheck > .8f)
@@ -303,8 +283,11 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
 
         if (eventData.pointerEnter)
         {
+            ;
             var tag = eventData.pointerEnter.gameObject.tag;
             var hit = eventData.pointerEnter.gameObject;
+
+            Debug.Log(tag);
             //if the menu is opened with the purpose of Equipping a monster with an item, then allow it to be equipped. Otherwise, show the item's details
             if (tag == "Equipment" || tag == "Consumable" || tag == "MonsterCell")
             {

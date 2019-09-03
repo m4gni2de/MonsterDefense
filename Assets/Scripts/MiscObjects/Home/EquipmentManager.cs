@@ -4,15 +4,19 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class EquipmentManager : MonoBehaviour, IPointerDownHandler
+public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public GameObject equipPlacement;
-    public GameObject infoMenu;
+    public GameObject infoMenu, popMenu;
 
     private Monster monster;
     private int slot;
 
-    public bool isEquipping;
+    public bool isEquipping, isTapping;
+
+    public float acumTime;
+
+    public EquipmentItem equipment;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +53,14 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler
     // Update is called once per frame
     void Update()
     {
-       
+       if (isTapping == true)
+        {
+            acumTime += Time.deltaTime;
+        }
+        else
+        {
+            acumTime = 0;
+        }
     }
 
     //load the equipment menu with a specific monster and equipment slot 
@@ -66,7 +77,7 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler
 
         int i = 1;
 
-        //loops through all the items in the game, checks them against a playerpref of the same name. if the playerpref exists, then the player has at least 1 of that item. Add those items to a Dictionary of your items
+        //loops through all the items that you have, and if the selected monster meets the equipment requirements, then you can equip this item to the monster
         foreach (KeyValuePair<string, Equipment> items in allEquips)
         {
             string name = items.Key;
@@ -74,22 +85,40 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler
             {
                 Equipment item = allEquips[name];
                 int itemCount = PlayerPrefs.GetInt(item.name);
-                var x = Instantiate(allEquips[item.name].equipPrefab, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
-                x.transform.SetParent(transform, true);
-                x.GetComponent<EquipmentItem>().EquipItemInfo(item);
-                x.transform.localScale = Vector3.one;
-                x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-                x.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
                 if (item.typeMonsterReq == monster.info.type1 || item.typeMonsterReq == monster.info.type2)
                 {
+                    var x = Instantiate(allEquips[item.name].equipPrefab, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
+                    x.transform.SetParent(transform, true);
+                    x.GetComponent<EquipmentItem>().EquipItemInfo(item);
+                    x.transform.localScale = Vector3.one;
+                    x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
+                    x.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
+                    i += 1;
                 }
                 else
                 {
-                    x.name = "Ineligible";
+                    //x.name = "Ineligible";
                 }
-                i += 1;
+
+                
+                //var x = Instantiate(allEquips[item.name].equipPrefab, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
+                //x.transform.SetParent(transform, true);
+                //x.GetComponent<EquipmentItem>().EquipItemInfo(item);
+                //x.transform.localScale = Vector3.one;
+                //x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
+                //x.GetComponent<SpriteRenderer>().sortingOrder = 1;
+
+                //if (item.typeMonsterReq == monster.info.type1 || item.typeMonsterReq == monster.info.type2)
+                //{
+
+                //}
+                //else
+                //{
+                //    x.name = "Ineligible";
+                //}
+                //i += 1;
             }
         }
 
@@ -188,25 +217,53 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler
             {
                 var tag = eventData.pointerEnter.gameObject.tag;
                 var hit = eventData.pointerEnter.gameObject;
+
+            
                 //if the menu is opened with the purpose of Equipping a monster with an item, then allow it to be equipped. Otherwise, show the item's details
-                if (tag == "Equipment")
+                if (tag == "Equipment" && !isTapping)
                 {
-                    var equipment = hit.gameObject.GetComponent<EquipmentItem>();
+                    equipment = hit.gameObject.GetComponent<EquipmentItem>();
+
                     if (isEquipping)
                     {
-                       
-                        monster.EquipItem(equipment.equip, slot);
-                        infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(monster);
-                        gameObject.SetActive(false);
+                        isTapping = true;
                     }
                     else
                     {
-                    Debug.Log(equipment.equipDetails.description);
-                    }
+                    popMenu.SetActive(true);
+                    popMenu.GetComponent<PopMenuObject>().Item(equipment.equipDetails.name);
                 }
+                }
+
             }
-        
        
+
+
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        //if a player holds their finger on an item, equip the item. If they just tap the item, display the item details
+        if (isTapping)
+        {
+            if (acumTime >= 1)
+            {
+                monster.EquipItem(equipment.equip, slot);
+                infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(monster);
+                isTapping = false;
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                isTapping = false;
+                popMenu.SetActive(true);
+                popMenu.GetComponent<PopMenuObject>().Item(equipment.equipDetails.name);
+            }
+        }
+
+        
+
+
     }
 
 

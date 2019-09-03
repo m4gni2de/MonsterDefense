@@ -248,29 +248,26 @@ public class Enemy : MonoBehaviour
         
 
 
-        
+
         StatsCalc StatsCalc = new StatsCalc(gameObject.GetComponent<Monster>());
         GetEnemyStats(StatsCalc);
 
-       
+        speed = 50 * ((float)stats.speBase / 100);
     }
 
    
 
     public void GetEnemyStats(StatsCalc StatsCalc)
     {
-        //stats.def = (int)StatsCalc.Monster.info.Defense.Value;
-        //stats.Defense.BaseValue = (int)StatsCalc.Monster.info.Defense.Value;
         stats.Defense.BaseValue = (int)StatsCalc.Monster.info.Defense.Value;
-        //stats.hpMax = (int)StatsCalc.Monster.info.HP.Value;
         stats.hpMax = (int)StatsCalc.Monster.info.HP.Value;
         stats.HP.BaseValue = stats.hpMax;
         stats.currentHp = stats.hpMax;
-        //stats.speed = (int)StatsCalc.Monster.info.Speed.Value;
         stats.Speed.BaseValue = (int)StatsCalc.Monster.info.Speed.Value;
         stats.evasion = StatsCalc.Monster.info.evasionBase;
         enemyHpSlider.maxValue = stats.hpMax;
         enemyHpSlider.value = stats.hpMax;
+
     }
 
 
@@ -374,6 +371,7 @@ public class Enemy : MonoBehaviour
         if (rand >= stats.evasion)
         {
             monster.monsterMotion.SetBool("isHit", true);
+            monster.monsterMotion.GetComponent<MotionControl>().IsHit(attack);
             
             //check and see if the attack is a critical hit, and if so, change the damage output and color of the font to indicate a crit
             if (critRand <= critChance)
@@ -510,6 +508,8 @@ public class Enemy : MonoBehaviour
 
         //StartMotion();
 
+        
+
         if (currentPath != null && !isWaiting)
         {
             MoveTowardsPath();
@@ -627,6 +627,8 @@ public class Enemy : MonoBehaviour
 
     private void MoveTowardsPath()
     {
+
+        
         //moves the monster according to the position of his legs as opposed to the center of his object
         Vector3 averageLegPos = new Vector3();
 
@@ -662,8 +664,7 @@ public class Enemy : MonoBehaviour
             
         }
 
-        if (monster.info.name != "Lichenthrope")
-        {
+        
             if (targetPosition.x <= currentPosition.x)
             {
                 isRight = true;
@@ -677,23 +678,9 @@ public class Enemy : MonoBehaviour
                 isLeft = true;
                 monster.puppet.flip = false;
             }
-        }
-        else
-        {
-            if (targetPosition.x >= currentPosition.x)
-            {
-                isRight = true;
-                isLeft = false;
-                monster.puppet.flip = true;
-
-            }
-            else
-            {
-                isRight = false;
-                isLeft = true;
-                monster.puppet.flip = false;
-            }
-        }
+        
+           
+        
 
         
 

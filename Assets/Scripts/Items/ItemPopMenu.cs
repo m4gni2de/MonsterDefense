@@ -68,8 +68,9 @@ public class ItemPopMenu : MonoBehaviour
         PlayerPrefs.SetInt(activeItemName, itemCount - 1);
 
         GameManager.Instance.GetComponent<YourItems>().GetYourItems();
-      
-        GetComponentInParent<ItemShop>().DisplayYourItems();
+
+        //GetComponentInParent<ItemShop>().DisplayYourItems();
+        GetComponentInParent<ItemShop>().UpdateItem();
         gameObject.SetActive(false);
     }
 }

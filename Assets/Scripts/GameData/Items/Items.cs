@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 
 public enum EquipmentType
@@ -37,6 +38,7 @@ public struct Equipment
     public string[] boosts;
     public float cost;
     public int equipSlot;
+    
 
     public int hpBonus;
     public int atkBonus;
@@ -57,8 +59,7 @@ public struct Equipment
     public float atkPowerPercentBonus;
     public float atkTimePercentBonus;
     public float evasionPercentBonus;
-
-    public EquippableItem equip;
+    
     
 };
 
@@ -104,7 +105,7 @@ public class AllEquipment
         boosts = new string[1] { "Water Type Attacks + 8% Power"},
         atkPowerPercentBonus = .08f,
         cost = 200,
-        equip = new EquippableItem(),
+        
         
 
     };
@@ -119,7 +120,7 @@ public class AllEquipment
         typeMonsterReq = "Electric",
         atkPercentBonus = .10f,
         cost = 200,
-        equip = new EquippableItem()
+        
 
     };
 
@@ -133,7 +134,7 @@ public class AllEquipment
         typeMonsterReq = "Nature",
         atkPercentBonus = .10f,
         cost = 200,
-        equip = new EquippableItem()
+        
 
     };
 
@@ -147,7 +148,7 @@ public class AllEquipment
         typeMonsterReq = "Magic",
         atkPercentBonus = .10f,
         cost = 200,
-        equip = new EquippableItem()
+        
 
     };
 
@@ -161,7 +162,7 @@ public class AllEquipment
         typeMonsterReq = "Shadow",
         atkPercentBonus = .10f,
         cost = 200,
-        equip = new EquippableItem()
+        
 
     };
 }

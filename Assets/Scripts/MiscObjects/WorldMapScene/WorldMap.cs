@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class WorldMap : MonoBehaviour
+public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public GameObject mapObject, worldMapObject;
     
@@ -14,7 +15,14 @@ public class WorldMap : MonoBehaviour
     private int mapCount;
     private MapDetails mapDetails;
     public Button loadTowerMenuBtn;
-    
+
+    //gameobject that is on every map that gives info about any given tile, as well as allowing the player to build a tower on that tile[if possible]
+    public GameObject tileInfoMenu;
+    private MapTile activeTile;
+
+    public bool isTapping;
+    public float acumTime;
+
 
     // Start is called before the first frame update
     void Start()
@@ -69,10 +77,59 @@ public class WorldMap : MonoBehaviour
         //mapObject.GetComponentInChildren<MapDetails>().DisplayMap(mapName);
     }
 
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+
+        if (eventData.pointerEnter)
+        {
+            var tag = eventData.pointerEnter.gameObject.tag;
+            var hit = eventData.pointerEnter.gameObject;
+
+
+            //if a map tile is touched, open the information box for the tile
+            if (tag == "MapTile" && !isTapping)
+            {
+                isTapping = true;
+                activeTile = hit.GetComponent<MapTile>();
+            }
+
+        }
+
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        //if a player holds their finger on an item, open the menu for that held on tile. if they just tap it, do nothing
+        if (isTapping)
+        {
+            if (acumTime >= .6f)
+            {
+                tileInfoMenu.SetActive(true);
+                tileInfoMenu.GetComponent<MapTileMenu>().LoadTile(activeTile);
+                isTapping = false;
+            }
+            else
+            {
+                //
+                isTapping = false;
+                
+            }
+        }
+
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        if (isTapping == true)
+        {
+            acumTime += Time.deltaTime;
+        }
+        else
+        {
+            acumTime = 0;
+        }
 
     }
 }

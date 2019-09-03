@@ -88,6 +88,9 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     //bool to determine is the player has enough energy to summon this monster or not
     public bool isSummonable;
 
+    //the spawn point for this monster's attacks
+    public GameObject attackPoint;
+    
 
     
 
@@ -254,7 +257,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                         }
                     }
                 }
-                //What do to on a hold
+                //What do to on a long tap
                 //else
                 //{
                 //    isTapped = false;
@@ -282,8 +285,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             }
             else
             {
-                //if (acumTime >= .7f)
-                //{
+                if (acumTime >= .7f)
+                {
                     //shoot a raycast that does not hit the map tile layer, which is layer 9
                     RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), Vector2.zero, 0f, 1 << 8);
 
@@ -305,7 +308,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                             }
                         }
                     }
-                //}
+                }
 
             }
 
@@ -347,7 +350,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             //Debug.Log(position);
             var x = position.x;
             var y = position.y;
-            transform.position = new Vector3(x, y, transform.position.z);
+            transform.position = new Vector3(x, y, -2f);
 
             if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
@@ -368,7 +371,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     mapInformation.playerEnergy -= monster.tempStats.EnergyCost.Value;
 
 
-                    gameObject.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                    
                     //set the current tile to hold this monster's data as the monster on that tile
                     mapTileOn.MonsterOnTile(gameObject.GetComponent<Monster>());
                     //creates local variables for the height of the monster's legs and the relative position to the monster's body the legs are
@@ -376,7 +379,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     
 
                     
-                    transform.position = new Vector2(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height);
+                    
                     
                     
                    
@@ -412,8 +415,11 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     isIdle = true;
                     AttackScan();
 
-                    gameObject.transform.localScale = new Vector3(2f, 2f, transform.localScale.z);
                     
+                    transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
+                    gameObject.transform.localScale = new Vector3(1.7f, 1.7f, transform.localScale.z);
+                    transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
+
                     towerMenu.SetActive(false);
 
                 }
@@ -619,99 +625,80 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     }
 
     //this method is invoked by a tile when an enemy is in range from the MapTile script
-    public void Attack(Monster target)
+    public void Attack(Monster Enemy, MapTile target)
     {
         if (isScanning && !isAttacking)
         {
-            Enemy enemy = target.GetComponent<Enemy>();
-            //float def = enemy.stats.def;
-            float def = enemy.stats.Defense.Value;
-            float hp = enemy.stats.currentHp;
-            string type1 = enemy.stats.type1;
-            string type2 = enemy.stats.type2;
+            
+            Enemy enemy = Enemy.GetComponent<Enemy>();
+            isAttacking = true;
+            
 
+            //change the direction of the tower if the enemy is on the opposite direction of this tower
+            if (enemy.transform.position.x <= attackPoint.transform.position.x)
+            {
+                monster.puppet.flip = true;
+
+            }
+            else
+            {
+                monster.puppet.flip = false;
+            }
+
+            
+
+            //start the monster's attack animation
             if (attackNumber == 1)
             {
                 if (atkRange1List.Contains(enemy.currentTile))
                 {
-                    if (monster.info.name != "Lichenthrope")
-                    {
-                        if (enemy.transform.position.x <= transform.position.x)
-                        {
-                            monster.puppet.flip = true;
-
-                        }
-                        else
-                        {
-                            monster.puppet.flip = false;
-                        }
-                    }
-                    else
-                    {
-                        if (enemy.transform.position.x >= transform.position.x)
-                        {
-                            monster.puppet.flip = true;
-
-                        }
-                        else
-                        {
-                            monster.puppet.flip = false;
-                        }
-                    }
-
-                    isAttacking = true;
                     monster.monsterMotion.SetBool("isAttacking", true);
-                    BaseAttack attack = monster.tempStats.attack1;
-                    var attackSprite = Instantiate(attack1Animation, transform.position, Quaternion.identity);
-                    attackSprite.GetComponent<AttackEffects>().AttackMotion(enemy.transform.position - gameObject.transform.position);
-                    attackSprite.gameObject.name = attack.name;
-                    //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-                    attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-                    
+                    boneStructure.GetComponent<MotionControl>().AttackDirection(target, enemy);
                 }
             }
             else
             {
                 if (atkRange2List.Contains(enemy.currentTile))
                 {
-                    if (monster.info.name != "Lichenthrope")
-                    {
-                        if (enemy.transform.position.x <= transform.position.x)
-                        {
-                            monster.puppet.flip = true;
 
-                        }
-                        else
-                        {
-                            monster.puppet.flip = false;
-                        }
-                    }
-                    else
-                    {
-                        if (enemy.transform.position.x >= transform.position.x)
-                        {
-                            monster.puppet.flip = true;
-
-                        }
-                        else
-                        {
-                            monster.puppet.flip = false;
-                        }
-                    }
-
-                    isAttacking = true;
                     monster.monsterMotion.SetBool("isAttacking", true);
-                    BaseAttack attack = monster.tempStats.attack2;
-                    var attackSprite = Instantiate(attack2Animation, transform.position, Quaternion.identity);
-                    attackSprite.GetComponent<AttackEffects>().AttackMotion(enemy.transform.position - gameObject.transform.position);
-                    attackSprite.gameObject.name = attack.name;
-                    //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-                    attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+                    boneStructure.GetComponent<MotionControl>().AttackDirection(target, enemy);
 
                 }
             }
 
+
+        }
+    }
+
+    //use this to launch the readied attack by the tower. called by the Montion Control for this monster
+    public void LaunchAttack(MapTile target, Enemy enemy)
+    {
+        if (attackNumber == 1)
+        {
+            if (atkRange1List.Contains(target.tileNumber))
+            {
+                BaseAttack attack = monster.tempStats.attack1;
+                var attackSprite = Instantiate(attack1Animation, attackPoint.transform.position, Quaternion.identity);
+                attackSprite.gameObject.name = attack.name;
+                //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+                attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+                attackSprite.GetComponent<AttackEffects>().AttackMotion(enemy.transform.position - attackPoint.transform.position);
+            }
+
             
+        }
+        else
+        {
+            if (atkRange2List.Contains(target.tileNumber))
+            {
+                BaseAttack attack = monster.tempStats.attack2;
+                var attackSprite = Instantiate(attack2Animation, attackPoint.transform.position, Quaternion.identity);
+                attackSprite.gameObject.name = attack.name;
+                //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+                attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+                attackSprite.GetComponent<AttackEffects>().AttackMotion(enemy.transform.position - attackPoint.transform.position);
+            }
         }
     }
 

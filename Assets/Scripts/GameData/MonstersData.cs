@@ -48,7 +48,7 @@ public class AllMonsterData
         hpBase = 131,
         atkBase = 120,
         defBase = 118,
-        speBase = 44,
+        speBase = 24,
         precBase = 86,
         maxLevel = 100,
         levelConst = 1.9f,
@@ -77,6 +77,25 @@ public class AllMonsterData
         staminaBase = 90,
         energyGenBase = 95,
         energyCost = 5.5f,
+    };
+
+    public MonsterData Fowitzer = new MonsterData
+    {
+        id = 3,
+        species = "Fowitzer",
+        type1 = "Mechanical",
+        type2 = "none",
+        hpBase = 85,
+        atkBase = 114,
+        defBase = 76,
+        speBase = 115,
+        precBase = 140,
+        maxLevel = 100,
+        levelConst = 1.9f,
+        baseAttacks = new string[2] { "Thunder", "Aqua Dart" },
+        staminaBase = 90,
+        energyGenBase = 86,
+        energyCost = 6.5f,
     };
 
 
@@ -117,8 +136,10 @@ public class MonstersData : MonoBehaviour
        
         monstersAllDict.Add(allMonsterData.Lichenthrope.species, allMonsterData.Lichenthrope);
         monstersAllDict.Add(allMonsterData.Armordan.species, allMonsterData.Armordan);
+        monstersAllDict.Add(allMonsterData.Fowitzer.species, allMonsterData.Fowitzer);
         monstersByIdDict.Add(allMonsterData.Lichenthrope.id, allMonsterData.Lichenthrope.species);
         monstersByIdDict.Add(allMonsterData.Armordan.id, allMonsterData.Armordan.species);
+        monstersByIdDict.Add(allMonsterData.Fowitzer.id, allMonsterData.Fowitzer.species);
     }
 
     public void AllTypes()

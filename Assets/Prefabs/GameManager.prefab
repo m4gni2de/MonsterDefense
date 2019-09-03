@@ -87,6 +87,8 @@ MonoBehaviour:
         BaseValue: 0
       AttackSpeed:
         BaseValue: 0
+      AttackSlow:
+        BaseValue: 0
       name: Thunder
       id: 0
       description: A quick jolt of electricity
@@ -99,7 +101,8 @@ MonoBehaviour:
       effectChance: 0.2
       attackTime: 0.4
       attackSpeed: 10
-      attackAnimation: {fileID: 6816625118016498558, guid: 1cbc38a74a8622848a7a37da85eb0095,
+      hitSlowTime: 0.2
+      attackAnimation: {fileID: 3211728297390547379, guid: 1cbc38a74a8622848a7a37da85eb0095,
         type: 3}
     voltStrike:
       Range:
@@ -116,6 +119,8 @@ MonoBehaviour:
         BaseValue: 0
       AttackSpeed:
         BaseValue: 0
+      AttackSlow:
+        BaseValue: 0
       name: Volt Strike
       id: 1
       description: A powerful blast of electricity
@@ -128,6 +133,7 @@ MonoBehaviour:
       effectChance: 0.25
       attackTime: 2.4
       attackSpeed: 10
+      hitSlowTime: 0.6
       attackAnimation: {fileID: 4764289248257230966, guid: a574070b861ab0f4bb9ab59bc39cd01e,
         type: 3}
     mistySpray:
@@ -145,6 +151,8 @@ MonoBehaviour:
         BaseValue: 0
       AttackSpeed:
         BaseValue: 0
+      AttackSlow:
+        BaseValue: 0
       name: Misty Spray
       id: 2
       description: A soft spray of mist.
@@ -157,6 +165,7 @@ MonoBehaviour:
       effectChance: 0.15
       attackTime: 0.2
       attackSpeed: 10
+      hitSlowTime: 0.25
       attackAnimation: {fileID: 5534219836665935086, guid: 34b0176da6f84f8478a1cf98eb04937f,
         type: 3}
     aquaDart:
@@ -174,6 +183,8 @@ MonoBehaviour:
         BaseValue: 0
       AttackSpeed:
         BaseValue: 0
+      AttackSlow:
+        BaseValue: 0
       name: Aqua Dart
       id: 3
       description: A soft spray of mist.
@@ -186,6 +197,7 @@ MonoBehaviour:
       effectChance: 0.1
       attackTime: 0.4
       attackSpeed: 10
+      hitSlowTime: 0.15
       attackAnimation: {fileID: 8854931403561263675, guid: eb98379b936e863499dd42b793274762,
         type: 3}
 --- !u!114 &6317396937658932165
@@ -241,6 +253,26 @@ MonoBehaviour:
       staminaBase: 90
       energyGenBase: 95
       energyCost: 5.5
+    Fowitzer:
+      monsterPrefab: {fileID: 1557278105191115862, guid: 684c16b28784dfc46830d4417162e3df,
+        type: 3}
+      id: 3
+      species: Fowitzer
+      type1: Mechanical
+      type2: none
+      hpBase: 85
+      atkBase: 114
+      defBase: 76
+      speBase: 115
+      precBase: 140
+      maxLevel: 100
+      levelConst: 1.9
+      baseAttacks:
+      - Thunder
+      - Aqua Dart
+      staminaBase: 90
+      energyGenBase: 86
+      energyCost: 6.5
   allTypes:
     Normal:
       name: Normal
@@ -632,6 +664,12 @@ MonoBehaviour:
   tileTypeSprites:
   - {fileID: 21300000, guid: b27a1646af6e1e44e96ca8e99f8cb9d6, type: 3}
   - {fileID: 21300000, guid: c53053bffa3f44141addf0768e4b109a, type: 3}
+  roadTiles:
+  - {fileID: 21300000, guid: d3618bbddf6cbd84d895337e7506dd90, type: 3}
+  - {fileID: 21300000, guid: 5bc1d7c1a6b5e4f4994cc80a26dbc49b, type: 3}
+  - {fileID: 21300000, guid: 05e16dbe91a6d004ebdcf457b5579d72, type: 3}
+  - {fileID: 21300000, guid: 0c522935c58789f4f88bf62288fa7266, type: 3}
+  - {fileID: 21300000, guid: a1a46427b2036a045a3700d1c9cc0277, type: 3}
 --- !u!114 &7763244925051536580
 MonoBehaviour:
   m_ObjectHideFlags: 0

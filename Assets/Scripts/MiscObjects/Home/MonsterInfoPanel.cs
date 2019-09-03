@@ -6,18 +6,22 @@ using System;
 using System.Collections.ObjectModel;
 using TMPro;
 using Puppet2D;
+using UnityEngine.EventSystems;
 
-public class MonsterInfoPanel : MonoBehaviour
+public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 {
-    public GameObject monsterSprite, equip1, equip2, type1, type2;
+    public GameObject monsterSprite, type1, type2;
     public GameObject equipMenu, equipObject;
     public TMP_Text monsterNameText, levelText, atkText, defText, speText, precText, typeText, toNextLevelText, evasionText, energyGenText, energyCostText;
     public TMP_Text atkBoostText, defBoostText, speBoostText, precBoostText, evasBoostText, enGenBoostText, costBoostText;
     public TMP_Text attack1, attack2;
+    public TMP_Text atk1Attack, atk1Range, atk1Cool, atk1Slow, atk1Effect, atk1EffectChance;
+    public TMP_Text atk2Attack, atk2Range, atk2Cool, atk2Slow, atk2Effect, atk2EffectChance;
     public Slider expSlider;
     
 
-    private GameObject e1, e2;
+
+    private Equipment equip1, equip2;
     public bool isEquip1, isEquip2;
     private Monster monster, clickedMonsterIcon;
 
@@ -61,16 +65,6 @@ public class MonsterInfoPanel : MonoBehaviour
         }
 
 
-        if (e1)
-        {
-            Destroy(e1.gameObject);
-        }
-
-        if (e2)
-        {
-            Destroy(e2.gameObject);
-        }
-
         equip1Btn.GetComponent<Image>().sprite = null;
         equip2Btn.GetComponent<Image>().sprite = null;
 
@@ -85,10 +79,12 @@ public class MonsterInfoPanel : MonoBehaviour
         for (int i = 0; i < monster.bodyParts.bodyMeshes.Length; i++)
         {
             monster.bodyParts.bodyMeshes[i].GetComponent<Renderer>().sortingLayerName = "GameUI";
+
+            monster.bodyParts.bodyMeshes[i].GetComponent<Renderer>().sortingOrder += 100;
         }
         
         monster.GetComponent<Image>().raycastTarget = false;
-        monster.transform.localScale = new Vector3(monster.transform.localScale.x * 2.3f, monster.transform.localScale.y * 2.3f, 1f);
+        monster.transform.localScale = new Vector3(monster.transform.localScale.x * 3.5f, monster.transform.localScale.y * 3.5f, 1f);
 
 
         //monster.GetComponent<Monster>().frontModel.transform.localScale = new Vector3(18f, 18f, 1f);
@@ -102,30 +98,42 @@ public class MonsterInfoPanel : MonoBehaviour
         else
         {
             type1.GetComponent<SpriteRenderer>().sprite = null;
+            
         }
 
         if (types.ContainsKey(monster.info.type2))
         {
             type2.GetComponent<SpriteRenderer>().sprite = types[monster.info.type2].typeSprite;
+            
         }
         else
         {
             type2.GetComponent<SpriteRenderer>().sprite = null;
+           
         }
 
         var equipment = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
-        
+
 
         //show the equipment item for Slot 1
+        //if (equipment.ContainsKey(monster.info.equip1Name))
+        //{
+        //    e1 = Instantiate(equipment[monster.info.equip1Name].equipPrefab, equipObject.transform.position, Quaternion.identity);
+        //    e1.transform.SetParent(equipObject.transform, false);
+        //    e1.transform.position = new Vector3(-1000f, -1000f, -1000f);
+        //    e1.GetComponent<EquipmentItem>().GetEquipInfo(equipment[thisMonster.info.equip1Name], thisMonster, 1);
+        //    equip1Btn.interactable = false;
+        //    equip1Btn.GetComponent<Image>().sprite = e1.GetComponent<SpriteRenderer>().sprite;
+        //    //Destroy(e1.gameObject);
+        //    isEquip1 = true;
+        //}
         if (equipment.ContainsKey(monster.info.equip1Name))
         {
-            e1 = Instantiate(equipment[monster.info.equip1Name].equipPrefab, equipObject.transform.position, Quaternion.identity);
-            e1.transform.SetParent(equipObject.transform, false);
-            e1.transform.position = new Vector3(-1000f, -1000f, -1000f);
-            e1.GetComponent<EquipmentItem>().GetEquipInfo(equipment[thisMonster.info.equip1Name], thisMonster, 1);
+            equip1 = equipment[monster.info.equip1Name];
             equip1Btn.interactable = false;
-            equip1Btn.GetComponent<Image>().sprite = e1.GetComponent<SpriteRenderer>().sprite;
-            //Destroy(e1.gameObject);
+            equip1.equipPrefab.GetComponent<EquipmentItem>().GetEquipInfo(equipment[thisMonster.info.equip1Name], thisMonster, 1);
+            equip1Btn.GetComponent<Image>().sprite = equip1.equipPrefab.GetComponent<Image>().sprite;
+            equip1Btn.name = equipment[monster.info.equip1Name].name;
             isEquip1 = true;
         }
         else
@@ -136,15 +144,24 @@ public class MonsterInfoPanel : MonoBehaviour
         }
 
         //show the equipment item for Slot 2
+        //if (equipment.ContainsKey(monster.info.equip2Name))
+        //{
+        //    e2 = Instantiate(equipment[monster.info.equip2Name].equipPrefab, equipObject.transform.position, Quaternion.identity);
+        //    e2.transform.SetParent(equipObject.transform, false);
+        //    e2.transform.position = new Vector3(-1000f, -1000f, -1000f);
+        //    e2.GetComponent<EquipmentItem>().GetEquipInfo(equipment[thisMonster.info.equip2Name], thisMonster, 2);
+        //    equip2Btn.GetComponent<Image>().sprite = e2.GetComponent<SpriteRenderer>().sprite;
+        //    equip2Btn.interactable = false;
+        //    //Destroy(e2.gameObject);
+        //    isEquip2 = true;
+        //}
         if (equipment.ContainsKey(monster.info.equip2Name))
         {
-            e2 = Instantiate(equipment[monster.info.equip2Name].equipPrefab, equipObject.transform.position, Quaternion.identity);
-            e2.transform.SetParent(equipObject.transform, false);
-            e2.transform.position = new Vector3(-1000f, -1000f, -1000f);
-            e2.GetComponent<EquipmentItem>().GetEquipInfo(equipment[thisMonster.info.equip2Name], thisMonster, 2);
-            equip2Btn.GetComponent<Image>().sprite = e2.GetComponent<SpriteRenderer>().sprite;
+            equip2 = equipment[monster.info.equip2Name];
             equip2Btn.interactable = false;
-            //Destroy(e2.gameObject);
+            equip2Btn.name = equipment[monster.info.equip2Name].name;
+            equip2.equipPrefab.GetComponent<EquipmentItem>().GetEquipInfo(equipment[thisMonster.info.equip2Name], thisMonster, 2);
+            equip2Btn.GetComponent<Image>().sprite = equip2.equipPrefab.GetComponent<Image>().sprite;
             isEquip2 = true;
         }
         else
@@ -165,6 +182,15 @@ public class MonsterInfoPanel : MonoBehaviour
             monsterParts[i].sortingOrder = monsterParts[i].sortingOrder + transform.GetComponent<SpriteRenderer>().sortingOrder;
         }
 
+        RefreshMonsterInfo(thisMonster);
+
+        
+
+    }
+
+    //refresh the stat boxes of the monster when something about the monster changes
+    public void RefreshMonsterInfo(Monster thisMonster)
+    {
         monsterNameText.text = thisMonster.info.name;
         typeText.text = thisMonster.info.type1 + "/" + thisMonster.info.type2;
 
@@ -250,7 +276,22 @@ public class MonsterInfoPanel : MonoBehaviour
         }
 
         attack1.text = thisMonster.info.attack1Name;
+        atk1Attack.text = thisMonster.tempStats.attack1.Power.Value.ToString();
+        atk1Range.text = thisMonster.tempStats.attack1.Range.Value.ToString();
+        atk1Cool.text = thisMonster.tempStats.attack1.attackTime.ToString();
+        atk1Slow.text = thisMonster.tempStats.attack1.hitSlowTime.ToString();
+        atk1Effect.text = thisMonster.tempStats.attack1.effectName;
+        atk1EffectChance.text = thisMonster.tempStats.attack1.effectChance.ToString() + "%";
+
         attack2.text = thisMonster.info.attack2Name;
+
+        attack2.text = thisMonster.info.attack2Name;
+        atk2Attack.text = thisMonster.tempStats.attack2.Power.Value.ToString();
+        atk2Range.text = thisMonster.tempStats.attack2.Range.Value.ToString();
+        atk2Cool.text = thisMonster.tempStats.attack2.attackTime.ToString();
+        atk2Slow.text = thisMonster.tempStats.attack2.hitSlowTime.ToString();
+        atk2Effect.text = thisMonster.tempStats.attack2.effectName;
+        atk2EffectChance.text = thisMonster.tempStats.attack2.effectChance.ToString() + "%";
 
         if (thisMonster.expToLevel.ContainsKey(thisMonster.info.level))
         {
@@ -263,7 +304,6 @@ public class MonsterInfoPanel : MonoBehaviour
 
             toNextLevelText.text = "EXP Until Level Up: " + nextLevelDiff.ToString();
         }
-
     }
 
 
@@ -274,7 +314,10 @@ public class MonsterInfoPanel : MonoBehaviour
         equipMenu.GetComponent<EquipmentManager>().ChangeEquipment(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>(), 1);
         if (isEquip1)
         {
-            GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(e1.GetComponent<EquipmentItem>().equip, 1);
+            GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equip1.equipPrefab.GetComponent<EquipmentItem>().equip, 1);
+            isEquip1 = false;
+            equip1Btn.GetComponent<Image>().sprite = null;
+            RefreshMonsterInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
         }
         
     }   
@@ -286,7 +329,10 @@ public class MonsterInfoPanel : MonoBehaviour
         equipMenu.GetComponent<EquipmentManager>().ChangeEquipment(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>(), 2);
         if (isEquip2)
         {
-            GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(e2.GetComponent<EquipmentItem>().equip, 2);
+            GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equip2.equipPrefab.GetComponent<EquipmentItem>().equip, 2);
+            isEquip2 = false;
+            equip2Btn.GetComponent<Image>().sprite = null;
+            RefreshMonsterInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
         }
         
     }
@@ -309,21 +355,33 @@ public class MonsterInfoPanel : MonoBehaviour
         gameObject.GetComponentInParent<YourHome>().ShowAllMonsters();
         Destroy(monster.gameObject);
 
-
-        if (e1)
-        {
-            Destroy(e1.gameObject);
-        }
-
-        if (e2)
-        {
-            Destroy(e2.gameObject);
-        }
-
         gameObject.SetActive(false);
     }
 
-    
 
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+
+        if (eventData.pointerEnter)
+        {
+            var tag = eventData.pointerEnter.gameObject.tag;
+            var hit = eventData.pointerEnter.gameObject;
+
+
+            //if the menu is opened with the purpose of Equipping a monster with an item, then allow it to be equipped. Otherwise, show the item's details
+            if (tag == "Equipment")
+            {
+                var equipment = hit.gameObject.GetComponent<EquipmentItem>();
+
+                Debug.Log(equipment.equipDetails.description);
+              
+            }
+
+        }
+
+
+
+    }
 
 }

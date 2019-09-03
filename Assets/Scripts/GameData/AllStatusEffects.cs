@@ -198,17 +198,17 @@ public class StatusEffects
             //monster.precision -= monster.precision * status.precDrop;
 
             if (status.hpDrop != 0)
-                monster.tempStats.HP.AddModifier(new StatModifier(status.hpDrop, StatModType.PercentMult, this));
+                monster.tempStats.HP.AddModifier(new StatModifier(status.hpDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.atkDrop != 0)
-                monster.tempStats.Attack.AddModifier(new StatModifier(status.atkDrop, StatModType.PercentMult, this));
+                monster.tempStats.Attack.AddModifier(new StatModifier(status.atkDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.defDrop != 0)
-                monster.tempStats.Defense.AddModifier(new StatModifier(status.defDrop, StatModType.PercentMult, this));
+                monster.tempStats.Defense.AddModifier(new StatModifier(status.defDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.speedDrop != 0)
-                monster.tempStats.Speed.AddModifier(new StatModifier(status.speedDrop, StatModType.PercentMult, this));
+                monster.tempStats.Speed.AddModifier(new StatModifier(status.speedDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.enGenDrop != 0)
-                monster.tempStats.EnergyGeneration.AddModifier(new StatModifier(status.enGenDrop, StatModType.PercentMult, this));
+                monster.tempStats.EnergyGeneration.AddModifier(new StatModifier(status.enGenDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.precDrop != 0)
-                monster.tempStats.Precision.AddModifier(new StatModifier(status.precDrop, StatModType.PercentMult, this));
+                monster.tempStats.Precision.AddModifier(new StatModifier(status.precDrop, StatModType.PercentMult, this, timer.Status.name));
 
             Monster = monster;
         }
@@ -222,17 +222,17 @@ public class StatusEffects
             //enemy.stats.speed -= enemy.stats.speed * status.speDrop;
 
             if (status.hpDrop != 0)
-                enemy.stats.HP.AddModifier(new StatModifier(status.hpDrop, StatModType.PercentMult, this));
+                enemy.stats.HP.AddModifier(new StatModifier(status.hpDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.atkDrop != 0)
-                enemy.stats.Attack.AddModifier(new StatModifier(status.atkDrop, StatModType.PercentMult, this));
+                enemy.stats.Attack.AddModifier(new StatModifier(status.atkDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.defDrop != 0)
-                enemy.stats.Defense.AddModifier(new StatModifier(status.defDrop, StatModType.PercentMult, this));
+                enemy.stats.Defense.AddModifier(new StatModifier(status.defDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.speedDrop != 0)
-                enemy.stats.Speed.AddModifier(new StatModifier(status.speedDrop, StatModType.PercentMult, this));
+                enemy.stats.Speed.AddModifier(new StatModifier(status.speedDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.enGenDrop != 0)
-                enemy.stats.EnergyGeneration.AddModifier(new StatModifier(status.enGenDrop, StatModType.PercentMult, this));
+                enemy.stats.EnergyGeneration.AddModifier(new StatModifier(status.enGenDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.precDrop != 0)
-                enemy.stats.Precision.AddModifier(new StatModifier(status.precDrop, StatModType.PercentMult, this));
+                enemy.stats.Precision.AddModifier(new StatModifier(status.precDrop, StatModType.PercentMult, this, timer.Status.name));
 
             Enemy = enemy;
         }
