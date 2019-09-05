@@ -79,6 +79,7 @@
     <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_Skinning.cs" />
     <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_SortingLayerEditor.cs" />
     <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_Spline.cs" />
+    <Compile Include="Assets\Scripts\Editor\MinMaxSliderPropertyDrawer.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Steve/Desktop/MonsterDefense/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

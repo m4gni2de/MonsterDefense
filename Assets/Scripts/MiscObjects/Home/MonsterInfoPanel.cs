@@ -281,7 +281,36 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         atk1Cool.text = thisMonster.tempStats.attack1.attackTime.ToString();
         atk1Slow.text = thisMonster.tempStats.attack1.hitSlowTime.ToString();
         atk1Effect.text = thisMonster.tempStats.attack1.effectName;
-        atk1EffectChance.text = thisMonster.tempStats.attack1.effectChance.ToString() + "%";
+        atk1EffectChance.text = thisMonster.tempStats.attack1.effectChance * 100 + "%";
+
+        if (thisMonster.tempStats.attack1.Power.BaseValue != thisMonster.tempStats.attack1.Power.Value)
+        {
+            atk1Attack.color = Color.yellow;
+        }
+        else
+        {
+            atk1Attack.color = Color.white;
+        }
+
+        if (thisMonster.tempStats.attack1.Range.BaseValue != thisMonster.tempStats.attack1.Range.Value)
+        {
+            atk1Range.color = Color.yellow;
+        }
+        else
+        {
+            atk1Range.color = Color.white;
+        }
+
+        if (thisMonster.tempStats.attack1.AttackTime.BaseValue != thisMonster.tempStats.attack1.AttackTime.Value)
+        {
+            atk1Cool.color = Color.yellow;
+        }
+        else
+        {
+            atk1Cool.color = Color.white;
+        }
+
+       
 
         attack2.text = thisMonster.info.attack2Name;
 
@@ -291,7 +320,34 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         atk2Cool.text = thisMonster.tempStats.attack2.attackTime.ToString();
         atk2Slow.text = thisMonster.tempStats.attack2.hitSlowTime.ToString();
         atk2Effect.text = thisMonster.tempStats.attack2.effectName;
-        atk2EffectChance.text = thisMonster.tempStats.attack2.effectChance.ToString() + "%";
+        atk2EffectChance.text = thisMonster.tempStats.attack2.effectChance * 100 + "%";
+
+        if (thisMonster.tempStats.attack2.Power.BaseValue != thisMonster.tempStats.attack2.Power.Value)
+        {
+            atk2Attack.color = Color.yellow;
+        }
+        else
+        {
+            atk2Attack.color = Color.white;
+        }
+
+        if (thisMonster.tempStats.attack2.Range.BaseValue != thisMonster.tempStats.attack2.Range.Value)
+        {
+            atk2Range.color = Color.yellow;
+        }
+        else
+        {
+            atk2Range.color = Color.white;
+        }
+
+        if (thisMonster.tempStats.attack2.AttackTime.BaseValue != thisMonster.tempStats.attack2.AttackTime.Value)
+        {
+            atk2Cool.color = Color.yellow;
+        }
+        else
+        {
+            atk2Cool.color = Color.white;
+        }
 
         if (thisMonster.expToLevel.ContainsKey(thisMonster.info.level))
         {

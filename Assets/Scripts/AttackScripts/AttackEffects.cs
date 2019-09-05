@@ -80,7 +80,7 @@ public class AttackEffects : MonoBehaviour
         direction = dir;
 
         //if the attack type is a projectile, shoot the projectile. If it's not, spawn the physical animation on the enemy itself
-        if (Attack.attackType == "Projectile")
+        if (Attack.attackMode == AttackMode.Projectile)
         {
             isMoving = true;
 
@@ -98,7 +98,7 @@ public class AttackEffects : MonoBehaviour
         {
             transform.position = enemy.transform.position;
         }
-        
+
 
     }
 
@@ -121,7 +121,7 @@ public class AttackEffects : MonoBehaviour
             }
 
             //if the attack is NOT a projectile, let the attack animation run it's full course. if it is a projectile, destroy the animation immediately
-            if (Attack.attackType != "Projectile")
+            if (Attack.attackMode == AttackMode.Projectile)
             {
                 //
             }

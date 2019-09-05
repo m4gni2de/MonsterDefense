@@ -69,6 +69,9 @@ public struct MonsterInfo
     public int koCount;
 
     public bool isEquipped;
+
+    public int monsterRank;
+    
    
 
 };
@@ -521,7 +524,7 @@ public class Monster : MonoBehaviour
                 info.index = monsterCount;
                 info.maxLevel = dict[name].maxLevel;
                 info.levelConst = dict[name].levelConst;
-
+                info.monsterRank = 0;
 
 
 
@@ -529,6 +532,10 @@ public class Monster : MonoBehaviour
                 GameManager.Instance.monsterCount = monsterCount;
 
                 //for each of the attacks this monster has in its base attack array, choose 2 at random to give to this monster
+                //int rand = Random.Range(0, dict[name].baseAttacks.Length - 1);
+                //int rand2 = Random.Range(0, dict[name].baseAttacks.Length - 1);
+
+
                 int rand = Random.Range(0, dict[name].baseAttacks.Length - 1);
                 info.attack1Name = dict[name].baseAttacks[rand];
                 int rand2 = Random.Range(0, dict[name].baseAttacks.Length - 1);

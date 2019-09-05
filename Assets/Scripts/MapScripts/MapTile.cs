@@ -155,6 +155,10 @@ public class MapTile : MonoBehaviour
     //this is used to check for paths that are on different paths, but overlap. if this happens, use the 4 way intersection sprite
     public int pathCount;
 
+    //the tile animator for different elements and their idle/movement animations
+    public MapTileAnimations tileAnimations;
+    
+
     //public GameObject reflector;
     //public GameObject reflectorCamera;
     //private Camera camera;
@@ -166,7 +170,7 @@ public class MapTile : MonoBehaviour
         sp.GetComponent<SpriteRenderer>();
         roadSprite.GetComponent<SpriteRenderer>();
         sprite = GetComponent<Sprite>();
-
+        tileAnimations.GetComponent<MapTileAnimations>();
 
         sprite = sp.sprite;
 
@@ -207,6 +211,8 @@ public class MapTile : MonoBehaviour
         }
     }
 
+    
+
     //invoke this method if the tile is going to be able to have a tower placed on it
     public void Build()
     {
@@ -228,7 +234,9 @@ public class MapTile : MonoBehaviour
         
     }
 
+   
 
+    
    
 
     public void GetAttribute(int tileInt)
@@ -243,24 +251,21 @@ public class MapTile : MonoBehaviour
 
         info.attribute = tileAtt.ToString();
 
-        if (tileInt == 1)
-        {
-            //reflector.SetActive(true);
-            //reflectorCamera.SetActive(true);
-            //camera = reflectorCamera.GetComponent<Camera>();
-            //camera.depth = cameraDepth;
-            //cameraDepth -= 1;
-        }
+       
 
-        if (!isRoad)
-        {
+
             if (sprites.ContainsKey(tileInt))
             {
                 sp.sprite = sprites[tileInt];
+                tileAnimations.TileAnimation(tileAtt, isRoad);
             }
-        }
+        
+
+        
 
         info.atkBonus = 100;
+
+       
     }
 
 

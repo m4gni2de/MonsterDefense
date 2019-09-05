@@ -32,7 +32,7 @@ public struct BaseAttack
     //length of time a monster is slowed when hit by this attack
     public float hitSlowTime;
     //either projectile or physical
-    public string attackType;
+    public AttackMode attackMode;
 
     public GameObject attackAnimation;
     
@@ -44,6 +44,12 @@ public struct BaseAttack
 public class BaseAttackRoot
 {
     public BaseAttack BaseAttack;
+}
+
+public enum AttackMode
+{
+    Physical, 
+    Projectile,
 }
 
 [System.Serializable]
@@ -65,14 +71,8 @@ public class AllBaseAttacks
         effectChance = .20f,
         attackSpeed = 10f,
         hitSlowTime = .2f,
-        attackType = "Projectile",
-        //Range = new Stat(),
-        //Power = new Stat(),
-        //CritChance = new Stat(),
-        //CritMod = new Stat(),
-        //AttackTime = new Stat(),
-        //AttackSpeed = new Stat(),
-        //EffectChance = new Stat(),
+        attackMode = AttackMode.Projectile,
+        
         
 
     };
@@ -92,14 +92,8 @@ public class AllBaseAttacks
         effectChance = .25f,
         attackSpeed = 10f,
         hitSlowTime = .6f,
-        attackType = "Projectile",
-        //Range = new Stat(),
-        //Power = new Stat(),
-        //CritChance = new Stat(),
-        //CritMod = new Stat(),
-        //AttackTime = new Stat(),
-        //AttackSpeed = new Stat(),
-        //EffectChance = new Stat(),
+        attackMode = AttackMode.Projectile,
+       
     };
 
     public BaseAttack mistySpray = new BaseAttack
@@ -117,14 +111,8 @@ public class AllBaseAttacks
         effectChance = .15f,
         attackSpeed = 10f,
         hitSlowTime = .25f,
-        attackType = "Projectile",
-        //Range = new Stat(),
-        //Power = new Stat(),
-        //CritChance = new Stat(),
-        //CritMod = new Stat(),
-        //AttackTime = new Stat(),
-        //AttackSpeed = new Stat(),
-        //EffectChance = new Stat(),
+        attackMode = AttackMode.Projectile,
+        
 
     };
 
@@ -143,14 +131,8 @@ public class AllBaseAttacks
         effectChance = .10f,
         attackSpeed = 10f,
         hitSlowTime = .15f,
-        attackType = "Projectile",
-        //Range = new Stat(),
-        //Power = new Stat(),
-        //CritChance = new Stat(),
-        //CritMod = new Stat(),
-        //AttackTime = new Stat(),
-        //AttackSpeed = new Stat(),
-        //EffectChance = new Stat(),
+        attackMode = AttackMode.Projectile,
+        
     };
 
     public BaseAttack shadowBP = new BaseAttack
@@ -168,8 +150,8 @@ public class AllBaseAttacks
         effectChance = .10f,
         attackSpeed = 10f,
         hitSlowTime = .35f,
-        attackType = "Physical",
-        
+        attackMode = AttackMode.Projectile,
+
     };
 
 
@@ -182,7 +164,11 @@ public class BaseAttacks : MonoBehaviour
 
     public AllBaseAttacks allBaseAttacks = new AllBaseAttacks();
     public Dictionary<string, BaseAttack> baseAttackDict = new Dictionary<string, BaseAttack>();
+
     
+    public List<string> waterAttacks = new List<string>();
+    public List<string> electricAttacks = new List<string>();
+    public List<string> shadowAttacks = new List<string>();
 
 
 
@@ -190,6 +176,7 @@ public class BaseAttacks : MonoBehaviour
     private void Awake()
     {
         SetBaseAttacks();
+       
     }
 
     public void SetBaseAttacks()
@@ -198,9 +185,37 @@ public class BaseAttacks : MonoBehaviour
         baseAttackDict.Add(allBaseAttacks.voltStrike.name, allBaseAttacks.voltStrike);
         baseAttackDict.Add(allBaseAttacks.aquaDart.name, allBaseAttacks.aquaDart);
         baseAttackDict.Add(allBaseAttacks.mistySpray.name, allBaseAttacks.mistySpray);
+        baseAttackDict.Add(allBaseAttacks.shadowBP.name, allBaseAttacks.shadowBP);
+
+
+        //loops through all of the attacks and separates them in to lists based on their type
+        foreach (KeyValuePair<string, BaseAttack> attack in baseAttackDict)
+        {
+
+            if (attack.Value.type == "Water")
+            {
+                waterAttacks.Add(attack.Key);
+                
+            }
+
+            if (attack.Value.type == "Electric")
+            {
+                electricAttacks.Add(attack.Key);
+
+            }
+
+            if (attack.Value.type == "Shadow")
+            {
+                shadowAttacks.Add(attack.Key);
+
+            }
+        }
 
 
     }
+
+
+    
 
 
    

@@ -70,6 +70,7 @@ fc108ce7d98c40ac0907e8ca7f500c76 UnityEngine.UI.dll:UnityEngine.UI.Text
 abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 64e54c0cbb0177c5ea26f340efb9ff85 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 98ad81e9f689a492509f07e75b810aaa Unity.TextMeshPro.dll:TMPro.TMP_InputField
+d5e645c74189c7aa8ac5c2848ddda4e6 Assembly-CSharp.dll:.MapTileAnimations
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 5fc094978ce3e3591a7500ed380d854a UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -108,7 +109,7 @@ f932e7f66066dd9b67cb0e6d1a49db23 Assembly-CSharp.dll:.EnemyInfoPanel
 3ef98dfb622becffe5198b3cfa7e58cf Assembly-CSharp.dll:Puppet2D.Puppet2D_SplineControl
 28e650ff3c82e296e2a60e4ab4dcb2dc Assembly-CSharp.dll:.YourAccount
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.CameraFollow
-aadfcc2e3033484d10e894beabce9b64 Assembly-CSharp.dll:.MapTile
+881d3c1c37e21c829b6b6747a887a4b9 Assembly-CSharp.dll:.MapTile
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 06f0fef534ca4c1d6064fd77a26bf722 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 780e8f682b3221346c034a6712a0fd25 UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -122,7 +123,7 @@ e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.G
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 201e3fde670b00545944bb3db215c80a UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 2700a1d080f8d13f24916e2b3a8f8ce5 Assembly-CSharp.dll:.MapDetails
-eae7773c8d8bd0ea08c594f1b1ee0be3 Assembly-CSharp.dll:.Items
+1dc40d9fd80bee6077c058a29c732b22 Assembly-CSharp.dll:.Items
 00274a21279f5cb831ce20f895049e38 Unity.TextMeshPro.dll:TMPro.TMP_SubMeshUI
 55175574a985eee92ce214e12d6efdbb Assembly-CSharp.dll:.MapTileMenu
 e6ae40841db498b6e673877ac45ad208 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
@@ -140,7 +141,7 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 9b895dcabbc1faf095c000c32d471fd0 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-ef359179af75025af5d9f21127250500 Assembly-CSharp.dll:.BaseAttacks
+682e52f932f1a107a1c6fa9f8e08e08a Assembly-CSharp.dll:.BaseAttacks
 0788faac8eb074b69945bad3c540a7a5 Assembly-CSharp.dll:.ItemPopMenu
 4d16cfbaa8e821a2b370e80844a0e9bc Assembly-CSharp.dll:TMPro.Examples.Benchmark03
 303ad70ce203ad874efe2965d0fbcff9 Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsEventTracker
@@ -157,7 +158,7 @@ dd7520b7d4e690e8c593273e7b9fbe80 Assembly-CSharp.dll:TMPro.Examples.TMP_TextEven
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Puppet2D.Puppet2D_VertHandler
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 3375c3d749f8f4cad889721b431bdc27 Assembly-CSharp.dll:TMPro.Examples.CameraController
-5119132780f391e0271acb7f564160db Assembly-CSharp.dll:.ItemShop
+ef36bee133e2bc94fcaf8fff69d0879a Assembly-CSharp.dll:.ItemShop
 e63944317d2f5958e31963668bb29158 Assembly-CSharp.dll:TMPro.Examples.VertexJitter
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Analytics.Editor.dll:UnityEditor.Analytics.AnalyticsEventTrackerEditor
 b606225c2f5821f9878acf27168d028f Assembly-CSharp.dll:.MapInfoMenu
@@ -225,7 +226,7 @@ d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.Spa
 fe2d355deb0ca31d59a0a7cf4d141fc3 Assembly-CSharp.dll:TMPro.Examples.Benchmark04
 c4b73c5a1edb4391754011150e4896dd Assembly-CSharp.dll:Puppet2D.Puppet2D_VertexDeform
 86d54e15df06f2608de5069d90b1294e Assembly-CSharp.dll:.MonsterManager
-0dce7efa3f3557d1cd00134695554e01 Assembly-CSharp.dll:.Monster
+cf500078fce761e410bb5e98b39399df Assembly-CSharp.dll:.Monster
 4d16cfbaa8e821a2b370e80844a0e9bc Assembly-CSharp.dll:TMPro.Examples.TextMeshSpawner
 e63944317d2f5958e31963668bb29158 Assembly-CSharp.dll:TMPro.Examples.VertexShakeB
 5bb0c23ac2810973880e592724a69354 Assembly-CSharp.dll:TMPro.Examples.Benchmark02
@@ -233,7 +234,7 @@ bd3f0ca738703903e759f77536ed74fd Assembly-CSharp.dll:TMPro.Examples.TMP_UiFrameR
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TMPro.Examples.VertexColorCycler
 e63944317d2f5958e31963668bb29158 Assembly-CSharp.dll:TMPro.Examples.VertexZoom
 5171edb225f5fcdb2613328e60c164aa Assembly-CSharp.dll:.PopMenuObject
-5e6b2bd3b4ab88c86c34290e18e441f0 Assembly-CSharp.dll:.MonsterInfoPanel
+914c7ac26fc65b168eb49b6ca2edba1e Assembly-CSharp.dll:.MonsterInfoPanel
 d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 51ed7e508e73d5a1efb2c84fcf2bd316 Assembly-CSharp.dll:.MonsterIcon
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.YourItems
@@ -248,7 +249,7 @@ c6666661329916e218bee7f5e79e60f5 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 9f2260202439eaa575a2770542c42117 Assembly-CSharp.dll:Puppet2D.Puppet2D_Guides
 0784d4fd5b93bd75440d01eb2fac4233 Assembly-CSharp.dll:TMPro.Examples.VertexShakeA
 5fc83874435e376360217c13c0d48292 Assembly-CSharp.dll:.EquipmentItem
-8e52a3b22c0f212ad2866adc6de0285a Assembly-CSharp.dll:.MonstersData
+75b907767b537c16b8b5fdeeb1f306ae Assembly-CSharp.dll:.MonstersData
 4587565a03be630ecdc2486327c27661 Assembly-CSharp.dll:Puppet2D.Puppet2D_SortingLayer
 8b1fe5dfdcf943fb3b72506b9f19335f Assembly-CSharp.dll:.EnvMapAnimator
 a88beb0e8596f56c2892dd002165b7c7 Assembly-CSharp.dll:Puppet2D.Puppet2D_IKHandle
@@ -256,6 +257,8 @@ a88beb0e8596f56c2892dd002165b7c7 Assembly-CSharp.dll:Puppet2D.Puppet2D_IKHandle
 d93da10c678ceb3253934823e59f7712 Assembly-CSharp.dll:Puppet2D.Puppet2D_Bone
 6f759783615894ef1bacf717d8df5f9f Assembly-CSharp.dll:.TileEditorMenu
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
-587b0b9c24c9769dae793ffd10a48b3b Assembly-CSharp.dll:.AttackEffects
+460e0dba79d5d8b4cbe925c588659f51 Assembly-CSharp.dll:.AttackEffects
 b7f9acb838f51e1c0c357e1f10baf282 Assembly-CSharp.dll:.GameManager
 ea925e6507b6b33724a60ea2e716a54e Assembly-CSharp.dll:Puppet2D.Puppet2D_FFDStoreData
+3f4c252b92f8d0058bebb7d0527a06c2 Assembly-CSharp.dll:.WeatherData
+d8b34c36612aa073e170c79362a02e4a Assembly-CSharp.dll:.FoliageWaver

@@ -136,6 +136,7 @@
     <Compile Include="Assets\Scripts\MapScripts\MapDetails.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MapEditor.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MapTile.cs" />
+    <Compile Include="Assets\Scripts\MapScripts\MapTileAnimations.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MonsterInfoMenus.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\AccountScene\AccountManagement.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\CameraMotion.cs" />
@@ -153,6 +154,11 @@
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\MapInfoMenu.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\MapTileMenu.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\WorldMap.cs" />
+    <Compile Include="Assets\Scripts\MiscScripts\FoliageWaver.cs" />
+    <Compile Include="Assets\Scripts\MiscScripts\MinMaxSliderAttribute.cs" />
+    <Compile Include="Assets\Scripts\MiscScripts\Singlenton.cs" />
+    <Compile Include="Assets\Scripts\MiscScripts\SortingLayerExposed.cs" />
+    <Compile Include="Assets\Scripts\MiscScripts\WeatherData.cs" />
     <Compile Include="Assets\Scripts\Monster\Enemy.cs" />
     <Compile Include="Assets\Scripts\Monster\MeshBodyParts.cs" />
     <Compile Include="Assets\Scripts\Monster\Monster.cs" />
@@ -164,7 +170,6 @@
     <Compile Include="Assets\Scripts\PlayerScripts\YourAccount.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\YourItems.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\YourMonsters.cs" />
-    <Compile Include="Assets\Scripts\SortingLayerExposed.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -206,6 +211,7 @@
     <None Include="Assets\Resources\masterText.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\Puppet2D\Shaders\unlitTransparentDouble.shader" />
+    <None Include="Assets\MapUI\Tiles\TileTextures\FoliageWaver.shader" />
     <None Include="Assets\MapUI\Tiles\TileTextures\ReflectionShader.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />

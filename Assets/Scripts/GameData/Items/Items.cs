@@ -38,6 +38,8 @@ public struct Equipment
     public string[] boosts;
     public float cost;
     public int equipSlot;
+
+    
     
 
     public int hpBonus;
@@ -256,6 +258,10 @@ public class Items: MonoBehaviour
     public Dictionary<string, Consumable> allConsumablesDict = new Dictionary<string, Consumable>();
     public Dictionary<string, MonsterCell> allMonsterCellsDict = new Dictionary<string, MonsterCell>();
 
+    public List<string> equipmentList = new List<string>();
+    public List<string> consumableList = new List<string>();
+    public List<string> cellList = new List<string>();
+
     private void Awake()
     {
         //equipEffects = GetComponent<EquipEffects>();
@@ -280,6 +286,26 @@ public class Items: MonoBehaviour
         allItemsDict.Add(allItems.ShadowRune.name, allItems.MagicRune);
         allItemsDict.Add(allItems.ExpBoost.name, allItems.ExpBoost);
         allItemsDict.Add(allItems.LichenthropeCell.name, allItems.LichenthropeCell);
+
+
+        foreach (KeyValuePair<string, AllItem> item in allItemsDict)
+        {
+            if (item.Value.itemType == ItemType.Equipment)
+            {
+                equipmentList.Add(item.Key);
+            }
+
+            if (item.Value.itemType == ItemType.Consumable)
+            {
+                consumableList.Add(item.Key);
+            }
+
+            if (item.Value.itemType == ItemType.Cell)
+            {
+                cellList.Add(item.Key);
+            }
+
+        }
     }
 
     
@@ -291,7 +317,7 @@ public class Items: MonoBehaviour
         allEquipmentDict.Add(allEquipment.MagicRune.name, allEquipment.MagicRune);
         allEquipmentDict.Add(allEquipment.ShadowRune.name, allEquipment.ShadowRune);
 
-        
+
     }
 
 

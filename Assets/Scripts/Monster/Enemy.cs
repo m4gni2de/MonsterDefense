@@ -146,9 +146,10 @@ public class Enemy : MonoBehaviour
             monster.info.levelConst = dict[name].levelConst;
 
             //for each of the attacks this monster has in its base attack array, choose 2 at random to give to this monster
-            int rand = Random.Range(0, dict[name].baseAttacks.Length - 1);
+            int rand = Random.Range(0, dict[name].baseAttacks.Length);
+            Debug.Log(dict[name].baseAttacks.Length);
             monster.info.attack1Name = dict[name].baseAttacks[rand];
-            int rand2 = Random.Range(0, dict[name].baseAttacks.Length - 1);
+            int rand2 = Random.Range(0, dict[name].baseAttacks.Length);
 
             //make sure the 2 attacks aren't the same
             if (rand2 == rand)
@@ -640,7 +641,9 @@ public class Enemy : MonoBehaviour
             averageLegPos.y += monster.specs.legPos[i].y - (monster.GetComponent<RectTransform>().rect.height);
 
         }
+
         averageLegPos = new Vector3(averageLegPos.x / monster.specs.legPos.Length, averageLegPos.y / monster.specs.legPos.Length, averageLegPos.z);
+        
 
 
         //**** Get the moving objects current position LEGACY****

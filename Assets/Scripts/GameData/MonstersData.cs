@@ -20,7 +20,10 @@ public struct MonsterData
     public int speBase;
     public int precBase;
     public int maxLevel;
+    //used as a multiplier for calculating experience points needed to level up. higher the number, more exp needed, which usually means a stronger monster
     public float levelConst;
+    //which attacks the monster can learn, either via levelup or another method
+    public string[] learnableAttacks;
     public string[] baseAttacks;
 
     public int staminaBase;
@@ -52,7 +55,7 @@ public class AllMonsterData
         precBase = 86,
         maxLevel = 100,
         levelConst = 1.9f,
-        baseAttacks = new string[2] { "Thunder", "Misty Spray" },
+        baseAttacks = new string[2] { "Shadow Blaze Punch", "Misty Spray" },
         staminaBase = 70,
         energyGenBase = 77,
         energyCost = 7f,
