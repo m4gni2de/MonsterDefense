@@ -17,7 +17,7 @@ public class AttackEffects : MonoBehaviour
     public int AtkPower, AttackerLevel;
     public string AttackName, AttackType;
     public Monster attacker;
-    public BaseAttack Attack;
+    public MonsterAttack Attack;
 
     //if an attack has a particle emission sprite for when it's summoned and for when it's destroyed
     public GameObject attackEmission;
@@ -51,7 +51,7 @@ public class AttackEffects : MonoBehaviour
    
 
     //recieve attacker information from the Tower Template script. holds data about the attack and attacker
-    public void FromAttacker(BaseAttack attack, string atkName, string atkType, float atkStat, int attackPower, int attackerLevel, float critChance, float critMod, Monster attackingMonster)
+    public void FromAttacker(MonsterAttack attack, string atkName, string atkType, float atkStat, int attackPower, int attackerLevel, float critChance, float critMod, Monster attackingMonster)
     {
 
         AtkPower = attackPower;

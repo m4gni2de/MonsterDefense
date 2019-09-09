@@ -97,8 +97,8 @@ public struct TempStats
     public float critBase;
 
     
-    public BaseAttack attack1;
-    public BaseAttack attack2;
+    public MonsterAttack attack1;
+    public MonsterAttack attack2;
 }
 
 [System.Serializable]
@@ -167,7 +167,7 @@ public class Monster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var attacksDict = GameManager.Instance.baseAttacks.baseAttackDict;
+        var attacksDict = GameManager.Instance.baseAttacks.attackDict;
 
 
         tower = GetComponent<Tower>();
@@ -232,7 +232,7 @@ public class Monster : MonoBehaviour
         if (attacksDict.ContainsKey(info.attack1Name))
         {
 
-            BaseAttack attack = attacksDict[info.attack1Name];
+            MonsterAttack attack = attacksDict[info.attack1Name];
 
             tempStats.attack1 = attack;
             tempStats.attack1.Power.BaseValue = attack.power;
@@ -249,7 +249,7 @@ public class Monster : MonoBehaviour
 
         if (attacksDict.ContainsKey(info.attack2Name))
         {
-            BaseAttack attack = attacksDict[info.attack2Name];
+            MonsterAttack attack = attacksDict[info.attack2Name];
 
             tempStats.attack2 = attack;
             tempStats.attack2.Power.BaseValue = attack.power;
@@ -355,7 +355,7 @@ public class Monster : MonoBehaviour
     public void SetMonsterStats()
     {
 
-        var attacksDict = GameManager.Instance.baseAttacks.baseAttackDict;
+        var attacksDict = GameManager.Instance.baseAttacks.attackDict;
 
         var equip = GameManager.Instance.items.allEquipmentDict;
         var dict = GameManager.Instance.monstersData.monstersAllDict;
@@ -417,7 +417,7 @@ public class Monster : MonoBehaviour
         if (attacksDict.ContainsKey(info.attack1Name))
         {
 
-            BaseAttack attack = attacksDict[info.attack1Name];
+            MonsterAttack attack = attacksDict[info.attack1Name];
 
 
             tempStats.attack1.Power.BaseValue = attack.power;
@@ -435,7 +435,7 @@ public class Monster : MonoBehaviour
 
         if (attacksDict.ContainsKey(info.attack2Name))
         {
-            BaseAttack attack = attacksDict[info.attack2Name];
+            MonsterAttack attack = attacksDict[info.attack2Name];
 
             tempStats.attack2.Power.BaseValue = attack.power;
             tempStats.attack2.Range.BaseValue = attack.range;
@@ -496,7 +496,7 @@ public class Monster : MonoBehaviour
         {
             int monsterCount = GameManager.Instance.monsterCount + 1;
 
-            var attacksDict = GameManager.Instance.baseAttacks.baseAttackDict;
+            var attacksDict = GameManager.Instance.baseAttacks.attackDict;
 
             var dict = GameManager.Instance.monstersData.monstersAllDict;
 
@@ -571,14 +571,14 @@ public class Monster : MonoBehaviour
             //load in the attacks of the monster
             if (attacksDict.ContainsKey(info.attack1Name))
             {
-                BaseAttack attack = attacksDict[info.attack1Name];
+                MonsterAttack attack = attacksDict[info.attack1Name];
                 tempStats.attack1 = attack;
 
             }
 
             if (attacksDict.ContainsKey(info.attack2Name))
             {
-                BaseAttack attack = attacksDict[info.attack2Name];
+                MonsterAttack attack = attacksDict[info.attack2Name];
                 tempStats.attack2 = attack;
             }
             SetMonsterStats();

@@ -80,7 +80,7 @@ public class MotionControl : MonoBehaviour
     
 
     //this is called from the enemy script when an emey is hit with an attack
-    public void IsHit(BaseAttack attack)
+    public void IsHit(MonsterAttack attack)
     {
         //hitTime = 
         isHit = true;

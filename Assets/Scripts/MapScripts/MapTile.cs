@@ -231,7 +231,10 @@ public class MapTile : MonoBehaviour
         isBuildable = false;
         isRoad = true;
         pathCount += 1;
-        
+
+
+        ///////LATER ON, GET A VARIABLE FOR A MAP "THEME" AND THEME THE ROADS WITH A DIFFERENT SHADER//////////
+        roadSprite.gameObject.AddComponent<StoneFX>();
     }
 
    

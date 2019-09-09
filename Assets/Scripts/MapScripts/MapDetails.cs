@@ -171,7 +171,8 @@ public class MapDetails : MonoBehaviour
                 //tile.transform.position = new Vector2(((-height / 4) + (c * 50)), (width / 4) - 6.5f - (i * 27));
                 tile.transform.position = new Vector2((-width / 2) + (i * 50), (height / 2) - (c * 25));
                 tile.GetComponent<SpriteRenderer>().sortingOrder = (int)-tile.transform.position.y;
-                tile.GetComponent<MapTile>().roadSprite.sortingOrder = 2 + (int)-tile.transform.position.y;
+                    tile.GetComponent<MapTile>().roadSprite.sortingLayerName = "Pathways";
+                    tile.GetComponent<MapTile>().roadSprite.sortingOrder = 2 + (int)-tile.transform.position.y;
                 //tile2.transform.position = new Vector2(((-height / 4) + 25 + (c * 50)), (width / 4) + 7f - (i * 27));
                 
                 tile2.transform.position = new Vector2((-width / 2) + (i * 50) + 25, (height / 2) - (c * 25) + 12.50f);
@@ -179,7 +180,8 @@ public class MapDetails : MonoBehaviour
 
                 
                 tile2.GetComponent<SpriteRenderer>().sortingOrder = (int)-tile2.transform.position.y;
-                tile2.GetComponent<MapTile>().roadSprite.sortingOrder = 2 + (int)-tile2.transform.position.y;
+                    tile2.GetComponent<MapTile>().roadSprite.sortingLayerName = "Pathways";
+                    tile2.GetComponent<MapTile>().roadSprite.sortingOrder = 2 + (int)-tile2.transform.position.y;
 
                 tile.transform.SetParent(mapCanvas.transform, false);
                 tile2.transform.SetParent(mapCanvas.transform, false);

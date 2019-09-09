@@ -7,9 +7,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 namespace Puppet2D
 {
+
+   
 	public class Puppet2D_BoneCreation : Editor
 	{
-
+        
 
 		public static void BoneFinishCreation()
 		{

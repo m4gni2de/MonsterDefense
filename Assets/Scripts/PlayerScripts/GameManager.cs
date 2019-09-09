@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public void OnDestroy() { if (instance == this) instance = null; }
 
     //the script that holds all of the basic attacks for the monsters
-    public BaseAttacks baseAttacks;
+    public Attacks baseAttacks;
 
     //the script that holds all of the base stats, level up movepool and everything else for the monster species
     public MonstersData monstersData;

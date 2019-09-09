@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8623248027027704091}
   - component: {fileID: 8356362450298709622}
   - component: {fileID: 5958454714523262545}
+  - component: {fileID: 8255424395061608653}
   m_Layer: 0
   m_Name: thunder
   m_TagString: Untagged
@@ -52,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -70,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 173e5de8ce305a2488526d2631c7dedb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -198,6 +199,8 @@ MonoBehaviour:
       BaseValue: 0
     AttackSpeed:
       BaseValue: 0
+    AttackSlow:
+      BaseValue: 0
     name: 
     id: 0
     description: 
@@ -210,8 +213,36 @@ MonoBehaviour:
     effectChance: 0
     attackTime: 0
     attackSpeed: 0
+    hitSlowTime: 0
+    attackMode: 0
     attackAnimation: {fileID: 0}
   attackEmission: {fileID: 195635215571573003, guid: 790503c4a12ca6e4eb140bd0cc1d9cbc,
     type: 3}
   attackDemission: {fileID: 752517181121586637, guid: ca78dc033cd38df4bb5e20d0fb27a5c8,
     type: 3}
+--- !u!114 &8255424395061608653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3211728297390547379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6af0fe8c6a5ff4439f02d6477362106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ForceMaterial: {fileID: 0}
+  ActiveChange: 1
+  _Alpha: 1
+  __MainTex2: {fileID: 2800000, guid: 1260d87d5f2035f429de8f538a1e73f5, type: 3}
+  _Value1: 64
+  _Value2: 1
+  _Value3: 1
+  _Value4: 0
+  _AutoScrollX: 0
+  _AutoScrollSpeedX: 0
+  _AutoScrollY: 0
+  _AutoScrollSpeedY: 0
+  ShaderChange: 0
+  ActiveUpdate: 1

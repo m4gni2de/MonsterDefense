@@ -124,7 +124,7 @@ public class Enemy : MonoBehaviour
     //this is called from the Monster script. information of this enemy is taken from the Monster Script, but new data is added since it's an "Enemy", so it will very likely be its own unique monster
     public void SetEnemyStats(int level)
     {
-        var attacksDict = GameManager.Instance.baseAttacks.baseAttackDict;
+        var attacksDict = GameManager.Instance.baseAttacks.attackDict;
 
         var equip = GameManager.Instance.items.allEquipmentDict;
         var dict = GameManager.Instance.monstersData.monstersAllDict;
@@ -184,7 +184,7 @@ public class Enemy : MonoBehaviour
         if (attacksDict.ContainsKey(monster.info.attack1Name))
         {
 
-            BaseAttack attack = attacksDict[monster.info.attack1Name];
+            MonsterAttack attack = attacksDict[monster.info.attack1Name];
 
 
             monster.tempStats.attack1.Power.BaseValue = attack.power;
@@ -201,7 +201,7 @@ public class Enemy : MonoBehaviour
 
         if (attacksDict.ContainsKey(monster.info.attack2Name))
         {
-            BaseAttack attack = attacksDict[monster.info.attack2Name];
+            MonsterAttack attack = attacksDict[monster.info.attack2Name];
 
             monster.tempStats.attack2.Power.BaseValue = attack.power;
             monster.tempStats.attack2.Range.BaseValue = attack.range;
@@ -290,7 +290,7 @@ public class Enemy : MonoBehaviour
 
 
     //gets the attacker information from the attack sprite that hits the enemy, and then calculate the damage. method invoked from the Attack Effects script
-    public void OutputDamage(string atkName, string atkType, int atkPower, float atkStat, int attackerLevel, float critChance, float criMod, Monster attacker, BaseAttack baseAttack)
+    public void OutputDamage(string atkName, string atkType, int atkPower, float atkStat, int attackerLevel, float critChance, float criMod, Monster attacker, MonsterAttack monsterAttack)
     {
         if (stats.type2 == "none" || stats.type2 == null || stats.type2 == "")
         {
@@ -305,7 +305,7 @@ public class Enemy : MonoBehaviour
                 TypeInfo defending = GameManager.Instance.monstersData.typeChartDict[stats.type1];
                 TypeChart attack = new TypeChart(attacking, defending, force, resistance);
 
-                DealDamage(attack, attack.typeModifier, attacker, critChance, criMod, baseAttack);
+                DealDamage(attack, attack.typeModifier, attacker, critChance, criMod, monsterAttack);
 
             }
         }
@@ -335,7 +335,7 @@ public class Enemy : MonoBehaviour
                         TypeInfo defending = GameManager.Instance.monstersData.typeChartDict[stats.type2];
                         TypeChart attack = new TypeChart(attacking, defending, force, resistance);
                         damageMod *= attack.typeModifier;
-                        DealDamage(attack, damageMod, attacker, critChance, criMod, baseAttack);
+                        DealDamage(attack, damageMod, attacker, critChance, criMod, monsterAttack);
 
                     }
 
@@ -352,7 +352,7 @@ public class Enemy : MonoBehaviour
     }
 
     //when the attack animation hits the enemy, deal the damage. this method is invoked from the AttackEffects script. Also gives information about the attacking monster, so if an enemy is destroyed, it can tell which monster destroyed it
-    public void DealDamage(TypeChart atk, float damageMod, Monster attacker, float critChance, float critMod, BaseAttack attack)
+    public void DealDamage(TypeChart atk, float damageMod, Monster attacker, float critChance, float critMod, MonsterAttack attack)
     {
         var statuses = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict;
         

@@ -56,6 +56,12 @@ TagManager:
   - name: MapTiles
     uniqueID: 287597833
     locked: 0
+  - name: TileTop
+    uniqueID: 369979735
+    locked: 0
+  - name: Pathways
+    uniqueID: 2776843553
+    locked: 0
   - name: Mesh
     uniqueID: 96480255
     locked: 0

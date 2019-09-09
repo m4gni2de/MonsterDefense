@@ -39,6 +39,9 @@ public struct Equipment
     public float cost;
     public int equipSlot;
 
+    public int equipLevel;
+    public int equipLevelMax;
+    public int equipExp;
     
     
 

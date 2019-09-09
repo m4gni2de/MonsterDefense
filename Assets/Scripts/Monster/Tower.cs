@@ -118,7 +118,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
 
         //set the animations for each attack based on the attack's name
-        var attacksDict = GameManager.Instance.baseAttacks.baseAttackDict;
+        var attacksDict = GameManager.Instance.baseAttacks.attackDict;
 
        
         if (attacksDict.ContainsKey(monster.tempStats.attack1.name))
@@ -678,7 +678,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         {
             if (atkRange1List.Contains(target.tileNumber))
             {
-                BaseAttack attack = monster.tempStats.attack1;
+                MonsterAttack attack = monster.tempStats.attack1;
                 var attackSprite = Instantiate(attack1Animation, attackPoint.transform.position, Quaternion.identity);
                 attackSprite.gameObject.name = attack.name;
                 //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
@@ -692,7 +692,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         {
             if (atkRange2List.Contains(target.tileNumber))
             {
-                BaseAttack attack = monster.tempStats.attack2;
+                MonsterAttack attack = monster.tempStats.attack2;
                 var attackSprite = Instantiate(attack2Animation, attackPoint.transform.position, Quaternion.identity);
                 attackSprite.gameObject.name = attack.name;
                 //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());

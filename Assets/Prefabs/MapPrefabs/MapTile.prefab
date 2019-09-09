@@ -329,6 +329,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5052a4131477fc948bd0426593c36fe3, type: 3}
   magicTileBurst: {fileID: 4932792091010260469, guid: 42a95165d0124df45b413884979ba50c,
     type: 3}
+  electricTileTopSprite: {fileID: 21300000, guid: 060fef0fd0fd5124eae23f468f1a2d24,
+    type: 3}
   isRoad: 0
 --- !u!212 &9159422784620431388
 SpriteRenderer:

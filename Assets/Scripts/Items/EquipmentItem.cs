@@ -17,6 +17,9 @@ public struct EquipmentDetails
     public Monster equippedMonster;
     public int equipSlot;
     public int quantity;
+
+    public int equipLevel;
+    public int equipExp;
 };
 public class EquipmentItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {

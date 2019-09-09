@@ -98,15 +98,39 @@ public class AllMaps
 
 public class Maps : MonoBehaviour
 {
+    public AllMaps allMaps = new AllMaps();
+    public Dictionary<string, MapInfo> allMapsDict = new Dictionary<string, MapInfo>();
+    public Dictionary<int, Sprite> allTileSpritesDict = new Dictionary<int, Sprite>();
+    //public Dictionary<int, Sprite> tileTypeSpritesDict = new Dictionary<int, Sprite>();
+
+
     public Sprite[] tileSprites;
     public Sprite[] tileTypeSprites;
 
     public Sprite[] roadTiles;
 
-    public AllMaps allMaps = new AllMaps();
-    public Dictionary<string, MapInfo> allMapsDict = new Dictionary<string, MapInfo>();
-    public Dictionary<int, Sprite> allTileSpritesDict = new Dictionary<int, Sprite>();
-    //public Dictionary<int, Sprite> tileTypeSpritesDict = new Dictionary<int, Sprite>();
+
+    //variables and objects related to the water tiles
+    public Sprite[] waterTileSprites;
+    //variables and objects related to the fire tiles
+    public Sprite[] fireTileSprites;
+    //lava sprites that will glow
+    public Sprite[] fireTileTopSprites;
+    public GameObject fireDebris;
+
+    public GameObject[] natureTileBrush;
+
+    public Sprite[] magicTileTopSprites;
+    public GameObject magicTileBurst;
+
+    public Sprite electricTileTopSprite;
+
+
+
+
+
+
+    
 
 
     private void Awake()
@@ -134,6 +158,8 @@ public class Maps : MonoBehaviour
     }
 
 }
+
+
 
 
 
