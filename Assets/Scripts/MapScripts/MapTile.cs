@@ -339,22 +339,44 @@ public class MapTile : MonoBehaviour
         //if the leg touching this tile is a tower, ignore it. If it's an enemy, invoke an attack from the Tower's 'Attack' method
         if (enemy.isEnemy)
         {
-            //changes the current tile of the enemy to the tile that it enters
-            enemy.gameObject.GetComponent<Enemy>().currentTile = tileNumber;
             
 
             var tag = other.gameObject.tag;
+
             if (tag == "Leg")
             {
-
+                //changes the current tile of the enemy to the tile that it enters
+                enemy.gameObject.GetComponent<Enemy>().currentTile = tileNumber;
                 if (isAttackTarget)
                 {
                     //send over the monster that is on the target tile so the attacking monster knows what enemy to target
                     foreach (Monster monster in towersInRange)
                     {
-                        monster.GetComponent<Tower>().Attack(enemy, gameObject.GetComponent<MapTile>());
+                        //monster.GetComponent<Tower>().Attack(enemy, gameObject.GetComponent<MapTile>());
+
+                        //if the enemy moving over this tile is already in range of the targeted tower, don't re-add it
+                        //if (!monster.GetComponent<Tower>().enemiesInRange.Contains(enemy.gameObject.GetComponent<Enemy>()))
+                        //{
+                        //    monster.GetComponent<Tower>().enemiesInRange.Add(enemy.gameObject.GetComponent<Enemy>());
+                        //}
+
                     }
                 }
+                //else
+                //{
+                //    foreach (Monster monster in towersInRange)
+                //    {
+                //        //monster.GetComponent<Tower>().Attack(enemy, gameObject.GetComponent<MapTile>());
+
+                //        //if the enemy moving over this tile is already in range of the targeted tower, don't re-add it
+                //        if (monster.GetComponent<Tower>().enemiesInRange.Contains(enemy.gameObject.GetComponent<Enemy>()))
+                //        {
+                //            monster.GetComponent<Tower>().enemiesInRange.Remove(enemy.gameObject.GetComponent<Enemy>());
+                //        }
+
+                //    }
+
+                //}
             }
         }
         else

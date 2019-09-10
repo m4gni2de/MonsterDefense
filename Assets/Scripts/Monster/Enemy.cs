@@ -147,7 +147,7 @@ public class Enemy : MonoBehaviour
 
             //for each of the attacks this monster has in its base attack array, choose 2 at random to give to this monster
             int rand = Random.Range(0, dict[name].baseAttacks.Length);
-            Debug.Log(dict[name].baseAttacks.Length);
+            //Debug.Log(dict[name].baseAttacks.Length);
             monster.info.attack1Name = dict[name].baseAttacks[rand];
             int rand2 = Random.Range(0, dict[name].baseAttacks.Length);
 
@@ -449,7 +449,6 @@ public class Enemy : MonoBehaviour
                 expGained = 1;
             }
             attacker.GainEXP((int)Mathf.Round(expGained));
-
             Destroy(gameObject);
         }
 
@@ -520,7 +519,13 @@ public class Enemy : MonoBehaviour
     }
 
 
-
+    private void OnDestroy()
+    {
+        if (map)
+        {
+            map.GetComponent<MapDetails>().LiveEnemyList();
+        }
+    }
 
 
 

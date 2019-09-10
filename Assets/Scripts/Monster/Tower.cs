@@ -3,12 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 
-
+//how the tower determines its targets
+public enum TargetMode
+{
+    
+    Newest,
+    Oldest,
+    Weakest,
+    Strongest,
+    MostHP,
+    LeastHP,
+    Closest,
+    Furthest,
+    Random
+}
 
 public class Tower : MonoBehaviour, IPointerDownHandler
 {
+    public TargetMode targetMode = new TargetMode();
+
     private int columns, rows;
     private float height, width;
 
@@ -58,7 +74,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     //the monster's info and body specs
     private Monster monster;
     private MonsterSpecs specs;
-    
+
 
     //a list of the integers of the tiles in range of the tower's attack
     public List<int> atkRange1List = new List<int>();
@@ -90,9 +106,11 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
     //the spawn point for this monster's attacks
     public GameObject attackPoint;
-    
 
-    
+    //a list of enemies that are in range of this tower's attacks
+    public List<Enemy> enemiesInRange = new List<Enemy>();
+
+    public List<Enemy> targetOrder = new List<Enemy>();
 
     // Start is called before the first frame update
     void Start()
@@ -114,33 +132,18 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         monsterMotion = GetComponent<Animator>();
         monsterIcon = GetComponent<Monster>().monsterIcon;
 
-        
+        attack1Animation = monster.tempStats.attack1.attackAnimation;
+        attack2Animation = monster.tempStats.attack2.attackAnimation;
 
-
-        //set the animations for each attack based on the attack's name
-        var attacksDict = GameManager.Instance.baseAttacks.attackDict;
-
-       
-        if (attacksDict.ContainsKey(monster.tempStats.attack1.name))
-        {
-            attack1Animation = attacksDict[monster.tempStats.attack1.name].attackAnimation;
-        }
-
-        if (attacksDict.ContainsKey(monster.tempStats.attack2.name))
-        {
-            attack2Animation = attacksDict[monster.tempStats.attack2.name].attackAnimation;
-        }
-
-        
-
-
+        //towers default to targetting the newest monster that enters their range
+        targetMode = TargetMode.Newest;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(mapInformation.playerEnergy);
+        //Debug.Log(mapInformation.playerEnergy);
         //if (mapInformation.playerEnergy >= monster.energyCost)
         if (mapInformation.playerEnergy >= monster.tempStats.EnergyCost.Value)
         {
@@ -182,11 +185,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         //}
 
         //use this to scan for attack ranges for incoming enemies
-        if (isScanning)
-            {
-                AttackTimer();
-            }
-        
+       
+
 
         if (isPlaced == true)
         {
@@ -196,7 +196,27 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             TowerInfo();
 
         }
+
+        //foreach (Enemy e in enemiesInRange)
+        //{
+        //    if (!atkRange1List.Contains(e.currentTile) && !atkRange2List.Contains(e.currentTile))
+        //    {
+        //        enemiesInRange.Remove(e);
+        //    }
+        //}
+
+        
+
     }
+
+    private void LateUpdate()
+    {
+        if (isScanning)
+        {
+            AttackTimer();
+        }
+    }
+
 
 
     //method used to start the check for the tiles that this tower can be placed on
@@ -204,7 +224,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     {
         if (isBeingPlaced == false)
         {
-            
+
             menuPosition = transform.position;
             if (towerMenu)
             {
@@ -225,7 +245,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             if (Input.GetTouch(i).phase == TouchPhase.Began)
             {
                 touchTime = Time.time;
-                
+
             }
             float acumTime = Time.time - touchTime;
 
@@ -235,7 +255,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 acumTime = releaseTime - touchTime;
 
                 //shoot a raycast that does not hit the map tile layer, which is layer 9
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), Vector2.zero, 0f, 1 <<8);
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), Vector2.zero, 0f, 1 << 8);
                 //What to do on a tap
                 if (acumTime <= 1f)
                 {
@@ -335,7 +355,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 copy.GetComponent<Tower>().isPlaced = true;
                 SpriteRenderer[] bodyparts = copy.GetComponentsInChildren<SpriteRenderer>();
 
-               
+
                 for (int i = 0; i < bodyparts.Length; i++)
                 {
                     bodyparts[i].color = Color.black;
@@ -345,7 +365,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
 
             //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = false;
-            
+
             var position = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
             //Debug.Log(position);
             var x = position.x;
@@ -371,19 +391,19 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     mapInformation.playerEnergy -= monster.tempStats.EnergyCost.Value;
 
 
-                    
+
                     //set the current tile to hold this monster's data as the monster on that tile
                     mapTileOn.MonsterOnTile(gameObject.GetComponent<Monster>());
                     //creates local variables for the height of the monster's legs and the relative position to the monster's body the legs are
-                    
-                    
 
-                    
-                    
-                    
-                    
-                   
-                    
+
+
+
+
+
+
+
+
 
 
                     SpriteRenderer[] sprites = gameObject.GetComponentsInChildren<SpriteRenderer>();
@@ -404,8 +424,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = true;
                     mainCamera.GetComponent<CameraMotion>().isFree = true;
                     gameObject.transform.SetParent(GameObject.FindGameObjectWithTag("Map").transform);
-                    
 
+                    //adds the monster to the active towers dictionary
                     int towerCount = GameManager.Instance.activeTowers.Count;
                     GameManager.Instance.activeTowers.Add(towerCount, gameObject.GetComponent<Monster>());
                     gameObject.GetComponent<Monster>().activeIndex = towerCount;
@@ -415,7 +435,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     isIdle = true;
                     AttackScan();
 
-                    
+
                     transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
                     gameObject.transform.localScale = new Vector3(1.7f, 1.7f, transform.localScale.z);
                     transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
@@ -451,7 +471,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
 
 
-           
+
         }
     }
 
@@ -490,7 +510,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             //Map.GetComponent<MapDetails>().AddMapEnergy(monster.energyGeneration / 60);
             Map.GetComponent<MapDetails>().AddMapEnergy(monster.tempStats.EnergyGeneration.Value / 60);
         }
-        
+
     }
 
 
@@ -520,14 +540,14 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     {
         if (!this.enabled) return;
 
-        
+
 
         if (isBeingPlaced)
         {
             var tag = other.gameObject.tag;
 
 
-           
+
             if (isCorrectTile == false)
             {
 
@@ -555,8 +575,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         if (!this.enabled) return;
 
         //used to detect when this tower is moved off of an eliglbe tower
-        
-            var tag = other.gameObject.tag;
+
+        var tag = other.gameObject.tag;
 
         if (isBeingPlaced)
         {
@@ -573,11 +593,11 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 }
             }
         }
-           
-        
+
+
     }
 
-    
+
 
 
     //once the tower is placed, allow it to function like one.
@@ -625,14 +645,53 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     }
 
     //this method is invoked by a tile when an enemy is in range from the MapTile script
-    public void Attack(Monster Enemy, MapTile target)
+    public void Attack(Monster Enemy, int tileTarget)
     {
+
         if (isScanning && !isAttacking)
         {
-            
+            //List<Enemy> inRange = new List<Enemy>();
+            //int n = 0;
+            ////check the enemies this monster can hit and determine which enemy to attack
+            //foreach (Enemy liveEnemy in Map.GetComponent<MapDetails>().liveEnemies)
+            //{
+            //    Debug.Log(n);
+            //    if (atkRange1List.Contains(liveEnemy.currentTile) || atkRange2List.Contains(liveEnemy.currentTile))
+            //    {
+            //        TargetSort sort = new TargetSort();
+            //        inRange.Add(liveEnemy);
+            //        n += 1;
+
+            //        if (n == inRange.Count - 1)
+            //        {
+            //            inRange.Sort();
+            //            //Debug.Log("\nAfter sort by time stamp:");
+            //            foreach (Enemy e in inRange)
+            //            {
+            //                //PostMessage(aMsg.chatMessage.sender, aMsg.chatMessage.message);
+            //                Debug.Log(e.name);
+            //            }
+            //        }
+            //        else
+            //        {
+            //            //
+            //        }
+
+            //        if (targetMode == TargetMode.Newest)
+            //        {
+
+
+
+            //        }
+            //        //TargetPriority t = new TargetPriority(this, Map.GetComponent<MapDetails>(), inRange);
+
+
+            //    }
+            //}
+
             Enemy enemy = Enemy.GetComponent<Enemy>();
-            isAttacking = true;
             
+
 
             //change the direction of the tower if the enemy is on the opposite direction of this tower
             if (enemy.transform.position.x <= attackPoint.transform.position.x)
@@ -645,88 +704,112 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 monster.puppet.flip = false;
             }
 
-            
+
+
 
             //start the monster's attack animation
             if (attackNumber == 1)
             {
                 if (atkRange1List.Contains(enemy.currentTile))
                 {
+                    isAttacking = true;
                     monster.monsterMotion.SetBool("isAttacking", true);
-                    boneStructure.GetComponent<MotionControl>().AttackDirection(target, enemy);
+                    boneStructure.GetComponent<MotionControl>().AttackDirection(tileTarget, enemy);
                 }
             }
             else
             {
                 if (atkRange2List.Contains(enemy.currentTile))
                 {
-
+                    isAttacking = true;
                     monster.monsterMotion.SetBool("isAttacking", true);
-                    boneStructure.GetComponent<MotionControl>().AttackDirection(target, enemy);
+                    boneStructure.GetComponent<MotionControl>().AttackDirection(tileTarget, enemy);
 
                 }
             }
 
 
+            
+
         }
     }
 
     //use this to launch the readied attack by the tower. called by the Montion Control for this monster
-    public void LaunchAttack(MapTile target, Enemy enemy)
+    public void LaunchAttack(int tileNumber, Enemy Enemy)
     {
-        if (attackNumber == 1)
-        {
-            if (atkRange1List.Contains(target.tileNumber))
-            {
-                MonsterAttack attack = monster.tempStats.attack1;
-                var attackSprite = Instantiate(attack1Animation, attackPoint.transform.position, Quaternion.identity);
-                attackSprite.gameObject.name = attack.name;
-                //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-                attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-                attackSprite.GetComponent<AttackEffects>().AttackMotion(enemy.transform.position - attackPoint.transform.position);
-            }
+        
+        Enemy enemy = Enemy;
 
-            
-        }
-        else
+        if (enemy)
         {
-            if (atkRange2List.Contains(target.tileNumber))
+            Vector3 position = enemy.transform.position;
+
+            if (attackNumber == 1)
             {
-                MonsterAttack attack = monster.tempStats.attack2;
-                var attackSprite = Instantiate(attack2Animation, attackPoint.transform.position, Quaternion.identity);
-                attackSprite.gameObject.name = attack.name;
-                //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-                attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-                attackSprite.GetComponent<AttackEffects>().AttackMotion(enemy.transform.position - attackPoint.transform.position);
+                if (atkRange1List.Contains(tileNumber))
+                {
+                    MonsterAttack attack = monster.tempStats.attack1;
+                    var attackSprite = Instantiate(attack1Animation, attackPoint.transform.position, Quaternion.identity);
+                    attackSprite.gameObject.name = attack.name;
+                    //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+                    attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+                    attackSprite.GetComponent<AttackEffects>().AttackMotion(position - attackPoint.transform.position);
+                }
+
+
+            }
+            else
+            {
+                if (atkRange2List.Contains(tileNumber))
+                {
+                    MonsterAttack attack = monster.tempStats.attack2;
+                    var attackSprite = Instantiate(attack2Animation, attackPoint.transform.position, Quaternion.identity);
+                    attackSprite.gameObject.name = attack.name;
+                    //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+                    attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+                    attackSprite.GetComponent<AttackEffects>().AttackMotion(position - attackPoint.transform.position);
+                }
             }
         }
+        
     }
 
     //method used to keep track of time between attacks
     public void AttackTimer()
     {
-        float attackTime = new float();
+        if (!isAttacking && acumTime == 0)
+        {
+            AttackCheck();
+        }
 
         if (isAttacking)
         {
-            acumTime += Time.deltaTime;
+            //acumTime += Time.deltaTime;
 
-            if (attackNumber == 1)
-            {
-                attackTime = monster.tempStats.attack1.attackTime;
-            }
-            else
-            {
-                attackTime = monster.tempStats.attack2.attackTime; 
-            }
+            //if (attackNumber == 1)
+            //{
+            //    if (acumTime >= monster.tempStats.attack1.attackTime)
+            //    {
+            //        isAttacking = false;
+            //        acumTime = 0;
+            //        AttackCheck();
+            //    }
 
-            if (acumTime >= attackTime)
-            {
-                isAttacking = false;
-                acumTime = 0;
-            }
-
+            //}
+            //else
+            //{
+            //    if (acumTime >= monster.tempStats.attack2.attackTime)
+            //    {
+            //        isAttacking = false;
+            //        acumTime = 0;
+            //        AttackCheck();
+            //    }
+            //}
         }
+
+       
+
+        Debug.Log(acumTime);
     }
 
     //this method creates the Lists of tile numbers that are included in the tower's attack ranges. Only runs once so that rays are not continuously being fired
@@ -754,26 +837,26 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         int total = maps[tileOn].GetComponent<MapTile>().info.row + maps[tileOn].GetComponent<MapTile>().info.column;
         int difference = maps[tileOn].GetComponent<MapTile>().info.row - maps[tileOn].GetComponent<MapTile>().info.column;
 
-            for (int a = 0; a < maps.Length; a++)
+        for (int a = 0; a < maps.Length; a++)
+        {
+            int check = maps[a].GetComponent<MapTile>().info.row + maps[a].GetComponent<MapTile>().info.column;
+            int check2 = maps[a].GetComponent<MapTile>().info.row - maps[a].GetComponent<MapTile>().info.column;
+
+            if (total <= check + (2 * range) && total >= check - (2 * range) && difference <= check2 + (2 * range) && difference >= check2 - (2 * range))
             {
-                int check = maps[a].GetComponent<MapTile>().info.row + maps[a].GetComponent<MapTile>().info.column;
-                int check2 = maps[a].GetComponent<MapTile>().info.row - maps[a].GetComponent<MapTile>().info.column;
-
-                    if (total <= check + (2 * range) && total >= check - (2 * range) &&  difference <= check2 + (2 * range) && difference >= check2 - (2 * range))
-                    {
-                        
-
-                        atkRange1List.Add(maps[a].GetComponent<MapTile>().tileNumber);
-                        maps[a].GetComponent<MapTile>().AttackRange(monster);
-                    }
-
-                    if (total <= check + (2 * range2) && total >= check - (2 * range2) && difference <= check2 + (2 * range2) && difference >= check2 - (2 * range2))
-                    {
 
 
-                        atkRange2List.Add(maps[a].GetComponent<MapTile>().tileNumber);
-                        maps[a].GetComponent<MapTile>().AttackRange(monster);
-                    }
+                atkRange1List.Add(maps[a].GetComponent<MapTile>().tileNumber);
+                maps[a].GetComponent<MapTile>().AttackRange(monster);
+            }
+
+            if (total <= check + (2 * range2) && total >= check - (2 * range2) && difference <= check2 + (2 * range2) && difference >= check2 - (2 * range2))
+            {
+
+
+                atkRange2List.Add(maps[a].GetComponent<MapTile>().tileNumber);
+                maps[a].GetComponent<MapTile>().AttackRange(monster);
+            }
 
             if (a >= maps.Length - 1)
             {
@@ -783,546 +866,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 //GameManager.Instance.overworldMenu.GetComponent<OverworldInfoMenu>().activeMonster = monster;
             }
         }
-            //Debug.Log("Row: " + maps[tileOn].GetComponent<MapTile>().info.row + " / Column: " + maps[tileOn].GetComponent<MapTile>().info.column);
-            //Debug.Log(maps[tileOn].GetComponent<MapTile>().info.row + 1);
-        
-        //}
 
-        
-        //    for (int a = 0; a < maps.Length; a++)
-        //    {
-        //        int check = maps[a].GetComponent<MapTile>().info.row + maps[a].GetComponent<MapTile>().info.column;
-        //        int check2 = maps[a].GetComponent<MapTile>().info.row - maps[a].GetComponent<MapTile>().info.column;
-
-        //    //if (maps[tileOn].GetComponent<MapTile>().info.row <= maps[a].GetComponent<MapTile>().info.row + (2 * i) && maps[tileOn].GetComponent<MapTile>().info.row >= maps[a].GetComponent<MapTile>().info.row - (2 * i) && maps[tileOn].GetComponent<MapTile>().info.column > maps[a].GetComponent<MapTile>().info.column - (2  *i) && maps[tileOn].GetComponent<MapTile>().info.column < maps[a].GetComponent<MapTile>().info.column + (2 * i))
-        //        if (total <= check + (2 * range2) && total >= check - (2 * range2) && difference <= check2 + (2 * range2) && difference >= check2 - (2 * range2))
-        //        {
-        //            Debug.Log(maps[a].GetComponent<MapTile>().tileNumber);
-
-        //            atkRange2List.Add(maps[a].GetComponent<MapTile>().tileNumber);
-        //            maps[a].GetComponent<MapTile>().AttackRange(monster);
-        //        }
-
-        //    //once all of the attack ranges cycle through, make this tower the active monster on the map
-        //    if (a >= maps.Length - 1)
-        //    {
-
-        //        isScanning = true;
-        //        attackNumber = 1;
-        //        //GameManager.Instance.overworldMenu.GetComponent<OverworldInfoMenu>().activeMonster = monster;
-        //    }
-        //}
-        //Debug.Log("Row: " + maps[tileOn].GetComponent<MapTile>().info.row + " / Column: " + maps[tileOn].GetComponent<MapTile>().info.column);
-        //Debug.Log(maps[tileOn].GetComponent<MapTile>().info.row + 1);
-
-
-
-
-        //for (int r = 0; r <= range; r++)
-        //{
-        //    MapTile down = maps[tileOn].GetComponent<MapTile>();
-        //    MapTile up = maps[tileOn].GetComponent<MapTile>();
-        //    MapTile left = maps[tileOn].GetComponent<MapTile>();
-        //    MapTile right = maps[tileOn].GetComponent<MapTile>();
-
-
-        //    //MapTile down = maps[tileOn + 26 * r].GetComponent<MapTile>();
-        //    //atkRange1List.Add(down.tileNumber);
-        //    //down.AttackRange(monster);
-        //    //MapTile up = maps[tileOn - 26 * r].GetComponent<MapTile>();
-        //    //atkRange1List.Add(up.tileNumber);
-        //    //up.AttackRange(monster);
-        //    //MapTile left = maps[tileOn - 2 * r].GetComponent<MapTile>();
-        //    //atkRange1List.Add(left.tileNumber);
-        //    //left.AttackRange(monster);
-        //    //MapTile right = maps[tileOn + (2 * r)].GetComponent<MapTile>();
-        //    //atkRange1List.Add(right.tileNumber);
-        //    //right.AttackRange(monster);
-
-
-        //    if (tileOn + 2 * r < maps.Length)
-        //    {
-        //        down = maps[tileOn + 2 * r].GetComponent<MapTile>();
-
-        //        if (down.transform.position.y > transform.position.y)
-        //        {
-        //            down = maps[tileOn + 2].GetComponent<MapTile>();
-
-        //        }
-
-
-        //        if (down.transform.position.y > transform.position.y)
-        //        {
-        //            down = maps[tileOn].GetComponent<MapTile>();
-        //        }
-
-
-        //    }
-        //    atkRange1List.Add(down.tileNumber);
-        //    down.AttackRange(monster);
-
-        //    if (tileOn - 2 * r >= 0)
-        //    {
-        //        up = maps[tileOn - 2 * r].GetComponent<MapTile>();
-
-        //        if (up.transform.position.y < transform.position.y)
-        //        {
-        //            up = maps[tileOn - 2].GetComponent<MapTile>();
-        //        }
-
-        //        if (up.transform.position.y < transform.position.y)
-        //        {
-        //            up = maps[tileOn].GetComponent<MapTile>();
-        //        }
-
-
-        //    }
-        //    atkRange1List.Add(up.tileNumber);
-        //    up.AttackRange(monster);
-
-        //    if (tileOn - 28 * r >= 0)
-        //    {
-        //        left = maps[tileOn - 28 * r].GetComponent<MapTile>();
-
-        //        if (left.transform.position.x > transform.position.x && tileOn -28 >= 0)
-        //        {
-        //            left = maps[tileOn - 28].GetComponent<MapTile>();
-        //        }
-        //        else
-        //        {
-        //            left = maps[tileOn].GetComponent<MapTile>();
-        //        }
-
-        //        if (left.transform.position.x > transform.position.x)
-        //        {
-        //            left = maps[tileOn].GetComponent<MapTile>();
-
-        //        }
-        //    }
-
-        //    atkRange1List.Add(left.tileNumber);
-        //    left.AttackRange(monster);
-
-
-        //    if (tileOn + (28 * r) < maps.Length)
-        //    {
-        //        right = maps[tileOn + (28 * r)].GetComponent<MapTile>();
-
-
-        //        if (right.transform.position.x < transform.position.x)
-        //        {
-        //            right = maps[tileOn + 28].GetComponent<MapTile>();
-
-        //        }
-
-        //        if (right.transform.position.x < transform.position.x)
-        //        {
-        //            right = maps[tileOn].GetComponent<MapTile>();
-
-        //        }
-
-        //    }
-
-        //    atkRange1List.Add(right.tileNumber);
-        //    right.AttackRange(monster);
-
-
-
-
-        //    RaycastHit2D[] hitVert = Physics2D.RaycastAll(down.transform.position, Vector2.up, up.transform.position.y - down.transform.position.y);
-        //    RaycastHit2D[] hitHorz = Physics2D.RaycastAll(right.transform.position, Vector2.left, right.transform.position.x - left.transform.position.x);
-
-
-        //    //RaycastHit2D[] hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
-        //    RaycastHit2D[] hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(up.transform.position.x - left.transform.position.x, up.transform.position.y - left.transform.position.y), (tileRect.localScale.x * r));
-
-
-        //    //RaycastHit2D[] hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r));
-        //    RaycastHit2D[] hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(right.transform.position.x - up.transform.position.x, right.transform.position.y - up.transform.position.y), (tileRect.localScale.x * r));
-
-
-        //    //RaycastHit2D[] hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
-        //    RaycastHit2D[] hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(left.transform.position.x - down.transform.position.x, left.transform.position.y - down.transform.position.y), (tileRect.localScale.x * r));
-
-
-        //    //RaycastHit2D[] hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r));
-        //    RaycastHit2D[] hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(down.transform.position.x - right.transform.position.x, down.transform.position.y - right.transform.position.y), (tileRect.localScale.x * r));
-
-
-
-        //    if (maps[tileOn].GetComponent<MapTile>() == down)
-        //    {
-        //        hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r - 1));
-        //        hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r - 1));
-        //        hitLeftDown = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r));
-        //        hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
-        //    }
-
-        //    if (maps[tileOn].GetComponent<MapTile>() == up)
-        //    {
-        //        hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, .58f), tileRect.localScale.x * r);
-        //        hitRightUp = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, .58f), tileRect.localScale.x * r);
-        //        hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r - 1));
-        //        hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r - 1));
-        //    }
-
-        //    if (right.transform.position.x - maps[tileOn].transform.position.x > maps[tileOn].transform.position.x - left.transform.position.x)
-        //    {
-        //        hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), tileRect.localScale.x * r);
-        //        hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
-        //    }
-
-        //    if (right.transform.position.x - maps[tileOn].transform.position.x < maps[tileOn].transform.position.x - left.transform.position.x)
-        //    {
-        //        hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), tileRect.localScale.x * r);
-        //        hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r));
-        //    }
-
-
-        //    if (down.transform.position.y - maps[tileOn].transform.position.y < maps[tileOn].transform.position.y - up.transform.position.y)
-        //    {
-        //        hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, .58f), tileRect.localScale.x * r);
-        //        hitRightUp = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
-        //    }
-
-        //    if (down.transform.position.y - maps[tileOn].transform.position.y > maps[tileOn].transform.position.y - up.transform.position.y)
-        //    {
-        //        hitLeftDown = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, -.58f), tileRect.localScale.x * r);
-        //        hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
-
-
-        //    }
-
-
-
-
-
-        //    for (int i = 0; i < hitVert.Length; i++)
-        //    {
-        //        if (hitVert[i].collider.gameObject.tag == "MapTile")
-        //        {
-        //            //hitVert[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-        //            atkRange1List.Add(hitVert[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-        //            hitVert[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-        //        }
-        //    }
-
-        //    for (int i = 0; i < hitHorz.Length; i++)
-        //    {
-        //        if (hitHorz[i].collider.gameObject.tag == "MapTile")
-        //        {
-
-        //            //hitHorz[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-        //            atkRange1List.Add(hitHorz[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-        //            hitHorz[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-        //        }
-        //    }
-
-
-        //    for (int i = 0; i < hitLeftUp.Length; i++)
-        //    {
-        //        if (hitLeftUp[i].collider.gameObject.tag == "MapTile")
-        //        {
-        //            //hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-        //            atkRange1List.Add(hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-        //            hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-        //        }
-        //    }
-
-        //    for (int i = 0; i < hitRightUp.Length; i++)
-        //    {
-        //        if (hitRightUp[i].collider.gameObject.tag == "MapTile")
-        //        {
-        //            //hitRightUp[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-        //            atkRange1List.Add(hitRightUp[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-        //            hitRightUp[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-        //        }
-        //    }
-
-        //    for (int i = 0; i < hitLeftDown.Length; i++)
-        //    {
-        //        if (hitLeftDown[i].collider.gameObject.tag == "MapTile")
-        //        {
-        //            //hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-        //            atkRange1List.Add(hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-        //            hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-        //        }
-        //    }
-
-        //    for (int i = 0; i < hitRightDown.Length; i++)
-        //    {
-        //        if (hitRightDown[i].collider.gameObject.tag == "MapTile")
-        //        {
-        //            //hitRightDown[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-        //            atkRange1List.Add(hitRightDown[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-        //            hitRightDown[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-        //        }
-        //    }
-
-
-        //    //if (r == range)
-        //    //{
-        //    //    isScanning = true;
-        //    //}
-        //}
-
-        //for (int r = 0; r <= range2; r++)
-        //{
-
-        //    MapTile down = maps[tileOn].GetComponent<MapTile>();
-        //    MapTile up = maps[tileOn].GetComponent<MapTile>();
-        //    MapTile left = maps[tileOn].GetComponent<MapTile>();
-        //    MapTile right = maps[tileOn].GetComponent<MapTile>();
-
-        //    if (tileOn + 2 * r < maps.Length)
-        //    {
-        //        down = maps[tileOn + 2 * r].GetComponent<MapTile>();
-
-        //        if (down.transform.position.y > transform.position.y)
-        //        {
-        //            down = maps[tileOn + 2].GetComponent<MapTile>();
-
-
-        //        }
-
-        //        if (down.transform.position.y > transform.position.y)
-        //        {
-        //            down = maps[tileOn].GetComponent<MapTile>();
-        //        }
-
-
-        //    }
-        //    atkRange2List.Add(down.tileNumber);
-        //    down.AttackRange(monster);
-
-        //    if (tileOn - 2 * r >= 0)
-        //    {
-        //        up = maps[tileOn - 2 * r].GetComponent<MapTile>();
-
-        //        if (up.transform.position.y < transform.position.y)
-        //        {
-        //            up = maps[tileOn - 2].GetComponent<MapTile>();
-
-        //        }
-
-        //        if (up.transform.position.y < transform.position.y)
-        //        {
-        //            up = maps[tileOn].GetComponent<MapTile>();
-        //        }
-
-        //    }
-
-        //    atkRange2List.Add(up.tileNumber);
-        //    up.AttackRange(monster);
-
-        //    if (tileOn - 28 * r >= 0)
-        //    {
-        //        left = maps[tileOn - 28 * r].GetComponent<MapTile>();
-
-        //        if (left.transform.position.x > transform.position.x && tileOn - 28 >= 0)
-        //        {
-        //            left = maps[tileOn - 28].GetComponent<MapTile>();
-        //        }
-        //        else
-        //        {
-        //            left = maps[tileOn].GetComponent<MapTile>();
-        //        }
-
-        //        if (left.transform.position.x > transform.position.x)
-        //        {
-        //            left = maps[tileOn].GetComponent<MapTile>();
-
-        //        }
-        //    }
-        //    atkRange2List.Add(left.tileNumber);
-        //    left.AttackRange(monster);
-
-
-
-        //    if (tileOn + (28 * r) < maps.Length)
-        //    {
-        //        right = maps[tileOn + (28 * r)].GetComponent<MapTile>();
-
-
-        //        if (right.transform.position.x < transform.position.x)
-        //            {
-        //            right = maps[tileOn + 28].GetComponent<MapTile>();
-
-        //             }
-
-        //        if (right.transform.position.x < transform.position.x)
-        //        {
-        //            right = maps[tileOn].GetComponent<MapTile>();
-
-        //        }
-
-        //    }
-        //    atkRange2List.Add(right.tileNumber);
-        //    right.AttackRange(monster);
-
-
-        //    //MapTile down = maps[tileOn + 26 * r].GetComponent<MapTile>();
-        //    //atkRange2List.Add(down.tileNumber);
-        //    //down.AttackRange(monster);
-
-        //    //MapTile up = maps[tileOn - 26 * r].GetComponent<MapTile>();
-        //    //atkRange2List.Add(up.tileNumber);
-        //    //up.AttackRange(monster);
-
-        //    //MapTile left = maps[tileOn - 2 * r].GetComponent<MapTile>();
-        //    //atkRange2List.Add(left.tileNumber);
-        //    //left.AttackRange(monster);
-
-
-        //    //MapTile right = maps[tileOn + (2 * r)].GetComponent<MapTile>();
-        //    //atkRange2List.Add(right.tileNumber);
-        //    //right.AttackRange(monster);
-
-
-
-
-
-        //    RaycastHit2D[] hitVert = Physics2D.RaycastAll(down.transform.position, Vector2.up, up.transform.position.y - down.transform.position.y);
-        //    RaycastHit2D[] hitHorz = Physics2D.RaycastAll(right.transform.position, Vector2.left, right.transform.position.x - left.transform.position.x);
-
-
-
-
-        //    //RaycastHit2D[] hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
-        //    RaycastHit2D[] hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(up.transform.position.x - left.transform.position.x, up.transform.position.y - left.transform.position.y), (tileRect.localScale.x * r));
-
-
-        //    //RaycastHit2D[] hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r));
-        //    RaycastHit2D[] hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(right.transform.position.x - up.transform.position.x, right.transform.position.y - up.transform.position.y), (tileRect.localScale.x * r));
-
-
-        //    //RaycastHit2D[] hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
-        //    RaycastHit2D[] hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(left.transform.position.x - down.transform.position.x, left.transform.position.y - down.transform.position.y), (tileRect.localScale.x * r));
-
-
-        //    //RaycastHit2D[] hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r));
-        //    RaycastHit2D[] hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(down.transform.position.x - right.transform.position.x, down.transform.position.y - right.transform.position.y), (tileRect.localScale.x * r));
-
-
-
-        //    if (maps[tileOn].GetComponent<MapTile>() == down)
-        //    {
-        //        hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r - 1));
-        //        hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r - 1));
-        //        hitLeftDown = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, -.58f), (tileRect.localScale.x * r));
-        //        hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
-        //    }
-
-        //    if (maps[tileOn].GetComponent<MapTile>() == up)
-        //    {
-        //        hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(-1f, .58f), tileRect.localScale.x * r - 1);
-        //        hitRightUp = Physics2D.RaycastAll(right.transform.position, new Vector2(1f, .58f), tileRect.localScale.x * r - 1);
-        //        hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r - 1));
-        //        hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r - 1));
-        //    }
-
-        //    if (right.transform.position.x - maps[tileOn].transform.position.x > maps[tileOn].transform.position.x - left.transform.position.x)
-        //    {
-        //        hitLeftUp = Physics2D.RaycastAll(up.transform.position, new Vector2(-1f, -.58f), tileRect.localScale.x * r);
-        //        hitLeftDown = Physics2D.RaycastAll(down.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
-        //    }
-
-        //    if (right.transform.position.x - maps[tileOn].transform.position.x < maps[tileOn].transform.position.x - left.transform.position.x)
-        //    {
-        //        hitRightUp = Physics2D.RaycastAll(up.transform.position, new Vector2(1f, -.58f), tileRect.localScale.x * r);
-        //        hitRightDown = Physics2D.RaycastAll(down.transform.position, new Vector2(1f, .58f), (tileRect.localScale.x * r));
-        //    }
-
-
-
-        //    if (down.transform.position.y - maps[tileOn].transform.position.y < maps[tileOn].transform.position.y - up.transform.position.y)
-        //    {
-        //        hitLeftUp = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, .58f), tileRect.localScale.x * r);
-        //        hitRightUp = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, .58f), (tileRect.localScale.x * r));
-
-        //    }
-
-        //    if (down.transform.position.y - maps[tileOn].transform.position.y > maps[tileOn].transform.position.y - up.transform.position.y)
-        //    {
-        //        hitLeftDown = Physics2D.RaycastAll(left.transform.position, new Vector2(1f, -.58f), tileRect.localScale.x * r);
-        //        hitRightDown = Physics2D.RaycastAll(right.transform.position, new Vector2(-1f, -.58f), (tileRect.localScale.x * r));
-        //    }
-
-
-        //    for (int i = 0; i < hitVert.Length; i++)
-        //    {
-        //        if (hitVert[i].collider.gameObject.tag == "MapTile")
-        //        {
-        //            //hitVert[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-        //            atkRange2List.Add(hitVert[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-        //            hitVert[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-        //        }
-        //    }
-
-        //    for (int i = 0; i < hitHorz.Length; i++)
-        //    {
-        //        if (hitHorz[i].collider.gameObject.tag == "MapTile")
-        //        {
-        //            if (hitHorz[i].collider.gameObject.transform.position.x >= transform.position.x + (28 * range2) && (hitHorz[i].collider.gameObject.transform.position.x <= transform.position.x - (28 * range2)))
-        //            {
-        //                //hitHorz[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-        //                atkRange2List.Add(hitHorz[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-        //                hitHorz[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-        //            }
-        //        }
-        //    }
-
-
-        //    for (int i = 0; i < hitLeftUp.Length; i++)
-        //    {
-        //        if (hitLeftUp[i].collider.gameObject.tag == "MapTile")
-        //        {
-        //            //hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-        //            atkRange2List.Add(hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-        //            hitLeftUp[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-        //        }
-        //    }
-
-        //    for (int i = 0; i < hitRightUp.Length; i++)
-        //    {
-        //        if (hitRightUp[i].collider.gameObject.tag == "MapTile")
-        //        {
-
-        //            //hitRightUp[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-        //            atkRange2List.Add(hitRightUp[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-        //            hitRightUp[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-        //        }
-        //    }
-
-        //    for (int i = 0; i < hitLeftDown.Length; i++)
-        //    {
-        //        if (hitLeftDown[i].collider.gameObject.tag == "MapTile")
-        //        {
-        //            //hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-        //            atkRange2List.Add(hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-        //            hitLeftDown[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-        //        }
-        //    }
-
-        //    for (int i = 0; i < hitRightDown.Length; i++)
-        //    {
-        //        if (hitRightDown[i].collider.gameObject.tag == "MapTile")
-        //        {
-        //            //hitRightDown[i].collider.gameObject.GetComponent<MapTile>().sp.color = Color.blue;
-        //            atkRange2List.Add(hitRightDown[i].collider.gameObject.GetComponent<MapTile>().tileNumber);
-        //            hitRightDown[i].collider.gameObject.GetComponent<MapTile>().AttackRange(monster);
-        //        }
-        //    }
-
-        //    //once all of the attack ranges cycle through, make this tower the active monster on the map
-        //    if (r == range2)
-        //    {
-
-        //        isScanning = true;
-        //        attackNumber = 1;
-        //        //GameManager.Instance.overworldMenu.GetComponent<OverworldInfoMenu>().activeMonster = monster;
-        //    }
-        //}
 
     }
 
@@ -1375,6 +919,9 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 range.GetComponent<MapTile>().ShowRange(color);
             }
         }
+
+        isAttacking = false;
+        AttackCheck();
     }
 
     //stop showing the monster's attack ranges
@@ -1393,6 +940,283 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-       
+
     }
+
+
+    
+
+    public void AttackCheck()
+    {
+
+        List<TargetSort> inRange = new List<TargetSort>();
+        int n = 0;
+        //check the enemies this monster can hit and determine which enemy to attack
+        foreach (Enemy liveEnemy in Map.GetComponent<MapDetails>().liveEnemies)
+        {
+            //if the enemy still exists, check to see if it's on a tile that this monster can hit
+            if (liveEnemy)
+            {
+                if (attackNumber == 1)
+                {
+                    if (atkRange1List.Contains(liveEnemy.currentTile))
+                    {
+                        TargetSort sort = new TargetSort();
+                        sort.enemy = liveEnemy;
+                        inRange.Add(sort);
+                        //n += 1;
+                        //Debug.Log("In Range: " + inRange.Count + " N: " + n);
+                    }
+                }
+                else if (attackNumber == 2)
+                {
+                    if (atkRange2List.Contains(liveEnemy.currentTile))
+                    {
+                        TargetSort sort = new TargetSort();
+                        sort.enemy = liveEnemy;
+                        inRange.Add(sort);
+                        //n += 1;
+                        //Debug.Log("In Range: " + inRange.Count + " N: " + n);
+                    }
+                }
+                //if (atkRange1List.Contains(liveEnemy.currentTile) || atkRange2List.Contains(liveEnemy.currentTile))
+                //{
+                //    TargetSort sort = new TargetSort();
+                //    sort.enemy = liveEnemy;
+                //    inRange.Add(sort);
+                //    //n += 1;
+                //    //Debug.Log("In Range: " + inRange.Count + " N: " + n);
+                //}
+
+                //else
+                //{
+                //    //enemiesInRange.Remove(liveEnemy);
+                //}
+            }
+            else
+            {
+                //acumTime = 0;
+                //isAttacking = false;
+            }
+            
+        }
+
+        //for every monster that this monster can hit, sort them based on the monster's target type
+        foreach (TargetSort sort in inRange)
+        {
+            if (targetMode == TargetMode.MostHP)
+            {
+
+                inRange.Sort(delegate (TargetSort x, TargetSort y)
+                {
+                    if (x.enemy.stats.currentHp == y.enemy.stats.currentHp) return 0;
+                    else if (x.enemy.stats.currentHp < y.enemy.stats.currentHp) return 1;
+                    else if (x.enemy.stats.currentHp > y.enemy.stats.currentHp) return -1;
+                    else return x.enemy.stats.currentHp.CompareTo(y.enemy.stats.currentHp);
+                });
+            }
+            else if (targetMode == TargetMode.LeastHP)
+            {
+                inRange.Sort(delegate (TargetSort x, TargetSort y)
+                {
+                    if (x.enemy.stats.currentHp == y.enemy.stats.currentHp) return 0;
+                    else if (x.enemy.stats.currentHp > y.enemy.stats.currentHp) return 1;
+                    else if (x.enemy.stats.currentHp < y.enemy.stats.currentHp) return -1;
+                    else return x.enemy.stats.currentHp.CompareTo(y.enemy.stats.currentHp);
+                });
+            }
+
+            else if (targetMode == TargetMode.Strongest)
+            {
+                inRange.Sort(delegate (TargetSort x, TargetSort y)
+                {
+                    if (x.enemy.stats.level == y.enemy.stats.level) return 0;
+                    else if (x.enemy.stats.level < y.enemy.stats.level) return 1;
+                    else if (x.enemy.stats.level > y.enemy.stats.level) return -1;
+                    else return x.enemy.stats.level.CompareTo(y.enemy.stats.level);
+                });
+            }
+
+            else if (targetMode == TargetMode.Weakest)
+            {
+                inRange.Sort(delegate (TargetSort x, TargetSort y)
+                {
+                    if (x.enemy.stats.level == y.enemy.stats.level) return 0;
+                    else if (x.enemy.stats.level > y.enemy.stats.level) return 1;
+                    else if (x.enemy.stats.level < y.enemy.stats.level) return -1;
+                    else return x.enemy.stats.level.CompareTo(y.enemy.stats.level);
+                });
+            }
+
+            else if (targetMode == TargetMode.Closest)
+            {
+                inRange.Sort(delegate (TargetSort x, TargetSort y)
+                {
+                    double xDiff = Math.Sqrt(Math.Pow((x.enemy.transform.position.x - attackPoint.transform.position.x), 2) + Math.Pow((x.enemy.transform.position.y - attackPoint.transform.position.y), 2));
+                    double yDiff = Math.Sqrt(Math.Pow((y.enemy.transform.position.x - attackPoint.transform.position.x), 2) + Math.Pow((y.enemy.transform.position.y - attackPoint.transform.position.y), 2));
+
+                    if (xDiff == yDiff) return 0;
+                    else if (xDiff > yDiff) return 1;
+                    else if (xDiff < yDiff) return -1;
+                    else return xDiff.CompareTo(yDiff);
+                });
+            }
+            else if (targetMode == TargetMode.Furthest)
+            {
+                inRange.Sort(delegate (TargetSort x, TargetSort y)
+                {
+                    double xDiff = Math.Sqrt(Math.Pow((x.enemy.transform.position.x - attackPoint.transform.position.x), 2) + Math.Pow((x.enemy.transform.position.y - attackPoint.transform.position.y), 2));
+                    double yDiff = Math.Sqrt(Math.Pow((y.enemy.transform.position.x - attackPoint.transform.position.x), 2) + Math.Pow((y.enemy.transform.position.y - attackPoint.transform.position.y), 2));
+
+                    if (xDiff == yDiff) return 0;
+                    else if (xDiff < yDiff) return 1;
+                    else if (xDiff > yDiff) return -1;
+                    else return xDiff.CompareTo(yDiff);
+                });
+            }
+            else if (targetMode == TargetMode.Newest)
+            {
+                inRange.Sort(delegate (TargetSort x, TargetSort y)
+                {
+                    if (x.enemy.currentIndex == y.enemy.currentIndex) return 0;
+                    else if (x.enemy.currentIndex > y.enemy.currentIndex) return 1;
+                    else if (x.enemy.currentIndex < y.enemy.currentIndex) return -1;
+                    else return x.enemy.stats.level.CompareTo(y.enemy.stats.level);
+                });
+            }
+
+            else if (targetMode == TargetMode.Oldest)
+            {
+                inRange.Sort(delegate (TargetSort x, TargetSort y)
+                {
+                    if (x.enemy.currentIndex == y.enemy.currentIndex) return 0;
+                    else if (x.enemy.currentIndex < y.enemy.currentIndex) return 1;
+                    else if (x.enemy.currentIndex > y.enemy.currentIndex) return -1;
+                    else return x.enemy.stats.level.CompareTo(y.enemy.stats.level);
+                });
+            }
+
+
+            
+            if (n == inRange.Count - 1)
+            
+                {
+
+                Attack(inRange[0].enemy.GetComponent<Monster>(), inRange[0].enemy.currentTile);
+                //targetOrder.Clear();
+                //    n = 0;
+                //    int a = 0;
+                
+                ////for each of the sorted enemies, the first monster in the sorted order becomes the target of the tower
+                //foreach (TargetSort e in inRange)
+                //{
+                    
+                //    targetOrder.Add(e.enemy);
+                //    a += 1;
+
+                //    if (a >= inRange.Count - 1)
+                //    {
+                //        if (targetOrder[0] != null)
+                //        {
+                //            Attack(targetOrder[0].GetComponent<Monster>(), targetOrder[0].currentTile);
+
+                //        }
+                //        a = 0;
+                //    }
+                //}
+            }
+            
+
+
+            n += 1;
+        }
+        
+
+        //isAttacking = true;
+
+
+        ////change the direction of the tower if the enemy is on the opposite direction of this tower
+        //if (enemy.transform.position.x <= attackPoint.transform.position.x)
+        //{
+        //    monster.puppet.flip = true;
+
+        //}
+        //else
+        //{
+        //    monster.puppet.flip = false;
+        //}
+
+
+
+        ////start the monster's attack animation
+        //if (attackNumber == 1)
+        //{
+        //    if (atkRange1List.Contains(enemy.currentTile))
+        //    {
+        //        monster.monsterMotion.SetBool("isAttacking", true);
+        //        boneStructure.GetComponent<MotionControl>().AttackDirection(target.tileNumber, enemy);
+        //    }
+        //}
+        //else
+        //{
+        //    if (atkRange2List.Contains(enemy.currentTile))
+        //    {
+
+        //        monster.monsterMotion.SetBool("isAttacking", true);
+        //        boneStructure.GetComponent<MotionControl>().AttackDirection(target.tileNumber, enemy);
+
+        //    }
+        //}
+
+
+    }
+
+  
+
 }
+
+public class TargetSort : IEquatable<TargetSort>, IComparable<TargetSort>
+{
+    public Enemy enemy;
+
+    public override string ToString()
+    {
+        return "ID: " + enemy.GetComponent<Monster>().info.dexId + "   Name: " + enemy.GetComponent<Monster>().info.name;
+    }
+    public override bool Equals(object obj)
+    {
+        if (obj == null) return false;
+        TargetSort objAsPart = obj as TargetSort;
+        if (objAsPart == null) return false;
+        else return Equals(objAsPart);
+    }
+    public int SortByNameAscending(string name1, string name2)
+    {
+
+        return name1.CompareTo(name2);
+    }
+
+    // Default comparer for Part type.
+    public int CompareTo(TargetSort comparePart)
+    {
+        // A null value means that this object is greater.
+        if (comparePart == null)
+            return 1;
+
+        else
+            return this.enemy.stats.currentHp.CompareTo(comparePart.enemy.stats.currentHp);
+    }
+    public override int GetHashCode()
+    {
+        return enemy.GetComponent<Monster>().info.level;
+    }
+    public bool Equals(TargetSort other)
+    {
+        if (other == null) return false;
+        return (this.enemy.GetComponent<Monster>().info.level.Equals(other.enemy.GetComponent<Monster>().info.level));
+    }
+    // Should also override == and != operators.
+}
+
+
+

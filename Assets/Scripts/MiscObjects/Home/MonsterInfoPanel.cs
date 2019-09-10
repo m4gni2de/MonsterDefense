@@ -18,8 +18,8 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     public TMP_Text atk1Attack, atk1Range, atk1Cool, atk1Slow, atk1Effect, atk1EffectChance;
     public TMP_Text atk2Attack, atk2Range, atk2Cool, atk2Slow, atk2Effect, atk2EffectChance;
     public Slider expSlider;
-    
 
+    
 
     private Equipment equip1, equip2;
     public bool isEquip1, isEquip2;
@@ -301,14 +301,14 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             atk1Range.color = Color.white;
         }
 
-        if (thisMonster.tempStats.attack1.AttackTime.BaseValue != thisMonster.tempStats.attack1.AttackTime.Value)
-        {
-            atk1Cool.color = Color.yellow;
-        }
-        else
-        {
-            atk1Cool.color = Color.white;
-        }
+        //if (thisMonster.tempStats.attack1.AttackTime.BaseValue != thisMonster.tempStats.attack1.AttackTime.Value)
+        //{
+        //    atk1Cool.color = Color.yellow;
+        //}
+        //else
+        //{
+        //    atk1Cool.color = Color.white;
+        //}
 
        
 
@@ -340,14 +340,14 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             atk2Range.color = Color.white;
         }
 
-        if (thisMonster.tempStats.attack2.AttackTime.BaseValue != thisMonster.tempStats.attack2.AttackTime.Value)
-        {
-            atk2Cool.color = Color.yellow;
-        }
-        else
-        {
-            atk2Cool.color = Color.white;
-        }
+        //if (thisMonster.tempStats.attack2.AttackTime.BaseValue != thisMonster.tempStats.attack2.AttackTime.Value)
+        //{
+        //    atk2Cool.color = Color.yellow;
+        //}
+        //else
+        //{
+        //    atk2Cool.color = Color.white;
+        //}
 
         if (thisMonster.expToLevel.ContainsKey(thisMonster.info.level))
         {
@@ -438,6 +438,93 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
 
 
+    }
+
+    //when the attack 1 button is pushed, have the monster shoot a sample of the attack
+    public void Attack1Btn()
+    {
+        //get a list of all of the animation events on the monster. 
+        AnimationClip[] clips = monster.monsterMotion.runtimeAnimatorController.animationClips;
+        for (int i = 0; i < clips.Length; i++)
+        {
+            //get a list of all animations that have at least 1 event
+            if (clips[i].events.Length > 0)
+            {
+                AnimationEvent[] evt = clips[i].events;
+                for (int e = 0; e < clips[i].events.Length; e++)
+                {
+                    //figure out where the "start attack" event is, and delay the attack by this amount, so that the attack spawns when the attack animation tells it to
+                    if (evt[e].functionName == "StartAttack")
+                    {
+                        StartCoroutine(Attack1(evt[e].time));
+                    }
+                }
+            }
+        }
+
+       
+    }
+
+    public IEnumerator Attack1(float time)
+    {
+       
+
+        MonsterAttack attack = monster.tempStats.attack1;
+
+
+        monster.GetComponent<Tower>().attackNumber = 1;
+        monster.monsterMotion.SetBool("isAttacking", true);
+
+        Debug.Log(time + (time * (1 -monster.monsterMotion.speed)));
+        yield return new WaitForSeconds(time + (time * (1 -monster.monsterMotion.speed)));
+
+        var attack1 = Instantiate(monster.tempStats.attack1.attackAnimation, monster.GetComponent<Tower>().attackPoint.transform.position, Quaternion.identity);
+        attack1.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
+        attack1.GetComponent<AttackEffects>().delay = 1f;
+        attack1.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+        attack1.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
+    }
+
+
+    //when the attack 2 button is pushed, have the monster shoot a sample of the attack
+    public void Attack2Btn()
+    {
+        //get a list of all of the animation events on the monster. 
+        AnimationClip[] clips = monster.monsterMotion.runtimeAnimatorController.animationClips;
+        for (int i = 0; i < clips.Length; i++)
+        {
+            //get a list of all animations that have at least 1 event
+            if (clips[i].events.Length > 0)
+            {
+                AnimationEvent[] evt = clips[i].events;
+                for (int e = 0; e < clips[i].events.Length; e++)
+                {
+                    //figure out where the "start attack" event is, and delay the attack by this amount, so that the attack spawns when the attack animation tells it to
+                    if (evt[e].functionName == "StartAttack")
+                    {
+                        StartCoroutine(Attack2(evt[e].time));
+                    }
+                }
+            }
+        }
+    }
+
+    public IEnumerator Attack2(float time)
+    {
+
+        MonsterAttack attack = monster.tempStats.attack2;
+
+
+        monster.GetComponent<Tower>().attackNumber = 2;
+        monster.monsterMotion.SetBool("isAttacking", true);
+
+        yield return new WaitForSeconds(time + (time * (1 -monster.monsterMotion.speed)));
+
+        var attack2 = Instantiate(monster.tempStats.attack2.attackAnimation, monster.GetComponent<Tower>().attackPoint.transform.position, Quaternion.identity);
+        attack2.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
+        attack2.GetComponent<AttackEffects>().delay = 1f;
+        attack2.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+        attack2.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
     }
 
 }

@@ -28,8 +28,6 @@ public class GameManager : MonoBehaviour
     //everything to do with the current Towers on the field
     public Dictionary<int, Monster> activeTowers = new Dictionary<int, Monster>();
 
-    //the overworld menu shown in the game itself
-    public GameObject overworldMenu;
 
     
 

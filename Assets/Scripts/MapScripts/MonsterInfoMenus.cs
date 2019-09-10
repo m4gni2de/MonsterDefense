@@ -17,9 +17,9 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     public GameObject menuCanvas;
     public GameObject popMenuCanvas, popMenuObject;
 
-    
 
-    
+    public TMP_Dropdown targetModeDropdown;
+
 
     //variables for the motion of the Tower Menu
     public GameObject loadTowerBtn;
@@ -41,7 +41,8 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
     //the main Camera on the map
     public Camera mainCamera;
-   
+
+    public TargetMode targetMode = new TargetMode();
 
     private void Awake()
     {
@@ -53,7 +54,17 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     {
         
         LoadYourTowers();
-        
+
+        List<string> targetModes = new List<string>();
+        //the cap is 9 because there are currently 8 Target Modes, so this will fill them all
+        for (int i = 0; i < 9; i++)
+        {
+            string mode = Enum.ToObject(typeof(TargetMode), i).ToString();
+            targetModes.Add(mode);
+        }
+
+        targetModeDropdown.AddOptions(targetModes);
+        targetModeDropdown.value = 0;
 
     }
 
@@ -72,15 +83,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
             for (int i = 1; i <= monsters.Count; i++)
             {
-                //checks the Active Towers dictionary. If a monster appears in it, then it will add that monster to a local list of towers that are on the field
-                //if (active.ContainsKey(i - 1))
-                //{
-                //    Monster monster = active[i - 1];
-                //    indexes.Add(monster.info.index);
-                //    Debug.Log(indexes[i]);
-                //}
-
-
+               
                 if (monsters.ContainsKey(i))
                 {
                     string monsterJson = monsters[i];
@@ -88,24 +91,12 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
 
                     string species = info.species;
-
-                    //if the monster appears on the Active Towers list, skip over the spawning of it
-                    //if (indexes.Contains(i))
-                    //{
-                    //    //
-                    //}
-                    //else
-                    //{
                         if (monstersDict.ContainsKey(species))
                         {
-
-                            //int towerCount = GameManager.Instance.activeTowers.Count;
                             var tower = Instantiate(monstersDict[species].monsterPrefab, menuContentView.transform.position, Quaternion.identity);
-                            //tower.transform.position = new Vector3(towers[i - 1].transform.position.x, towers[i - 1].transform.position.y, tower.transform.position.z);
                             tower.transform.SetParent(menuContentView.transform, false);
                             tower.transform.position = new Vector3(towerBase.transform.position.x, towerBase.transform.position.y - ((i - 1) * 60), -2f);
                             tower.transform.localScale = new Vector3(tower.transform.localScale.x * 2, tower.transform.localScale.y * 2, tower.transform.localScale.z);
-                            //***************************HERE************************
                             tower.GetComponent<Monster>().isTower = true;
                             tower.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
                             tower.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
@@ -266,6 +257,8 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                 equip2.name = "Equip2";
             }
 
+
+            targetModeDropdown.value = (int)Enum.ToObject(typeof(TargetMode), activeMonster.GetComponent<Tower>().targetMode); 
 
             //indicator.transform.position = new Vector2(activeMonster.specs.head.transform.position.x, activeMonster.specs.head.transform.position.y + 40);
         }
@@ -430,6 +423,13 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     }
 
 
+    //use this to change the target mode of the monster to match the value of the drop down
+    public void MonsterTargetMode()
+    {
+        activeMonster.GetComponent<Tower>().targetMode = (TargetMode)Enum.ToObject(typeof(TargetMode), targetModeDropdown.value);
+    }
+
+
     //use this to select the monster's first attack
     public void Attack1Btn()
     {
@@ -444,6 +444,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
         activeMonster.GetComponent<Tower>().attackNumber = 2;
         monsterName.text = activeMonster.info.name;
         activeMonster.GetComponent<Tower>().AttackRangeUI();
+
     }
 
     //use this to snap the camera to the active monster

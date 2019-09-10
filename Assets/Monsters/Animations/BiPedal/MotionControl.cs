@@ -13,6 +13,8 @@ public class MotionControl : MonoBehaviour
     private Enemy enemy;
     private Monster monster;
     private MapTile target;
+    private int targetTile;
+    
 
     private Animator monsterAnimator;
 
@@ -72,9 +74,10 @@ public class MotionControl : MonoBehaviour
 
 
     //when a Tower readies an attack, the direction of the attack is taken so the tower knows which way to face...which is this monster's position
-    public void AttackDirection(MapTile Target, Enemy Enemy)
+    public void AttackDirection(int TargetTile, Enemy Enemy)
     {
-        target = Target;
+        //target = Target;
+        targetTile = TargetTile;
         enemy = Enemy;
     }
     
@@ -91,7 +94,7 @@ public class MotionControl : MonoBehaviour
      //once the animation has officially started, actually fire the attack
     public void StartAttack()
     {
-        tower.LaunchAttack(target, enemy);
+        tower.LaunchAttack(targetTile, enemy);
     }
 
 
@@ -109,6 +112,7 @@ public class MotionControl : MonoBehaviour
     public void EndAttack()
     {
         monsterAnimator.SetBool("isAttacking", false);
+        tower.isAttacking = false;
     }
 
 }

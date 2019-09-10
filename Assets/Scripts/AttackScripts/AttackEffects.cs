@@ -7,7 +7,7 @@ public class AttackEffects : MonoBehaviour
 {
     private Vector2 direction;
     private bool isMoving;
-    private float delay;
+    public float delay;
 
     //the target of the attack and the information about the attack to happen
     public TypeChart attackInfo;
@@ -33,6 +33,7 @@ public class AttackEffects : MonoBehaviour
         if (attackEmission)
         {
             var x = Instantiate(attackEmission, transform.position, Quaternion.identity);
+            x.GetComponent<ParticleSystem>().GetComponent<Renderer>().sortingLayerName = gameObject.GetComponent<Renderer>().sortingLayerName;
         }
         Destroy(gameObject, this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length + delay);
     }
@@ -90,7 +91,7 @@ public class AttackEffects : MonoBehaviour
                 aimAngle = Mathf.PI * 2 + aimAngle;
             }
 
-            Debug.Log(aimAngle);
+            //Debug.Log(aimAngle);
 
             transform.rotation = Quaternion.Euler(0f, 0f, aimAngle);
         }

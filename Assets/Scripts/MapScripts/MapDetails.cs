@@ -36,8 +36,9 @@ public class MapDetails : MonoBehaviour
     public List<string> pathOrder = new List<string>();
 
     public List<string> pathCodes = new List<string>();
-    
-    
+
+    //keep a list of all of the enemies that are alive on the map
+    public List<Enemy> liveEnemies = new List<Enemy>();
 
     public List<int> enemies = new List<int>();
     public int enemyMax;
@@ -289,7 +290,8 @@ public class MapDetails : MonoBehaviour
                         enemyMonster.gameObject.tag = "Enemy";
                         enemyMonster.gameObject.name = "Enemy " + enemyMonster.GetComponent<Monster>().info.species;
                         enemyMonster.transform.localScale = new Vector3(1.8f, 1.8f, 1.0f);
-
+                        //liveEnemies.Add(enemyMonster.GetComponent<Enemy>());
+                        LiveEnemyList();
                         int r = Random.Range(0, pathCodes.Count);
 
 
@@ -382,5 +384,18 @@ public class MapDetails : MonoBehaviour
     public void MapMenuControl()
     {
         mapInfoMenu.SetActive(!mapInfoMenu.activeSelf);
+    }
+
+    //used to update the enemy list when an enemy has been destroyed
+    public void LiveEnemyList()
+    {
+        liveEnemies.Clear();
+
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            liveEnemies.Add(enemies[i].GetComponent<Enemy>());
+        }
     }
 }

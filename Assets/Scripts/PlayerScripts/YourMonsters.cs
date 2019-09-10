@@ -36,6 +36,7 @@ public class YourMonsters : MonoBehaviour
         {
             string json = PlayerPrefs.GetString(i.ToString());
             yourMonstersDict.Add(i, json);
+            //Debug.Log(yourMonstersDict[i]);
         }
 
         //string playerDirectory = Application.persistentDataPath + "/Saves/" + accountInfo.username;
