@@ -11,7 +11,7 @@ using UnityEngine.EventSystems;
 public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 {
     public GameObject monsterSprite, type1, type2;
-    public GameObject equipMenu, equipObject;
+    public GameObject equipMenu, equipObject, monsterEditorMenu;
     public TMP_Text monsterNameText, levelText, atkText, defText, speText, precText, typeText, toNextLevelText, evasionText, energyGenText, energyCostText;
     public TMP_Text atkBoostText, defBoostText, speBoostText, precBoostText, evasBoostText, enGenBoostText, costBoostText;
     public TMP_Text attack1, attack2;
@@ -183,6 +183,8 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         }
 
         RefreshMonsterInfo(thisMonster);
+        
+        
 
         
 
@@ -191,6 +193,8 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     //refresh the stat boxes of the monster when something about the monster changes
     public void RefreshMonsterInfo(Monster thisMonster)
     {
+        
+
         monsterNameText.text = thisMonster.info.name;
         typeText.text = thisMonster.info.type1 + "/" + thisMonster.info.type2;
 
@@ -312,7 +316,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
        
 
-        attack2.text = thisMonster.info.attack2Name;
+        
 
         attack2.text = thisMonster.info.attack2Name;
         atk2Attack.text = thisMonster.tempStats.attack2.Power.Value.ToString();
@@ -360,6 +364,8 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
             toNextLevelText.text = "EXP Until Level Up: " + nextLevelDiff.ToString();
         }
+
+        
     }
 
 
@@ -480,9 +486,17 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
         var attack1 = Instantiate(monster.tempStats.attack1.attackAnimation, monster.GetComponent<Tower>().attackPoint.transform.position, Quaternion.identity);
         attack1.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
-        attack1.GetComponent<AttackEffects>().delay = 1f;
+        //attack1.GetComponent<AttackEffects>().delay = .3f;
+        attack1.transform.localScale = new Vector3(attack1.transform.localScale.x * 1.5f, attack1.transform.localScale.y * 1.5f, attack1.transform.localScale.z);
         attack1.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
         attack1.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
+    }
+
+    //open the attack editor for the monster's first attack
+    public void Atk1Edit()
+    {
+        monsterEditorMenu.SetActive(true);
+        monsterEditorMenu.GetComponent<MonsterEditor>().LoadMonster(GetComponentInParent<YourHome>().activeMonster, 1);
     }
 
 
@@ -522,9 +536,17 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
         var attack2 = Instantiate(monster.tempStats.attack2.attackAnimation, monster.GetComponent<Tower>().attackPoint.transform.position, Quaternion.identity);
         attack2.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
-        attack2.GetComponent<AttackEffects>().delay = 1f;
+        //attack2.GetComponent<AttackEffects>().delay = .3f;
+        attack2.transform.localScale = new Vector3(attack2.transform.localScale.x * 1.5f, attack2.transform.localScale.y * 1.5f, attack2.transform.localScale.z);
         attack2.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
         attack2.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
+    }
+
+    //open the attack editor for the monster's first attack
+    public void Atk2Edit()
+    {
+        monsterEditorMenu.SetActive(true);
+        monsterEditorMenu.GetComponent<MonsterEditor>().LoadMonster(GetComponentInParent<YourHome>().activeMonster, 2);
     }
 
 }

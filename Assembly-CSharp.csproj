@@ -134,7 +134,7 @@
     <Compile Include="Assets\2DxFX\Scripts\Additive2D.cs" />
     <Compile Include="Assets\2DxFX\Scripts\BlackHole.cs" />
     <Compile Include="Assets\2DxFX\Scripts\BloodFX.cs" />
-    <Compile Include="Assets\2DxFX\Scripts\Blur.cs" />
+    <Compile Include="Assets\2DxFX\Scripts\BlurFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\BlurHQ.cs" />
     <Compile Include="Assets\2DxFX\Scripts\BlurHQX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\BurnFX.cs" />
@@ -284,6 +284,7 @@
     <Compile Include="Assets\Scripts\GameData\MonstersData.cs" />
     <Compile Include="Assets\Scripts\GameData\SpriteMaterials.cs" />
     <Compile Include="Assets\Scripts\GameData\StatsCalc.cs" />
+    <Compile Include="Assets\Scripts\GifAnimation.cs" />
     <Compile Include="Assets\Scripts\Items\EquipmentItem.cs" />
     <Compile Include="Assets\Scripts\Items\ItemPopMenu.cs" />
     <Compile Include="Assets\Scripts\MapScripts\EnemySpawn.cs" />
@@ -296,6 +297,7 @@
     <Compile Include="Assets\Scripts\MiscObjects\CameraMotion.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\CameraRenderer.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\EquipmentManager.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterEditor.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterInfoPanel.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\YourHome.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\ItemScene\ItemShop.cs" />

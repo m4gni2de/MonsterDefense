@@ -12,7 +12,7 @@ using UnityEditor;
 [ExecuteInEditMode]
 [AddComponentMenu("2DxFX/Standard/Blur")]
 [System.Serializable]
-public class _2dxFX_Blur : MonoBehaviour
+public class BlurFX : MonoBehaviour
 {
     [HideInInspector] public Material ForceMaterial;
     [HideInInspector] public bool ActiveChange = true;
@@ -223,7 +223,7 @@ public class _2dxFX_Blur : MonoBehaviour
 
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(_2dxFX_Blur)), CanEditMultipleObjects]
+[CustomEditor(typeof(BlurFX)), CanEditMultipleObjects]
 public class _2dxFX_Blur_Editor : Editor
 {
     private SerializedObject m_object;
@@ -239,20 +239,20 @@ public class _2dxFX_Blur_Editor : Editor
         m_object.Update();
         DrawDefaultInspector();
 
-        _2dxFX_Blur _2dxScript = (_2dxFX_Blur)target;
+        BlurFX _2dxScript = (BlurFX)target;
 
-        Texture2D icon = Resources.Load("2dxfxinspector") as Texture2D;
-        if (icon)
-        {
-            Rect r;
-            float ih = icon.height;
-            float iw = icon.width;
-            float result = ih / iw;
-            float w = Screen.width;
-            result = result * w;
-            r = GUILayoutUtility.GetRect(ih, result);
-            EditorGUI.DrawTextureTransparent(r, icon);
-        }
+        //Texture2D icon = Resources.Load("2dxfxinspector") as Texture2D;
+        //if (icon)
+        //{
+        //    Rect r;
+        //    float ih = icon.height;
+        //    float iw = icon.width;
+        //    float result = ih / iw;
+        //    float w = Screen.width;
+        //    result = result * w;
+        //    r = GUILayoutUtility.GetRect(ih, result);
+        //    EditorGUI.DrawTextureTransparent(r, icon);
+        //}
 
         EditorGUILayout.PropertyField(m_object.FindProperty("ActiveUpdate"), new GUIContent("Active Update", "Active Update, for animation / Animator only")); EditorGUILayout.PropertyField(m_object.FindProperty("ForceMaterial"), new GUIContent("Shared Material", "Use a unique material, reduce drastically the use of draw call"));
 

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7036716800564448957}
   - component: {fileID: 425855069514044314}
   - component: {fileID: 3708395814776550200}
+  - component: {fileID: 363065047159454327}
   m_Layer: 0
   m_Name: mistySpray
   m_TagString: Untagged
@@ -52,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -70,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300074, guid: 5bfe8198c060cfc42a31ce2d50a93ddd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -224,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce4499fb3d7fdc4cbd3d24e8f0f49bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 0
   enemy: {fileID: 0}
   force: 0
   AtkStat: 0
@@ -249,6 +251,8 @@ MonoBehaviour:
       BaseValue: 0
     AttackSpeed:
       BaseValue: 0
+    AttackSlow:
+      BaseValue: 0
     name: 
     id: 0
     description: 
@@ -261,8 +265,31 @@ MonoBehaviour:
     effectChance: 0
     attackTime: 0
     attackSpeed: 0
+    hitSlowTime: 0
+    attackMode: 1
     attackAnimation: {fileID: 0}
   attackEmission: {fileID: 6247789708872977326, guid: cd3d53e73f4741042882e82ccf4e8548,
     type: 3}
   attackDemission: {fileID: 288764924364765949, guid: 3552b1d94b0ef33469caf77f46752c34,
     type: 3}
+--- !u!114 &363065047159454327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5534219836665935086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f40d78aeafe77db4c9191438047f3e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ForceMaterial: {fileID: 0}
+  ActiveChange: 1
+  _Alpha: 1
+  Heat: 1
+  Speed: 1
+  EValue: 1
+  Light: 3
+  ShaderChange: 0
+  ActiveUpdate: 1

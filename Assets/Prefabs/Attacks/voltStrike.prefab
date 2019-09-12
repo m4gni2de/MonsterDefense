@@ -70,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: a587af12424bca349bbbbb1bc819e079, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce4499fb3d7fdc4cbd3d24e8f0f49bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 0
   enemy: {fileID: 0}
   force: 0
   AtkStat: 0
@@ -139,6 +140,8 @@ MonoBehaviour:
       BaseValue: 0
     AttackSpeed:
       BaseValue: 0
+    AttackSlow:
+      BaseValue: 0
     name: 
     id: 0
     description: 
@@ -151,6 +154,8 @@ MonoBehaviour:
     effectChance: 0
     attackTime: 0
     attackSpeed: 0
+    hitSlowTime: 0
+    attackMode: 1
     attackAnimation: {fileID: 0}
   attackEmission: {fileID: 195635215571573003, guid: 790503c4a12ca6e4eb140bd0cc1d9cbc,
     type: 3}

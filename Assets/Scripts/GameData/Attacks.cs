@@ -69,7 +69,7 @@ public class AllAttacks
         critMod = 1f,
         attackTime = 0.4f,
         effectChance = .20f,
-        attackSpeed = 10f,
+        attackSpeed = 1.0f,
         hitSlowTime = .2f,
         attackMode = AttackMode.Projectile,
         
@@ -88,9 +88,9 @@ public class AllAttacks
         power = 130,
         critChance = 1f,
         critMod = 1f,
-        attackTime = 2.4f,
+        attackTime = .4f,
         effectChance = .25f,
-        attackSpeed = 10f,
+        attackSpeed = 1.3f,
         hitSlowTime = .6f,
         attackMode = AttackMode.Projectile,
        
@@ -107,9 +107,9 @@ public class AllAttacks
         power = 75,
         critChance = 1f,
         critMod = 1f,
-        attackTime = 0.2f,
+        attackTime = 0.3f,
         effectChance = .15f,
-        attackSpeed = 10f,
+        attackSpeed = 1.6f,
         hitSlowTime = .25f,
         attackMode = AttackMode.Projectile,
         
@@ -127,9 +127,9 @@ public class AllAttacks
         power = 105,
         critChance = 1f,
         critMod = 1f,
-        attackTime = 0.4f,
+        attackTime = 0.15f,
         effectChance = .10f,
-        attackSpeed = 10f,
+        attackSpeed = 2.0f,
         hitSlowTime = .15f,
         attackMode = AttackMode.Projectile,
         
@@ -148,10 +148,30 @@ public class AllAttacks
         critMod = 1f,
         attackTime = 0.7f,
         effectChance = .10f,
-        attackSpeed = 10f,
+        attackSpeed = 0f,
         hitSlowTime = .35f,
         attackMode = AttackMode.Projectile,
 
+    };
+
+    public MonsterAttack windCyclone = new MonsterAttack
+    {
+        name = "Wind Cyclone",
+        id = 5,
+        description = "A swirling storm of wind and destruction.",
+        type = "Nature",
+        effectName = "none",
+        range = 2,
+        power = 115,
+        critChance = 1f,
+        critMod = 1f,
+        attackTime = 0.6f,
+        effectChance = .10f,
+        attackSpeed = 1.6f,
+        hitSlowTime = .75f,
+        attackMode = AttackMode.Projectile,
+        Power = new Stat(),
+        
     };
 
 
@@ -169,6 +189,7 @@ public class Attacks : MonoBehaviour
     public List<string> waterAttacks = new List<string>();
     public List<string> electricAttacks = new List<string>();
     public List<string> shadowAttacks = new List<string>();
+    public List<string> natureAttacks = new List<string>();
 
 
 
@@ -186,12 +207,13 @@ public class Attacks : MonoBehaviour
         attackDict.Add(allAttacks.aquaDart.name, allAttacks.aquaDart);
         attackDict.Add(allAttacks.mistySpray.name, allAttacks.mistySpray);
         attackDict.Add(allAttacks.shadowBP.name, allAttacks.shadowBP);
+        attackDict.Add(allAttacks.windCyclone.name, allAttacks.windCyclone);
 
 
         //loops through all of the attacks and separates them in to lists based on their type
         foreach (KeyValuePair<string, MonsterAttack> attack in attackDict)
         {
-
+            attackDict[attack.Key].Power.BaseValue = attackDict[attack.Key].power;
             if (attack.Value.type == "Water")
             {
                 waterAttacks.Add(attack.Key);
@@ -207,6 +229,12 @@ public class Attacks : MonoBehaviour
             if (attack.Value.type == "Shadow")
             {
                 shadowAttacks.Add(attack.Key);
+
+            }
+
+            if (attack.Value.type == "Nature")
+            {
+                natureAttacks.Add(attack.Key);
 
             }
         }

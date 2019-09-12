@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public Items items;
 
     //everything to do with the colors
-    public Color electricAttackColor, waterAttackColor;
+    public Color electricAttackColor, waterAttackColor, natureAttackColor;
     public Dictionary<string, Color> typeColorDictionary = new Dictionary<string, Color>();
 
     //everything to do with the current Towers on the field
@@ -46,9 +46,11 @@ public class GameManager : MonoBehaviour
 
         electricAttackColor = new Color(1.0f, 1.0f, 0.0f, 1.0f);
         waterAttackColor = new Color(0.22f, 0.22f, 1.0f, 1.0f);
+        natureAttackColor = new Color(0f, 0.85f, .21f, 1.0f);
 
         typeColorDictionary.Add("Electric", electricAttackColor);
         typeColorDictionary.Add("Water", waterAttackColor);
+        typeColorDictionary.Add("Nature", natureAttackColor);
 
 
         if (PlayerPrefs.HasKey("MonsterCount"))

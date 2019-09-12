@@ -37,9 +37,9 @@ public struct MonsterInfo
 
 
     public string attack1Name;
-    //public BaseAttack attack1;
+    public MonsterAttack attack1;
     public string attack2Name;
-    //public BaseAttack attack2;
+    public MonsterAttack attack2;
 
 
     public string equip1Name;
@@ -97,6 +97,8 @@ public struct TempStats
     
     public MonsterAttack attack1;
     public MonsterAttack attack2;
+
+    
 }
 
 [System.Serializable]
@@ -156,17 +158,17 @@ public class Monster : MonoBehaviour
     //script used to access the meshes that make up the monster
     public MeshBodyParts bodyParts;
 
-
+   
     private void Awake()
     {
-
+        
 
     }
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        var attacksDict = GameManager.Instance.baseAttacks.attackDict;
 
+       
 
         tower = GetComponent<Tower>();
         enemy = GetComponent<Enemy>();
@@ -204,8 +206,15 @@ public class Monster : MonoBehaviour
             tower.enabled = false;
         }
 
-        //checks for which items a monster has equipped and apply the appropriate effects
+        var allAttacks = GameManager.Instance.baseAttacks.attackDict;
+        
+
+        //Get the data from the attacks and then apply the boosts from the equipment
+        //AttackData();
         EquipmentBoosts();
+
+        //EquipmentBoosts();
+
 
         //gives the monster temporary stats that can be changed in game, without affecting the monster's saved stats. these values are changed during a game, not anything in monster.info
         tempStats.HP.BaseValue = info.HP.Value;
@@ -219,50 +228,39 @@ public class Monster : MonoBehaviour
         tempStats.evasionBase = info.evasionBase;
         tempStats.critBase = info.critBase;
 
-        //AllStatuses status = new AllStatuses();
-        //Status status2 = status.Burn;
-        //Status status3 = status.Poison;
-
-        //AddStatus(status2);
-        //AddStatus(status3);
-
-        //load in the attacks of the monster
-        if (attacksDict.ContainsKey(info.attack1Name))
-        {
-
-            MonsterAttack attack = attacksDict[info.attack1Name];
-
-            tempStats.attack1 = attack;
-            tempStats.attack1.Power.BaseValue = attack.power;
-            tempStats.attack1.Range.BaseValue = attack.range;
-            tempStats.attack1.CritChance.BaseValue = attack.critChance;
-            tempStats.attack1.CritMod.BaseValue = attack.critMod;
-            tempStats.attack1.EffectChance.BaseValue = attack.effectChance;
-            tempStats.attack1.AttackTime.BaseValue = attack.attackTime;
-            tempStats.attack1.AttackSpeed.BaseValue = attack.attackSpeed;
-            tempStats.attack1.AttackSlow.BaseValue = attack.hitSlowTime;
+        tempStats.attack1 = info.attack1;
+        tempStats.attack2 = info.attack2;
+        //tempStats.attack1.Power.BaseValue = attack1.Power.Value;
 
 
-        }
+        //tempStats.attack1 = attack1;
+       
+        //tempStats.attack2 = attack2;
+        //tempStats.attack2.Power.BaseValue = attack2.Power.Value;
+        //tempStats.attack2.Range.BaseValue = attack2.Range.Value;
+        //tempStats.attack2.CritChance.BaseValue = attack2.CritChance.Value;
+        //tempStats.attack2.CritMod.BaseValue = attack2.CritMod.Value;
+        //tempStats.attack2.EffectChance.BaseValue = attack2.EffectChance.Value;
+        //tempStats.attack2.AttackTime.BaseValue = attack2.AttackTime.Value;
+        //tempStats.attack2.AttackSpeed.BaseValue = attack2.AttackSpeed.Value;
+        //tempStats.attack2.AttackSlow.BaseValue = attack2.hitSlowTime;
 
-        if (attacksDict.ContainsKey(info.attack2Name))
-        {
-            MonsterAttack attack = attacksDict[info.attack2Name];
+        ////AllStatuses status = new AllStatuses();
+        ////Status status2 = status.Burn;
+        ////Status status3 = status.Poison;
 
-            tempStats.attack2 = attack;
-            tempStats.attack2.Power.BaseValue = attack.power;
-            tempStats.attack2.Range.BaseValue = attack.range;
-            tempStats.attack2.CritChance.BaseValue = attack.critChance;
-            tempStats.attack2.CritMod.BaseValue = attack.critMod;
-            tempStats.attack2.EffectChance.BaseValue = attack.effectChance;
-            tempStats.attack2.AttackTime.BaseValue = attack.attackTime;
-            tempStats.attack2.AttackSpeed.BaseValue = attack.attackSpeed;
-            tempStats.attack2.AttackSlow.BaseValue = attack.hitSlowTime;
-        }
+        ////AddStatus(status2);
+        ////AddStatus(status3);
+
+
 
         //changes the monster's animation speed to match his own speed stat
         monsterMotion.speed = 1 * ((float)info.speBase / 100);
+
+        //StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
+        //GetStats(stats);
         
+
     }
 
     // Update is called once per frame
@@ -279,22 +277,65 @@ public class Monster : MonoBehaviour
 
     }
 
+    //load in the attacks of the monster
+    public void AttackData()
+    {
+        //var allAttacks = GameManager.Instance.baseAttacks.attackDict;
+
+
+        //var attack1 = allAttacks[info.attack1Name];
+        //var attack2 = allAttacks[info.attack2Name];
+
+        var attacksDict = GameManager.Instance.baseAttacks.attackDict;
+
+        //load in the attacks of the monster
+        if (attacksDict.ContainsKey(info.attack1Name))
+        {
+            var attack = attacksDict[info.attack1Name];
+            info.attack1 = attack;
+            tempStats.attack1 = info.attack1;
+
+
+        }
+
+        if (attacksDict.ContainsKey(info.attack2Name))
+        {
+            MonsterAttack attack = attacksDict[info.attack2Name];
+
+            info.attack2 = attack;
+            tempStats.attack2 = info.attack2;
+
+
+        }
+
+        info.equippable1.Unequip(gameObject.GetComponent<Monster>());
+        info.equippable2.Unequip(gameObject.GetComponent<Monster>());
+
+        EquipmentBoosts();
+        //StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
+        //GetStats(stats);
+        
+    }
+
 
     //Get the increased stats from the monster's equipment
     public void EquipmentBoosts()
     {
+
         info.equippable1 = new EquippableItem();
         info.equippable2 = new EquippableItem();
 
-
         info.equippable1.Equip(gameObject.GetComponent<Monster>(), 1);
         info.equippable2.Equip(gameObject.GetComponent<Monster>(), 2);
+
+        
 
     }
 
     //Equip a new item to this monster
     public void EquipItem(Equipment equip, int slot)
     {
+        
 
         if (slot == 1)
         {
@@ -304,6 +345,9 @@ public class Monster : MonoBehaviour
 
             StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
             GetStats(stats);
+
+            
+
         }
 
         if (slot == 2)
@@ -335,6 +379,8 @@ public class Monster : MonoBehaviour
             info.equippable2.Unequip(gameObject.GetComponent<Monster>());
             info.equip2Name = "none";
             info.equip2 = new Equipment();
+
+           
 
         }
 
@@ -433,15 +479,19 @@ public class Monster : MonoBehaviour
             //load in the attacks of the monster
             if (attacksDict.ContainsKey(info.attack1Name))
             {
-                MonsterAttack attack = attacksDict[info.attack1Name];
-                tempStats.attack1 = attack;
+                //MonsterAttack attack = attacksDict[info.attack1Name];
+                tempStats.attack1 = info.attack1;
+                info.attack1 = attacksDict[info.attack1Name];
+               
 
             }
 
             if (attacksDict.ContainsKey(info.attack2Name))
             {
-                MonsterAttack attack = attacksDict[info.attack2Name];
-                tempStats.attack2 = attack;
+                //MonsterAttack attack = attacksDict[info.attack2Name];
+                //tempStats.attack2 = attack;
+                info.attack2 = attacksDict[info.attack2Name];
+                tempStats.attack2 = info.attack2;
             }
             SetMonsterStats();
 
@@ -603,6 +653,7 @@ public class Monster : MonoBehaviour
         tempStats = stats.Monster.tempStats;
 
         GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+        
     }
 
 

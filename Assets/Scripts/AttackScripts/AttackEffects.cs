@@ -23,13 +23,19 @@ public class AttackEffects : MonoBehaviour
     public GameObject attackEmission;
     public GameObject attackDemission;
 
+    private Animator animator;
 
-
-
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+
+        
+
         if (attackEmission)
         {
             var x = Instantiate(attackEmission, transform.position, Quaternion.identity);
@@ -44,7 +50,8 @@ public class AttackEffects : MonoBehaviour
         if (isMoving)
         {
             
-            transform.Translate(direction / 10, Space.World);
+            transform.Translate(direction / (10 - Attack.attackSpeed), Space.World);
+            
             
         }
     }
@@ -64,6 +71,8 @@ public class AttackEffects : MonoBehaviour
         CritMod = critMod;
         attacker = attackingMonster;
         Attack = attack;
+
+        animator.speed = animator.speed - (animator.speed * Attack.attackTime);
 
     }
 
@@ -97,7 +106,8 @@ public class AttackEffects : MonoBehaviour
         }
         else
         {
-            transform.position = enemy.transform.position;
+            transform.position = attacker.GetComponent<Tower>().attackPoint.transform.position;
+            transform.SetParent(attacker.GetComponent<Tower>().attackPoint.transform);
         }
 
 
@@ -124,11 +134,11 @@ public class AttackEffects : MonoBehaviour
             //if the attack is NOT a projectile, let the attack animation run it's full course. if it is a projectile, destroy the animation immediately
             if (Attack.attackMode == AttackMode.Projectile)
             {
-                //
+                Destroy(gameObject);
             }
             else
             {
-                Destroy(gameObject);
+                
             }
         }
     }

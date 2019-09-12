@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9011916428772318293}
   - component: {fileID: 7538218527804863934}
   - component: {fileID: 783222936716231165}
+  - component: {fileID: 884021044690596664}
   m_Layer: 0
   m_Name: aquaDart
   m_TagString: Untagged
@@ -52,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -70,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7e322bbdac5e2a34a809b724a950f9c6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -114,6 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce4499fb3d7fdc4cbd3d24e8f0f49bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 0
   enemy: {fileID: 0}
   force: 0
   AtkStat: 0
@@ -139,6 +141,8 @@ MonoBehaviour:
       BaseValue: 0
     AttackSpeed:
       BaseValue: 0
+    AttackSlow:
+      BaseValue: 0
     name: 
     id: 0
     description: 
@@ -151,6 +155,8 @@ MonoBehaviour:
     effectChance: 0
     attackTime: 0
     attackSpeed: 0
+    hitSlowTime: 0
+    attackMode: 0
     attackAnimation: {fileID: 0}
   attackEmission: {fileID: 6247789708872977326, guid: cd3d53e73f4741042882e82ccf4e8548,
     type: 3}
@@ -208,3 +214,26 @@ PolygonCollider2D:
       - {x: 0.23230816, y: -0.08468644}
       - {x: 0.33421063, y: 0.0056453208}
       - {x: 0.17977765, y: 0.09973912}
+--- !u!114 &884021044690596664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8854931403561263675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0caf47ae7a836574182abaef50e0cdc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ForceMaterial: {fileID: 0}
+  ActiveChange: 1
+  _Alpha: 1
+  __MainTex2: {fileID: 2800000, guid: 54f3d4a5cdb363d43b126eebd67f4e20, type: 3}
+  TurnToLiquid: 0.181
+  Heat: 32
+  Speed: 1
+  EValue: 1
+  Light: 3
+  ShaderChange: 0
+  ActiveUpdate: 1
