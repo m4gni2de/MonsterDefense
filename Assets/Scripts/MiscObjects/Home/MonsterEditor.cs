@@ -20,6 +20,9 @@ public class MonsterEditor : MonoBehaviour
     void Start()
     {
         Button[] buttons = GameObject.FindObjectsOfType<Button>();
+        attackSelector.GetComponent<TMP_Dropdown>();
+        
+        
 
         for (int i = 0; i < buttons.Length; i++)
         {
@@ -61,9 +64,10 @@ public class MonsterEditor : MonoBehaviour
 
         List<string> attackList = new List<string>();
 
+        //cycle through the monster's attacks that it can learn, then add all of those attacks, except the ones it already knows, to the dropdown list
         foreach(string attackName in monsters[activeMonster.info.species].baseAttacks)
         {
-            if (activeAttack != attackName)
+            if (activeMonster.info.attack1Name != attackName && activeMonster.info.attack2Name != attackName)
             {
                 attackList.Add(attackName);
             }

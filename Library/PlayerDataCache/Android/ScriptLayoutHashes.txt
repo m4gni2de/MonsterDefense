@@ -359,7 +359,7 @@ a1e63c1a6b89869741bcb1748833c00e Assembly-CSharp.dll:.IcedFX
 7a68dceb23ddbe38f5d1cff05b46a08d Assembly-CSharp.dll:.AttackEffects
 8f4ba93234690ac2f7d6af44f78d2b76 Assembly-CSharp.dll:.SkycloudFX
 184251cbf3808832d5d11477dfce25a1 Assembly-CSharp.dll:.HSV_FX
-a0a843f7f3fd9662db0662dbb8d10871 Assembly-CSharp.dll:.GameManager
+ac9771383de8781002461c15948b02e3 Assembly-CSharp.dll:.GameManager
 feb6dc853b511d5e11d59e2719dd27e1 Assembly-CSharp.dll:.GifAnimation
 14f725c3bb06cc29ba9b4adf473af6a1 Assembly-CSharp.dll:._2dxFX_AL_Liquify
 afd210ffa36e501ecc6a725d1dc0d17c Assembly-CSharp.dll:._2dxFX_AL_SkyCloud

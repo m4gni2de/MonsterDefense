@@ -58,6 +58,7 @@ MonoBehaviour:
   electricAttackColor: {r: 0, g: 0, b: 0, a: 0}
   waterAttackColor: {r: 0, g: 0, b: 0, a: 0}
   natureAttackColor: {r: 0, g: 0, b: 0, a: 0}
+  shadowAttackColor: {r: 0, g: 0, b: 0, a: 0}
   monsterCount: 0
   monsterJson: 
 --- !u!114 &6317396937658932170
@@ -101,9 +102,9 @@ MonoBehaviour:
       critMod: 1
       effectChance: 0.2
       attackTime: 0.4
-      attackSpeed: 1
+      attackSpeed: 14
       hitSlowTime: 0.2
-      attackMode: 1
+      attackMode: 2
       attackAnimation: {fileID: 3211728297390547379, guid: 1cbc38a74a8622848a7a37da85eb0095,
         type: 3}
     voltStrike:
@@ -134,9 +135,9 @@ MonoBehaviour:
       critMod: 1
       effectChance: 0.25
       attackTime: 0.4
-      attackSpeed: 1
+      attackSpeed: 14
       hitSlowTime: 1.3
-      attackMode: 1
+      attackMode: 2
       attackAnimation: {fileID: 4764289248257230966, guid: a574070b861ab0f4bb9ab59bc39cd01e,
         type: 3}
     mistySpray:
@@ -167,9 +168,9 @@ MonoBehaviour:
       critMod: 1
       effectChance: 0.15
       attackTime: 0.2
-      attackSpeed: 1.6
+      attackSpeed: 7
       hitSlowTime: 0.25
-      attackMode: 1
+      attackMode: 2
       attackAnimation: {fileID: 5534219836665935086, guid: 34b0176da6f84f8478a1cf98eb04937f,
         type: 3}
     aquaDart:
@@ -200,9 +201,9 @@ MonoBehaviour:
       critMod: 1
       effectChance: 0.1
       attackTime: 0.3
-      attackSpeed: 2
+      attackSpeed: 12
       hitSlowTime: 0.15
-      attackMode: 1
+      attackMode: 2
       attackAnimation: {fileID: 8854931403561263675, guid: eb98379b936e863499dd42b793274762,
         type: 3}
     shadowBP:
@@ -233,9 +234,9 @@ MonoBehaviour:
       critMod: 1
       effectChance: 0.1
       attackTime: 0.7
-      attackSpeed: 10
+      attackSpeed: 13
       hitSlowTime: 0.35
-      attackMode: 1
+      attackMode: 0
       attackAnimation: {fileID: 1350045215202289615, guid: 82177fe00c692ca42836733cee5bd52d,
         type: 3}
     windCyclone:
@@ -265,16 +266,50 @@ MonoBehaviour:
       critChance: 1
       critMod: 1
       effectChance: 0.1
-      attackTime: 0.3
-      attackSpeed: 1.2
+      attackTime: 0.5
+      attackSpeed: 7
       hitSlowTime: 0.75
-      attackMode: 1
+      attackMode: 0
       attackAnimation: {fileID: 8128435365625536934, guid: 5f6c43aace898a44e96220d47b3d149d,
+        type: 3}
+    energyDragon:
+      Range:
+        BaseValue: 0
+      Power:
+        BaseValue: 0
+      CritChance:
+        BaseValue: 0
+      CritMod:
+        BaseValue: 0
+      EffectChance:
+        BaseValue: 0
+      AttackTime:
+        BaseValue: 0
+      AttackSpeed:
+        BaseValue: 0
+      AttackSlow:
+        BaseValue: 0
+      name: Energy Dragon
+      id: 6
+      description: A blazing dragon of fire and fury.
+      type: Fire
+      effectName: Burn
+      range: 2
+      power: 140
+      critChance: 1
+      critMod: 1
+      effectChance: 0.15
+      attackTime: 0.6
+      attackSpeed: 5
+      hitSlowTime: 0.85
+      attackMode: 2
+      attackAnimation: {fileID: 5811050810138414331, guid: 3a097e8ae4eca874c83e2975d9ffebfe,
         type: 3}
   waterAttacks: []
   electricAttacks: []
   shadowAttacks: []
   natureAttacks: []
+  fireAttacks: []
 --- !u!114 &6317396937658932165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,6 +342,7 @@ MonoBehaviour:
       - Thunder
       - Misty Spray
       - Wind Cyclone
+      - Shadow Blaze Punch
       staminaBase: 70
       energyGenBase: 77
       energyCost: 7
@@ -328,6 +364,7 @@ MonoBehaviour:
       baseAttacks:
       - Volt Strike
       - Aqua Dart
+      - Energy Dragon
       staminaBase: 90
       energyGenBase: 95
       energyCost: 5.5
@@ -349,6 +386,8 @@ MonoBehaviour:
       baseAttacks:
       - Thunder
       - Aqua Dart
+      - Wind Cyclone
+      - Energy Dragon
       staminaBase: 90
       energyGenBase: 86
       energyCost: 6.5
@@ -606,7 +645,7 @@ MonoBehaviour:
       equipLevelMax: 0
       equipExp: 0
       hpBonus: 0
-      atkBonus: 0
+      atkBonus: 5
       defBonus: 0
       speedBonus: 0
       precBonus: 0
@@ -616,7 +655,7 @@ MonoBehaviour:
       critModBonus: 0
       critChanceBonus: 0
       hpPercentBonus: 0
-      atkPercentBonus: 0.1
+      atkPercentBonus: 0
       defPercentBonus: 0
       spePercentBonus: 0
       precPercentBonus: 0
@@ -832,7 +871,7 @@ MonoBehaviour:
     Burn:
       name: Burn
       effectType: Fire
-      hpDrop: 0.04
+      hpDrop: -0.04
       atkDrop: 0
       defDrop: 0
       speDrop: 0
@@ -850,8 +889,8 @@ MonoBehaviour:
       effectType: Ice
       hpDrop: 0
       atkDrop: 0
-      defDrop: 0.2
-      speDrop: 0.15
+      defDrop: -0.2
+      speDrop: -0.15
       precDrop: 0
       atkPowerDrop: 0
       atkTimeDrop: 0
@@ -867,11 +906,11 @@ MonoBehaviour:
       hpDrop: 0
       atkDrop: 0
       defDrop: 0
-      speDrop: 0.25
+      speDrop: -0.25
       precDrop: 0
       atkPowerDrop: 0
       atkTimeDrop: 0
-      evasionDrop: 0.45
+      evasionDrop: 0
       enGenDrop: 0
       speedDrop: 0
       duration: 30
@@ -880,14 +919,14 @@ MonoBehaviour:
     Poison:
       name: Poison
       effectType: Nature
-      hpDrop: 0.02
+      hpDrop: -0.02
       atkDrop: 0
-      defDrop: 0.01
+      defDrop: -0.01
       speDrop: 0
       precDrop: 0
       atkPowerDrop: 0
       atkTimeDrop: 0
-      evasionDrop: 0.45
+      evasionDrop: -0.45
       enGenDrop: 0
       speedDrop: 0
       duration: 30
@@ -899,11 +938,11 @@ MonoBehaviour:
       hpDrop: 0
       atkDrop: 0
       defDrop: 0
-      speDrop: 0.03
+      speDrop: -0.03
       precDrop: 0
       atkPowerDrop: 0
       atkTimeDrop: 0
-      evasionDrop: 0.06
+      evasionDrop: -0.06
       enGenDrop: 0
       speedDrop: 0
       duration: 30
@@ -915,11 +954,11 @@ MonoBehaviour:
       hpDrop: 0
       atkDrop: 0
       defDrop: 0
-      speDrop: 0.55
+      speDrop: -0.55
       precDrop: 0
       atkPowerDrop: 0
       atkTimeDrop: 0
-      evasionDrop: 0.3
+      evasionDrop: -0.3
       enGenDrop: 0
       speedDrop: 0
       duration: 30

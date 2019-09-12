@@ -50,7 +50,7 @@ public class AttackEffects : MonoBehaviour
         if (isMoving)
         {
             
-            transform.Translate(direction / (10 - Attack.attackSpeed), Space.World);
+            transform.Translate(direction / (100 /Attack.attackSpeed), Space.World);
             
             
         }
@@ -100,14 +100,33 @@ public class AttackEffects : MonoBehaviour
                 aimAngle = Mathf.PI * 2 + aimAngle;
             }
 
-            //Debug.Log(aimAngle);
+           
 
-            transform.rotation = Quaternion.Euler(0f, 0f, aimAngle);
+            transform.rotation = Quaternion.Euler(0f, 0f, -aimAngle);
+
+            
         }
         else
         {
-            transform.position = attacker.GetComponent<Tower>().attackPoint.transform.position;
-            transform.SetParent(attacker.GetComponent<Tower>().attackPoint.transform);
+            //transform.position = attacker.GetComponent<Tower>().attackPoint.transform.position;
+            //transform.SetParent(attacker.transform);
+
+            isMoving = true;
+
+            //float aimAngle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+            //if (aimAngle < 0f)
+            //{
+            //    aimAngle = Mathf.PI * 2 + aimAngle;
+            //}
+
+            //if (aimAngle > 180)
+            //{
+            //    aimAngle = 180 - aimAngle;
+            //}
+
+            ////Debug.Log(aimAngle);
+
+            //transform.rotation = Quaternion.Euler(0f, 0f, aimAngle);
         }
 
 
@@ -138,7 +157,7 @@ public class AttackEffects : MonoBehaviour
             }
             else
             {
-                
+                Destroy(gameObject);
             }
         }
     }

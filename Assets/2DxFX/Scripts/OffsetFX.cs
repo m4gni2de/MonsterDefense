@@ -12,7 +12,7 @@ using UnityEditor;
 [ExecuteInEditMode]
 [AddComponentMenu("2DxFX/Standard/Offset")]
 [System.Serializable]
-public class _2dxFX_Offset : MonoBehaviour
+public class OffsetFX : MonoBehaviour
 {
     [HideInInspector] public Material ForceMaterial;
     [HideInInspector] public bool ActiveChange = true;
@@ -279,7 +279,7 @@ public class _2dxFX_Offset : MonoBehaviour
 
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(_2dxFX_Offset)), CanEditMultipleObjects]
+[CustomEditor(typeof(OffsetFX)), CanEditMultipleObjects]
 public class _2dxFX_Offset_Editor : Editor
 {
     private SerializedObject m_object;
@@ -295,7 +295,7 @@ public class _2dxFX_Offset_Editor : Editor
         m_object.Update();
         DrawDefaultInspector();
 
-        _2dxFX_Offset _2dxScript = (_2dxFX_Offset)target;
+        OffsetFX _2dxScript = (OffsetFX)target;
 
         Texture2D icon = Resources.Load("2dxfxinspector") as Texture2D;
         if (icon)

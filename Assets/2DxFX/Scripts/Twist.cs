@@ -13,7 +13,7 @@ using UnityEditor;
 [ExecuteInEditMode]
 [AddComponentMenu("2DxFX/Standard/Twist")]
 [System.Serializable]
-public class _2dxFX_Twist : MonoBehaviour
+public class Twist : MonoBehaviour
 {
     [HideInInspector] public Material ForceMaterial;
     [HideInInspector] public bool ActiveChange = true;
@@ -230,7 +230,7 @@ public class _2dxFX_Twist : MonoBehaviour
 
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(_2dxFX_Twist)), CanEditMultipleObjects]
+[CustomEditor(typeof(Twist)), CanEditMultipleObjects]
 public class _2dxFX_Twist_Editor : Editor
 {
     private SerializedObject m_object;
@@ -246,7 +246,7 @@ public class _2dxFX_Twist_Editor : Editor
         m_object.Update();
         DrawDefaultInspector();
 
-        _2dxFX_Twist _2dxScript = (_2dxFX_Twist)target;
+        Twist _2dxScript = (Twist)target;
 
         Texture2D icon = Resources.Load("2dxfxinspector") as Texture2D;
         if (icon)

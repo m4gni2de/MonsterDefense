@@ -180,7 +180,7 @@
     <Compile Include="Assets\2DxFX\Scripts\MysticDictortionAdditive.cs" />
     <Compile Include="Assets\2DxFX\Scripts\MysticDistortion.cs" />
     <Compile Include="Assets\2DxFX\Scripts\Negative.cs" />
-    <Compile Include="Assets\2DxFX\Scripts\NewTeleporation.cs" />
+    <Compile Include="Assets\2DxFX\Scripts\NewTeleportation.cs" />
     <Compile Include="Assets\2DxFX\Scripts\NewTeleportation2.cs" />
     <Compile Include="Assets\2DxFX\Scripts\NoiseAnimatedFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\NoiseFX.cs" />

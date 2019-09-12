@@ -17,8 +17,17 @@ public class EquippableItem
         var allAttacks = GameManager.Instance.baseAttacks.attackDict;
         var equipDict = GameManager.Instance.items.allEquipmentDict;
 
-        
-        
+        //this is used as a validation check to make sure the attacks are always equal to their in game values first
+
+        if (allAttacks.ContainsKey(monster.info.attack1Name))
+        {
+            monster.info.attack1 = allAttacks[monster.info.attack1Name];
+        }
+
+        if (allAttacks.ContainsKey(monster.info.attack2Name))
+        {
+            monster.info.attack2 = allAttacks[monster.info.attack2Name];
+        }
 
         if (slot == 1)
         {

@@ -13,7 +13,7 @@ using UnityEditor;
 [ExecuteInEditMode]
 [AddComponentMenu("2DxFX/Standard/PlasmaRainbow")]
 [System.Serializable]
-public class _2dxFX_PlasmaRainbow : MonoBehaviour
+public class PlasmaRainbow : MonoBehaviour
 {
     [HideInInspector] public Material ForceMaterial;
     [HideInInspector] public bool ActiveChange = true;
@@ -231,7 +231,7 @@ public class _2dxFX_PlasmaRainbow : MonoBehaviour
 
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(_2dxFX_PlasmaRainbow)), CanEditMultipleObjects]
+[CustomEditor(typeof(PlasmaRainbow)), CanEditMultipleObjects]
 public class _2dxFX_PlasmaRainbow_Editor : Editor
 {
     private SerializedObject m_object;
@@ -247,7 +247,7 @@ public class _2dxFX_PlasmaRainbow_Editor : Editor
         m_object.Update();
         DrawDefaultInspector();
 
-        _2dxFX_PlasmaRainbow _2dxScript = (_2dxFX_PlasmaRainbow)target;
+        PlasmaRainbow _2dxScript = (PlasmaRainbow)target;
 
         Texture2D icon = Resources.Load("2dxfxinspector-anim") as Texture2D;
         if (icon)

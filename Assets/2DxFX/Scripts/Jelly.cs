@@ -13,7 +13,7 @@ using UnityEditor;
 [ExecuteInEditMode]
 [AddComponentMenu("2DxFX/Standard/Jelly")]
 [System.Serializable]
-public class _2dxFX_Jelly : MonoBehaviour
+public class Jelly : MonoBehaviour
 {
     [HideInInspector] public Material ForceMaterial;
     [HideInInspector] public bool ActiveChange = true;
@@ -227,7 +227,7 @@ public class _2dxFX_Jelly : MonoBehaviour
 
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(_2dxFX_Jelly)), CanEditMultipleObjects]
+[CustomEditor(typeof(Jelly)), CanEditMultipleObjects]
 public class _2dxFX_Jelly_Editor : Editor
 {
     private SerializedObject m_object;
@@ -243,7 +243,7 @@ public class _2dxFX_Jelly_Editor : Editor
         m_object.Update();
         DrawDefaultInspector();
 
-        _2dxFX_Jelly _2dxScript = (_2dxFX_Jelly)target;
+        Jelly _2dxScript = (Jelly)target;
 
         Texture2D icon = Resources.Load("2dxfxinspector-anim") as Texture2D;
         if (icon)

@@ -12,7 +12,7 @@ using UnityEditor;
 [ExecuteInEditMode]
 [AddComponentMenu("2DxFX/Standard/CircleFade")]
 [System.Serializable]
-public class _2dxFX_CircleFade : MonoBehaviour
+public class CircleFade : MonoBehaviour
 {
     [HideInInspector] public Material ForceMaterial;
     [HideInInspector] public bool ActiveChange = true;
@@ -226,7 +226,7 @@ public class _2dxFX_CircleFade : MonoBehaviour
 
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(_2dxFX_CircleFade)), CanEditMultipleObjects]
+[CustomEditor(typeof(CircleFade)), CanEditMultipleObjects]
 public class _2dxFX_CircleFade_Editor : Editor
 {
     private SerializedObject m_object;
@@ -242,7 +242,7 @@ public class _2dxFX_CircleFade_Editor : Editor
         m_object.Update();
         DrawDefaultInspector();
 
-        _2dxFX_CircleFade _2dxScript = (_2dxFX_CircleFade)target;
+        CircleFade _2dxScript = (CircleFade)target;
 
         Texture2D icon = Resources.Load("2dxfxinspector") as Texture2D;
         if (icon)

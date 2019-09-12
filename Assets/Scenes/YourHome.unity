@@ -2767,11 +2767,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 6317396937658932167, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6317396937658932164, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2826,32 +2821,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6317396937658932170, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
-        type: 3}
-      propertyPath: allBaseAttacks.thunder.attackAnimation
-      value: 
-      objectReference: {fileID: 6816625118016498558, guid: 1cbc38a74a8622848a7a37da85eb0095,
-        type: 3}
-    - target: {fileID: 6317396937658932170, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
-        type: 3}
-      propertyPath: allAttacks.voltStrike.attackTime
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6317396937658932165, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
-        type: 3}
-      propertyPath: allMonsterData.Lichenthrope.startingAttacks.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3861695980770531831, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
-        type: 3}
-      propertyPath: allEquipment.NatureRune.atkPercentBonus
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3861695980770531831, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
-        type: 3}
-      propertyPath: allEquipment.NatureRune.atkBonus
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
@@ -4818,12 +4787,12 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -10524,7 +10493,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2110746739
   m_SortingLayer: 10
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: f5c858741302f294293520d265e4ec1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

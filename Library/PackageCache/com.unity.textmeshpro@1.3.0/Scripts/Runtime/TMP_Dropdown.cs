@@ -499,6 +499,7 @@ namespace TMPro
             Canvas dropdownCanvas = m_Dropdown.GetComponent<Canvas>();
             blockerCanvas.sortingLayerID = dropdownCanvas.sortingLayerID;
             blockerCanvas.sortingOrder = dropdownCanvas.sortingOrder - 1;
+            
 
             // Add raycaster since it's needed to block.
             blocker.AddComponent<GraphicRaycaster>();

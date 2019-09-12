@@ -281,7 +281,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
         attack1.text = thisMonster.info.attack1Name;
         atk1Attack.text = thisMonster.tempStats.attack1.Power.Value.ToString();
-        atk1Range.text = thisMonster.tempStats.attack1.Range.Value.ToString();
+        atk1Range.text = thisMonster.tempStats.attack1.range.ToString();
         atk1Cool.text = thisMonster.tempStats.attack1.attackTime.ToString();
         atk1Slow.text = thisMonster.tempStats.attack1.hitSlowTime.ToString();
         atk1Effect.text = thisMonster.tempStats.attack1.effectName;
@@ -320,7 +320,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
         attack2.text = thisMonster.info.attack2Name;
         atk2Attack.text = thisMonster.tempStats.attack2.Power.Value.ToString();
-        atk2Range.text = thisMonster.tempStats.attack2.Range.Value.ToString();
+        atk2Range.text = thisMonster.tempStats.attack2.range.ToString();
         atk2Cool.text = thisMonster.tempStats.attack2.attackTime.ToString();
         atk2Slow.text = thisMonster.tempStats.attack2.hitSlowTime.ToString();
         atk2Effect.text = thisMonster.tempStats.attack2.effectName;
@@ -463,6 +463,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
                     if (evt[e].functionName == "StartAttack")
                     {
                         StartCoroutine(Attack1(evt[e].time));
+                        return;
                     }
                 }
             }
@@ -475,21 +476,24 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     {
        
 
-        MonsterAttack attack = monster.tempStats.attack1;
+        MonsterAttack attack = monster.info.attack1;
 
 
         monster.GetComponent<Tower>().attackNumber = 1;
         monster.monsterMotion.SetBool("isAttacking", true);
 
+        monster.GetComponent<Tower>().boneStructure.GetComponent<MotionControl>().AttackModeCheck(attack.attackMode);
+        
         Debug.Log(time + (time * (1 -monster.monsterMotion.speed)));
         yield return new WaitForSeconds(time + (time * (1 -monster.monsterMotion.speed)));
 
-        var attack1 = Instantiate(monster.tempStats.attack1.attackAnimation, monster.GetComponent<Tower>().attackPoint.transform.position, Quaternion.identity);
+        var attack1 = Instantiate(monster.info.attack1.attackAnimation, monster.GetComponent<Tower>().attackPoint.transform.position, Quaternion.identity);
         attack1.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
         //attack1.GetComponent<AttackEffects>().delay = .3f;
         attack1.transform.localScale = new Vector3(attack1.transform.localScale.x * 1.5f, attack1.transform.localScale.y * 1.5f, attack1.transform.localScale.z);
         attack1.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
         attack1.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
+
     }
 
     //open the attack editor for the monster's first attack
@@ -517,6 +521,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
                     if (evt[e].functionName == "StartAttack")
                     {
                         StartCoroutine(Attack2(evt[e].time));
+                        return;
                     }
                 }
             }
@@ -526,11 +531,13 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     public IEnumerator Attack2(float time)
     {
 
-        MonsterAttack attack = monster.tempStats.attack2;
+        MonsterAttack attack = monster.info.attack2;
 
 
         monster.GetComponent<Tower>().attackNumber = 2;
         monster.monsterMotion.SetBool("isAttacking", true);
+        monster.GetComponent<Tower>().boneStructure.GetComponent<MotionControl>().AttackModeCheck(attack.attackMode);
+
 
         yield return new WaitForSeconds(time + (time * (1 -monster.monsterMotion.speed)));
 
@@ -540,6 +547,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         attack2.transform.localScale = new Vector3(attack2.transform.localScale.x * 1.5f, attack2.transform.localScale.y * 1.5f, attack2.transform.localScale.z);
         attack2.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
         attack2.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
+
     }
 
     //open the attack editor for the monster's first attack

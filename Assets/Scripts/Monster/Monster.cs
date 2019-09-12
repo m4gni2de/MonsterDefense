@@ -257,6 +257,9 @@ public class Monster : MonoBehaviour
         //changes the monster's animation speed to match his own speed stat
         monsterMotion.speed = 1 * ((float)info.speBase / 100);
 
+        //the attackSpeed float will determine which animations to use. faster enemies will have differing attack animations
+        monsterMotion.SetFloat("attackSpeed", monsterMotion.speed);
+
         //StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
         //GetStats(stats);
         
@@ -827,7 +830,7 @@ public class Monster : MonoBehaviour
 
             
             PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
-            
+            GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
         }
 
         

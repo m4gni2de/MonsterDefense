@@ -215,7 +215,7 @@ public class Stat
         {
             
             StatModifier mod = statModifiers[i];
-            Debug.Log(statModifiers.Count);
+            //Debug.Log(statModifiers.Count);
 
             if (mod.Type == StatModType.Flat)
             {

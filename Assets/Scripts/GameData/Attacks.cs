@@ -48,8 +48,10 @@ public class BaseAttackRoot
 
 public enum AttackMode
 {
-    Physical, 
+    Punch,
+    Kick,
     Projectile,
+    Physical,
 }
 
 [System.Serializable]
@@ -90,7 +92,7 @@ public class AllAttacks
         critMod = 1f,
         attackTime = .4f,
         effectChance = .25f,
-        attackSpeed = 1.3f,
+        attackSpeed = 14f,
         hitSlowTime = .6f,
         attackMode = AttackMode.Projectile,
        
@@ -109,7 +111,7 @@ public class AllAttacks
         critMod = 1f,
         attackTime = 0.3f,
         effectChance = .15f,
-        attackSpeed = 1.6f,
+        attackSpeed = 7f,
         hitSlowTime = .25f,
         attackMode = AttackMode.Projectile,
         
@@ -129,7 +131,7 @@ public class AllAttacks
         critMod = 1f,
         attackTime = 0.15f,
         effectChance = .10f,
-        attackSpeed = 2.0f,
+        attackSpeed = 12f,
         hitSlowTime = .15f,
         attackMode = AttackMode.Projectile,
         
@@ -148,9 +150,9 @@ public class AllAttacks
         critMod = 1f,
         attackTime = 0.7f,
         effectChance = .10f,
-        attackSpeed = 0f,
+        attackSpeed = 13f,
         hitSlowTime = .35f,
-        attackMode = AttackMode.Projectile,
+        attackMode = AttackMode.Punch,
 
     };
 
@@ -167,11 +169,31 @@ public class AllAttacks
         critMod = 1f,
         attackTime = 0.6f,
         effectChance = .10f,
-        attackSpeed = 1.6f,
+        attackSpeed = 7f,
         hitSlowTime = .75f,
         attackMode = AttackMode.Projectile,
-        Power = new Stat(),
         
+        
+    };
+
+    public MonsterAttack energyDragon = new MonsterAttack
+    {
+        name = "Energy Dragon",
+        id = 6,
+        description = "A blazing dragon of fire and fury.",
+        type = "Fire",
+        effectName = "Burn",
+        range = 2,
+        power = 140,
+        critChance = 1f,
+        critMod = 1f,
+        attackTime = 0.8f,
+        effectChance = .15f,
+        attackSpeed = 5f,
+        hitSlowTime = .85f,
+        attackMode = AttackMode.Projectile,
+        
+
     };
 
 
@@ -190,6 +212,7 @@ public class Attacks : MonoBehaviour
     public List<string> electricAttacks = new List<string>();
     public List<string> shadowAttacks = new List<string>();
     public List<string> natureAttacks = new List<string>();
+    public List<string> fireAttacks = new List<string>();
 
 
 
@@ -208,6 +231,7 @@ public class Attacks : MonoBehaviour
         attackDict.Add(allAttacks.mistySpray.name, allAttacks.mistySpray);
         attackDict.Add(allAttacks.shadowBP.name, allAttacks.shadowBP);
         attackDict.Add(allAttacks.windCyclone.name, allAttacks.windCyclone);
+        attackDict.Add(allAttacks.energyDragon.name, allAttacks.energyDragon);
 
 
         //loops through all of the attacks and separates them in to lists based on their type
@@ -235,6 +259,12 @@ public class Attacks : MonoBehaviour
             if (attack.Value.type == "Nature")
             {
                 natureAttacks.Add(attack.Key);
+
+            }
+
+            if (attack.Value.type == "Fire")
+            {
+                fireAttacks.Add(attack.Key);
 
             }
         }

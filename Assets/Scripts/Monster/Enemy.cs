@@ -149,25 +149,16 @@ public class Enemy : MonoBehaviour
             int rand = Random.Range(0, dict[name].baseAttacks.Length);
             //Debug.Log(dict[name].baseAttacks.Length);
             monster.info.attack1Name = dict[name].baseAttacks[rand];
-            int rand2 = Random.Range(0, dict[name].baseAttacks.Length);
+
 
             //make sure the 2 attacks aren't the same
-            if (rand2 == rand)
+            if (rand == 0 || rand == dict[name].baseAttacks.Length - 1)
             {
-                if (rand2 == 0)
-                {
-                    monster.info.attack2Name = dict[name].baseAttacks[rand + 1];
-                }
-                if (rand2 == dict[name].baseAttacks.Length - 1)
-                {
-                    monster.info.attack2Name = dict[name].baseAttacks[rand - 1];
-                }
+                 monster.info.attack2Name = dict[name].baseAttacks[1];
             }
-            else
-            {
-                monster.info.attack2Name = dict[name].baseAttacks[rand];
-            }
+            else 
 
+             monster.info.attack2Name = dict[name].baseAttacks[rand - 1];
 
         }
 
@@ -269,6 +260,8 @@ public class Enemy : MonoBehaviour
         enemyHpSlider.maxValue = stats.hpMax;
         enemyHpSlider.value = stats.hpMax;
 
+
+
     }
 
 
@@ -277,6 +270,7 @@ public class Enemy : MonoBehaviour
 
         stats = effect.Enemy.stats;
         stats.currentHp = effect.Enemy.stats.HP.Value;
+
         enemyHpSlider.value = stats.currentHp;
 
         if (stats.currentHp <= 0)

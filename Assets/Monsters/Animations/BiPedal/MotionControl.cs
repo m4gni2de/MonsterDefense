@@ -80,6 +80,23 @@ public class MotionControl : MonoBehaviour
         targetTile = TargetTile;
         enemy = Enemy;
     }
+
+    //get the type of attack from the attacker here so that the monster knows what type of attack animation to do
+    public void AttackModeCheck(AttackMode mode)
+    {
+        if (mode == AttackMode.Projectile)
+        {
+            monsterAnimator.SetBool("isProjectile", true);
+        }
+        if (mode == AttackMode.Punch)
+        {
+            monsterAnimator.SetBool("isPunch", true);
+        }
+        if (mode == AttackMode.Kick)
+        {
+            monsterAnimator.SetBool("isKick", true);
+        }
+    }
     
 
     //this is called from the enemy script when an emey is hit with an attack
@@ -112,6 +129,9 @@ public class MotionControl : MonoBehaviour
     public void EndAttack()
     {
         monsterAnimator.SetBool("isAttacking", false);
+        monsterAnimator.SetBool("isProjectile", false);
+        monsterAnimator.SetBool("isKick", false);
+        monsterAnimator.SetBool("isPunch", false);
         tower.isAttacking = false;
     }
 
