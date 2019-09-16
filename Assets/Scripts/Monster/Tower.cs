@@ -138,6 +138,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         //towers default to targetting the newest monster that enters their range
         targetMode = TargetMode.Newest;
 
+        
+
     }
 
     // Update is called once per frame
@@ -650,49 +652,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
         if (isScanning && !isAttacking)
         {
-            //List<Enemy> inRange = new List<Enemy>();
-            //int n = 0;
-            ////check the enemies this monster can hit and determine which enemy to attack
-            //foreach (Enemy liveEnemy in Map.GetComponent<MapDetails>().liveEnemies)
-            //{
-            //    Debug.Log(n);
-            //    if (atkRange1List.Contains(liveEnemy.currentTile) || atkRange2List.Contains(liveEnemy.currentTile))
-            //    {
-            //        TargetSort sort = new TargetSort();
-            //        inRange.Add(liveEnemy);
-            //        n += 1;
-
-            //        if (n == inRange.Count - 1)
-            //        {
-            //            inRange.Sort();
-            //            //Debug.Log("\nAfter sort by time stamp:");
-            //            foreach (Enemy e in inRange)
-            //            {
-            //                //PostMessage(aMsg.chatMessage.sender, aMsg.chatMessage.message);
-            //                Debug.Log(e.name);
-            //            }
-            //        }
-            //        else
-            //        {
-            //            //
-            //        }
-
-            //        if (targetMode == TargetMode.Newest)
-            //        {
-
-
-
-            //        }
-            //        //TargetPriority t = new TargetPriority(this, Map.GetComponent<MapDetails>(), inRange);
-
-
-            //    }
-            //}
-
             Enemy enemy = Enemy.GetComponent<Enemy>();
-            
-
-
             //change the direction of the tower if the enemy is on the opposite direction of this tower
             if (enemy.transform.position.x <= attackPoint.transform.position.x)
             {
@@ -786,34 +746,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             AttackCheck();
         }
 
-        if (isAttacking)
-        {
-            //acumTime += Time.deltaTime;
-
-            //if (attackNumber == 1)
-            //{
-            //    if (acumTime >= monster.tempStats.attack1.attackTime)
-            //    {
-            //        isAttacking = false;
-            //        acumTime = 0;
-            //        AttackCheck();
-            //    }
-
-            //}
-            //else
-            //{
-            //    if (acumTime >= monster.tempStats.attack2.attackTime)
-            //    {
-            //        isAttacking = false;
-            //        acumTime = 0;
-            //        AttackCheck();
-            //    }
-            //}
-        }
-
        
-
-        Debug.Log(acumTime);
     }
 
     //this method creates the Lists of tile numbers that are included in the tower's attack ranges. Only runs once so that rays are not continuously being fired

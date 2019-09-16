@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class MonsterIcon : MonoBehaviour
 {
     public TMP_Text nameText, levelText;
     //public SpriteRenderer sp;
     public Canvas canvas;
-    
 
+    public SpriteRenderer sp;
+    public Image image;
     // Start is called before the first frame update
     void Start()
     {
+        sp = GetComponent<SpriteRenderer>();
+        image = GetComponent<Image>();
+
         nameText.GetComponent<TMP_Text>();
         levelText.GetComponent<TMP_Text>();
         //sp.GetComponent<SpriteRenderer>();

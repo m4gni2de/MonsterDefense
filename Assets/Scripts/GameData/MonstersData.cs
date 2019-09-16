@@ -10,6 +10,7 @@ using System;
 public struct MonsterData
 {
     public GameObject monsterPrefab;
+    public Sprite iconSprite;
     public int id;
     public string species;
     public string type1;
@@ -23,7 +24,7 @@ public struct MonsterData
     //used as a multiplier for calculating experience points needed to level up. higher the number, more exp needed, which usually means a stronger monster
     public float levelConst;
     //which attacks the monster can learn, either via levelup or another method
-    public string[] learnableAttacks;
+    
     public string[] baseAttacks;
 
     public int staminaBase;
@@ -33,26 +34,7 @@ public struct MonsterData
 
 };
 
-//used to create a save token for a monster, instead of saving all of the characters of the json data of the monster
-public struct MonsterSaveToken
-{
-    public int index;
-    public string species;
-    public string name;
-    public int level;
-    public int totalExp;
-    public int rank;
-    public string attack1;
-    public string attack2;
-    public string equip1;
-    public string equip2;
-    public int hpPot;
-    public int atkPot;
-    public int defPot;
-    public int spePot;
-    public int precPot;
-    public int koCount;
-};
+
 
 //this class will be called to create a save token for a monster
 public class MonsterToken
@@ -82,7 +64,10 @@ public class MonsterToken
         token.precPot = (int)monster.info.PrecisionPotential.BaseValue;
         token.koCount = monster.info.koCount;
 
-        PlayerPrefs.SetString(token.index.ToString(), JsonUtility.ToJson(token));
+        
+
+        //Debug.Log(JsonUtility.ToJson(token));
+        //PlayerPrefs.SetString(token.index.ToString(), JsonUtility.ToJson(token));
     }
 }
 

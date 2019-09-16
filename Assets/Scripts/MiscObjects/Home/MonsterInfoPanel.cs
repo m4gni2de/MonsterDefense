@@ -72,7 +72,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
         //summon a copy of the monster and it's bone structure so it can do idle animations
         monster = Instantiate(thisMonster, transform.position, Quaternion.identity);
-        //monster.GetComponent<Monster>().frontModel.SetActive(true);
+        monster.tag = "MonsterDisplay";
         monster.GetComponent<Tower>().boneStructure.SetActive(true);
 
         //loop through all of the meshes of the body and make their sorting layer higher than this menu so they are visible
@@ -83,7 +83,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             monster.bodyParts.bodyMeshes[i].GetComponent<Renderer>().sortingOrder += 100;
         }
         
-        monster.GetComponent<Image>().raycastTarget = false;
+        //monster.GetComponent<Image>().raycastTarget = false;
         monster.transform.localScale = new Vector3(monster.transform.localScale.x * 3.5f, monster.transform.localScale.y * 3.5f, 1f);
 
 
@@ -440,6 +440,12 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
               
             }
 
+            if (tag == "MonsterDisplay")
+            {
+                monster.monsterMotion.SetBool("isClicked", true);
+                
+            }
+
         }
 
 
@@ -476,7 +482,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     {
        
 
-        MonsterAttack attack = monster.info.attack1;
+        MonsterAttack attack = monster.tempStats.attack1;
 
 
         monster.GetComponent<Tower>().attackNumber = 1;
@@ -493,6 +499,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         attack1.transform.localScale = new Vector3(attack1.transform.localScale.x * 1.5f, attack1.transform.localScale.y * 1.5f, attack1.transform.localScale.z);
         attack1.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
         attack1.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
+        attack1.GetComponent<AttackEffects>().delay = monster.info.attack1.attackTime;
 
     }
 
@@ -531,7 +538,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     public IEnumerator Attack2(float time)
     {
 
-        MonsterAttack attack = monster.info.attack2;
+        MonsterAttack attack = monster.tempStats.attack2;
 
 
         monster.GetComponent<Tower>().attackNumber = 2;
@@ -547,6 +554,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         attack2.transform.localScale = new Vector3(attack2.transform.localScale.x * 1.5f, attack2.transform.localScale.y * 1.5f, attack2.transform.localScale.z);
         attack2.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
         attack2.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
+        attack2.GetComponent<AttackEffects>().delay = monster.info.attack2.attackTime;
 
     }
 

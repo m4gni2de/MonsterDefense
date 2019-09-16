@@ -8,6 +8,27 @@ using TMPro;
 
 
 
+[System.Serializable]
+public struct MonsterSaveToken
+{
+    public int index;
+    public string species;
+    public string name;
+    public int level;
+    public int totalExp;
+    public int rank;
+    public string attack1;
+    public string attack2;
+    public string equip1;
+    public string equip2;
+    public int hpPot;
+    public int atkPot;
+    public int defPot;
+    public int spePot;
+    public int precPot;
+    public int koCount;
+
+}
 
 [System.Serializable]
 public struct MonsterInfo
@@ -72,6 +93,8 @@ public struct MonsterInfo
     public bool isEquipped;
 
     public int monsterRank;
+
+    
 };
 
 //these stats can change during a map without effecting it's permanent stats
@@ -98,6 +121,11 @@ public struct TempStats
     public MonsterAttack attack1;
     public MonsterAttack attack2;
 
+    public float energyDamageMod;
+    public float physicalDamageMod;
+    public float explodeDamageMod;
+    public float pierceDamageMod;
+
     
 }
 
@@ -116,6 +144,7 @@ public class Monster : MonoBehaviour
     public MonsterInfo info = new MonsterInfo();
     public MonsterSpecs specs = new MonsterSpecs();
     public TempStats tempStats = new TempStats();
+    public MonsterSaveToken saveToken = new MonsterSaveToken();
     //public AllBaseAttacks allBaseAttacks = new AllBaseAttacks();
     //private BaseAttacks baseAttacks;
 
@@ -158,17 +187,19 @@ public class Monster : MonoBehaviour
     //script used to access the meshes that make up the monster
     public MeshBodyParts bodyParts;
 
-   
+
+
+
     private void Awake()
     {
-        
+
 
     }
     // Start is called before the first frame update
     public void Start()
     {
 
-       
+
 
         tower = GetComponent<Tower>();
         enemy = GetComponent<Enemy>();
@@ -207,13 +238,18 @@ public class Monster : MonoBehaviour
         }
 
         var allAttacks = GameManager.Instance.baseAttacks.attackDict;
-        
+
 
         //Get the data from the attacks and then apply the boosts from the equipment
         //AttackData();
         EquipmentBoosts();
 
         //EquipmentBoosts();
+
+
+        
+
+       
 
 
         //gives the monster temporary stats that can be changed in game, without affecting the monster's saved stats. these values are changed during a game, not anything in monster.info
@@ -234,7 +270,7 @@ public class Monster : MonoBehaviour
 
 
         //tempStats.attack1 = attack1;
-       
+
         //tempStats.attack2 = attack2;
         //tempStats.attack2.Power.BaseValue = attack2.Power.Value;
         //tempStats.attack2.Range.BaseValue = attack2.Range.Value;
@@ -254,15 +290,15 @@ public class Monster : MonoBehaviour
 
 
 
-        //changes the monster's animation speed to match his own speed stat
-        monsterMotion.speed = 1 * ((float)info.speBase / 100);
+        ////changes the monster's animation speed to match his own speed stat
+        //monsterMotion.speed = 1 * ((float)info.speBase / 100);
 
-        //the attackSpeed float will determine which animations to use. faster enemies will have differing attack animations
-        monsterMotion.SetFloat("attackSpeed", monsterMotion.speed);
+        ////the attackSpeed float will determine which animations to use. faster enemies will have differing attack animations
+        //monsterMotion.SetFloat("attackSpeed", monsterMotion.speed);
+        //monsterMotion.SetInteger("dexID", info.dexId);
+        ////StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
+        ////GetStats(stats);
 
-        //StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
-        //GetStats(stats);
-        
 
     }
 
@@ -280,15 +316,11 @@ public class Monster : MonoBehaviour
 
     }
 
+   
+
     //load in the attacks of the monster
     public void AttackData()
     {
-        //var allAttacks = GameManager.Instance.baseAttacks.attackDict;
-
-
-        //var attack1 = allAttacks[info.attack1Name];
-        //var attack2 = allAttacks[info.attack2Name];
-
         var attacksDict = GameManager.Instance.baseAttacks.attackDict;
 
         //load in the attacks of the monster
@@ -315,8 +347,6 @@ public class Monster : MonoBehaviour
         info.equippable2.Unequip(gameObject.GetComponent<Monster>());
 
         EquipmentBoosts();
-        //StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
-        //GetStats(stats);
         
     }
 
@@ -496,8 +526,9 @@ public class Monster : MonoBehaviour
                 info.attack2 = attacksDict[info.attack2Name];
                 tempStats.attack2 = info.attack2;
             }
-            SetMonsterStats();
 
+            SetMonsterStats();
+            
         }
     }
 
@@ -627,7 +658,7 @@ public class Monster : MonoBehaviour
         else
         {
 
-
+            
             StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
             GetStats(stats);
 
@@ -638,25 +669,35 @@ public class Monster : MonoBehaviour
 
 
 
-    ////****************The following methods are for getting the save token of the monster***********//
-    //public void GetToken(MonsterToken token)
-    //{
-    //    StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
-    //    GetStats(stats);
-    //}
-
+    
 
 
     //****************The following methods are for calculating the stats of the monster***********//
     public void GetStats(StatsCalc stats)
     {
 
-        PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
+        
         info = stats.Monster.info;
         tempStats = stats.Monster.tempStats;
-
+        MonsterTokenSet();
+        PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
         GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
-        
+
+
+
+
+
+    }
+
+    //create a new save token of this monster and save that data instead of the entire monster info, to save json space
+    public void MonsterTokenSet()
+    {
+        MonsterToken t = new MonsterToken(this);
+        saveToken = t.token;
+
+        //PlayerPrefs.SetString(saveToken.index.ToString(), JsonUtility.ToJson(saveToken));
+        //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+
     }
 
 

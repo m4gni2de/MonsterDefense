@@ -298,6 +298,7 @@
     <Compile Include="Assets\Scripts\MiscObjects\CameraRenderer.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\EquipmentManager.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterEditor.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterHomeIcon.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterInfoPanel.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\YourHome.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\ItemScene\ItemShop.cs" />

@@ -158,7 +158,7 @@ MonoBehaviour:
     attackTime: 0
     attackSpeed: 0
     hitSlowTime: 0
-    attackMode: 0
+    attackMode: 2
     attackAnimation: {fileID: 0}
   attackEmission: {fileID: 8854900093834370204, guid: 8419a21e586be52438b21e2c876bce17,
     type: 3}

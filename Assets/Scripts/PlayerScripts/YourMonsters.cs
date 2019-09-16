@@ -9,6 +9,7 @@ public class YourMonsters : MonoBehaviour
 
 
     public Dictionary<int, string> yourMonstersDict = new Dictionary<int, string>();
+    public Dictionary<int, string> yourMonsterTokens = new Dictionary<int, string>();
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class YourMonsters : MonoBehaviour
     public void GetYourMonsters()
     {
         yourMonstersDict.Clear();
+        yourMonsterTokens.Clear();
 
         //var byPrefab = GameManager.Instance.monstersData.monsterPrefabsDict;
         var accountInfo = GameManager.Instance.GetComponent<YourAccount>().account;
@@ -35,9 +37,15 @@ public class YourMonsters : MonoBehaviour
         for (int i = 1; i <= GameManager.Instance.monsterCount; i++)
         {
             string json = PlayerPrefs.GetString(i.ToString());
+            //yourMonsterTokens.Add(i, json);
+
+            //LoadMonsterFromToken(json);
             yourMonstersDict.Add(i, json);
-            //Debug.Log(yourMonstersDict[i]);
+            
+            Debug.Log(yourMonstersDict[i]);
         }
+
+        
 
         //string playerDirectory = Application.persistentDataPath + "/Saves/" + accountInfo.username;
         //string accountText = playerDirectory + "/player.txt";
@@ -59,6 +67,11 @@ public class YourMonsters : MonoBehaviour
 
             
         //}
+    }
+
+    public void LoadMonsterFromToken(string tokenJson)
+    {
+
     }
 
     // Update is called once per frame

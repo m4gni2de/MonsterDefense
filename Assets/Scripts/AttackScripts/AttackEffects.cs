@@ -72,7 +72,7 @@ public class AttackEffects : MonoBehaviour
         attacker = attackingMonster;
         Attack = attack;
 
-        animator.speed = animator.speed - (animator.speed * Attack.attackTime);
+        animator.speed = animator.speed + (animator.speed / Attack.attackTime);
 
     }
 
@@ -102,7 +102,7 @@ public class AttackEffects : MonoBehaviour
 
            
 
-            transform.rotation = Quaternion.Euler(0f, 0f, -aimAngle);
+            transform.rotation = Quaternion.Euler(0f, 0f, aimAngle);
 
             
         }
@@ -125,8 +125,14 @@ public class AttackEffects : MonoBehaviour
             //}
 
             ////Debug.Log(aimAngle);
+            if (attacker)
+            {
+                transform.rotation = attacker.monsterMotion.transform.rotation;
+            }
+            else
+            {
 
-            //transform.rotation = Quaternion.Euler(0f, 0f, aimAngle);
+            }
         }
 
 

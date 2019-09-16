@@ -22,6 +22,9 @@ public class MotionControl : MonoBehaviour
     public bool isHit;
     public float hitAcumTime, hitTime;
 
+    //used to transition to monster specific states within the animator
+    public int dexId;
+    public float animatorSpeed;
     
     // Start is called before the first frame update
     void Start()
@@ -30,6 +33,18 @@ public class MotionControl : MonoBehaviour
         monster = gameObject.GetComponentInParent<Monster>();
         monsterAnimator = gameObject.GetComponent<Animator>();
         idleTime = monsterAnimator.GetBehaviour<IdleTime>();
+
+
+
+        monsterAnimator.speed = 1 * ((float)monster.info.speBase / 100);
+        animatorSpeed = monsterAnimator.speed;
+        dexId = monster.info.dexId;
+        //monsterAnimator.SetFloat("attackSpeed", monsterAnimator.speed);
+        monsterAnimator.SetFloat("attackSpeed", animatorSpeed);
+        monsterAnimator.SetInteger("dexID", dexId);
+        //monsterAnimator.SetInteger("dexID", monster.info.dexId);
+
+       
     }
 
     // Update is called once per frame
@@ -37,7 +52,7 @@ public class MotionControl : MonoBehaviour
     {
 
         IdleState();
-
+        
         //if a monster is hit with an attack, temporarily slow down it's movement
         if (isHit)
         {
@@ -59,12 +74,12 @@ public class MotionControl : MonoBehaviour
     //this controls the Idle animator the monster is in. if it's in idle for too long, it changes what it does while idle
     public void IdleState()
     {
-        //if (idleTime.isIdle && idleTime.idleTimer >= maxIdleTime)
-        //{
-        //    int rand = Random.Range(1, 3);
-        //    monsterAnimator.SetInteger("idleState", rand);
-            
-        //}
+        if (idleTime.isIdle && idleTime.idleTimer >= maxIdleTime)
+        {
+            int rand = Random.Range(1, 3);
+            monsterAnimator.SetInteger("idleState", rand);
+
+        }
     }
 
     public void MoveMonster()
@@ -133,6 +148,11 @@ public class MotionControl : MonoBehaviour
         monsterAnimator.SetBool("isKick", false);
         monsterAnimator.SetBool("isPunch", false);
         tower.isAttacking = false;
+    }
+
+    public void EndClickedAnimation()
+    {
+        monsterAnimator.SetBool("isClicked", false);
     }
 
 }

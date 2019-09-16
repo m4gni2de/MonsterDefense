@@ -236,7 +236,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: -3
   serializedVersion: 2
   m_Quality: 2
@@ -678,7 +678,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1121571957
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: adf1c56ba844f45f0ac7bdc95d1e550e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -972,7 +972,73 @@ MonoBehaviour:
     energyGenBase: 0
     energyCost: 0
     attack1Name: 
+    attack1:
+      Range:
+        BaseValue: 0
+      Power:
+        BaseValue: 0
+      CritChance:
+        BaseValue: 0
+      CritMod:
+        BaseValue: 0
+      EffectChance:
+        BaseValue: 0
+      AttackTime:
+        BaseValue: 0
+      AttackSpeed:
+        BaseValue: 0
+      AttackSlow:
+        BaseValue: 0
+      name: 
+      id: 0
+      description: 
+      type: 
+      effectName: 
+      range: 0
+      power: 0
+      critChance: 0
+      critMod: 0
+      effectChance: 0
+      attackTime: 0
+      attackSpeed: 0
+      hitSlowTime: 0
+      attackMode: 0
+      attackAnimation: {fileID: 0}
+      forceType: 0
     attack2Name: 
+    attack2:
+      Range:
+        BaseValue: 0
+      Power:
+        BaseValue: 0
+      CritChance:
+        BaseValue: 0
+      CritMod:
+        BaseValue: 0
+      EffectChance:
+        BaseValue: 0
+      AttackTime:
+        BaseValue: 0
+      AttackSpeed:
+        BaseValue: 0
+      AttackSlow:
+        BaseValue: 0
+      name: 
+      id: 0
+      description: 
+      type: 
+      effectName: 
+      range: 0
+      power: 0
+      critChance: 0
+      critMod: 0
+      effectChance: 0
+      attackTime: 0
+      attackSpeed: 0
+      hitSlowTime: 0
+      attackMode: 0
+      attackAnimation: {fileID: 0}
+      forceType: 0
     equip1Name: 
     equip1:
       name: 
@@ -985,6 +1051,9 @@ MonoBehaviour:
       boosts: []
       cost: 0
       equipSlot: 0
+      equipLevel: 0
+      equipLevelMax: 0
+      equipExp: 0
       hpBonus: 0
       atkBonus: 0
       defBonus: 0
@@ -1015,6 +1084,9 @@ MonoBehaviour:
       boosts: []
       cost: 0
       equipSlot: 0
+      equipLevel: 0
+      equipLevelMax: 0
+      equipExp: 0
       hpBonus: 0
       atkBonus: 0
       defBonus: 0
@@ -1061,6 +1133,7 @@ MonoBehaviour:
       BaseValue: 0
     koCount: 0
     isEquipped: 0
+    monsterRank: 0
   specs:
     legs:
     - {fileID: 551046328900936571}
@@ -1113,6 +1186,8 @@ MonoBehaviour:
         BaseValue: 0
       AttackSpeed:
         BaseValue: 0
+      AttackSlow:
+        BaseValue: 0
       name: 
       id: 0
       description: 
@@ -1125,7 +1200,10 @@ MonoBehaviour:
       effectChance: 0
       attackTime: 0
       attackSpeed: 0
+      hitSlowTime: 0
+      attackMode: 0
       attackAnimation: {fileID: 0}
+      forceType: 0
     attack2:
       Range:
         BaseValue: 0
@@ -1141,6 +1219,8 @@ MonoBehaviour:
         BaseValue: 0
       AttackSpeed:
         BaseValue: 0
+      AttackSlow:
+        BaseValue: 0
       name: 
       id: 0
       description: 
@@ -1153,7 +1233,14 @@ MonoBehaviour:
       effectChance: 0
       attackTime: 0
       attackSpeed: 0
+      hitSlowTime: 0
+      attackMode: 0
       attackAnimation: {fileID: 0}
+      forceType: 0
+    energyDamageMod: 0
+    physicalDamageMod: 0
+    explodeDamageMod: 0
+    pierceDamageMod: 0
   activeIndex: 0
   isEnemy: 0
   isTower: 0
@@ -1179,6 +1266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac00531120ea1340b47b1adf897593e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetMode: 0
   isBeingPlaced: 0
   isPlaced: 0
   touchTime: 0
@@ -1203,6 +1291,8 @@ MonoBehaviour:
   frontModel: {fileID: 3967128850808363458}
   isSummonable: 0
   attackPoint: {fileID: 6146563301953077096}
+  enemiesInRange: []
+  targetOrder: []
 --- !u!114 &7123742895376627943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1574,7 +1664,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1121571957
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: adf1c56ba844f45f0ac7bdc95d1e550e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1691,7 +1781,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1234149963
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: fba3c33468fcdd14aba61d7cc2b007f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1795,7 +1885,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 2
@@ -1927,7 +2017,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 3, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &7939848041592915917
 SpriteRenderer:
@@ -1964,7 +2054,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1234149963
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 955dc6420e7de684caf307d23bca5ce5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2029,6 +2119,8 @@ MonoBehaviour:
   nameText: {fileID: 7870263370948932724}
   levelText: {fileID: 8871337107400827285}
   canvas: {fileID: 3821930840564597815}
+  sp: {fileID: 7939848041592915917}
+  image: {fileID: 3521434957013117740}
 --- !u!1 &5763495419284694973
 GameObject:
   m_ObjectHideFlags: 0
@@ -2173,7 +2265,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15589c1eae245da4e88340f61a397ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxIdleTime: 8
+  maxIdleTime: 20
+  isHit: 0
+  hitAcumTime: 0
+  hitTime: 0
+  dexId: 0
+  animatorSpeed: 0
 --- !u!114 &2883997533214693236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2739,7 +2836,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8268344615227759454}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 12}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9083227005794965451}
@@ -2878,7 +2975,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1121571957
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: adf1c56ba844f45f0ac7bdc95d1e550e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3110,7 +3207,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 2
 --- !u!1 &9094249512399209023
 GameObject:
@@ -3335,7 +3432,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1121571957
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 76bda98d1bf2d440c867877d04e0f539, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3509,7 +3606,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: -2
   serializedVersion: 2
   m_Quality: 2
@@ -3691,7 +3788,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1121571957
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c8363cacad3ed4a549de3006ff0d8d42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3910,7 +4007,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1121571957
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c8363cacad3ed4a549de3006ff0d8d42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4148,7 +4245,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: -3
 --- !u!1 &9094249513063896263
 GameObject:
@@ -4561,7 +4658,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 2
 --- !u!1 &9094249513653915873
 GameObject:
@@ -4746,7 +4843,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 796913427
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 1
   serializedVersion: 2
   m_Quality: 2
@@ -5075,7 +5172,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1121571957
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: adf1c56ba844f45f0ac7bdc95d1e550e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

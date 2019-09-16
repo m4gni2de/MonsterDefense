@@ -16,6 +16,7 @@ TagManager:
   - Equipment
   - MonsterIcon
   - ScriptableObject
+  - MonsterDisplay
   layers:
   - Default
   - TransparentFX

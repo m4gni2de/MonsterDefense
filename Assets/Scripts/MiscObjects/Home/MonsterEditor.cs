@@ -11,10 +11,13 @@ public class MonsterEditor : MonoBehaviour
 
     public TMP_Dropdown attackSelector;
 
-    public TMP_Text newRange, newPower;
+    public TMP_Text newRange, newPower, newTime, newCooldown, newSlowdown, newEffect, newEffectChance;
+    public Image typeImage;
 
     public Button[] objectButtons;
     public GameObject monsterInfoPanel;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -60,20 +63,34 @@ public class MonsterEditor : MonoBehaviour
 
         var monsters = GameManager.Instance.monstersData.monstersAllDict;
         var attacks = GameManager.Instance.baseAttacks.attackDict;
+        var type = GameManager.Instance.monstersData.typeChartDict;
         
 
         List<string> attackList = new List<string>();
+        List<TMP_Dropdown.OptionData> optionList = new List<TMP_Dropdown.OptionData>();
 
         //cycle through the monster's attacks that it can learn, then add all of those attacks, except the ones it already knows, to the dropdown list
-        foreach(string attackName in monsters[activeMonster.info.species].baseAttacks)
+        foreach (string attackName in monsters[activeMonster.info.species].baseAttacks)
         {
             if (activeMonster.info.attack1Name != attackName && activeMonster.info.attack2Name != attackName)
             {
-                attackList.Add(attackName);
+                MonsterAttack a = attacks[attackName];
+                TypeInfo t = type[a.type];
+                TMP_Dropdown.OptionData optionData = new TMP_Dropdown.OptionData(attackName, type[a.type].typeSprite);
+
+                optionList.Add(optionData);
+                
             }
         }
 
-        attackSelector.AddOptions(attackList);
+        attackSelector.AddOptions(optionList);
+
+        //for (int i = 0; i < optionList.Count; i++) { 
+        //    MonsterAttack a = attacks[attackSelector.options[i].text];
+        //    TypeInfo t = type[a.type];
+        //    //attackSelector.itemImage.
+        //}
+
 
         DisplayAttackStats();
 
@@ -138,15 +155,29 @@ public class MonsterEditor : MonoBehaviour
         }
     }
 
+    //get all of the attack's stats from the Attacks Dictionary
     public void DisplayAttackStats()
     {
         var attacks = GameManager.Instance.baseAttacks.attackDict;
+        var type = GameManager.Instance.monstersData.typeChartDict;
 
         if (attacks.ContainsKey(attackSelector.options[attackSelector.value].text)){
             var attack = attacks[attackSelector.options[attackSelector.value].text];
 
             newPower.text = attack.power.ToString();
             newRange.text = attack.range.ToString();
+            newTime.text = attack.attackTime + " s";
+            typeImage.sprite = type[attack.type].typeSprite;
+            newCooldown.text = attack.attackTime + " s";
+            newSlowdown.text = attack.hitSlowTime + " s";
+            newEffect.text = attack.effectName;
+            newEffectChance.text = (attack.effectChance * 100).ToString();
+
+            if (attack.effectName == "none")
+            {
+                //newEffect.text = "";
+                newEffectChance.text = "";
+            }
         }
     }
 

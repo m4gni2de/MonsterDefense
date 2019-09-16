@@ -39,7 +39,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 3, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &3208824910686566841
 SpriteRenderer:
@@ -141,6 +141,8 @@ MonoBehaviour:
   nameText: {fileID: 3422949216277907968}
   levelText: {fileID: 4153826164789583841}
   canvas: {fileID: 8625010261715663427}
+  sp: {fileID: 3208824910686566841}
+  image: {fileID: 8243468122824594776}
 --- !u!1 &2153507366705618513
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,7 +885,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259364321792960}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.253662, y: -2.2805543, z: 0}
+  m_LocalPosition: {x: -3.25365, y: -2.2805543, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8236259365724610703}
@@ -1007,7 +1009,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259364453767046}
-  m_LocalRotation: {x: 0.019191695, y: -0.0004719893, z: 0.024582233, w: -0.99951357}
+  m_LocalRotation: {x: 0.019191656, y: -0.00047185604, z: 0.02457523, w: -0.9995136}
   m_LocalPosition: {x: -0.0000000049984137, y: 1.0000001, z: 0.00000008426844}
   m_LocalScale: {x: 0.17428383, y: 0.17428383, z: 0.17428342}
   m_Children:
@@ -1620,8 +1622,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259365082260720}
-  m_LocalRotation: {x: 0.000000041712397, y: -0.0000000060359477, z: -0.11883606,
-    w: 0.9929139}
+  m_LocalRotation: {x: -1.8863165e-10, y: -0.0000000013035112, z: -0.11884933, w: 0.9929123}
   m_LocalPosition: {x: -0.0000000359788, y: 0.99999994, z: 0.00000008342479}
   m_LocalScale: {x: 0.89975584, y: 0.89975584, z: 0.8997554}
   m_Children:
@@ -1947,7 +1948,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259365346596164}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.3402467, y: -0.9711304, z: 0}
+  m_LocalPosition: {x: -2.3402588, y: -0.9711304, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8236259365724610703}
@@ -2407,7 +2408,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259365632174104}
-  m_LocalRotation: {x: -0, y: -0, z: -0.989692, w: 0.14321232}
+  m_LocalRotation: {x: -0, y: -0, z: -0.9896911, w: 0.1432186}
   m_LocalPosition: {x: 0.33432, y: -0.5532203, z: 0}
   m_LocalScale: {x: 1.9796704, y: 1.9796704, z: 1.9796705}
   m_Children:
@@ -2454,7 +2455,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259365634544425}
-  m_LocalRotation: {x: 0.00000008364094, y: 0.000000010469908, z: 0.07947066, w: -0.9968372}
+  m_LocalRotation: {x: 0.00000008429369, y: -8.9928065e-15, z: -0.044959504, w: -0.9989888}
   m_LocalPosition: {x: 0.0000000025118778, y: 1.0000001, z: 0.00000016858716}
   m_LocalScale: {x: 0.14220382, y: 0.14220382, z: 0.14220363}
   m_Children:
@@ -2652,10 +2653,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15589c1eae245da4e88340f61a397ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxIdleTime: 4
+  maxIdleTime: 20
   isHit: 0
   hitAcumTime: 0
   hitTime: 0
+  dexId: 0
+  animatorSpeed: 0
 --- !u!114 &3271274977035346047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4473,6 +4476,7 @@ MonoBehaviour:
       hitSlowTime: 0
       attackMode: 0
       attackAnimation: {fileID: 0}
+      forceType: 0
     attack2Name: 
     attack2:
       Range:
@@ -4506,6 +4510,7 @@ MonoBehaviour:
       hitSlowTime: 0
       attackMode: 0
       attackAnimation: {fileID: 0}
+      forceType: 0
     equip1Name: 
     equip1:
       name: 
@@ -4670,6 +4675,7 @@ MonoBehaviour:
       hitSlowTime: 0
       attackMode: 0
       attackAnimation: {fileID: 0}
+      forceType: 0
     attack2:
       Range:
         BaseValue: 0
@@ -4702,6 +4708,11 @@ MonoBehaviour:
       hitSlowTime: 0
       attackMode: 0
       attackAnimation: {fileID: 0}
+      forceType: 0
+    energyDamageMod: 0
+    physicalDamageMod: 0
+    explodeDamageMod: 0
+    pierceDamageMod: 0
   activeIndex: 0
   isEnemy: 0
   isTower: 0

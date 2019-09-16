@@ -35,8 +35,9 @@ public struct MonsterAttack
     public AttackMode attackMode;
 
     public GameObject attackAnimation;
-    
-    
+
+
+    public DamageForce forceType;
 
 };
 
@@ -52,6 +53,14 @@ public enum AttackMode
     Kick,
     Projectile,
     Physical,
+}
+
+public enum DamageForce
+{
+    Energy, 
+    Physical, 
+    Pierce, 
+    Explode,
 }
 
 [System.Serializable]
@@ -109,7 +118,7 @@ public class AllAttacks
         power = 75,
         critChance = 1f,
         critMod = 1f,
-        attackTime = 0.3f,
+        attackTime = 1.2f,
         effectChance = .15f,
         attackSpeed = 7f,
         hitSlowTime = .25f,
@@ -148,7 +157,7 @@ public class AllAttacks
         power = 115,
         critChance = 1f,
         critMod = 1f,
-        attackTime = 0.7f,
+        attackTime = 1.3f,
         effectChance = .10f,
         attackSpeed = 13f,
         hitSlowTime = .35f,
@@ -167,11 +176,11 @@ public class AllAttacks
         power = 115,
         critChance = 1f,
         critMod = 1f,
-        attackTime = 0.6f,
+        attackTime = 1.0f,
         effectChance = .10f,
         attackSpeed = 7f,
         hitSlowTime = .75f,
-        attackMode = AttackMode.Projectile,
+        attackMode = AttackMode.Punch,
         
         
     };
@@ -187,12 +196,32 @@ public class AllAttacks
         power = 140,
         critChance = 1f,
         critMod = 1f,
-        attackTime = 0.8f,
+        attackTime = 1.1f,
         effectChance = .15f,
         attackSpeed = 5f,
         hitSlowTime = .85f,
-        attackMode = AttackMode.Projectile,
+        attackMode = AttackMode.Punch,
         
+
+    };
+
+    public MonsterAttack darknessPike = new MonsterAttack
+    {
+        name = "Darkness Pike",
+        id = 7,
+        description = "Spirits from departed souls pierce the living veil.",
+        type = "Shadow",
+        effectName = "none",
+        range = 3,
+        power = 75,
+        critChance = 1f,
+        critMod = 1f,
+        attackTime = 1.2f,
+        effectChance = .15f,
+        attackSpeed = 7f,
+        hitSlowTime = .63f,
+        attackMode = AttackMode.Punch,
+
 
     };
 
@@ -232,6 +261,7 @@ public class Attacks : MonoBehaviour
         attackDict.Add(allAttacks.shadowBP.name, allAttacks.shadowBP);
         attackDict.Add(allAttacks.windCyclone.name, allAttacks.windCyclone);
         attackDict.Add(allAttacks.energyDragon.name, allAttacks.energyDragon);
+        attackDict.Add(allAttacks.darknessPike.name, allAttacks.darknessPike);
 
 
         //loops through all of the attacks and separates them in to lists based on their type

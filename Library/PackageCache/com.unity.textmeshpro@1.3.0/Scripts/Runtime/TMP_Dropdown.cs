@@ -49,9 +49,11 @@ namespace TMPro
             private string m_Text;
             [SerializeField]
             private Sprite m_Image;
+            
 
             public string text { get { return m_Text; } set { m_Text = value; } }
             public Sprite image { get { return m_Image; } set { m_Image = value; } }
+            
 
             public OptionData()
             {
