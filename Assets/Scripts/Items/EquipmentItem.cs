@@ -37,6 +37,8 @@ public class EquipmentItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public TMP_Text valueText;
 
+    public EquippableItem equippable = new EquippableItem();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,8 +46,15 @@ public class EquipmentItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         sprite = sp.sprite;
         image.GetComponent<Image>();
 
+
         
+
+
+
     }
+
+
+   
 
     // Update is called once per frame
     void Update()
@@ -94,6 +103,7 @@ public class EquipmentItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         equipDetails.cost = equip.cost;
         equipDetails.moveTypeReq = equip.typeMoveReq;
         equipDetails.monsterTypeReq = equip.typeMonsterReq;
+
         
         
         for (int i = 0; i < equip.boosts.Length; i++)
@@ -101,6 +111,10 @@ public class EquipmentItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             equipDetails.boosts.Add(equip.boosts[i]);
             
         }
+
+        //unequip the item first to avoid stacking of the same item's equipment
+        UnEquip();
+        EquipItem();
     }
 
     //use this when the equipment is just in your inventory
@@ -108,6 +122,7 @@ public class EquipmentItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         equip = Equip;
 
+        
         isEquipped = false;
         equipDetails.name = equip.name;
         equipDetails.description = equip.description;
@@ -124,16 +139,18 @@ public class EquipmentItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
 
+    //used to equip the attached monster with this item
+    public void EquipItem()
+    {
+       equippable.Equip(equipDetails.equippedMonster, equipDetails.equipSlot);
+            
+    }
+
 
     public void UnEquip()
     {
-        //EquippableItem equippedItem = new EquippableItem();
-
-        //equippedItem.Unequip(monster, slot);
-        //int itemCount = PlayerPrefs.GetInt(equipDetails.name);
-        //PlayerPrefs.SetInt(equipDetails.name, itemCount + 1);
-
-        //Debug.Log(itemCount);
+        equippable.Unequip(equipDetails.equippedMonster);
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -148,5 +165,7 @@ public class EquipmentItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         
     }
 
-    
+
+   
+
 }

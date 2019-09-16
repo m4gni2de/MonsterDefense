@@ -280,14 +280,14 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         }
 
         attack1.text = thisMonster.info.attack1Name;
-        atk1Attack.text = thisMonster.tempStats.attack1.Power.Value.ToString();
-        atk1Range.text = thisMonster.tempStats.attack1.range.ToString();
-        atk1Cool.text = thisMonster.tempStats.attack1.attackTime.ToString();
-        atk1Slow.text = thisMonster.tempStats.attack1.hitSlowTime.ToString();
-        atk1Effect.text = thisMonster.tempStats.attack1.effectName;
-        atk1EffectChance.text = thisMonster.tempStats.attack1.effectChance * 100 + "%";
+        atk1Attack.text = thisMonster.info.attack1.Power.Value.ToString();
+        atk1Range.text = thisMonster.info.attack1.range.ToString();
+        atk1Cool.text = thisMonster.info.attack1.attackTime.ToString();
+        atk1Slow.text = thisMonster.info.attack1.hitSlowTime.ToString();
+        atk1Effect.text = thisMonster.info.attack1.effectName;
+        atk1EffectChance.text = thisMonster.info.attack1.effectChance * 100 + "%";
 
-        if (thisMonster.tempStats.attack1.Power.BaseValue != thisMonster.tempStats.attack1.Power.Value)
+        if (thisMonster.info.attack1.Power.BaseValue != thisMonster.info.attack1.Power.Value)
         {
             atk1Attack.color = Color.yellow;
         }
@@ -377,6 +377,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         if (isEquip1)
         {
             GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equip1.equipPrefab.GetComponent<EquipmentItem>().equip, 1);
+            equip1.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
             isEquip1 = false;
             equip1Btn.GetComponent<Image>().sprite = null;
             RefreshMonsterInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
@@ -392,6 +393,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         if (isEquip2)
         {
             GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equip2.equipPrefab.GetComponent<EquipmentItem>().equip, 2);
+            equip2.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
             isEquip2 = false;
             equip2Btn.GetComponent<Image>().sprite = null;
             RefreshMonsterInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
@@ -563,6 +565,19 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     {
         monsterEditorMenu.SetActive(true);
         monsterEditorMenu.GetComponent<MonsterEditor>().LoadMonster(GetComponentInParent<YourHome>().activeMonster, 2);
+    }
+
+
+    public void OnDisable()
+    {
+        if (equip1.equipPrefab)
+        {
+            equip1.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
+        }
+        if (equip2.equipPrefab)
+        {
+            equip2.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
+        }
     }
 
 }

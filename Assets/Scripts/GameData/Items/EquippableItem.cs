@@ -11,23 +11,27 @@ public class EquippableItem
 
     public Monster Monster;
 
+    public Equipment equipment;
+    public int Slot;
+
+
     public void Equip(Monster monster, int slot)
     {
-
+        Slot = slot;
         var allAttacks = GameManager.Instance.baseAttacks.attackDict;
         var equipDict = GameManager.Instance.items.allEquipmentDict;
 
         //this is used as a validation check to make sure the attacks are always equal to their in game values first
 
-        if (allAttacks.ContainsKey(monster.info.attack1Name))
-        {
-            monster.info.attack1 = allAttacks[monster.info.attack1Name];
-        }
+        //if (allAttacks.ContainsKey(monster.info.attack1Name))
+        //{
+        //    monster.info.attack1 = allAttacks[monster.info.attack1Name];
+        //}
 
-        if (allAttacks.ContainsKey(monster.info.attack2Name))
-        {
-            monster.info.attack2 = allAttacks[monster.info.attack2Name];
-        }
+        //if (allAttacks.ContainsKey(monster.info.attack2Name))
+        //{
+        //    monster.info.attack2 = allAttacks[monster.info.attack2Name];
+        //}
 
         if (slot == 1)
         {
@@ -83,6 +87,7 @@ public class EquippableItem
 
 
                 }
+               
 
                 if (equip.typeMoveReq == monster.info.attack2.type)
                 {
@@ -182,6 +187,7 @@ public class EquippableItem
             }
         }
 
+       
         
     }
            
@@ -198,39 +204,25 @@ public class EquippableItem
         monster.info.Speed.RemoveAllModifiersFromSource(this);
         monster.info.Precision.RemoveAllModifiersFromSource(this);
 
+
         monster.info.attack1.Power.RemoveAllModifiersFromSource(this);
-        monster.tempStats.attack1.Range.RemoveAllModifiersFromSource(this);
-        monster.tempStats.attack1.AttackSpeed.RemoveAllModifiersFromSource(this);
-        monster.tempStats.attack1.AttackTime.RemoveAllModifiersFromSource(this);
-        monster.tempStats.attack1.CritChance.RemoveAllModifiersFromSource(this);
-        monster.tempStats.attack1.CritMod.RemoveAllModifiersFromSource(this);
-        monster.tempStats.attack1.EffectChance.RemoveAllModifiersFromSource(this);
+        monster.info.attack1.Range.RemoveAllModifiersFromSource(this);
+        monster.info.attack1.AttackSpeed.RemoveAllModifiersFromSource(this);
+        monster.info.attack1.AttackTime.RemoveAllModifiersFromSource(this);
+        monster.info.attack1.CritChance.RemoveAllModifiersFromSource(this);
+        monster.info.attack1.CritMod.RemoveAllModifiersFromSource(this);
+        monster.info.attack1.EffectChance.RemoveAllModifiersFromSource(this);
 
-        monster.tempStats.attack2.Power.RemoveAllModifiersFromSource(this);
-        monster.tempStats.attack2.Range.RemoveAllModifiersFromSource(this);
-        monster.tempStats.attack2.AttackSpeed.RemoveAllModifiersFromSource(this);
-        monster.tempStats.attack2.AttackTime.RemoveAllModifiersFromSource(this);
-        monster.tempStats.attack2.CritChance.RemoveAllModifiersFromSource(this);
-        monster.tempStats.attack2.CritMod.RemoveAllModifiersFromSource(this);
-        monster.tempStats.attack2.EffectChance.RemoveAllModifiersFromSource(this);
-
-        //monster.info.attack1.Power.RemoveAllModifiersFromSource(this);
-        //monster.info.attack1.Range.RemoveAllModifiersFromSource(this);
-        //monster.info.attack1.AttackSpeed.RemoveAllModifiersFromSource(this);
-        //monster.info.attack1.AttackTime.RemoveAllModifiersFromSource(this);
-        //monster.info.attack1.CritChance.RemoveAllModifiersFromSource(this);
-        //monster.info.attack1.CritMod.RemoveAllModifiersFromSource(this);
-        //monster.info.attack1.EffectChance.RemoveAllModifiersFromSource(this);
-
-        //monster.info.attack2.Power.RemoveAllModifiersFromSource(this);
-        //monster.info.attack2.Range.RemoveAllModifiersFromSource(this);
-        //monster.info.attack2.AttackSpeed.RemoveAllModifiersFromSource(this);
-        //monster.info.attack2.AttackTime.RemoveAllModifiersFromSource(this);
-        //monster.info.attack2.CritChance.RemoveAllModifiersFromSource(this);
-        //monster.info.attack2.CritMod.RemoveAllModifiersFromSource(this);
-        //monster.info.attack2.EffectChance.RemoveAllModifiersFromSource(this);
+        monster.info.attack2.Power.RemoveAllModifiersFromSource(this);
+        monster.info.attack2.Range.RemoveAllModifiersFromSource(this);
+        monster.info.attack2.AttackSpeed.RemoveAllModifiersFromSource(this);
+        monster.info.attack2.AttackTime.RemoveAllModifiersFromSource(this);
+        monster.info.attack2.CritChance.RemoveAllModifiersFromSource(this);
+        monster.info.attack2.CritMod.RemoveAllModifiersFromSource(this);
+        monster.info.attack2.EffectChance.RemoveAllModifiersFromSource(this);
 
 
+       
     }
 
    

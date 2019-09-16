@@ -310,7 +310,7 @@ c4b73c5a1edb4391754011150e4896dd Assembly-CSharp.dll:Puppet2D.Puppet2D_VertexDef
 f807eac91817e478e15fd2bf894ff95b Assembly-CSharp.dll:._2dxFX_AL_DestroyedFX
 86d54e15df06f2608de5069d90b1294e Assembly-CSharp.dll:.MonsterManager
 29b53c580d180ff81ab5b1492414d425 Assembly-CSharp.dll:._2dxFX_AL_WoodFX
-2fe2c9e911dc2b0f440283d2192942fd Assembly-CSharp.dll:.Monster
+9785ec9fa4ee139e0179fddcc3742b3e Assembly-CSharp.dll:.Monster
 4d16cfbaa8e821a2b370e80844a0e9bc Assembly-CSharp.dll:TMPro.Examples.TextMeshSpawner
 e63944317d2f5958e31963668bb29158 Assembly-CSharp.dll:TMPro.Examples.VertexShakeB
 b90d2154e8f2e20e7ec63adacc70a977 Assembly-CSharp.dll:._2dxFX_AL_Flame
@@ -334,10 +334,11 @@ d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 1507bc2c019d7708ae871a0cc0c80145 Assembly-CSharp.dll:.Hologram2
 ce218aa735af88a98237ec6aa6357262 Assembly-CSharp.dll:.YourHome
 6ed86ef00708d6b762e1f17781bb5191 Assembly-CSharp.dll:.WorldMap
+20339f9caf6c11ac71395b68779a5041 Assembly-CSharp.dll:.FireAdditive
 e80c1450883443c68d6c2dade213536f Assembly-CSharp.dll:TMPro.Examples.TMPro_InstructionOverlay
 77eaf4ebdd07f5b9aae22ef9bc115955 Assembly-CSharp.dll:._2dxFX_AL_Cartoon
 46b8ef2ac978c0034391b840e991848f Assembly-CSharp.dll:._2dxFX_AL_Twist
-0cf28e18cafaba54cdadb11b7cd56f2e Assembly-CSharp.dll:.MotionControl
+b478fc31f6e0c7209b4f75ba31418ba4 Assembly-CSharp.dll:.MotionControl
 3504c2c238416baeab12907c8166cda9 Assembly-CSharp.dll:._2dxFX_AL_GrayScale
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TMPro.Examples.TeleType
 c12f6929b034322884ced721fca65b10 Assembly-CSharp.dll:TMPro.Examples.TextMeshProFloatingText

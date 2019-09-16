@@ -31,12 +31,17 @@ PrefabInstance:
     - target: {fileID: 7801907493886734839, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7801907493886734839, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
         type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801907493886734836, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
+        type: 3}
+      propertyPath: equipDetails.name
+      value: Thunder Rune
       objectReference: {fileID: 0}
     - target: {fileID: 50643063262720859, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
         type: 3}

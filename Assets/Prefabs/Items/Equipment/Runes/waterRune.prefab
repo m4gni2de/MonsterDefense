@@ -33,6 +33,11 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7801907493886734836, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
+        type: 3}
+      propertyPath: equipDetails.name
+      value: Water Rune
+      objectReference: {fileID: 0}
     - target: {fileID: 4372862001538172372, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
         type: 3}
       propertyPath: m_Sprite

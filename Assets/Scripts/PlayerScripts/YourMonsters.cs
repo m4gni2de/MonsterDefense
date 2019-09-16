@@ -9,7 +9,7 @@ public class YourMonsters : MonoBehaviour
 
 
     public Dictionary<int, string> yourMonstersDict = new Dictionary<int, string>();
-    public Dictionary<int, string> yourMonsterTokens = new Dictionary<int, string>();
+    //public Dictionary<int, string> yourMonstersAllInfo = new Dictionary<int, string>();
 
     private void Awake()
     {
@@ -27,7 +27,7 @@ public class YourMonsters : MonoBehaviour
     public void GetYourMonsters()
     {
         yourMonstersDict.Clear();
-        yourMonsterTokens.Clear();
+        //yourMonstersAllInfo.Clear();
 
         //var byPrefab = GameManager.Instance.monstersData.monsterPrefabsDict;
         var accountInfo = GameManager.Instance.GetComponent<YourAccount>().account;
@@ -41,7 +41,6 @@ public class YourMonsters : MonoBehaviour
 
             //LoadMonsterFromToken(json);
             yourMonstersDict.Add(i, json);
-            
             Debug.Log(yourMonstersDict[i]);
         }
 
@@ -79,4 +78,35 @@ public class YourMonsters : MonoBehaviour
     {
 
     }
+}
+
+
+public class MonsterToken
+{
+    public Monster Monster;
+    public MonsterSaveToken newToken;
+
+    public void CreateMonsterToken(Monster monster)
+    {
+        
+
+        newToken.index = monster.info.index;
+        newToken.species = monster.info.species;
+        newToken.name = monster.info.name;
+        newToken.level = monster.info.level;
+        newToken.totalExp = monster.info.totalExp;
+        newToken.atkPot = (int)monster.info.AttackPotential.BaseValue;
+        newToken.defPot = (int)monster.info.DefensePotential.BaseValue;
+        newToken.spePot = (int)monster.info.SpeedPotential.BaseValue;
+        newToken.precPot = (int)monster.info.PrecisionPotential.BaseValue;
+        newToken.hpPot = (int)monster.info.HPPotential.BaseValue;
+        newToken.rank = monster.info.monsterRank;
+        newToken.attack1 = monster.info.attack1Name;
+        newToken.attack2 = monster.info.attack2Name;
+        newToken.equip1 = monster.info.equip1Name;
+        newToken.equip2 = monster.info.equip2Name;
+        newToken.koCount = monster.info.koCount;
+        newToken.maxLevel = monster.info.maxLevel;
+    }
+
 }

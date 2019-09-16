@@ -132,8 +132,8 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
             if (monsters.ContainsKey(i))
             {
                 string monsterJson = monsters[i];
-                //var info = JsonUtility.FromJson<MonsterSaveToken>(monsterJson);
-                var info = JsonUtility.FromJson<MonsterInfo>(monsterJson);
+                var info = JsonUtility.FromJson<MonsterSaveToken>(monsterJson);
+                //var info = JsonUtility.FromJson<MonsterInfo>(monsterJson);
                 //monsterFile = File.AppendText(yourMonsters);
                 //monsterFile.WriteLine(monsterJson);
                 //monsterFile.Close();
@@ -142,6 +142,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
 
                 string species = info.species;
+                
 
                 ////if the monster appears on the Active Towers list, skip over the spawning of it
                 //if (indexes.Contains(i))
@@ -162,9 +163,9 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                     monster.GetComponent<Monster>().monsterIcon.transform.localScale = new Vector3(transform.localScale.x * 3, transform.localScale.y * 3, transform.localScale.z);
                     monster.tag = "Monster";
                     monster.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
-                    //monster.GetComponent<Monster>().saveToken = JsonUtility.FromJson<MonsterSaveToken>(monsters[i]);
-                    //monster.GetComponent<Monster>().LoadMonsterFromToken();
-                    monster.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
+                    monster.GetComponent<Monster>().saveToken = JsonUtility.FromJson<MonsterSaveToken>(monsters[i]);
+                    monster.GetComponent<Monster>().LoadMonsterToken(monster.GetComponent<Monster>().saveToken);
+                    //monster.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
                     monsterSprites[i - 1].GetComponent<Image>().color = Color.white;
                     monsterSprites[i - 1].GetComponent<Image>().sprite = monstersDict[species].iconSprite;
                     monsterSprites[i - 1].GetComponent<MonsterHomeIcon>().nameText.text = monster.GetComponent<Monster>().info.name;
@@ -219,7 +220,8 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                 for (int i = 1; i <= GameManager.Instance.monsterCount; i++)
                 {
                     string monsterJson = GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict[i];
-                    var info = JsonUtility.FromJson<MonsterInfo>(monsterJson);
+                    //var info = JsonUtility.FromJson<MonsterInfo>(monsterJson);
+                    var info = JsonUtility.FromJson<MonsterSaveToken>(monsterJson);
                     Debug.Log(i);
 
                     if (info.index > indexDeleted)
@@ -236,7 +238,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                         GameManager.Instance.monsterCount -= 1;
                         PlayerPrefs.SetInt("MonsterCount", GameManager.Instance.monsterCount);
                         GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
-                        Debug.Log(PlayerPrefs.GetInt("MonsterCount"));
+                        //Debug.Log(PlayerPrefs.GetInt("MonsterCount"));
                         var position = activeMonster.transform.position;
                         Destroy(activeMonster.gameObject);
                         infoMenu.SetActive(false);
@@ -299,7 +301,8 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                 //monster.transform.position = new Vector3(0f, 0f, 10f);
                 monster.transform.position = position;
                 monster.tag = "Monster";
-                monster.GetComponent<Monster>().SummonNewMonster(monster.GetComponent<Monster>().info.species);
+                monster.GetComponent<Monster>().MonsterSummon(monster.GetComponent<Monster>().info.species);
+                //monster.GetComponent<Monster>().SummonNewMonster(monster.GetComponent<Monster>().info.species);
                 //monster.transform.position = spawnPoint;
                 monster.GetComponent<Monster>().monsterIcon.transform.localScale = new Vector3(transform.localScale.x * 3, transform.localScale.y * 3, transform.localScale.z);
                 //monster.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);

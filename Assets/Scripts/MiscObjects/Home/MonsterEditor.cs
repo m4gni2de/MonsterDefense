@@ -108,9 +108,11 @@ public class MonsterEditor : MonoBehaviour
             activeMonster.info.attack2Name = attackSelector.options[attackSelector.value].text;
         }
 
-        activeMonster.AttackData();
-        PlayerPrefs.SetString(activeMonster.info.index.ToString(), JsonUtility.ToJson(activeMonster.info));
-        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+        //activeMonster.AttackData();
+        activeMonster.SaveMonsterToken();
+        activeMonster.LoadMonsterToken(activeMonster.saveToken);
+        //PlayerPrefs.SetString(activeMonster.info.index.ToString(), JsonUtility.ToJson(activeMonster.info));
+        //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
 
         Button[] buttons = GameObject.FindObjectsOfType<Button>();
 
@@ -123,6 +125,7 @@ public class MonsterEditor : MonoBehaviour
         
         //monsterInfoPanel.GetComponent<MonsterInfoPanel>().RefreshMonsterInfo(activeMonster);
         monsterInfoPanel.GetComponent<MonsterInfoPanel>().LoadInfo(activeMonster);
+        
         //GetComponentInParent<YourHome>().LoadMonsters();
         gameObject.SetActive(false);
 

@@ -86,20 +86,23 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 Equipment item = allEquips[name];
                 int itemCount = PlayerPrefs.GetInt(item.name);
 
-                if (item.typeMonsterReq == monster.info.type1 || item.typeMonsterReq == monster.info.type2)
+                if (item.name != monster.info.equip1Name || item.name != monster.info.equip2Name)
                 {
-                    var x = Instantiate(allEquips[item.name].equipPrefab, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
-                    x.transform.SetParent(transform, true);
-                    x.GetComponent<EquipmentItem>().EquipItemInfo(item);
-                    x.transform.localScale = Vector3.one;
-                    x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-                    x.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                    if (item.typeMonsterReq == monster.info.type1 || item.typeMonsterReq == monster.info.type2 || item.typeMonsterReq == "none")
+                    {
+                        var x = Instantiate(allEquips[item.name].equipPrefab, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
+                        x.transform.SetParent(transform, true);
+                        x.GetComponent<EquipmentItem>().EquipItemInfo(item);
+                        x.transform.localScale = Vector3.one;
+                        x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
+                        x.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
-                    i += 1;
-                }
-                else
-                {
-                    //x.name = "Ineligible";
+                        i += 1;
+                    }
+                    else
+                    {
+                        //x.name = "Ineligible";
+                    }
                 }
 
                 

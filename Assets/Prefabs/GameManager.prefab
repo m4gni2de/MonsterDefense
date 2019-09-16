@@ -613,7 +613,7 @@ MonoBehaviour:
       description: A Rune that boosts Water Type attacks from Water Type monsters
         by 8%
       equipType: 0
-      typeMonsterReq: Water
+      typeMonsterReq: Nature
       typeMoveReq: Water
       boosts:
       - Water Type Attacks + 8% Power
@@ -623,7 +623,7 @@ MonoBehaviour:
       equipLevelMax: 0
       equipExp: 0
       hpBonus: 0
-      atkBonus: 0
+      atkBonus: 5
       defBonus: 0
       speedBonus: 0
       precBonus: 0

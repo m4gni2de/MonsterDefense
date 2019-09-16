@@ -235,7 +235,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1234149963
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 7
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   equipDetails:
-    name: 
+    name: Shadow Rune
     description: 
     cost: 0
     boosts: []
@@ -270,6 +270,8 @@ MonoBehaviour:
     equippedMonster: {fileID: 0}
     equipSlot: 0
     quantity: 0
+    equipLevel: 0
+    equipExp: 0
   equip:
     name: 
     id: 0
@@ -281,6 +283,9 @@ MonoBehaviour:
     boosts: []
     cost: 0
     equipSlot: 0
+    equipLevel: 0
+    equipLevelMax: 0
+    equipExp: 0
     hpBonus: 0
     atkBonus: 0
     defBonus: 0

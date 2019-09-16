@@ -35,42 +35,6 @@ public struct MonsterData
 };
 
 
-
-//this class will be called to create a save token for a monster
-public class MonsterToken
-{
-    public MonsterSaveToken token = new MonsterSaveToken();
-    
-
-    public string monsterToken;
-
-    public MonsterToken(Monster monster)
-    {
-        var monsters = GameManager.Instance.monstersData.monstersAllDict;
-
-        token.index = monster.info.index;
-        token.species = monster.info.species;
-        token.name = monster.info.name;
-        token.level = monster.info.level;
-        token.totalExp = monster.info.totalExp;
-        token.attack1 = monster.info.attack1Name;
-        token.attack2 = monster.info.attack2Name;
-        token.equip1 = monster.info.equip1Name;
-        token.equip2 = monster.info.equip2Name;
-        token.hpPot = (int)monster.info.HPPotential.BaseValue;
-        token.atkPot = (int)monster.info.AttackPotential.BaseValue;
-        token.defPot = (int)monster.info.DefensePotential.BaseValue;
-        token.spePot = (int)monster.info.SpeedPotential.BaseValue;
-        token.precPot = (int)monster.info.PrecisionPotential.BaseValue;
-        token.koCount = monster.info.koCount;
-
-        
-
-        //Debug.Log(JsonUtility.ToJson(token));
-        //PlayerPrefs.SetString(token.index.ToString(), JsonUtility.ToJson(token));
-    }
-}
-
 [System.Serializable]
 public class MonsterDataRoot
 {

@@ -18,10 +18,11 @@ public class StatsCalc
         float level = (float)monster.info.level;
 
         var allAttacks = GameManager.Instance.baseAttacks.attackDict;
+        var allMonstersDict = GameManager.Instance.monstersData.monstersAllDict;
 
 
-        //MonsterAttack attack1 = allAttacks[monster.info.attack1Name];
-        //MonsterAttack attack2 = allAttacks[monster.info.attack2Name];
+        MonsterAttack attack1 = allAttacks[monster.info.attack1Name];
+        MonsterAttack attack2 = allAttacks[monster.info.attack2Name];
 
 
 
@@ -45,33 +46,33 @@ public class StatsCalc
         monster.info.EnergyCost.BaseValue = (int)monster.info.energyCost;
         monster.info.EnergyGeneration.BaseValue = (monster.info.energyGenBase);
 
-        //monster.attack1 = attack1;
-        //monster.attack1.Power.BaseValue = attack1.power;
-
-        //monster.tempStats.attack1 = monster.attack1;
-        //monster.tempStats.attack1.Power.BaseValue = monster.attack1.power;
-
-        Debug.Log(monster.tempStats.attack1.Power.Value);
         
-        //monster.attack1.Power.BaseValue = allAttacks[monster.info.attack1Name].power;
-        //monster.attack1.Range.BaseValue = attack1.range;
-        //monster.attack1.CritChance.BaseValue = attack1.critChance;
-        //monster.attack1.CritMod.BaseValue = attack1.critMod;
-        //monster.attack1.EffectChance.BaseValue = attack1.effectChance;
-        //monster.attack1.AttackTime.BaseValue = attack1.attackTime;
-        //monster.attack1.AttackSpeed.BaseValue = attack1.attackSpeed;
-        //monster.attack1.AttackSlow.BaseValue = attack1.hitSlowTime;
 
-        //monster.info.attack2 = attack2;
-        //monster.info.attack2.Power.BaseValue = attack2.power;
-        //monster.info.attack2.Range.BaseValue = attack2.range;
-        //monster.info.attack2.CritChance.BaseValue = attack2.critChance;
-        //monster.info.attack2.CritMod.BaseValue = attack2.critMod;
-        //monster.info.attack2.EffectChance.BaseValue = attack2.effectChance;
-        //monster.info.attack2.AttackTime.BaseValue = attack2.attackTime;
-        //monster.info.attack2.AttackSpeed.BaseValue = attack2.attackSpeed;
-        //monster.info.attack2.AttackSlow.BaseValue = attack2.hitSlowTime;
+       
 
+
+        monster.info.attack1Name = attack1.name;
+        monster.info.attack1 = attack1;
+        monster.info.attack1.Power.BaseValue = attack1.power;
+        monster.info.attack1.Range.BaseValue = attack1.range;
+        monster.info.attack1.CritChance.BaseValue = attack1.critChance;
+        monster.info.attack1.CritMod.BaseValue = attack1.critMod;
+        monster.info.attack1.EffectChance.BaseValue = attack1.effectChance;
+        monster.info.attack1.AttackTime.BaseValue = attack1.attackTime;
+        monster.info.attack1.AttackSpeed.BaseValue = attack1.attackSpeed;
+        monster.info.attack1.AttackSlow.BaseValue = attack1.hitSlowTime;
+
+        monster.info.attack2Name = attack2.name;
+        monster.info.attack2 = attack2;
+        monster.info.attack2.Power.BaseValue = attack2.power;
+        monster.info.attack2.Range.BaseValue = attack2.range;
+        monster.info.attack2.CritChance.BaseValue = attack2.critChance;
+        monster.info.attack2.CritMod.BaseValue = attack2.critMod;
+        monster.info.attack2.EffectChance.BaseValue = attack2.effectChance;
+        monster.info.attack2.AttackTime.BaseValue = attack2.attackTime;
+        monster.info.attack2.AttackSpeed.BaseValue = attack2.attackSpeed;
+        monster.info.attack2.AttackSlow.BaseValue = attack2.hitSlowTime;
+        
 
 
 
@@ -89,25 +90,26 @@ public class StatsCalc
         monster.tempStats.critBase = monster.info.critBase;
 
 
-        //monster.tempStats.attack1 = monster.attack1;
-        //monster.tempStats.attack1.Power.BaseValue = monster.attack1.power;
-        //monster.tempStats.attack1.Range.BaseValue = attack1.Range.BaseValue;
-        //monster.tempStats.attack1.CritChance.BaseValue = attack1.CritChance.BaseValue;
-        //monster.tempStats.attack1.CritMod.BaseValue = attack1.CritMod.BaseValue;
-        //monster.tempStats.attack1.EffectChance.BaseValue = attack1.EffectChance.BaseValue;
-        //monster.tempStats.attack1.AttackTime.BaseValue = attack1.AttackTime.BaseValue;
-        //monster.tempStats.attack1.AttackSpeed.BaseValue = attack1.AttackSpeed.BaseValue;
-        //monster.tempStats.attack1.AttackSlow.BaseValue = attack1.hitSlowTime;
+        monster.tempStats.attack1 = attack1;
+        monster.tempStats.attack1.Power.BaseValue = attack1.power;
+        monster.tempStats.attack1.Range.BaseValue = monster.info.attack1.Range.BaseValue;
+        monster.tempStats.attack1.CritChance.BaseValue = monster.info.attack1.CritChance.BaseValue;
+        monster.tempStats.attack1.CritMod.BaseValue = monster.info.attack1.CritMod.BaseValue;
+        monster.tempStats.attack1.EffectChance.BaseValue = monster.info.attack1.EffectChance.BaseValue;
+        monster.tempStats.attack1.AttackTime.BaseValue = monster.info.attack1.AttackTime.BaseValue;
+        monster.tempStats.attack1.AttackSpeed.BaseValue = monster.info.attack1.AttackSpeed.BaseValue;
+        monster.tempStats.attack1.AttackSlow.BaseValue = monster.info.attack1.hitSlowTime;
 
-        //monster.tempStats.attack2 = monster.attack2;
-        //monster.tempStats.attack2.Power.BaseValue = monster.attack2.Power.Value;
-        //monster.tempStats.attack2.Range.BaseValue = monster.attack2.Range.Value;
-        //monster.tempStats.attack2.CritChance.BaseValue = monster.attack2.CritChance.Value;
-        //monster.tempStats.attack2.CritMod.BaseValue = monster.attack2.CritMod.Value;
-        //monster.tempStats.attack2.EffectChance.BaseValue = monster.attack2.EffectChance.Value;
-        //monster.tempStats.attack2.AttackTime.BaseValue = monster.attack2.AttackTime.Value;
-        //monster.tempStats.attack2.AttackSpeed.BaseValue = monster.attack2.AttackSpeed.Value;
-        //monster.tempStats.attack2.AttackSlow.BaseValue = monster.attack2.hitSlowTime;
+        monster.tempStats.attack2 = attack2;
+        monster.tempStats.attack2.Power.BaseValue = attack2.power;
+        monster.tempStats.attack2.Range.BaseValue = monster.info.attack2.Range.BaseValue;
+        monster.tempStats.attack2.CritChance.BaseValue = monster.info.attack2.CritChance.BaseValue;
+        monster.tempStats.attack2.CritMod.BaseValue = monster.info.attack2.CritMod.BaseValue;
+        monster.tempStats.attack2.EffectChance.BaseValue = monster.info.attack2.EffectChance.BaseValue;
+        monster.tempStats.attack2.AttackTime.BaseValue = monster.info.attack2.AttackTime.BaseValue;
+        monster.tempStats.attack2.AttackSpeed.BaseValue = monster.info.attack2.AttackSpeed.BaseValue;
+        monster.tempStats.attack2.AttackSlow.BaseValue = monster.info.attack2.hitSlowTime;
+
 
 
         Monster = monster;
@@ -165,7 +167,7 @@ public class Stat
         statModifiers.Add(mod);
         statModifiers.Sort(CompareModifierOrder);
 
-
+        Debug.Log(mod);
     }
 
     protected virtual int CompareModifierOrder(StatModifier a, StatModifier b)

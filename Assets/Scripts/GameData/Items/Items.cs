@@ -64,7 +64,8 @@ public struct Equipment
     public float atkPowerPercentBonus;
     public float atkTimePercentBonus;
     public float evasionPercentBonus;
-    
+
+    public EquippableItem equippable;
     
 };
 

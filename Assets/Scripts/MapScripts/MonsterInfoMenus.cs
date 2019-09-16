@@ -99,8 +99,10 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                             tower.transform.localScale = new Vector3(tower.transform.localScale.x * 2, tower.transform.localScale.y * 2, tower.transform.localScale.z);
                             tower.GetComponent<Monster>().isTower = true;
                             tower.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
-                            tower.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
-                            tower.gameObject.tag = "Tower";
+                        //tower.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
+                            tower.GetComponent<Monster>().saveToken = JsonUtility.FromJson<MonsterSaveToken>(monsters[i]);
+                            tower.GetComponent<Monster>().LoadMonsterToken(tower.GetComponent<Monster>().saveToken);
+                        tower.gameObject.tag = "Tower";
                             tower.gameObject.name = tower.GetComponent<Monster>().info.species + " " + tower.GetComponent<Monster>().info.index;
 
                             SpriteRenderer[] sprites = tower.GetComponentsInChildren<SpriteRenderer>();
@@ -178,14 +180,14 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             //enCostText.text = "Cost: " + activeMonster.energyCost;
 
             levelText.text = "Level: " + activeMonster.info.level.ToString();
-            atkText.text = "Atk: " + Math.Round(activeMonster.tempStats.Attack.Value, 0).ToString();
-            defText.text = "Def: " + Math.Round(activeMonster.tempStats.Defense.Value, 0).ToString();
-            speText.text = "Speed: " + Math.Round(activeMonster.tempStats.Speed.Value, 0).ToString();
-            precText.text = "Prec: " + Math.Round(activeMonster.tempStats.Precision.Value, 0).ToString();
+            atkText.text = "Atk: " + Math.Round(activeMonster.info.Attack.Value, 0).ToString();
+            defText.text = "Def: " + Math.Round(activeMonster.info.Defense.Value, 0).ToString();
+            speText.text = "Speed: " + Math.Round(activeMonster.info.Speed.Value, 0).ToString();
+            precText.text = "Prec: " + Math.Round(activeMonster.info.Precision.Value, 0).ToString();
             //typeText.text = "Type: " + activeMonster.info.type1 + "/" + activeMonster.info.type2;
-            evasText.text = "Evasion: " + Math.Round(activeMonster.tempStats.evasionBase, 0) + "%";
-            enGenText.text = "En Gen: " + Math.Round((activeMonster.tempStats.EnergyGeneration.Value / 60), 2) + " /s";
-            enCostText.text = "Cost: " + activeMonster.tempStats.EnergyCost.Value;
+            evasText.text = "Evasion: " + Math.Round(activeMonster.info.evasionBase, 0) + "%";
+            enGenText.text = "En Gen: " + Math.Round((activeMonster.info.EnergyGeneration.Value / 60), 2) + " /s";
+            enCostText.text = "Cost: " + activeMonster.info.EnergyCost.Value;
 
             if (activeMonster.expToLevel.ContainsKey(activeMonster.info.level))
             {
@@ -382,35 +384,35 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
     }
 
-    //THIS SUMMONS A NEW MONSTER TO BE USED AS A TOWER AND CREATES A PLAYERPREF FOR IT
-    public void SummonTower()
-    {
-        map = GameObject.FindGameObjectWithTag("Map");
+    ////THIS SUMMONS A NEW MONSTER TO BE USED AS A TOWER AND CREATES A PLAYERPREF FOR IT
+    //public void SummonTower()
+    //{
+    //    map = GameObject.FindGameObjectWithTag("Map");
 
 
-        var random = UnityEngine.Random.Range(1, GameManager.Instance.monstersData.monstersByIdDict.Count + 1);
-        var byId = GameManager.Instance.monstersData.monstersByIdDict;
-        var monstersDict = GameManager.Instance.monstersData.monstersAllDict;
+    //    var random = UnityEngine.Random.Range(1, GameManager.Instance.monstersData.monstersByIdDict.Count + 1);
+    //    var byId = GameManager.Instance.monstersData.monstersByIdDict;
+    //    var monstersDict = GameManager.Instance.monstersData.monstersAllDict;
 
-        //picks a random number. then translates that number to the Monsters by Id Dictionary. Then takes that number, and summons a prefab based on the name of the matching key
-        if (byId.ContainsKey(random))
-        {
-            string species = byId[random];
+    //    //picks a random number. then translates that number to the Monsters by Id Dictionary. Then takes that number, and summons a prefab based on the name of the matching key
+    //    if (byId.ContainsKey(random))
+    //    {
+    //        string species = byId[random];
 
-            if (monstersDict.ContainsKey(species))
-            {
+    //        if (monstersDict.ContainsKey(species))
+    //        {
 
-                var monster = Instantiate(monstersDict[species].monsterPrefab, map.transform.position, Quaternion.identity);
-                monster.transform.SetParent(map.gameObject.transform, true);
-                monster.transform.position = new Vector3(0f, 0f, 10f);
-
-
-                monster.GetComponent<Monster>().SummonNewMonster(monster.GetComponent<Monster>().info.species);
-            }
-        }
+    //            var monster = Instantiate(monstersDict[species].monsterPrefab, map.transform.position, Quaternion.identity);
+    //            monster.transform.SetParent(map.gameObject.transform, true);
+    //            monster.transform.position = new Vector3(0f, 0f, 10f);
 
 
-    }
+    //            monster.GetComponent<Monster>().SummonNewMonster(monster.GetComponent<Monster>().info.species);
+    //        }
+    //    }
+
+
+    //}
 
     public void InfoMenuOpen()
     {
