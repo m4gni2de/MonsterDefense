@@ -64,7 +64,7 @@ public class EquippableItem
                
 
                 //if the equipment item is Type protected, check and make sure the types match. If they do, apply bonuses
-                if (equip.typeMoveReq == monster.info.attack1.type)
+                if (equip.typeMoveReq == monster.info.attack1.type || equip.typeMoveReq == "none")
                 {
                    
 
@@ -89,7 +89,7 @@ public class EquippableItem
                 }
                
 
-                if (equip.typeMoveReq == monster.info.attack2.type)
+                if (equip.typeMoveReq == monster.info.attack2.type || equip.typeMoveReq == "none")
                 {
                     if (equip.atkPowerBonus != 0)
                         monster.info.attack2.Power.AddModifier(new StatModifier(equip.atkPowerBonus, StatModType.Flat, this, equip.name));
@@ -142,7 +142,7 @@ public class EquippableItem
                     monster.info.Speed.AddModifier(new StatModifier(equip.spePercentBonus, StatModType.PercentMult, this, equip.name));
 
                 //if the equipment item is Type protected, check and make sure the types match. If they do, apply bonuses
-                if (equip.typeMoveReq == monster.info.attack1.type)
+                if (equip.typeMoveReq == monster.info.attack1.type || equip.typeMoveReq == "none")
                 {
 
                     if (equip.atkPowerBonus != 0)
@@ -164,7 +164,7 @@ public class EquippableItem
                     
                 }
 
-                if (equip.typeMoveReq == monster.info.attack2.type)
+                if (equip.typeMoveReq == monster.info.attack2.type || equip.typeMoveReq == "none")
                 {
                     if (equip.atkPowerBonus != 0)
                         monster.info.attack2.Power.AddModifier(new StatModifier(equip.atkPowerBonus, StatModType.Flat, this, equip.name));

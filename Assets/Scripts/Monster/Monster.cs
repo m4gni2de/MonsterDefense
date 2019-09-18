@@ -878,7 +878,7 @@ public class Monster : MonoBehaviour
                 info.index = monsterCount;
                 info.maxLevel = monsters[name].maxLevel;
                 info.levelConst = monsters[name].levelConst;
-                info.monsterRank = 0;
+                info.monsterRank = 1;
                 
 
                 PlayerPrefs.SetInt("MonsterCount", monsterCount);
@@ -892,15 +892,18 @@ public class Monster : MonoBehaviour
 
                
 
-                info.equip1.name = "none";
-                info.equip2.name = "none";
+                info.equip1Name = "none";
+                info.equip2Name = "none";
 
 
                 token.CreateMonsterToken(this);
                 saveToken = token.newToken;
 
+                
                 SaveMonsterToken();
                 LoadMonsterToken(saveToken);
+                GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+                
             }
 
             
@@ -927,7 +930,7 @@ public class Monster : MonoBehaviour
 
 
         PlayerPrefs.SetString(saveToken.index.ToString(), JsonUtility.ToJson(saveToken));
-        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+        //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
         
     }
 
@@ -972,11 +975,41 @@ public class Monster : MonoBehaviour
         info.name = saveToken.name;
         info.equip1Name = saveToken.equip1;
         info.equip2Name = saveToken.equip2;
+        info.maxLevel = saveToken.maxLevel;
 
         //info.equippable1 = new EquippableItem();
         //info.equippable2 = new EquippableItem();
 
         SetExp();
+        
+    }
+
+    //call this at the start of each game so the equipment items can be in effect during the games
+    public void MonsterEquipment()
+    {
+        var equipment = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
+        
+        if (equipment.ContainsKey(info.equip1Name))
+        {
+            Equipment equip1 = equipment[info.equip1Name];
+            equip1.equipPrefab.GetComponent<EquipmentItem>().GetEquipInfo(equip1, this, 1);
+        }
+        if (equipment.ContainsKey(info.equip2Name))
+        {
+            Equipment equip2 = equipment[info.equip2Name];
+            equip2.equipPrefab.GetComponent<EquipmentItem>().GetEquipInfo(equip2, this, 2);
+        }
+
+    }
+
+    //use this to get a monster's potential stats without saving them
+    public void CheckStats(MonsterSaveToken m)
+    {
+        MonsterStatsSet();
+
+        StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());      
+        info = stats.Monster.info;
+        tempStats = stats.Monster.tempStats;
         
     }
 }

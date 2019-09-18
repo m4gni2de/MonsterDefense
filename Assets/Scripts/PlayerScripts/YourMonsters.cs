@@ -9,7 +9,7 @@ public class YourMonsters : MonoBehaviour
 
 
     public Dictionary<int, string> yourMonstersDict = new Dictionary<int, string>();
-    //public Dictionary<int, string> yourMonstersAllInfo = new Dictionary<int, string>();
+    //public Dictionary<int, Monster> yourMonstersAllInfo = new Dictionary<int, Monster>();
 
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class YourMonsters : MonoBehaviour
 
             //LoadMonsterFromToken(json);
             yourMonstersDict.Add(i, json);
-            Debug.Log(yourMonstersDict[i]);
+            //Debug.Log(yourMonstersDict[i]);
         }
 
         

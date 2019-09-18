@@ -31,7 +31,21 @@ public class ItemPopMenu : MonoBehaviour
 
     public void DisplayEquipment(EquipmentItem equip, GameObject obj)
     {
-        itemSprite.GetComponent<SpriteRenderer>().sprite = equip.GetComponent<Image>().sprite;
+        GameObject[] r = GameObject.FindGameObjectsWithTag("Respawn");
+        
+        for (int i = 0; i < r.Length; i++)
+        {
+            Destroy(r[i]);
+        }
+
+
+        GameObject item = Instantiate(equip.equip.equipPrefab, transform.position, Quaternion.identity);
+        item.transform.position = itemSprite.transform.position;
+        item.transform.localScale = new Vector3(item.transform.localScale.x * 2f, item.transform.localScale.y * 2f, 1f);
+        item.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
+        item.tag = "Respawn";
+
+        //itemSprite.GetComponent<SpriteRenderer>().sprite = equip.GetComponent<Image>().sprite;
         nameText.text = equip.equip.name;
         typeText.text = equip.equip.equipType.ToString();
         typeReqText.text = "Required Type: " + equip.equip.typeMonsterReq;
@@ -72,5 +86,15 @@ public class ItemPopMenu : MonoBehaviour
         //GetComponentInParent<ItemShop>().DisplayYourItems();
         GetComponentInParent<ItemShop>().UpdateItem();
         gameObject.SetActive(false);
+    }
+
+    public void OnDisable()
+    {
+        GameObject[] r = GameObject.FindGameObjectsWithTag("Respawn");
+
+        for (int i = 0; i < r.Length; i++)
+        {
+            Destroy(r[i]);
+        }
     }
 }

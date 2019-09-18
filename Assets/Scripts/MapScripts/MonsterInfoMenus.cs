@@ -96,13 +96,14 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                             var tower = Instantiate(monstersDict[species].monsterPrefab, menuContentView.transform.position, Quaternion.identity);
                             tower.transform.SetParent(menuContentView.transform, false);
                             tower.transform.position = new Vector3(towerBase.transform.position.x, towerBase.transform.position.y - ((i - 1) * 60), -2f);
-                            tower.transform.localScale = new Vector3(tower.transform.localScale.x * 2, tower.transform.localScale.y * 2, tower.transform.localScale.z);
+                            tower.transform.localScale = new Vector3(tower.transform.localScale.x * 3.5f, tower.transform.localScale.y * 3.5f, tower.transform.localScale.z);
                             tower.GetComponent<Monster>().isTower = true;
                             tower.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
-                        //tower.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
+                            //tower.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
                             tower.GetComponent<Monster>().saveToken = JsonUtility.FromJson<MonsterSaveToken>(monsters[i]);
                             tower.GetComponent<Monster>().LoadMonsterToken(tower.GetComponent<Monster>().saveToken);
-                        tower.gameObject.tag = "Tower";
+                            tower.GetComponent<Monster>().MonsterEquipment();
+                            tower.gameObject.tag = "Tower";
                             tower.gameObject.name = tower.GetComponent<Monster>().info.species + " " + tower.GetComponent<Monster>().info.index;
 
                             SpriteRenderer[] sprites = tower.GetComponentsInChildren<SpriteRenderer>();

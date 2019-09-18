@@ -142,8 +142,8 @@
     <Compile Include="Assets\2DxFX\Scripts\Cartoon.cs" />
     <Compile Include="Assets\2DxFX\Scripts\CircleFade.cs" />
     <Compile Include="Assets\2DxFX\Scripts\Clipping.cs" />
-    <Compile Include="Assets\2DxFX\Scripts\Color.cs" />
     <Compile Include="Assets\2DxFX\Scripts\ColorChange.cs" />
+    <Compile Include="Assets\2DxFX\Scripts\ColorFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\ColorRGB.cs" />
     <Compile Include="Assets\2DxFX\Scripts\CompressionFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\DesintegrationFX.cs" />
@@ -300,6 +300,7 @@
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterEditor.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterHomeIcon.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterInfoPanel.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterUpgrade.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\YourHome.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\ItemScene\ItemShop.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\MainMenu.cs" />

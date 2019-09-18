@@ -65,7 +65,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     {
 
         //if there are monsters that are showing, delete them to avoid duplicates
-        GameObject[] mons = GameObject.FindGameObjectsWithTag("Monster");
+        GameObject[] mons = GameObject.FindGameObjectsWithTag("MonsterIcon");
 
 
         monsterSpriteTotal = 0;
@@ -95,7 +95,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
     public void DisplayMonsters()
     {
-        
+        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
 
 
         var monsters = GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict;
@@ -155,21 +155,25 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                     {
 
                     monsterList[i - 1] = Instantiate(monstersDict[species].monsterPrefab, monsterSprites[i - 1].transform.position, Quaternion.identity);
+                   
                     var monster = monsterList[i - 1];
                     monster.transform.SetParent(scrollContent.transform, true);
 
-                    monster.GetComponent<Monster>().monsterIcon.SetActive(false);
+
                     monster.GetComponent<Tower>().boneStructure.SetActive(false);
-                    monster.GetComponent<Monster>().monsterIcon.transform.localScale = new Vector3(transform.localScale.x * 3, transform.localScale.y * 3, transform.localScale.z);
-                    monster.tag = "Monster";
+                    monster.GetComponent<Monster>().monsterIcon.transform.localScale = new Vector3(25, 25, transform.localScale.z);
+                    monster.tag = "MonsterIcon";
                     monster.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
                     monster.GetComponent<Monster>().saveToken = JsonUtility.FromJson<MonsterSaveToken>(monsters[i]);
                     monster.GetComponent<Monster>().LoadMonsterToken(monster.GetComponent<Monster>().saveToken);
+                    monster.GetComponent<Monster>().monsterIcon.SetActive(true);
+
                     //monster.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
-                    monsterSprites[i - 1].GetComponent<Image>().color = Color.white;
-                    monsterSprites[i - 1].GetComponent<Image>().sprite = monstersDict[species].iconSprite;
-                    monsterSprites[i - 1].GetComponent<MonsterHomeIcon>().nameText.text = monster.GetComponent<Monster>().info.name;
-                    monsterSprites[i - 1].GetComponent<MonsterHomeIcon>().levelText.text = monster.GetComponent<Monster>().info.level.ToString();
+                    //monsterSprites[i - 1].GetComponent<Image>().color = Color.white;
+                    //monsterSprites[i - 1].GetComponent<Image>().sprite = monstersDict[species].iconSprite;
+                    //monsterSprites[i - 1].GetComponent<MonsterHomeIcon>().nameText.text = monster.GetComponent<Monster>().info.name;
+                    //monsterSprites[i - 1].GetComponent<MonsterHomeIcon>().levelText.text = monster.GetComponent<Monster>().info.level.ToString();
+                    //monsterSprites[i - 1].GetComponent<MonsterHomeIcon>().rankText.text = monster.GetComponent<Monster>().info.monsterRank.ToString();
 
                     monsterSpriteTotal += 1;
 
@@ -300,7 +304,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                 monster.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
                 //monster.transform.position = new Vector3(0f, 0f, 10f);
                 monster.transform.position = position;
-                monster.tag = "Monster";
+                monster.tag = "MonsterIcon";
                 monster.GetComponent<Monster>().MonsterSummon(monster.GetComponent<Monster>().info.species);
                 //monster.GetComponent<Monster>().SummonNewMonster(monster.GetComponent<Monster>().info.species);
                 //monster.transform.position = spawnPoint;

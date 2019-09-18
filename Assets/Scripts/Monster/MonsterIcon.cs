@@ -12,6 +12,9 @@ public class MonsterIcon : MonoBehaviour
 
     public SpriteRenderer sp;
     public Image image;
+
+    public GameObject[] rankSprite;
+    public Sprite rankIconSprite;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +34,11 @@ public class MonsterIcon : MonoBehaviour
         {
             
             nameText.text = GetComponentInParent<Monster>().info.name;
-            levelText.text = GetComponentInParent<Monster>().info.level.ToString();  
+            levelText.text = GetComponentInParent<Monster>().info.level.ToString();
+
+            gameObject.tag = GetComponentInParent<Monster>().gameObject.tag;
+
+
         }
     }
 
@@ -46,8 +53,19 @@ public class MonsterIcon : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sortingLayerName = layerName;
     }
 
-    
 
-    
-   
+    public void OnEnable()
+    {
+        if (gameObject.activeSelf)
+        {
+
+            for (int i = 0; i < GetComponentInParent<Monster>().saveToken.rank; i++)
+            {
+                rankSprite[i].GetComponent<Image>().sprite = rankIconSprite;
+                rankSprite[i].GetComponent<Image>().color = Color.white;
+            }
+        }
+    }
+
+
 }

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public enum EquipmentType
 {
     Rune,
+    Axe,
 }
 
 public enum ItemType
@@ -104,12 +105,12 @@ public class AllEquipment
     {
         name = "Aqua Rune",
         id = 1,
-        description = "A Rune that boosts Water Type attacks from Water Type monsters by 8%",
+        description = "A Rune that boosts Water Type attacks from Water Type monsters by 20%",
         equipType = EquipmentType.Rune,
         typeMonsterReq = "Water",
         typeMoveReq = "Water",
         boosts = new string[1] { "Water Type Attacks + 8% Power"},
-        atkPowerPercentBonus = .08f,
+        atkPowerPercentBonus = .20f,
         cost = 200,
         
         
@@ -171,6 +172,33 @@ public class AllEquipment
         
 
     };
+
+    public Equipment FireRune = new Equipment
+    {
+        name = "Fire Rune",
+        id = 6,
+        description = "A Rune that boosts a Fire Type monster's attack stat by 10%",
+        equipType = EquipmentType.Rune,
+        boosts = new string[1] { "+10% Attack" },
+        typeMonsterReq = "Fire",
+        atkPercentBonus = .10f,
+        cost = 200,
+    };
+
+    public Equipment WoodAxe = new Equipment
+    {
+        name = "Wood Axe",
+        id = 7,
+        description = "A simple axe fashioned from, hopefully, the finest wood.",
+        equipType = EquipmentType.Axe,
+        boosts = new string[1] { "+5 Attack Power" },
+        typeMonsterReq = "none",
+        typeMoveReq = "none",
+        atkPowerBonus = 5,
+        cost = 400,
+    };
+
+
 }
 
 
@@ -203,6 +231,18 @@ public class AllItems
     public AllItem ShadowRune = new AllItem
     {
         name = "Shadow Rune",
+        itemType = ItemType.Equipment,
+    };
+
+    public AllItem FireRune = new AllItem
+    {
+        name = "Fire Rune",
+        itemType = ItemType.Equipment,
+    };
+
+    public AllItem WoodAxe = new AllItem
+    {
+        name = "Wood Axe",
         itemType = ItemType.Equipment,
     };
 
@@ -288,8 +328,16 @@ public class Items: MonoBehaviour
         allItemsDict.Add(allItems.NatureRune.name, allItems.NatureRune);
         allItemsDict.Add(allItems.MagicRune.name, allItems.MagicRune);
         allItemsDict.Add(allItems.ShadowRune.name, allItems.MagicRune);
+        allItemsDict.Add(allItems.FireRune.name, allItems.FireRune);
+        allItemsDict.Add(allItems.WoodAxe.name, allItems.WoodAxe);
+
+
+
+
+
         allItemsDict.Add(allItems.ExpBoost.name, allItems.ExpBoost);
         allItemsDict.Add(allItems.LichenthropeCell.name, allItems.LichenthropeCell);
+        
 
 
         foreach (KeyValuePair<string, AllItem> item in allItemsDict)
@@ -320,7 +368,8 @@ public class Items: MonoBehaviour
         allEquipmentDict.Add(allEquipment.NatureRune.name, allEquipment.NatureRune);
         allEquipmentDict.Add(allEquipment.MagicRune.name, allEquipment.MagicRune);
         allEquipmentDict.Add(allEquipment.ShadowRune.name, allEquipment.ShadowRune);
-
+        allEquipmentDict.Add(allEquipment.FireRune.name, allEquipment.FireRune);
+        allEquipmentDict.Add(allItems.WoodAxe.name, allEquipment.WoodAxe);
 
     }
 

@@ -170,7 +170,7 @@ MonoBehaviour:
       critChance: 1
       critMod: 1
       effectChance: 0.15
-      attackTime: 0.2
+      attackTime: 1.2
       attackSpeed: 7
       hitSlowTime: 0.25
       attackMode: 2
@@ -611,19 +611,19 @@ MonoBehaviour:
       equipPrefab: {fileID: 4368197986439467350, guid: 7c61404d0fec41b4390da3fcfa06f12b,
         type: 3}
       description: A Rune that boosts Water Type attacks from Water Type monsters
-        by 8%
+        by 20%
       equipType: 0
-      typeMonsterReq: Nature
+      typeMonsterReq: Water
       typeMoveReq: Water
       boosts:
-      - Water Type Attacks + 8% Power
+      - Water Type Attacks + 20% Power
       cost: 200
       equipSlot: 0
       equipLevel: 0
       equipLevelMax: 0
       equipExp: 0
       hpBonus: 0
-      atkBonus: 5
+      atkBonus: 0
       defBonus: 0
       speedBonus: 0
       precBonus: 0
@@ -637,7 +637,7 @@ MonoBehaviour:
       defPercentBonus: 0
       spePercentBonus: 0
       precPercentBonus: 0
-      atkPowerPercentBonus: 0.08
+      atkPowerPercentBonus: 0.2
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
     ThunderRune:
@@ -770,6 +770,74 @@ MonoBehaviour:
       critChanceBonus: 0
       hpPercentBonus: 0
       atkPercentBonus: 0.1
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+      evasionPercentBonus: 0
+    FireRune:
+      name: Fire Rune
+      id: 6
+      equipPrefab: {fileID: 1718332538006075558, guid: bfa3226430a2bc1448a80147397144f7,
+        type: 3}
+      description: A Rune that boosts a Fire Type monster's attack stat by 10%
+      equipType: 0
+      typeMonsterReq: Fire
+      typeMoveReq: 
+      boosts:
+      - +10% Attack
+      cost: 200
+      equipSlot: 0
+      equipLevel: 0
+      equipLevelMax: 0
+      equipExp: 0
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0.1
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+      evasionPercentBonus: 0
+    WoodAxe:
+      name: Wood Axe
+      id: 7
+      equipPrefab: {fileID: 5211108887654226316, guid: ea6d19c368a06dc40999f3e5f6fb615f,
+        type: 3}
+      description: A simple axe fashioned from, hopefully, the finest wood.
+      equipType: 1
+      typeMonsterReq: none
+      typeMoveReq: none
+      boosts:
+      - +5 Attack Power
+      cost: 400
+      equipSlot: 0
+      equipLevel: 0
+      equipLevelMax: 0
+      equipExp: 0
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 5
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0
       defPercentBonus: 0
       spePercentBonus: 0
       precPercentBonus: 0

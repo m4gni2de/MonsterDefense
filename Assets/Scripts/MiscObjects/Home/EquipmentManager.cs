@@ -93,10 +93,10 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                         var x = Instantiate(allEquips[item.name].equipPrefab, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
                         x.transform.SetParent(transform, true);
                         x.GetComponent<EquipmentItem>().EquipItemInfo(item);
-                        x.transform.localScale = Vector3.one;
+                        x.transform.localScale = new Vector3(2f, 2f, 2f);
                         x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
                         x.GetComponent<SpriteRenderer>().sortingOrder = 1;
-
+                        x.GetComponent<Image>().color = Color.clear;
                         i += 1;
                     }
                     else
@@ -182,9 +182,10 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 var x = Instantiate(allEquips[item.name].equipPrefab, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
                 x.transform.SetParent(transform, true);
                 x.GetComponent<EquipmentItem>().EquipItemInfo(item);
-                x.transform.localScale = Vector3.one;
+                x.transform.localScale = new Vector3(1f, 1f, 1f);
                 x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
                 x.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                
                 i += 1;
             }
         }
