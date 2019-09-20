@@ -920,6 +920,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 05e16dbe91a6d004ebdcf457b5579d72, type: 3}
   - {fileID: 21300000, guid: 0c522935c58789f4f88bf62288fa7266, type: 3}
   - {fileID: 21300000, guid: a1a46427b2036a045a3700d1c9cc0277, type: 3}
+  - {fileID: 21300000, guid: a3ab71f352af63e4c8fe32a47754f8c7, type: 3}
+  - {fileID: 21300000, guid: 013e816d8d7007844bad7fbab8ad1123, type: 3}
+  - {fileID: 21300000, guid: 17f7af636377e604a99e3897e922716b, type: 3}
+  - {fileID: 21300000, guid: 254459b16d421e84bb3e3f8f3d7c9e9b, type: 3}
   waterTileSprites:
   - {fileID: 21300000, guid: 2bc31b23f45f2bb41ab8bc865fb2f483, type: 3}
   - {fileID: 21300000, guid: 9accb74932adf7649be54f62bbc76eb4, type: 3}

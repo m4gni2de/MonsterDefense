@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 5811050810138414331}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 33, y: 33, z: 1}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -160,9 +160,10 @@ MonoBehaviour:
     hitSlowTime: 0
     attackMode: 2
     attackAnimation: {fileID: 0}
+    forceType: 0
   attackEmission: {fileID: 8854900093834370204, guid: 8419a21e586be52438b21e2c876bce17,
     type: 3}
-  attackDemission: {fileID: 8854900093834370204, guid: 8419a21e586be52438b21e2c876bce17,
+  attackDemission: {fileID: 8553430605114916879, guid: 06ea7b119f74e8e428f9190d00604510,
     type: 3}
 --- !u!114 &5811050810138414328
 MonoBehaviour:

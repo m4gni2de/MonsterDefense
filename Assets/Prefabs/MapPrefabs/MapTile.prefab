@@ -215,7 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -282,55 +282,7 @@ MonoBehaviour:
   sp: {fileID: 2714903740389403249}
   topSprite: {fileID: 9159422784620431388}
   animationTime: 0
-  waterTileSprites:
-  - {fileID: 21300000, guid: 2bc31b23f45f2bb41ab8bc865fb2f483, type: 3}
-  - {fileID: 21300000, guid: 9accb74932adf7649be54f62bbc76eb4, type: 3}
-  - {fileID: 21300000, guid: 0e126b8ef12dceb4fb046cc62135dfd3, type: 3}
-  - {fileID: 21300000, guid: a7684e9aee0d5854e9ca867ec0b4d523, type: 3}
-  - {fileID: 21300000, guid: 09fe11459f06e214b964800262b5f215, type: 3}
-  - {fileID: 21300000, guid: 30305244c0dfdf24c90318444c409ceb, type: 3}
-  - {fileID: 21300000, guid: 05c3b46a88c62624eaf57a3d0c4f5078, type: 3}
-  - {fileID: 21300000, guid: 89814df5fa9f3b44094cdd3a5282afa9, type: 3}
-  - {fileID: 21300000, guid: dc7bffc1a82c29043b6ad65627552e4e, type: 3}
-  - {fileID: 21300000, guid: ed9901bc2386daa468604bd72d20cedf, type: 3}
-  - {fileID: 21300000, guid: 1094d95e74a0f304c90ec470ce275d03, type: 3}
-  - {fileID: 21300000, guid: fa45a5a53948bb24487552fc6ab14f4c, type: 3}
-  - {fileID: 21300000, guid: 44e7ff907f479f14caf21d40c8b4f92f, type: 3}
-  - {fileID: 21300000, guid: c0ba3030fa097d24e868176bea60011c, type: 3}
-  - {fileID: 21300000, guid: 8dc3bb9cf094ffe46beda6ebf6c23f27, type: 3}
-  - {fileID: 21300000, guid: 1522726b9893b8243b9b2994752b23e7, type: 3}
-  fireTileSprites:
-  - {fileID: 21300000, guid: 3b00966ac2f16bf42b8323c9423b59e1, type: 3}
-  - {fileID: 21300000, guid: 05cd850bbe447614db8cfb9b0c9448ad, type: 3}
-  - {fileID: 21300000, guid: 2468ea8f9f3393c4f8cc1e1ca930ec5a, type: 3}
-  - {fileID: 21300000, guid: 24eb40bce1f9db240bf6d4baa6d110af, type: 3}
-  - {fileID: 21300000, guid: 7e0b071eee5735244a50af0eecadd304, type: 3}
-  - {fileID: 21300000, guid: fc0eb937c115e72408fd62722130a1bc, type: 3}
-  - {fileID: 21300000, guid: c94fdce48206c744d813192e590a5915, type: 3}
-  - {fileID: 21300000, guid: 45e02cb8924a6db46abc8fbd591ef5d5, type: 3}
-  - {fileID: 21300000, guid: fa3ebfd0b7ae5a444828be9915e01017, type: 3}
-  - {fileID: 21300000, guid: a58b9014bd9f2444a8a722019970917c, type: 3}
-  - {fileID: 21300000, guid: 4e070ae583d31364c8979e1779877c72, type: 3}
-  - {fileID: 21300000, guid: 99c80fd4e06947c4d8e0aefd1a8cc5f5, type: 3}
-  - {fileID: 21300000, guid: 303c9202ebec27b43b15db02a2a8d652, type: 3}
-  - {fileID: 21300000, guid: d10e202622c296e44b4b6071d96050b2, type: 3}
-  - {fileID: 21300000, guid: d74af9a0f2a98d74894fb626a2871760, type: 3}
-  - {fileID: 21300000, guid: 152f62417799a10459c8799e2a1c2aef, type: 3}
-  fireTileTopSprites:
-  - {fileID: 21300000, guid: c68e89197b104ca4e8a3929c98605a99, type: 3}
-  - {fileID: 21300000, guid: 0d493c03cbd932d4bb28b008f97e96f8, type: 3}
-  - {fileID: 21300000, guid: c1c8fdf3d6c0f9c47af46905ba82d463, type: 3}
-  - {fileID: 0}
-  fireDebris: {fileID: 3388687006041257516, guid: 7983ccf66110fcb4c8384fcb63dad201,
-    type: 3}
-  natureTileBrush:
-  - {fileID: 132768952106078679, guid: 191f3d17b779dcd4a8451ae8b28f61a4, type: 3}
-  magicTileTopSprites:
-  - {fileID: 21300000, guid: 5052a4131477fc948bd0426593c36fe3, type: 3}
-  magicTileBurst: {fileID: 4932792091010260469, guid: 42a95165d0124df45b413884979ba50c,
-    type: 3}
-  electricTileTopSprite: {fileID: 21300000, guid: 060fef0fd0fd5124eae23f468f1a2d24,
-    type: 3}
+  maps: {fileID: 0}
   isRoad: 0
 --- !u!212 &9159422784620431388
 SpriteRenderer:

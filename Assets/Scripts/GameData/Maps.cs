@@ -91,6 +91,25 @@ public class AllMaps
 
     };
 
+    public MapInfo BaseMap = new MapInfo
+    {
+        mapName = "Base Map",
+        mapCode = "04060500020006040002020403000000030206030601020300010303000203010306040506030004040002000303040005050202050205020100050405030504020004050302",
+        pathCode = new string[1] { "040027024025036037048035032019018007020023034035048049060061" },
+        enemies = new int[3] { 1, 2, 3 },
+        enemyChance = new float[3] { 333, 666, 1000 },
+        enemyMax = 50,
+        spawnX = -153f,
+        spawnY = -32.1f,
+        levelMin = 1,
+        levelMax = 4,
+        spawnInterval = 3.8f,
+        mapId = 3,
+        width = 350,
+        height = 175,
+
+    };
+
 }
 
 
@@ -155,6 +174,7 @@ public class Maps : MonoBehaviour
         allMapsDict.Add(allMaps.TestMap.mapName, allMaps.TestMap);
         allMapsDict.Add(allMaps.DualPath.mapName, allMaps.DualPath);
         allMapsDict.Add(allMaps.SmallMap.mapName, allMaps.SmallMap);
+        allMapsDict.Add(allMaps.BaseMap.mapName, allMaps.BaseMap);
     }
 
 }
@@ -188,13 +208,35 @@ public class TileSprite
 
             if (previousTile.transform.position.x < currentTile.transform.position.x && previousTile.transform.position.y < currentTile.transform.position.y)
             {
+                    
                 currentTile.roadSprite.sprite = maps.roadTiles[0];
                 currentTile.pathDirection = "NE";
+
+                if (!currentTile.pathDirections.Contains(3))
+                {
+                    currentTile.pathDirections.Add(3);
+                }
+
+                if (!previousTile.pathDirections.Contains(2))
+                {
+                    previousTile.pathDirections.Add(2);
+                }
             }
             if (previousTile.transform.position.x > currentTile.transform.position.x && previousTile.transform.position.y > currentTile.transform.position.y)
             {
                 currentTile.roadSprite.sprite = maps.roadTiles[0];
                 currentTile.pathDirection = "SW";
+                
+
+                if (!currentTile.pathDirections.Contains(2))
+                {
+                    currentTile.pathDirections.Add(2);
+                }
+
+                if (!previousTile.pathDirections.Contains(3))
+                {
+                    previousTile.pathDirections.Add(3);
+                }
             }
 
             if (previousTile.transform.position.x < currentTile.transform.position.x && previousTile.transform.position.y > currentTile.transform.position.y)
@@ -202,12 +244,34 @@ public class TileSprite
                 currentTile.roadSprite.sprite = maps.roadTiles[0];
                 currentTile.pathDirection = "SE";
                 currentTile.transform.rotation = new Quaternion(0f, 180f, 0f, 0f);
+                
+
+                if (!currentTile.pathDirections.Contains(1))
+                {
+                    currentTile.pathDirections.Add(1);
+                }
+
+                if (!previousTile.pathDirections.Contains(4))
+                {
+                    previousTile.pathDirections.Add(4);
+                }
             }
             if (previousTile.transform.position.x > currentTile.transform.position.x && previousTile.transform.position.y < currentTile.transform.position.y)
             {
                 currentTile.roadSprite.sprite = maps.roadTiles[0];
                 currentTile.pathDirection = "NW";
                 currentTile.transform.rotation = new Quaternion(0f, 180f, 0f, 0f);
+                
+
+                if (!currentTile.pathDirections.Contains(4))
+                {
+                    currentTile.pathDirections.Add(4);
+                }
+
+                if (!previousTile.pathDirections.Contains(1))
+                {
+                    previousTile.pathDirections.Add(1);
+                }
             }
 
             if (previousTile.pathDirection == "NE" && currentTile.pathDirection == "SE" || previousTile.pathDirection == "NW" && currentTile.pathDirection == "SW")
@@ -239,10 +303,53 @@ public class TileSprite
 
             }
 
-            if (currentTile.pathCount > 1)
-            {
-                currentTile.roadSprite.sprite = maps.roadTiles[4];
+            //if (currentTile.pathCount > 1)
+            //{
+                if (previousTile.pathDirections.Contains(1) && previousTile.pathDirections.Contains(2) && previousTile.pathDirections.Contains(3))
+                {
+                    previousTile.roadSprite.sprite = maps.roadTiles[7];
+                previousTile.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
             }
+
+                if (previousTile.pathDirections.Contains(1) && previousTile.pathDirections.Contains(2) && previousTile.pathDirections.Contains(4))
+                {
+                    previousTile.roadSprite.sprite = maps.roadTiles[6];
+                previousTile.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+            }
+
+                if (previousTile.pathDirections.Contains(1) && previousTile.pathDirections.Contains(3) && previousTile.pathDirections.Contains(4))
+                {
+                    previousTile.roadSprite.sprite = maps.roadTiles[8];
+                previousTile.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+            }
+
+                if (previousTile.pathDirections.Contains(2) && previousTile.pathDirections.Contains(3) && previousTile.pathDirections.Contains(4))
+                {
+                    previousTile.roadSprite.sprite = maps.roadTiles[5];
+                previousTile.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+            }
+
+                if (previousTile.pathDirections.Contains(1) && previousTile.pathDirections.Contains(2) && previousTile.pathDirections.Contains(3) && previousTile.pathDirections.Contains(4))
+                {
+                    previousTile.roadSprite.sprite = maps.roadTiles[4];
+                previousTile.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+            }
+
+                Debug.Log(previousTile.tileNumber + "   " + previousTile.pathDirections.Count);
+                //if (currentTile.pathDirections.Count == 4)
+                //{
+                //    currentTile.roadSprite.sprite = maps.roadTiles[4];
+                //}
+
+                //if (currentTile.pathDirections.Count == 3)
+                //{
+
+
+
+                //}
+
+
+            //}
         }
 
     }

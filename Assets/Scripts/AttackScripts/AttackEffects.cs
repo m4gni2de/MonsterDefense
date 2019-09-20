@@ -50,7 +50,7 @@ public class AttackEffects : MonoBehaviour
         if (isMoving)
         {
             
-            transform.Translate(direction / (100 /Attack.attackSpeed), Space.World);
+            transform.Translate(direction / (150 /Attack.attackSpeed), Space.World);
             
             
         }

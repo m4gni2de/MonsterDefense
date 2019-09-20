@@ -339,6 +339,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         //if the tower is being placed, it's movement is that of the mouse
         if (isBeingPlaced == true)
         {
+            
             CheckForPlacement();
             mainCamera.GetComponent<CameraMotion>().isFree = false;
             //creates a copy of the tower in the menu, so when the tower is placed, the player knows that it has been placed. 
@@ -366,6 +367,9 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             }
 
 
+            //make the tower icon smaller so you can have a better idea of the placement of the tower
+            transform.localScale = new Vector3(1f, 1f, monster.monsterIcon.transform.localScale.z);
+
             //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = false;
 
             var position = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
@@ -384,30 +388,17 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     InvokeRepeating("TowerEnergy", 0, 1);
 
 
-                    //Map.GetComponent<MapDetails>().MapEnergyRate(monster.energyGeneration / 60);
-                    //Map.GetComponent<MapDetails>().UseMapEnergy(monster.energyCost);
-                    //mapInformation.playerEnergy -= monster.energyCost;
-
                     Map.GetComponent<MapDetails>().MapEnergyRate(monster.tempStats.EnergyGeneration.Value / 60);
                     Map.GetComponent<MapDetails>().UseMapEnergy(monster.tempStats.EnergyCost.Value);
                     mapInformation.playerEnergy -= monster.tempStats.EnergyCost.Value;
 
-
+                    
 
                     //set the current tile to hold this monster's data as the monster on that tile
                     mapTileOn.MonsterOnTile(gameObject.GetComponent<Monster>());
                     //creates local variables for the height of the monster's legs and the relative position to the monster's body the legs are
 
-
-
-
-
-
-
-
-
-
-
+                    //makes any sprites of the tower set to the monster sorting layer
                     SpriteRenderer[] sprites = gameObject.GetComponentsInChildren<SpriteRenderer>();
 
                     for (int s = 0; s < sprites.Length; s++)
@@ -460,6 +451,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     Destroy(copy);
                     isCopy = false;
                     towerMenu.SetActive(false);
+                    //make the tower icon back to its original size
+                    transform.localScale = new Vector3(transform.localScale.x * 3.5f, transform.localScale.y * 3.5f, transform.localScale.z);
 
                 }
             }

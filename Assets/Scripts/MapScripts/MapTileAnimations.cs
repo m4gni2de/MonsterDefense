@@ -246,11 +246,11 @@ public class MapTileAnimations : MonoBehaviour
         magic.sortingOrder = topSprite.sortingOrder - 1;
         topSprite = magic;
 
-        //creates a copy of the original tile to retain tile thickness
-        var sprite = Instantiate(sp, transform.position, Quaternion.identity);
-        sprite.transform.SetParent(GetComponentInParent<MapTile>().transform);
-        sprite.transform.localScale = new Vector3(1f, 1f, 1f);
-        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.g, .75f);
+        ////creates a copy of the original tile to retain tile thickness
+        //var sprite = Instantiate(sp, transform.position, Quaternion.identity);
+        //sprite.transform.SetParent(GetComponentInParent<MapTile>().transform);
+        //sprite.transform.localScale = new Vector3(1f, 1f, 1f);
+        //sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.g, .75f);
 
         //turns the tile in to a smokey looking tile, and sets the smoke level to a random number to give the tiles a uniqueness
         sp.gameObject.AddComponent<SmokeFX>();
@@ -281,7 +281,7 @@ public class MapTileAnimations : MonoBehaviour
                 rend.sortingOrder = 1000;
             }
 
-            if (sp.gameObject.GetComponent<SmokeFX>()._Value2 >= .93f)
+            if (sp.gameObject.GetComponent<SmokeFX>()._Value2 >= .85f)
             {
                 sp.gameObject.GetComponent<SmokeFX>()._Alpha = 1 - sp.gameObject.GetComponent<SmokeFX>()._Value2;
                 sp.gameObject.GetComponent<SmokeFX>()._Value2 = 1 - sp.gameObject.GetComponent<SmokeFX>()._Value2;

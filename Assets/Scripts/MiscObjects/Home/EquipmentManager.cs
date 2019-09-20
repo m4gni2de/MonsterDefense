@@ -256,6 +256,8 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(monster);
                 isTapping = false;
                 gameObject.SetActive(false);
+                int amount = PlayerPrefs.GetInt(equipment.equip.name);
+                PlayerPrefs.SetInt(equipment.equip.name, amount - 1);
             }
             else
             {

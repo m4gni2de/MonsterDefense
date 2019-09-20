@@ -106,60 +106,63 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
         {
             string name = equip.Key;
 
-
-
-            Equipment item = allEquips[name];
-            int itemCount = PlayerPrefs.GetInt(item.name);
-
-            GameObject a = Instantiate(allEquips[item.name].equipPrefab, itemScrollContent.transform.position, Quaternion.identity);
-
-
-            //itemQuantities[shopSpriteTotal] = itemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
-            a.transform.SetParent(itemScrollContent.transform, true);
-
-
-
-            a.GetComponent<EquipmentItem>().EquipItemInfo(item);
-            a.GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
-            a.GetComponent<EquipmentItem>().valueText.text = PlayerPrefs.GetInt(item.name).ToString();
-
-
-            a.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-            a.GetComponent<SpriteRenderer>().sortingOrder = 1;
-            a.GetComponent<Image>().color = Color.clear;
-            a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
-            a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
-
-            //itemSprites[itemSpriteTotal] = Instantiate(allEquips[item.name].equipPrefab, itemScrollContent.transform.position, Quaternion.identity);
-            ////itemQuantities[itemSpriteTotal] = itemSprites[itemSpriteTotal].GetComponentInChildren<TMP_Text>();
-            //itemSprites[itemSpriteTotal].transform.SetParent(itemScrollContent.transform, true);
-
-
-
-            //itemSprites[itemSpriteTotal].GetComponent<EquipmentItem>().EquipItemInfo(item);
-            //itemSprites[itemSpriteTotal].GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
-            //itemSprites[itemSpriteTotal].GetComponent<EquipmentItem>().valueText.text = PlayerPrefs.GetInt(item.name).ToString();
-
-
-            //itemSprites[itemSpriteTotal].GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-            //itemSprites[itemSpriteTotal].GetComponent<SpriteRenderer>().sortingOrder = 1;
-            //itemSprites[itemSpriteTotal].GetComponent<SpriteRenderer>().sprite = null;
-            //itemSprites[itemSpriteTotal].transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
-
-            //itemQuantities[itemSpriteTotal] = Instantiate(itemQuantity, itemQuantity.transform.position, Quaternion.identity);
-            //itemQuantities[itemSpriteTotal].transform.position = itemQuantity.transform.position;
-            //itemQuantities[itemSpriteTotal].transform.SetParent(a.transform, true);
-
-            //itemQuantities[itemSpriteTotal].text = PlayerPrefs.GetInt(item.name).ToString();
-
-
-            itemSpriteTotal += 1;
-            rowCheck += .25f;
-
-            if (rowCheck > .8f)
+            //if the player has more than 0 of the item, display it
+            if (equip.Value > 0)
             {
-                rowCheck = 0f;
-                row += 1;
+
+                Equipment item = allEquips[name];
+                int itemCount = PlayerPrefs.GetInt(item.name);
+
+                GameObject a = Instantiate(allEquips[item.name].equipPrefab, itemScrollContent.transform.position, Quaternion.identity);
+
+
+                //itemQuantities[shopSpriteTotal] = itemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
+                a.transform.SetParent(itemScrollContent.transform, true);
+
+
+
+                a.GetComponent<EquipmentItem>().EquipItemInfo(item);
+                a.GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
+                a.GetComponent<EquipmentItem>().valueText.text = PlayerPrefs.GetInt(item.name).ToString();
+
+
+                a.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
+                a.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                a.GetComponent<Image>().color = Color.clear;
+                a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
+                a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
+
+                //itemSprites[itemSpriteTotal] = Instantiate(allEquips[item.name].equipPrefab, itemScrollContent.transform.position, Quaternion.identity);
+                ////itemQuantities[itemSpriteTotal] = itemSprites[itemSpriteTotal].GetComponentInChildren<TMP_Text>();
+                //itemSprites[itemSpriteTotal].transform.SetParent(itemScrollContent.transform, true);
+
+
+
+                //itemSprites[itemSpriteTotal].GetComponent<EquipmentItem>().EquipItemInfo(item);
+                //itemSprites[itemSpriteTotal].GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
+                //itemSprites[itemSpriteTotal].GetComponent<EquipmentItem>().valueText.text = PlayerPrefs.GetInt(item.name).ToString();
+
+
+                //itemSprites[itemSpriteTotal].GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
+                //itemSprites[itemSpriteTotal].GetComponent<SpriteRenderer>().sortingOrder = 1;
+                //itemSprites[itemSpriteTotal].GetComponent<SpriteRenderer>().sprite = null;
+                //itemSprites[itemSpriteTotal].transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
+
+                //itemQuantities[itemSpriteTotal] = Instantiate(itemQuantity, itemQuantity.transform.position, Quaternion.identity);
+                //itemQuantities[itemSpriteTotal].transform.position = itemQuantity.transform.position;
+                //itemQuantities[itemSpriteTotal].transform.SetParent(a.transform, true);
+
+                //itemQuantities[itemSpriteTotal].text = PlayerPrefs.GetInt(item.name).ToString();
+
+
+                itemSpriteTotal += 1;
+                rowCheck += .25f;
+
+                if (rowCheck > .8f)
+                {
+                    rowCheck = 0f;
+                    row += 1;
+                }
             }
 
         }

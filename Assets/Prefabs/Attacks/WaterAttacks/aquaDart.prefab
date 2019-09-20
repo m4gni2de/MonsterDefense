@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 8854931403561263675}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.5465317, y: -10.371319, z: 0}
-  m_LocalScale: {x: 30, y: 30, z: 1}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -158,6 +158,7 @@ MonoBehaviour:
     hitSlowTime: 0
     attackMode: 0
     attackAnimation: {fileID: 0}
+    forceType: 0
   attackEmission: {fileID: 6247789708872977326, guid: cd3d53e73f4741042882e82ccf4e8548,
     type: 3}
   attackDemission: {fileID: 288764924364765949, guid: 3552b1d94b0ef33469caf77f46752c34,

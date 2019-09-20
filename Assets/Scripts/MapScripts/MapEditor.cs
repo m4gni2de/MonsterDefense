@@ -404,6 +404,7 @@ public class MapEditor : MonoBehaviour
 
                         //replace tile with a road tile
                         tile.GetComponent<MapTile>().Road();
+                        tile.GetComponent<MapTile>().roadSprite.sprite = tile.GetComponent<MapTile>().road;
                     }
 
 

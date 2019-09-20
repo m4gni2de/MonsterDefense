@@ -218,7 +218,6 @@
     <Compile Include="Assets\Puppet2D\FightingGame\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Puppet2D\FightingGame\Scripts\FighterAIController.cs" />
     <Compile Include="Assets\Puppet2D\FightingGame\Scripts\FighterRandomIndex.cs" />
-    <Compile Include="Assets\Puppet2D\Platformer\Scripts\PlatformerSimpleController.cs" />
     <Compile Include="Assets\Puppet2D\Scripts\Puppet2D_AngleLimitNode.cs" />
     <Compile Include="Assets\Puppet2D\Scripts\Puppet2d_AnimatorController.cs" />
     <Compile Include="Assets\Puppet2D\Scripts\Puppet2D_BakeAnimation.cs" />

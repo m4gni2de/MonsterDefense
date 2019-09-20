@@ -10,7 +10,7 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
     public TMP_Text tileNumberText, tileAttText;
     public SpriteRenderer tileSprite;
     public Image monsterSprite;
-    public GameObject monsterInfoMenu;
+    public GameObject monsterInfoMenu, worldMap;
     public MonsterInfoMenus infoMenu;
 
     public MapTile activeTile;
@@ -18,6 +18,9 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
 
     //the main Camera on the map
     public Camera mainCamera;
+
+    //a list of the monsters who are able to be placed on to the given Map Tile
+    public List<Monster> placeableMonsters = new List<Monster>();
 
     // Start is called before the first frame update
     void Start()
@@ -85,8 +88,14 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
             }
 
         }
+    }
 
 
 
+
+    //click this to open the monster menu to place a monster on the given tile
+    public void PlaceMonsterBtn()
+    {
+        worldMap.GetComponent<MonsterInfoMenus>().TowerMenuBtn();
     }
 }

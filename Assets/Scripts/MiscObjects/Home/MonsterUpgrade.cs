@@ -233,6 +233,7 @@ public class MonsterUpgrade : MonoBehaviour, IPointerDownHandler
 
         }
 
+        //set the changes that will occur for the newly upgraded monster
         m3 = activeMonster;
 
         m3.saveToken.rank = activeMonster.saveToken.rank +1;
