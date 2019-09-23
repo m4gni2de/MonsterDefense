@@ -109,8 +109,13 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
     //a list of enemies that are in range of this tower's attacks
     public List<Enemy> enemiesInRange = new List<Enemy>();
-
+    //order in which this monster prioritizes enemys
     public List<Enemy> targetOrder = new List<Enemy>();
+
+
+    //canvas used for in game sliders for a Tower monster
+    public GameObject towerCanvas;
+    public EnergyBar staminaBar;
 
     // Start is called before the first frame update
     void Start()
@@ -433,7 +438,11 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     gameObject.transform.localScale = new Vector3(1.7f, 1.7f, transform.localScale.z);
                     transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
 
+                    //make the menu of your towers vanish
                     towerMenu.SetActive(false);
+
+                    //set active this tower's canvas
+                    towerCanvas.SetActive(true);
 
                 }
                 //if the tower is placed at an ineligible space, revert it back to the manu and destroy the avatar/placeholder
@@ -711,6 +720,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
                     attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
                     attackSprite.GetComponent<AttackEffects>().AttackMotion(position - attackPoint.transform.position);
+                    staminaBar.BarProgress += attack.staminaGained + (monster.tempStats.Stamina.Value / 1000);
                 }
 
 
@@ -725,10 +735,23 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
                     attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
                     attackSprite.GetComponent<AttackEffects>().AttackMotion(position - attackPoint.transform.position);
+                    staminaBar.BarProgress += attack.staminaGained + (monster.tempStats.Stamina.Value / 1000);
                 }
             }
         }
+
+
+        if (staminaBar.BarProgress >= 1)
+        {
+            SpecialAttack();
+        }
         
+    }
+
+    //DO SOMETHING HERE WHEN A MONSTER'S STAMINA GETS TO FULL
+    public void SpecialAttack()
+    {
+        staminaBar.BarProgress = 0;
     }
 
     //method used to keep track of time between attacks

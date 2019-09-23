@@ -17,9 +17,11 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     public GameObject menuCanvas;
     public GameObject popMenuCanvas, popMenuObject;
 
+    
 
+    //objects related to the active monster's target moe
     public TMP_Dropdown targetModeDropdown;
-
+    public TargetMode targetMode = new TargetMode();
 
     //variables for the motion of the Tower Menu
     public GameObject loadTowerBtn;
@@ -32,9 +34,10 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
     public GameObject towerBase;
 
-    public TMP_Text monsterName, attack1BtnText, attack2BtnText, levelText, atkText, defText, speText, precText, typeText, toLevelText, evasText, enGenText, enCostText;
+    public TMP_Text monsterName, attack1BtnText, attack2BtnText, levelText, atkText, defText, speText, precText, typeText, toLevelText, evasText, enGenText, enCostText, staminaText;
     public Slider expSlider;
     public Image type1, type2, equip1, equip2;
+    public EnergyBar staminaBar;
 
     //bool to make sure the towers in the list of towers only spawns one time
     public bool towersFilled;
@@ -42,7 +45,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     //the main Camera on the map
     public Camera mainCamera;
 
-    public TargetMode targetMode = new TargetMode();
+    
 
     private void Awake()
     {
@@ -189,6 +192,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             evasText.text = "Evasion: " + Math.Round(activeMonster.info.evasionBase, 0) + "%";
             enGenText.text = "En Gen: " + Math.Round((activeMonster.info.EnergyGeneration.Value / 60), 2) + " /s";
             enCostText.text = "Cost: " + activeMonster.info.EnergyCost.Value;
+            staminaText.text = "Stamina: " + activeMonster.tempStats.Stamina.Value;
 
             if (activeMonster.expToLevel.ContainsKey(activeMonster.info.level))
             {
@@ -261,7 +265,8 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             }
 
 
-            targetModeDropdown.value = (int)Enum.ToObject(typeof(TargetMode), activeMonster.GetComponent<Tower>().targetMode); 
+            targetModeDropdown.value = (int)Enum.ToObject(typeof(TargetMode), activeMonster.GetComponent<Tower>().targetMode);
+            staminaBar.BarProgress = activeMonster.GetComponent<Tower>().staminaBar.BarProgress;
 
             //indicator.transform.position = new Vector2(activeMonster.specs.head.transform.position.x, activeMonster.specs.head.transform.position.y + 40);
         }

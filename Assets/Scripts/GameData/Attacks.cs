@@ -27,7 +27,9 @@ public struct MonsterAttack
     public float critChance;
     public float critMod;
     public float effectChance;
+    //modifier that affects the length of time between this attack's uses
     public float attackTime;
+    //how fast the attack moves towards enemies
     public float attackSpeed;
     //length of time a monster is slowed when hit by this attack
     public float hitSlowTime;
@@ -38,6 +40,9 @@ public struct MonsterAttack
 
 
     public DamageForce forceType;
+
+    //every time this attack is used, the monster using it gains this amount of stamina
+    public float staminaGained;
 
 };
 
@@ -83,6 +88,7 @@ public class AllAttacks
         attackSpeed = 1.0f,
         hitSlowTime = .2f,
         attackMode = AttackMode.Projectile,
+        staminaGained = .06f,
         
         
 
@@ -104,7 +110,8 @@ public class AllAttacks
         attackSpeed = 14f,
         hitSlowTime = .6f,
         attackMode = AttackMode.Projectile,
-       
+        staminaGained = .06f,
+
     };
 
     public MonsterAttack mistySpray = new MonsterAttack
@@ -123,7 +130,8 @@ public class AllAttacks
         attackSpeed = 7f,
         hitSlowTime = .25f,
         attackMode = AttackMode.Projectile,
-        
+        staminaGained = .06f,
+
 
     };
 
@@ -143,7 +151,8 @@ public class AllAttacks
         attackSpeed = 12f,
         hitSlowTime = .15f,
         attackMode = AttackMode.Projectile,
-        
+        staminaGained = .06f,
+
     };
 
     public MonsterAttack shadowBP = new MonsterAttack
@@ -162,6 +171,7 @@ public class AllAttacks
         attackSpeed = 13f,
         hitSlowTime = .35f,
         attackMode = AttackMode.Punch,
+        staminaGained = .06f,
 
     };
 
@@ -181,8 +191,9 @@ public class AllAttacks
         attackSpeed = 7f,
         hitSlowTime = .75f,
         attackMode = AttackMode.Punch,
-        
-        
+        staminaGained = .06f,
+
+
     };
 
     public MonsterAttack energyDragon = new MonsterAttack
@@ -201,7 +212,8 @@ public class AllAttacks
         attackSpeed = 5f,
         hitSlowTime = .85f,
         attackMode = AttackMode.Punch,
-        
+        staminaGained = .06f,
+
 
     };
 
@@ -221,6 +233,7 @@ public class AllAttacks
         attackSpeed = 7f,
         hitSlowTime = .63f,
         attackMode = AttackMode.Punch,
+        staminaGained = .06f,
 
 
     };

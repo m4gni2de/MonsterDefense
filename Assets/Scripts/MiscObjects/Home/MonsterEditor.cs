@@ -11,7 +11,7 @@ public class MonsterEditor : MonoBehaviour
 
     public TMP_Dropdown attackSelector;
 
-    public TMP_Text newRange, newPower, newTime, newCooldown, newSlowdown, newEffect, newEffectChance;
+    public TMP_Text newRange, newPower, newTime, newCooldown, newSlowdown, newEffect, newEffectChance, newStaminaGained;
     public Image typeImage;
 
     public Button[] objectButtons;
@@ -175,6 +175,7 @@ public class MonsterEditor : MonoBehaviour
             newSlowdown.text = attack.hitSlowTime + " s";
             newEffect.text = attack.effectName;
             newEffectChance.text = (attack.effectChance * 100).ToString();
+            newStaminaGained.text = (attack.staminaGained * 100) + "%";
 
             if (attack.effectName == "none")
             {

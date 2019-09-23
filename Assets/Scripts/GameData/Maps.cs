@@ -335,7 +335,7 @@ public class TileSprite
                 previousTile.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
             }
 
-                Debug.Log(previousTile.tileNumber + "   " + previousTile.pathDirections.Count);
+                //Debug.Log(previousTile.tileNumber + "   " + previousTile.pathDirections.Count);
                 //if (currentTile.pathDirections.Count == 4)
                 //{
                 //    currentTile.roadSprite.sprite = maps.roadTiles[4];

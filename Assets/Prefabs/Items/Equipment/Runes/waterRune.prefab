@@ -123,6 +123,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7801907493886734839, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7801907493886734836, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
         type: 3}
       propertyPath: equipDetails.name
