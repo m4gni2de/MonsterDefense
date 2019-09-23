@@ -133,12 +133,22 @@ PrefabInstance:
       propertyPath: equipDetails.name
       value: Water Rune
       objectReference: {fileID: 0}
+    - target: {fileID: 7801907493886734836, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
+        type: 3}
+      propertyPath: sp
+      value: 
+      objectReference: {fileID: 4368197986439467348}
     - target: {fileID: 4372862001538172372, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 618f17b5a0f0cb04e8e4b8be0571c959,
         type: 3}
+    - target: {fileID: 4372862001538172372, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7801907493886734838, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -199,6 +209,12 @@ PrefabInstance:
 --- !u!1 &4368197986439467350 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7801907493886734837, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5826256501359943843}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &4368197986439467348 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7801907493886734839, guid: f8edbf64f38e2db4cb621d9a1879bf4d,
     type: 3}
   m_PrefabInstance: {fileID: 5826256501359943843}
   m_PrefabAsset: {fileID: 0}

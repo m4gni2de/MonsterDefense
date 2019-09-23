@@ -107,6 +107,7 @@ public class MonsterToken
         newToken.equip2 = monster.info.equip2Name;
         newToken.koCount = monster.info.koCount;
         newToken.maxLevel = monster.info.maxLevel;
+        newToken.specialAbility = monster.info.abilityName;
     }
 
 }

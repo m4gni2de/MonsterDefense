@@ -28,8 +28,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     private int columns, rows;
     private float height, width;
 
-    //private Map Map;
-    private GameObject Map;
+    
+    public GameObject Map;
     private GameObject levelTile;
     private MapInformation mapInformation;
 
@@ -60,7 +60,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     public MapTile mapTileOn;
 
     //private gameObject for the induvidual tiles on the map
-    private GameObject[] maps;
+    private GameObject[] tiles;
 
     //private GameObject for the tower overlay UI menu
     private GameObject towerMenu;
@@ -123,7 +123,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         monster = GetComponent<Monster>();
         specs = monster.specs;
 
-        maps = GameObject.FindGameObjectsWithTag("MapTile");
+        tiles = GameObject.FindGameObjectsWithTag("MapTile");
         mainCamera = GameObject.Find("Main Camera");
         //Map = GameObject.FindGameObjectWithTag("Map").GetComponent<Map>();
         Map = GameObject.FindGameObjectWithTag("Map");
@@ -284,7 +284,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                         }
                     }
                 }
-                //What do to on a long tap
+                //What do to on a long hold
                 //else
                 //{
                 //    isTapped = false;
@@ -310,6 +310,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
                 //}
             }
+            //what to do on a long tap
             else
             {
                 if (acumTime >= .7f)
@@ -412,9 +413,9 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     }
 
                     //changes the tiles back to the correct color and then the tower is ready for attack
-                    for (int m = 0; m < maps.Length; m++)
+                    for (int m = 0; m < tiles.Length; m++)
                     {
-                        maps[m].GetComponent<MapTile>().sp.color = maps[m].GetComponent<MapTile>().tileColor;
+                        tiles[m].GetComponent<MapTile>().sp.color = tiles[m].GetComponent<MapTile>().tileColor;
 
 
                     }
@@ -433,6 +434,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     isIdle = true;
                     AttackScan();
 
+                    //add this tower to the map's list of your active towers
+                    Map.GetComponent<MapDetails>().liveTowers.Add(monster);
 
                     transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
                     gameObject.transform.localScale = new Vector3(1.7f, 1.7f, transform.localScale.z);
@@ -448,9 +451,9 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 //if the tower is placed at an ineligible space, revert it back to the manu and destroy the avatar/placeholder
                 else
                 {
-                    for (int m = 0; m < maps.Length; m++)
+                    for (int m = 0; m < tiles.Length; m++)
                     {
-                        maps[m].GetComponent<MapTile>().sp.color = maps[m].GetComponent<MapTile>().tileColor;
+                        tiles[m].GetComponent<MapTile>().sp.color = tiles[m].GetComponent<MapTile>().tileColor;
                     }
 
                     var copy = GameObject.Find(gameObject.name + " Placeholder" + monster.info.index);
@@ -490,15 +493,15 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             Color colorNo = new Color(1.0f, 0.32f, 0.40f, 0.76f);
 
             //the tiles that it can be placed on glow green, while the tiles it can't be placed on glow red
-            for (int m = 0; m < maps.Length; m++)
+            for (int m = 0; m < tiles.Length; m++)
             {
-                if (maps[m].GetComponent<MapTile>().isBuildable == true)
+                if (tiles[m].GetComponent<MapTile>().isBuildable == true)
                 {
-                    maps[m].GetComponent<MapTile>().sp.color = colorYes;
+                    tiles[m].GetComponent<MapTile>().sp.color = colorYes;
                 }
                 else
                 {
-                    maps[m].GetComponent<MapTile>().sp.color = colorNo;
+                    tiles[m].GetComponent<MapTile>().sp.color = colorNo;
                 }
 
 
@@ -743,15 +746,33 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
         if (staminaBar.BarProgress >= 1)
         {
-            SpecialAttack();
+            SpecialAbility();
         }
         
     }
 
     //DO SOMETHING HERE WHEN A MONSTER'S STAMINA GETS TO FULL
-    public void SpecialAttack()
+    public void SpecialAbility()
     {
-        staminaBar.BarProgress = 0;
+        //if the monster's ability can still be used, use it
+        if (monster.info.specialAbility.castingCount < monster.info.specialAbility.castingAmmo)
+        {
+            MonsterAbility ability = new MonsterAbility(monster.info.specialAbility, monster);
+            
+            //add another casting count to the ability's total uses
+            monster.info.specialAbility.castingCount += 1;
+
+            //if the monster has any ammo left for the ability, reset your stanima gauge so the monster can charge up another
+            if (monster.info.specialAbility.castingCount < monster.info.specialAbility.castingAmmo)
+            {
+                staminaBar.BarProgress = 0;
+            }
+            else
+            {
+                //
+            }
+        }
+        
     }
 
     //method used to keep track of time between attacks
@@ -787,31 +808,31 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         //{
 
         //get the total and difference of your tile's row and column coordinate. filter through them to determine the range of an attack given its range3
-        int total = maps[tileOn].GetComponent<MapTile>().info.row + maps[tileOn].GetComponent<MapTile>().info.column;
-        int difference = maps[tileOn].GetComponent<MapTile>().info.row - maps[tileOn].GetComponent<MapTile>().info.column;
+        int total = tiles[tileOn].GetComponent<MapTile>().info.row + tiles[tileOn].GetComponent<MapTile>().info.column;
+        int difference = tiles[tileOn].GetComponent<MapTile>().info.row - tiles[tileOn].GetComponent<MapTile>().info.column;
 
-        for (int a = 0; a < maps.Length; a++)
+        for (int a = 0; a < tiles.Length; a++)
         {
-            int check = maps[a].GetComponent<MapTile>().info.row + maps[a].GetComponent<MapTile>().info.column;
-            int check2 = maps[a].GetComponent<MapTile>().info.row - maps[a].GetComponent<MapTile>().info.column;
+            int check = tiles[a].GetComponent<MapTile>().info.row + tiles[a].GetComponent<MapTile>().info.column;
+            int check2 = tiles[a].GetComponent<MapTile>().info.row - tiles[a].GetComponent<MapTile>().info.column;
 
             if (total <= check + (2 * range) && total >= check - (2 * range) && difference <= check2 + (2 * range) && difference >= check2 - (2 * range))
             {
 
 
-                atkRange1List.Add(maps[a].GetComponent<MapTile>().tileNumber);
-                maps[a].GetComponent<MapTile>().AttackRange(monster);
+                atkRange1List.Add(tiles[a].GetComponent<MapTile>().tileNumber);
+                tiles[a].GetComponent<MapTile>().AttackRange(monster);
             }
 
             if (total <= check + (2 * range2) && total >= check - (2 * range2) && difference <= check2 + (2 * range2) && difference >= check2 - (2 * range2))
             {
 
 
-                atkRange2List.Add(maps[a].GetComponent<MapTile>().tileNumber);
-                maps[a].GetComponent<MapTile>().AttackRange(monster);
+                atkRange2List.Add(tiles[a].GetComponent<MapTile>().tileNumber);
+                tiles[a].GetComponent<MapTile>().AttackRange(monster);
             }
 
-            if (a >= maps.Length - 1)
+            if (a >= tiles.Length - 1)
             {
 
                 isScanning = true;
@@ -864,7 +885,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
             foreach (int target in attackList)
             {
-                var range = Instantiate(levelTile, maps[target].transform.position, Quaternion.identity);
+                var range = Instantiate(levelTile, tiles[target].transform.position, Quaternion.identity);
                 range.GetComponent<SpriteRenderer>().sortingOrder = 1000;
                 range.gameObject.tag = "RangeTile";
                 range.gameObject.name = name + "'s Range";

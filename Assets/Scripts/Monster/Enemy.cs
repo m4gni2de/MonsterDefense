@@ -45,6 +45,8 @@ public struct EnemyStats
     public Stat EnergyCost;
     public float evasionBase;
     public float critBase;
+
+    public MonsterClass Class;
 };
 
 
@@ -144,6 +146,7 @@ public class Enemy : MonoBehaviour
             monster.info.precBase = dict[name].precBase;
             monster.info.maxLevel = dict[name].maxLevel;
             monster.info.levelConst = dict[name].levelConst;
+            monster.info.Class = dict[name].Class;
 
             //for each of the attacks this monster has in its base attack array, choose 2 at random to give to this monster
             int rand = Random.Range(0, dict[name].baseAttacks.Length);
@@ -259,7 +262,7 @@ public class Enemy : MonoBehaviour
         stats.evasion = StatsCalc.Monster.info.evasionBase;
         enemyHpSlider.maxValue = stats.hpMax;
         enemyHpSlider.value = stats.hpMax;
-
+        stats.Class = monster.info.Class;
 
 
     }

@@ -11,6 +11,8 @@ TextureImporter:
     21300012: armL
     21300014: lichenthropeHandR
     21300016: lichenthropeHandL
+    21300018: lichenthrope_eyeLid
+    21300020: lichenthrope_skullTop
     2186277476908879412: ImportLogs
   externalObjects: {}
   serializedVersion: 9
@@ -295,13 +297,53 @@ TextureImporter:
         width: 248
         height: 168
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: db4a82b9e5b78cf48a1a225288f113d9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lichenthrope_eyeLid
+      rect:
+        serializedVersion: 2
+        x: 849
+        y: 690
+        width: 43
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d41085f850371c243b64821380de9f53
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lichenthrope_skullTop
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 554
+        width: 144
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 060d9d9cfad9c824d9325af50ffb9c37
       vertices: []
       indices: 
       edges: []

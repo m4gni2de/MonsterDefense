@@ -280,6 +280,7 @@
     <Compile Include="Assets\Scripts\GameData\Items\EquippableItem.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\Items.cs" />
     <Compile Include="Assets\Scripts\GameData\Maps.cs" />
+    <Compile Include="Assets\Scripts\GameData\MonsterAbilities.cs" />
     <Compile Include="Assets\Scripts\GameData\MonstersData.cs" />
     <Compile Include="Assets\Scripts\GameData\SpriteMaterials.cs" />
     <Compile Include="Assets\Scripts\GameData\StatsCalc.cs" />
@@ -315,6 +316,7 @@
     <Compile Include="Assets\Scripts\MiscScripts\Singlenton.cs" />
     <Compile Include="Assets\Scripts\MiscScripts\SortingLayerExposed.cs" />
     <Compile Include="Assets\Scripts\Monster\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Monster\FaceMotion.cs" />
     <Compile Include="Assets\Scripts\Monster\MeshBodyParts.cs" />
     <Compile Include="Assets\Scripts\Monster\Monster.cs" />
     <Compile Include="Assets\Scripts\Monster\MonsterIcon.cs" />

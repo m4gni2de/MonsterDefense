@@ -6,6 +6,15 @@ using System;
 
 
 //**************THIS SCRIPT IS FOR ALL OF THE MONSTER'S BASE DATA. EVERY MONSTER OF THE SAME SPECIES WILL USE THE VALUES HERE, BUT THEN WILL BE MODIFIED INDUVIDUALLY UPON BEING CREATED*********//
+public enum MonsterClass
+{
+    Flying,
+    Beast,
+    Humanoid,
+}
+
+
+
 [System.Serializable]
 public struct MonsterData
 {
@@ -15,6 +24,7 @@ public struct MonsterData
     public string species;
     public string type1;
     public string type2;
+    public MonsterClass Class;
     public int hpBase;
     public int atkBase;
     public int defBase;
@@ -30,7 +40,8 @@ public struct MonsterData
     public int staminaBase;
     public int energyGenBase;
     public float energyCost;
-    
+
+    public string[] abilities;
 
 };
 
@@ -50,6 +61,7 @@ public class AllMonsterData
         species = "Lichenthrope",
         type1 = "Nature",
         type2 = "none",
+        Class = MonsterClass.Beast,
         hpBase = 131,
         atkBase = 120,
         defBase = 118,
@@ -60,7 +72,9 @@ public class AllMonsterData
         staminaBase = 70,
         energyGenBase = 77,
         energyCost = 7f,
-        
+        abilities = new string[1] { "Of A Feather" },
+
+
     };
 
 
@@ -70,6 +84,7 @@ public class AllMonsterData
         species = "Armordan",
         type1 = "Normal",
         type2 = "Mechanical",
+        Class = MonsterClass.Humanoid,
         hpBase = 98,
         atkBase = 96,
         defBase = 130,
@@ -80,6 +95,8 @@ public class AllMonsterData
         staminaBase = 90,
         energyGenBase = 95,
         energyCost = 5.5f,
+        abilities = new string[1] { "Of A Feather" },
+
     };
 
     public MonsterData Fowitzer = new MonsterData
@@ -88,6 +105,7 @@ public class AllMonsterData
         species = "Fowitzer",
         type1 = "Mechanical",
         type2 = "none",
+        Class = MonsterClass.Flying,
         hpBase = 85,
         atkBase = 114,
         defBase = 76,
@@ -98,6 +116,7 @@ public class AllMonsterData
         staminaBase = 90,
         energyGenBase = 86,
         energyCost = 6.5f,
+        abilities = new string[1] { "Of A Feather" },
     };
 
 

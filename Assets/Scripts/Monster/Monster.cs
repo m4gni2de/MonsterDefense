@@ -28,6 +28,7 @@ public struct MonsterSaveToken
     public int precPot;
     public int koCount;
     public int maxLevel;
+    public string specialAbility;
 
 }
 
@@ -55,13 +56,16 @@ public struct MonsterInfo
     public float levelConst;
     public float energyGenBase;
     public float energyCost;
-    
+    public MonsterClass Class;
 
 
     public string attack1Name;
     public MonsterAttack attack1;
     public string attack2Name;
     public MonsterAttack attack2;
+
+    public string abilityName;
+    public Ability specialAbility;
 
 
     public string equip1Name;
@@ -850,7 +854,7 @@ public class Monster : MonoBehaviour
 
 
 
-
+    //use this when summoning a monster
     public void MonsterSummon(string name)
     {
         bool hasKey = PlayerPrefs.HasKey("MonsterCount");
@@ -861,6 +865,8 @@ public class Monster : MonoBehaviour
             int monsterCount = GameManager.Instance.monsterCount + 1;
 
             var monsters = GameManager.Instance.monstersData.monstersAllDict;
+            
+
             //get the monster's species dependent stats from the Game Manager
             if (monsters.ContainsKey(name))
             {
@@ -880,6 +886,7 @@ public class Monster : MonoBehaviour
                 info.levelConst = monsters[name].levelConst;
                 info.monsterRank = 1;
                 
+                
 
                 PlayerPrefs.SetInt("MonsterCount", monsterCount);
                 GameManager.Instance.monsterCount = monsterCount;
@@ -890,7 +897,17 @@ public class Monster : MonoBehaviour
                 int rand2 = Random.Range(0, monsters[name].baseAttacks.Length - 1);
                 info.attack2Name = monsters[name].baseAttacks[rand2];
 
-               
+                //set the monster's ability'
+                if (monsters[name].abilities.Length > 1)
+                {
+                    int ab = Random.Range(0, monsters[name].abilities.Length - 1);
+                    info.abilityName = monsters[name].abilities[ab];
+                }
+                else
+                {
+                    info.abilityName = monsters[name].abilities[0];
+                }
+
 
                 info.equip1Name = "none";
                 info.equip2Name = "none";
@@ -937,11 +954,12 @@ public class Monster : MonoBehaviour
    
 
 
-
+    //set the monster's stats from the values of the save token
     public void MonsterStatsSet()
     {
         var monsters = GameManager.Instance.monstersData.monstersAllDict;
         var attacks = GameManager.Instance.baseAttacks.attackDict;
+        var abilities = GameManager.Instance.GetComponent<MonsterAbilities>().allAbilitiesDict;
 
         info.type1 = monsters[info.species].type1;
         info.type2 = monsters[info.species].type2;
@@ -958,7 +976,7 @@ public class Monster : MonoBehaviour
         info.speBase = monsters[info.species].speBase;
         info.precBase = monsters[info.species].precBase;
         info.staminaBase = monsters[info.species].staminaBase;
-        
+        info.Class = monsters[info.species].Class;
 
         info.attack1Name = saveToken.attack1;
         info.attack2Name = saveToken.attack2;
@@ -977,6 +995,8 @@ public class Monster : MonoBehaviour
         info.equip2Name = saveToken.equip2;
         info.maxLevel = saveToken.maxLevel;
 
+        info.abilityName = saveToken.specialAbility;
+        info.specialAbility = abilities[info.abilityName];
         //info.equippable1 = new EquippableItem();
         //info.equippable2 = new EquippableItem();
 

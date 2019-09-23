@@ -198,17 +198,17 @@ public class StatusEffects
             //monster.precision -= monster.precision * status.precDrop;
 
             if (status.hpDrop != 0)
-                monster.tempStats.HP.AddModifier(new StatModifier(status.hpDrop, StatModType.PercentMult, this, timer.Status.name));
+                monster.info.HP.AddModifier(new StatModifier(status.hpDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.atkDrop != 0)
-                monster.tempStats.Attack.AddModifier(new StatModifier(status.atkDrop, StatModType.PercentMult, this, timer.Status.name));
+                monster.info.Attack.AddModifier(new StatModifier(status.atkDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.defDrop != 0)
-                monster.tempStats.Defense.AddModifier(new StatModifier(status.defDrop, StatModType.PercentMult, this, timer.Status.name));
+                monster.info.Defense.AddModifier(new StatModifier(status.defDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.speedDrop != 0)
-                monster.tempStats.Speed.AddModifier(new StatModifier(status.speedDrop, StatModType.PercentMult, this, timer.Status.name));
+                monster.info.Speed.AddModifier(new StatModifier(status.speedDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.enGenDrop != 0)
-                monster.tempStats.EnergyGeneration.AddModifier(new StatModifier(status.enGenDrop, StatModType.PercentMult, this, timer.Status.name));
+                monster.info.EnergyGeneration.AddModifier(new StatModifier(status.enGenDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.precDrop != 0)
-                monster.tempStats.Precision.AddModifier(new StatModifier(status.precDrop, StatModType.PercentMult, this, timer.Status.name));
+                monster.info.Precision.AddModifier(new StatModifier(status.precDrop, StatModType.PercentMult, this, timer.Status.name));
 
             Monster = monster;
         }
@@ -248,11 +248,11 @@ public class StatusEffects
 
         if (!isEnemy)
         {
-            monster.tempStats.HP.RemoveAllModifiersFromSource(this);
-            monster.tempStats.Attack.RemoveAllModifiersFromSource(this);
-            monster.tempStats.Defense.RemoveAllModifiersFromSource(this);
-            monster.tempStats.Speed.RemoveAllModifiersFromSource(this);
-            monster.tempStats.Precision.RemoveAllModifiersFromSource(this);
+            monster.info.HP.RemoveAllModifiersFromSource(this);
+            monster.info.Attack.RemoveAllModifiersFromSource(this);
+            monster.info.Defense.RemoveAllModifiersFromSource(this);
+            monster.info.Speed.RemoveAllModifiersFromSource(this);
+            monster.info.Precision.RemoveAllModifiersFromSource(this);
         }
         else
         {

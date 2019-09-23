@@ -25,6 +25,9 @@ public class MotionControl : MonoBehaviour
     //used to transition to monster specific states within the animator
     public int dexId;
     public float animatorSpeed;
+
+   
+    
     
     // Start is called before the first frame update
     void Start()
@@ -39,10 +42,12 @@ public class MotionControl : MonoBehaviour
         monsterAnimator.speed = 1 * ((float)monster.info.speBase / 100);
         animatorSpeed = monsterAnimator.speed;
         dexId = monster.info.dexId;
-        //monsterAnimator.SetFloat("attackSpeed", monsterAnimator.speed);
         monsterAnimator.SetFloat("attackSpeed", animatorSpeed);
         monsterAnimator.SetInteger("dexID", dexId);
-        //monsterAnimator.SetInteger("dexID", monster.info.dexId);
+
+        
+
+        
 
        
     }

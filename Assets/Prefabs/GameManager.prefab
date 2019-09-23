@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6317396937658932168}
   - component: {fileID: 9114463754745283373}
   - component: {fileID: 3307614182744774667}
+  - component: {fileID: 1493070373400153326}
   - component: {fileID: 7763244925051536580}
   - component: {fileID: 3507662898205109202}
   m_Layer: 0
@@ -109,6 +110,7 @@ MonoBehaviour:
       attackAnimation: {fileID: 3211728297390547379, guid: 1cbc38a74a8622848a7a37da85eb0095,
         type: 3}
       forceType: 0
+      staminaGained: 0.06
     voltStrike:
       Range:
         BaseValue: 0
@@ -143,6 +145,7 @@ MonoBehaviour:
       attackAnimation: {fileID: 4764289248257230966, guid: a574070b861ab0f4bb9ab59bc39cd01e,
         type: 3}
       forceType: 0
+      staminaGained: 0.06
     mistySpray:
       Range:
         BaseValue: 0
@@ -177,6 +180,7 @@ MonoBehaviour:
       attackAnimation: {fileID: 5534219836665935086, guid: 34b0176da6f84f8478a1cf98eb04937f,
         type: 3}
       forceType: 0
+      staminaGained: 0.06
     aquaDart:
       Range:
         BaseValue: 0
@@ -211,6 +215,7 @@ MonoBehaviour:
       attackAnimation: {fileID: 8854931403561263675, guid: eb98379b936e863499dd42b793274762,
         type: 3}
       forceType: 0
+      staminaGained: 0.06
     shadowBP:
       Range:
         BaseValue: 0
@@ -245,6 +250,7 @@ MonoBehaviour:
       attackAnimation: {fileID: 1350045215202289615, guid: 82177fe00c692ca42836733cee5bd52d,
         type: 3}
       forceType: 0
+      staminaGained: 0.06
     windCyclone:
       Range:
         BaseValue: 0
@@ -279,6 +285,7 @@ MonoBehaviour:
       attackAnimation: {fileID: 8128435365625536934, guid: 5f6c43aace898a44e96220d47b3d149d,
         type: 3}
       forceType: 0
+      staminaGained: 0.06
     energyDragon:
       Range:
         BaseValue: 0
@@ -313,6 +320,7 @@ MonoBehaviour:
       attackAnimation: {fileID: 5811050810138414331, guid: 3a097e8ae4eca874c83e2975d9ffebfe,
         type: 3}
       forceType: 0
+      staminaGained: 0.06
     darknessPike:
       Range:
         BaseValue: 0
@@ -347,6 +355,7 @@ MonoBehaviour:
       attackAnimation: {fileID: 5751489767440918495, guid: 06f28eb9e78933d419d82d9ed9d77366,
         type: 3}
       forceType: 0
+      staminaGained: 0.06
   waterAttacks: []
   electricAttacks: []
   shadowAttacks: []
@@ -373,6 +382,7 @@ MonoBehaviour:
       species: Lichenthrope
       type1: Nature
       type2: none
+      Class: 1
       hpBase: 131
       atkBase: 120
       defBase: 118
@@ -396,6 +406,7 @@ MonoBehaviour:
       species: Armordan
       type1: Normal
       type2: Mechanical
+      Class: 2
       hpBase: 98
       atkBase: 96
       defBase: 130
@@ -422,6 +433,7 @@ MonoBehaviour:
       species: Fowitzer
       type1: Mechanical
       type2: none
+      Class: 0
       hpBase: 85
       atkBase: 114
       defBase: 76
@@ -632,6 +644,7 @@ MonoBehaviour:
       atkRangeBonus: 0
       critModBonus: 0
       critChanceBonus: 0
+      staminaBonus: 0
       hpPercentBonus: 0
       atkPercentBonus: 0
       defPercentBonus: 0
@@ -640,6 +653,7 @@ MonoBehaviour:
       atkPowerPercentBonus: 0.2
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
+      staminaPercentBonus: 0
     ThunderRune:
       name: Thunder Rune
       id: 2
@@ -666,6 +680,7 @@ MonoBehaviour:
       atkRangeBonus: 0
       critModBonus: 0
       critChanceBonus: 0
+      staminaBonus: 0
       hpPercentBonus: 0
       atkPercentBonus: 0.1
       defPercentBonus: 0
@@ -674,6 +689,7 @@ MonoBehaviour:
       atkPowerPercentBonus: 0
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
+      staminaPercentBonus: 0
     NatureRune:
       name: Nature Rune
       id: 3
@@ -700,6 +716,7 @@ MonoBehaviour:
       atkRangeBonus: 0
       critModBonus: 0
       critChanceBonus: 0
+      staminaBonus: 0
       hpPercentBonus: 0
       atkPercentBonus: 0
       defPercentBonus: 0
@@ -708,6 +725,7 @@ MonoBehaviour:
       atkPowerPercentBonus: 0
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
+      staminaPercentBonus: 0
     MagicRune:
       name: Magic Rune
       id: 4
@@ -734,6 +752,7 @@ MonoBehaviour:
       atkRangeBonus: 0
       critModBonus: 0
       critChanceBonus: 0
+      staminaBonus: 0
       hpPercentBonus: 0
       atkPercentBonus: 0.1
       defPercentBonus: 0
@@ -742,6 +761,7 @@ MonoBehaviour:
       atkPowerPercentBonus: 0
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
+      staminaPercentBonus: 0
     ShadowRune:
       name: Shadow Rune
       id: 5
@@ -768,6 +788,7 @@ MonoBehaviour:
       atkRangeBonus: 0
       critModBonus: 0
       critChanceBonus: 0
+      staminaBonus: 0
       hpPercentBonus: 0
       atkPercentBonus: 0.1
       defPercentBonus: 0
@@ -776,6 +797,7 @@ MonoBehaviour:
       atkPowerPercentBonus: 0
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
+      staminaPercentBonus: 0
     FireRune:
       name: Fire Rune
       id: 6
@@ -802,6 +824,7 @@ MonoBehaviour:
       atkRangeBonus: 0
       critModBonus: 0
       critChanceBonus: 0
+      staminaBonus: 0
       hpPercentBonus: 0
       atkPercentBonus: 0.1
       defPercentBonus: 0
@@ -810,6 +833,7 @@ MonoBehaviour:
       atkPowerPercentBonus: 0
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
+      staminaPercentBonus: 0
     WoodAxe:
       name: Wood Axe
       id: 7
@@ -836,6 +860,7 @@ MonoBehaviour:
       atkRangeBonus: 0
       critModBonus: 0
       critChanceBonus: 0
+      staminaBonus: 0
       hpPercentBonus: 0
       atkPercentBonus: 0
       defPercentBonus: 0
@@ -844,6 +869,7 @@ MonoBehaviour:
       atkPowerPercentBonus: 0
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
+      staminaPercentBonus: 0
   equipmentList: []
   consumableList: []
   cellList: []
@@ -973,6 +999,18 @@ MonoBehaviour:
     type: 3}
   electricTileTopSprite: {fileID: 21300000, guid: 060fef0fd0fd5124eae23f468f1a2d24,
     type: 3}
+--- !u!114 &1493070373400153326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317396937658932167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd59f8ad02336b48af0648da36b4653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7763244925051536580
 MonoBehaviour:
   m_ObjectHideFlags: 0

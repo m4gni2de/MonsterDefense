@@ -56,6 +56,7 @@ public struct Equipment
     public int atkRangeBonus;
     public int critModBonus;
     public int critChanceBonus;
+    public int staminaBonus;
 
     public float hpPercentBonus;
     public float atkPercentBonus;
@@ -65,6 +66,7 @@ public struct Equipment
     public float atkPowerPercentBonus;
     public float atkTimePercentBonus;
     public float evasionPercentBonus;
+    public int staminaPercentBonus;
 
     public EquippableItem equippable;
     

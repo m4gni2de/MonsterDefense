@@ -40,6 +40,10 @@ public class MapDetails : MonoBehaviour
     //keep a list of all of the enemies that are alive on the map
     public List<Enemy> liveEnemies = new List<Enemy>();
 
+    //keep a list of all of the monsters that are acting as your towers
+    public List<Monster> liveTowers = new List<Monster>();
+
+    //variables related to the enemies that the map can spawn, as well as the map itself
     public List<int> enemies = new List<int>();
     public int enemyMax;
     public float spawnX;
@@ -398,4 +402,6 @@ public class MapDetails : MonoBehaviour
             liveEnemies.Add(enemies[i].GetComponent<Enemy>());
         }
     }
+
+    
 }
