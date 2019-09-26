@@ -159,10 +159,10 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         {
             GameObject e1 = Instantiate(equipment[monster.info.equip1Name].equipPrefab, equipObject.transform.position, Quaternion.identity);
             e1.transform.SetParent(equipObject.transform);
-            e1.GetComponent<Image>().color = Color.clear;
+            //e1.GetComponent<Image>().color = Color.clear;
             e1.GetComponent<Image>().raycastTarget = false;
             e1.transform.position = equip1Btn.transform.position;
-            e1.transform.localScale = new Vector2(e1.transform.localScale.x * 2.7f, e1.transform.localScale.y * 2.7f);
+            e1.transform.localScale = new Vector2(1f, 1f);
             e1.tag = "Respawn";
 
 
@@ -198,10 +198,10 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         {
             GameObject e2 = Instantiate(equipment[monster.info.equip2Name].equipPrefab, equipObject.transform.position, Quaternion.identity);
             e2.transform.SetParent(equipObject.transform);
-            e2.GetComponent<Image>().color = Color.clear;
+            //e2.GetComponent<Image>().color = Color.clear;
             e2.GetComponent<Image>().raycastTarget = false;
             e2.transform.position = equip2Btn.transform.position;
-            e2.transform.localScale = new Vector2(e2.transform.localScale.x * 2.7f, e2.transform.localScale.y * 2.7f);
+            e2.transform.localScale = new Vector2(1f, 1f);
             e2.tag = "Respawn";
 
             equip2 = equipment[monster.info.equip2Name];

@@ -19,6 +19,7 @@ using UnityEditor;
         [HideInInspector] public bool ActiveChange = true;
         [HideInInspector] public Texture2D __MainTex2;
         private string shader = "2DxFX/Standard/Shiny_Reflect";
+        //private string shader = "2DxFX_Extra_Shaders/ShinyFX";
         [HideInInspector] [Range(0, 1)] public float _Alpha = 1f;
         [HideInInspector] [Range(-0.5f, 1.5f)] public float Light = 1.0f;
         [HideInInspector] [Range(0.05f, 1f)] public float LightSize = 0.5f;
@@ -44,7 +45,9 @@ using UnityEditor;
         {
             if (this.gameObject.GetComponent<Image>() != null) CanvasImage = this.gameObject.GetComponent<Image>();
             if (this.gameObject.GetComponent<SpriteRenderer>() != null) CanvasSpriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
-        }
+
+       
+    }
         void Start()
         {
             __MainTex2 = Resources.Load("_2dxFX_Gradient") as Texture2D;
@@ -188,9 +191,11 @@ using UnityEditor;
 #endif
             if (ActiveChange)
             {
+            
                 if (CanvasSpriteRenderer != null)
                 {
-                    CanvasSpriteRenderer.sharedMaterial.SetFloat("_Alpha", 1 - _Alpha);
+                
+                CanvasSpriteRenderer.sharedMaterial.SetFloat("_Alpha", 1 - _Alpha);
                     if (UseShinyCurve)
                     {
                         if (ShinyLightCurve != null) CanvasSpriteRenderer.sharedMaterial.SetFloat("_Distortion", ShinyLightCurve.Evaluate(ShinyLightCurveTime));
@@ -208,14 +213,21 @@ using UnityEditor;
                 }
                 else if (CanvasImage != null)
                 {
-                    CanvasImage.material.SetFloat("_Alpha", 1 - _Alpha);
+                //  THIS IS NEEDED TO UPDATE AN IMAGE'S SHADER VALUES
+                Material mat = Instantiate(CanvasImage.material);
+                CanvasImage.material = mat;
+
+
+                CanvasImage.material.SetFloat("_Alpha", 1 - _Alpha);
                     if (UseShinyCurve)
                     {
-                        CanvasImage.material.SetFloat("_Distortion", ShinyLightCurve.Evaluate(ShinyLightCurveTime));
+                        
+                    CanvasImage.material.SetFloat("_Distortion", ShinyLightCurve.Evaluate(ShinyLightCurveTime));
                         ShinyLightCurveTime += (Time.deltaTime / 8) * AnimationSpeedReduction;
                     }
                     else
                     {
+
                         CanvasImage.material.SetFloat("_Distortion", Light);
                     }
 

@@ -100,6 +100,8 @@ public struct MonsterInfo
     public int monsterRank;
 
     
+
+    
 };
 
 //these stats can change during a map without effecting it's permanent stats
@@ -356,6 +358,7 @@ public class Monster : MonoBehaviour
 
 
         SaveMonsterToken();
+        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
         //StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
         //GetStats(stats);
     }
@@ -384,7 +387,7 @@ public class Monster : MonoBehaviour
         PlayerPrefs.SetInt(equip.name, itemCount + 1);
 
         SaveMonsterToken();
-
+        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
         //StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
         //GetStats(stats);
 

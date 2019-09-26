@@ -8,7 +8,7 @@ public class ConsumableObject : MonoBehaviour
     public ConsumableItem consumableItem;
 
     public Image image;
-    public SpriteRenderer sp;
+    //public SpriteRenderer sp;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +26,7 @@ public class ConsumableObject : MonoBehaviour
     {
         image.sprite = consumableItem.sprite;
         gameObject.name = consumableItem.itemName;
-        image.material = sp.material;
+        //image.material = sp.material;
+        //sp.enabled = false;
     }
 }

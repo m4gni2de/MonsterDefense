@@ -42,10 +42,10 @@ public class ItemPopMenu : MonoBehaviour
         GameObject item = Instantiate(equip.equip.equipPrefab, transform.position, Quaternion.identity);
         item.transform.position = itemSprite.transform.position;
         item.transform.localScale = new Vector3(item.transform.localScale.x * 2f, item.transform.localScale.y * 2f, 1f);
-        item.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
+        //item.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
         item.tag = "Respawn";
 
-        //itemSprite.GetComponent<SpriteRenderer>().sprite = equip.GetComponent<Image>().sprite;
+        itemSprite.GetComponent<SpriteRenderer>().sprite = equip.GetComponent<Image>().sprite;
         nameText.text = equip.equip.name;
         typeText.text = equip.equip.equipType.ToString();
         typeReqText.text = "Required Type: " + equip.equip.typeMonsterReq;

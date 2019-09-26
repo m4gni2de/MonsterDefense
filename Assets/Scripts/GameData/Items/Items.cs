@@ -106,11 +106,11 @@ public class AllEquipment
         equipType = EquipmentType.Rune,
         typeMonsterReq = "Water",
         typeMoveReq = "Water",
-        boosts = new string[1] { "Water Type Attacks + 8% Power"},
+        boosts = new string[1] { "Water Type Attacks + 8% Power" },
         atkPowerPercentBonus = .20f,
         cost = 200,
-        
-        
+
+
 
     };
 
@@ -124,7 +124,7 @@ public class AllEquipment
         typeMonsterReq = "Electric",
         atkPercentBonus = .10f,
         cost = 200,
-        
+
 
     };
 
@@ -138,7 +138,7 @@ public class AllEquipment
         typeMonsterReq = "Nature",
         atkPercentBonus = .10f,
         cost = 200,
-        
+
 
     };
 
@@ -152,7 +152,7 @@ public class AllEquipment
         typeMonsterReq = "Magic",
         atkPercentBonus = .10f,
         cost = 200,
-        
+
 
     };
 
@@ -166,7 +166,7 @@ public class AllEquipment
         typeMonsterReq = "Shadow",
         atkPercentBonus = .10f,
         cost = 200,
-        
+
 
     };
 
@@ -300,7 +300,6 @@ public class Items: MonoBehaviour
         
         AddItems();
         AddEquipment();
-        AddConsumables();
         AddCells();
         
     }
@@ -325,7 +324,7 @@ public class Items: MonoBehaviour
 
         allItemsDict.Add(allItems.ExpBoost.name, allItems.ExpBoost);
         allItemsDict.Add(allItems.LichenthropeCell.name, allItems.LichenthropeCell);
-        
+
 
 
         foreach (KeyValuePair<string, AllItem> item in allItemsDict)
@@ -359,12 +358,7 @@ public class Items: MonoBehaviour
     }
 
 
-    void AddConsumables()
-    {
-        //allConsumablesDict.Add(allConsumables.ExpBoost.name, allConsumables.ExpBoost);
-
-        
-    }
+   
 
     void AddCells()
     {

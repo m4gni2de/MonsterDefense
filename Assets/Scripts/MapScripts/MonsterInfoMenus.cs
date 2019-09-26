@@ -238,7 +238,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             //checks the monster's equipment and displays the matching sprites if there is equipment on the monster
             if (equips.ContainsKey(activeMonster.info.equip1Name))
             {
-                equip1.GetComponent<Image>().sprite = equips[activeMonster.info.equip1Name].equipPrefab.GetComponent<SpriteRenderer>().sprite;
+                equip1.GetComponent<Image>().sprite = equips[activeMonster.info.equip1Name].equipPrefab.GetComponent<Image>().sprite;
                 equip1.GetComponent<Image>().color = Color.white;
                 //type1.transform.localScale = new Vector3(3.5f, 1.25f, type1.transform.localScale.z);
                 equip1.name = activeMonster.info.equip1Name;
@@ -252,7 +252,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
             if (equips.ContainsKey(activeMonster.info.equip2Name))
             {
-                equip2.GetComponent<Image>().sprite = equips[activeMonster.info.equip2Name].equipPrefab.GetComponent<SpriteRenderer>().sprite;
+                equip2.GetComponent<Image>().sprite = equips[activeMonster.info.equip2Name].equipPrefab.GetComponent<Image>().sprite;
                 equip2.GetComponent<Image>().color = Color.white;
                 //type2.transform.localScale = new Vector3(3.5f, 1.25f, type2.transform.localScale.z);
                 equip2.name = activeMonster.info.equip2Name;

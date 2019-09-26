@@ -194,19 +194,19 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
                 a.GetComponent<EquipmentItem>().valueText.text = PlayerPrefs.GetInt(item.name).ToString();
 
 
-                a.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-                a.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                //a.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
+                //a.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
 
-                a.GetComponent<Image>().enabled = false;
-                //a.GetComponent<Image>().color = Color.clear;
+                ////a.GetComponent<Image>().enabled = false;
+                ////a.GetComponent<Image>().color = Color.clear;
 
                 //a.GetComponent<Image>().material = a.GetComponent<SpriteRenderer>().material;
                 //a.GetComponent<SpriteRenderer>().enabled = false;
 
 
                 a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
-                a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
+                a.transform.localScale = new Vector3(a.transform.localScale.x, a.transform.localScale.y, 1f);
                 a.tag = "Item";
 
                 //itemSprites[itemSpriteTotal] = Instantiate(allEquips[item.name].equipPrefab, itemScrollContent.transform.position, Quaternion.identity);
@@ -366,17 +366,18 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
             a.GetComponent<EquipmentItem>().valueText.text = a.GetComponent<EquipmentItem>().equipDetails.cost.ToString();
 
 
-            a.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-            a.GetComponent<SpriteRenderer>().sortingOrder = 1;
-            a.GetComponent<Image>().enabled = false;
+            //a.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
+            //a.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            //a.GetComponent<Image>().enabled = false;
             //a.GetComponent<Image>().color = Color.clear;
 
             //a.GetComponent<Image>().sprite = a.GetComponent<SpriteRenderer>().sprite;
+            //a.GetComponent<SpriteRenderer>().sprite = null;
             //a.GetComponent<Image>().material = a.GetComponent<SpriteRenderer>().material;
             //a.GetComponent<SpriteRenderer>().enabled = false;
 
             a.transform.position = new Vector3(shopItemSprite.transform.position.x + ((rowCheck * 4) * shopScrollContent.GetComponent<RectTransform>().rect.width / 6), shopItemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
-            a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y *1.5f, 1f);
+            a.transform.localScale = new Vector3(a.transform.localScale.x, a.transform.localScale.y, 1f);
             a.tag = "Item";
 
             //shopItemSprites[shopSpriteTotal] = Instantiate(allEquips[item.name].equipPrefab, shopScrollContent.transform.position, Quaternion.identity);
@@ -449,9 +450,9 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
             //a.GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
             //a.GetComponent<EquipmentItem>().valueText.text = a.GetComponent<EquipmentItem>().equipDetails.cost.ToString();
 
-
-            a.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-            a.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            //a.GetComponent<SpriteRenderer>().sprite = null;
+            //a.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
+            //a.GetComponent<SpriteRenderer>().sortingOrder = 1;
             //a.GetComponent<Image>().color = Color.clear;
             a.transform.position = new Vector3(shopItemSprite.transform.position.x + ((rowCheck * 4) * shopScrollContent.GetComponent<RectTransform>().rect.width / 6), shopItemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
             a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
@@ -480,7 +481,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
             var tag = eventData.pointerEnter.gameObject.tag;
             var hit = eventData.pointerEnter.gameObject;
 
-            Debug.Log(tag);
+            //Debug.Log(tag);
             //if the menu is opened with the purpose of Equipping a monster with an item, then allow it to be equipped. Otherwise, show the item's details
             if (tag == "Item")
             {

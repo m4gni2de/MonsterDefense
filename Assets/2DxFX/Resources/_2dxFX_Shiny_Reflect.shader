@@ -17,6 +17,8 @@ _Value2 ("Value 2", Range(0,1)) = 0
 _Value3 ("Value 3", Range(0,1)) = 0
 _Value4 ("Value 4", Range(0,1)) = 0
 _Alpha ("Alpha", Range (0,1)) = 1.0
+
+
 // required for UI.Mask
 _StencilComp ("Stencil Comparison", Float) = 8
 _Stencil ("Stencil ID", Float) = 0

@@ -28,7 +28,7 @@ public class EquipmentItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Monster monster;
     private int slot;
 
-    public SpriteRenderer sp;
+    //public SpriteRenderer sp;
     public Sprite sprite;
     public Image image;
 
@@ -42,19 +42,20 @@ public class EquipmentItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     // Start is called before the first frame update
     void Start()
     {
-        sp.GetComponent<SpriteRenderer>();
-        sprite = sp.sprite;
+        //sp.GetComponent<SpriteRenderer>();
+        //sprite = sp.sprite;
         image.GetComponent<Image>();
+        sprite = image.sprite;
         //image.material = sp.material;
 
-        
+
 
 
 
     }
 
 
-   
+
 
     // Update is called once per frame
     void Update()
