@@ -73,14 +73,7 @@ public struct Equipment
 };
 
 
-public struct Consumable
-{
-    public string name;
-    public int id;
-    public string description;
-    public float cost;
 
-};
 
 public struct MonsterCell
 {
@@ -90,13 +83,15 @@ public struct MonsterCell
     public string description;
     public float cost;
 
+    
+
 };
 
 [System.Serializable]
 public class ItemsRoot
 {
     public Equipment Equipment;
-    public Consumable Consumable;
+    //public Consumable Consumable;
     public MonsterCell MonsterCell;
 }
 
@@ -262,16 +257,6 @@ public class AllItems
 }
 
 
-public class AllConsumables
-{
-    public Consumable ExpBoost = new Consumable
-    {
-        name = "Exp Boost",
-        id = 1,
-        description = "The monster that consumes this gains an extra 20% EXP when it defeats an enemy for the remainder of this stage."
-
-    };
-}
 
 public class AllMonsterCells
 {
@@ -292,7 +277,6 @@ public class Items: MonoBehaviour
     
 
     public AllEquipment allEquipment = new AllEquipment();
-    public AllConsumables allConsumables = new AllConsumables();
     public AllMonsterCells allMonsterCells = new AllMonsterCells();
     public AllItems allItems = new AllItems();
 
@@ -301,17 +285,19 @@ public class Items: MonoBehaviour
 
     
     public Dictionary<string, Equipment> allEquipmentDict = new Dictionary<string, Equipment>();
-    public Dictionary<string, Consumable> allConsumablesDict = new Dictionary<string, Consumable>();
     public Dictionary<string, MonsterCell> allMonsterCellsDict = new Dictionary<string, MonsterCell>();
 
     public List<string> equipmentList = new List<string>();
-    public List<string> consumableList = new List<string>();
     public List<string> cellList = new List<string>();
+
+    //use lists to manually add non scriptable objects
+    public List<ConsumableItem> consumables = new List<ConsumableItem>();
 
     private void Awake()
     {
         //equipEffects = GetComponent<EquipEffects>();
 
+        
         AddItems();
         AddEquipment();
         AddConsumables();
@@ -349,10 +335,7 @@ public class Items: MonoBehaviour
                 equipmentList.Add(item.Key);
             }
 
-            if (item.Value.itemType == ItemType.Consumable)
-            {
-                consumableList.Add(item.Key);
-            }
+           
 
             if (item.Value.itemType == ItemType.Cell)
             {
@@ -378,7 +361,9 @@ public class Items: MonoBehaviour
 
     void AddConsumables()
     {
-        allConsumablesDict.Add(allConsumables.ExpBoost.name, allConsumables.ExpBoost);
+        //allConsumablesDict.Add(allConsumables.ExpBoost.name, allConsumables.ExpBoost);
+
+        
     }
 
     void AddCells()

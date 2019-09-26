@@ -277,6 +277,9 @@
     <Compile Include="Assets\Scripts\AttackScripts\AttackEffects.cs" />
     <Compile Include="Assets\Scripts\GameData\AllStatusEffects.cs" />
     <Compile Include="Assets\Scripts\GameData\Attacks.cs" />
+    <Compile Include="Assets\Scripts\GameData\Companion\CompanionScript.cs" />
+    <Compile Include="Assets\Scripts\GameData\Items\ConsumableItem.cs" />
+    <Compile Include="Assets\Scripts\GameData\Items\ConsumableObject.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\EquippableItem.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\Items.cs" />
     <Compile Include="Assets\Scripts\GameData\Maps.cs" />

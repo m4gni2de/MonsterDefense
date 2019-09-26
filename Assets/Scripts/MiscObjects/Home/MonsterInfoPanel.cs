@@ -14,7 +14,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 {
     public GameObject monsterSprite, type1, type2;
     public GameObject equipMenu, equipObject, monsterEditorMenu, monsterUpgradeMenu;
-    public TMP_Text monsterNameText, levelText, atkText, defText, speText, precText, typeText, toNextLevelText, evasionText, energyGenText, energyCostText, stamTxt;
+    public TMP_Text monsterNameText, levelText, atkText, defText, speText, precText, typeText, toNextLevelText, evasionText, energyGenText, energyCostText, stamTxt, abilityNameText, abilityText;
     public TMP_Text atkBoostText, defBoostText, speBoostText, precBoostText, evasBoostText, enGenBoostText, costBoostText, stamBoostText;
     public TMP_Text attack1, attack2;
     public TMP_Text atk1Attack, atk1Range, atk1Cool, atk1Slow, atk1Effect, atk1Stamina;
@@ -150,6 +150,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         }
 
         var equipment = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
+        var abilities = GameManager.Instance.GetComponent<MonsterAbilities>().allAbilitiesDict;
 
 
         //show the equipment item for Slot 1
@@ -220,7 +221,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         }
 
         monsterNameText.text = thisMonster.info.name;
-        typeText.text = thisMonster.info.type1 + "/" + thisMonster.info.type2;
+        //typeText.text = thisMonster.info.type1 + "/" + thisMonster.info.type2;
 
         levelText.text = thisMonster.info.level.ToString();
         atkText.text = thisMonster.info.Attack.Value.ToString();
@@ -232,6 +233,8 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         energyGenText.text = Math.Round(thisMonster.tempStats.EnergyGeneration.Value / 60, 2) + " /s";
         energyCostText.text = thisMonster.info.EnergyCost.Value.ToString();
         stamTxt.text = thisMonster.info.Stamina.Value.ToString();
+        abilityNameText.text = thisMonster.info.abilityName;
+        abilityText.text = abilities[thisMonster.info.abilityName].description;
 
         atkBoostText.text = "(+ " + (thisMonster.info.Attack.Value - thisMonster.info.Attack.BaseValue) + ")".ToString();
         defBoostText.text = "(+ " + (thisMonster.info.Defense.Value - thisMonster.info.Defense.BaseValue) + ")".ToString();

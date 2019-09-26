@@ -45,7 +45,7 @@ public class EquipmentItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         sp.GetComponent<SpriteRenderer>();
         sprite = sp.sprite;
         image.GetComponent<Image>();
-
+        //image.material = sp.material;
 
         
 

@@ -160,4 +160,14 @@ public class MotionControl : MonoBehaviour
         monsterAnimator.SetBool("isClicked", false);
     }
 
+
+    public void ResetAttacks()
+    {
+        monsterAnimator.SetBool("isAttacking", false);
+        monsterAnimator.SetBool("isProjectile", false);
+        monsterAnimator.SetBool("isKick", false);
+        monsterAnimator.SetBool("isPunch", false);
+        tower.isAttacking = false;
+    }
+
 }

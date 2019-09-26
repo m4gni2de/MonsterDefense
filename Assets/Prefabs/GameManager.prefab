@@ -398,6 +398,8 @@ MonoBehaviour:
       staminaBase: 70
       energyGenBase: 77
       energyCost: 7
+      abilities:
+      - Natural Quake
     Armordan:
       monsterPrefab: {fileID: 8546301644363537172, guid: ed1aaac6a03f6e44cb3aa9f6338f85d8,
         type: 3}
@@ -425,6 +427,8 @@ MonoBehaviour:
       staminaBase: 90
       energyGenBase: 95
       energyCost: 5.5
+      abilities:
+      - Beast Slayer
     Fowitzer:
       monsterPrefab: {fileID: 1557278105191115862, guid: 684c16b28784dfc46830d4417162e3df,
         type: 3}
@@ -449,6 +453,8 @@ MonoBehaviour:
       staminaBase: 90
       energyGenBase: 86
       energyCost: 6.5
+      abilities:
+      - Of A Feather
   allTypes:
     Normal:
       name: Normal
@@ -873,6 +879,16 @@ MonoBehaviour:
   equipmentList: []
   consumableList: []
   cellList: []
+  consumables:
+  - {fileID: 11400000, guid: 48d3ed719667b824eaac63e0f5f2b4b6, type: 2}
+  - {fileID: 11400000, guid: dced8e80b87e905449caad19f7357a3a, type: 2}
+  - {fileID: 11400000, guid: 44af581fd8348644895ca0ad1ae89664, type: 2}
+  - {fileID: 11400000, guid: 8490b7e23a60acf49a947d64dc59f803, type: 2}
+  - {fileID: 11400000, guid: ddbfff05801dcdb4891ba424aef3ec11, type: 2}
+  - {fileID: 11400000, guid: 2c5f2c9139e222340aab35447b3be61d, type: 2}
+  - {fileID: 11400000, guid: b6bcfde4626276643b934316a5905cb8, type: 2}
+  - {fileID: 11400000, guid: 45e6cc15eeb62a04699f8f42ff530f62, type: 2}
+  - {fileID: 11400000, guid: 5ad4deea455622d4eb8e9d56359d8d21, type: 2}
 --- !u!114 &4431932798214555854
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -29,6 +29,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
     public GameObject monsterInfoMenu;
 
+    public GameObject consumableObject;
 
     private void Awake()
     {
@@ -55,7 +56,13 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
         expSlider.GetComponent<Slider>();
         LoadMonsters();
 
-        
+        foreach(ConsumableItem item in GameManager.Instance.GetComponent<Items>().consumables)
+        {
+            var x = Instantiate(consumableObject, homeCanvas.transform.position, Quaternion.identity);
+            x.GetComponent<ConsumableObject>().consumableItem = item;
+            x.GetComponent<ConsumableObject>().LoadItem();
+            x.transform.localScale = new Vector3(x.transform.localScale.x * 100, x.transform.localScale.y * 100, x.transform.localScale.z);
+        }
 
         //SummonItem();
 

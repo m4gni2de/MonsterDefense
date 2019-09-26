@@ -4,7 +4,14 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
+public enum DisplayMode
+{
+    Equipment = 1,
+    Consumable = 2,
+    Cells = 3
+}
 public class ItemShop : MonoBehaviour, IPointerDownHandler
 {
     public GameObject itemSprite, shopItemSprite;
@@ -17,13 +24,19 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
 
     public GameObject shopCanvas, itemCanvas;
     public GameObject itemPanel, shopPanel;
+
+    public GameObject consumableObject;
     
+    //variable used to determine which items are being displayed in the shop
+    public DisplayMode displayMode = new DisplayMode();
+
 
     private void Awake()
     {
         itemSpriteTotal = 0;
         shopSpriteTotal = 0;
         itemQuantity.GetComponent<TMP_Text>();
+        displayMode = DisplayMode.Equipment;
 
 
         for (int c = 0; c < 20; c++)
@@ -54,6 +67,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
         itemSpriteTotal = 0;
         shopSpriteTotal = 0;
 
+
         DisplayShop();
         DisplayYourItems();
     }
@@ -61,18 +75,27 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
     public void DisplayYourItems()
     {
        
+        
         itemSpriteTotal = 0;
         shopSpriteTotal = 0;
 
+        if (displayMode == DisplayMode.Equipment)
+        {
+            DisplayYourEquipment();
+        }
 
-        DisplayYourEquipment();
+        if (displayMode == DisplayMode.Consumable)
+        {
+            DisplayYourConsumables();
+        }
     }
 
 
     //call this from other objects to reload the item quantities and values after buying/selling an items
     public void UpdateItem()
     {
-       GameObject[] obj =  GameObject.FindGameObjectsWithTag("Equipment");
+        GameObject[] obj = GameObject.FindGameObjectsWithTag("Item");
+
 
         for (int i = 0; i < obj.Length; i++)
         {
@@ -80,15 +103,60 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
 
             if (i >= obj.Length - 1)
             {
-                DisplayYourEquipment();
-                DisplayShop();
+                if (displayMode == DisplayMode.Equipment)
+                {
+                    DisplayYourEquipment();
+                    DisplayShop();
+                }
+
+                if (displayMode == DisplayMode.Consumable)
+                {
+                    DisplayYourConsumables();
+                    DisplayShop();
+                }
+
+                
             }
         }
 
+        //if (displayMode == DisplayMode.Equipment)
+        //{
+        //    GameObject[] obj = GameObject.FindGameObjectsWithTag("Equipment");
+
+
+        //        for (int i = 0; i < obj.Length; i++)
+        //        {
+        //            Destroy(obj[i]);
+
+        //            if (i >= obj.Length - 1)
+        //            {
+        //                DisplayYourEquipment();
+        //                DisplayShop();
+        //            }
+        //        }
+
+        //}
+
+        //if (displayMode == DisplayMode.Consumable)
+        //{
+        //    GameObject[] obj = GameObject.FindGameObjectsWithTag("ConsumableItem");
+
+        //    for (int i = 0; i < obj.Length; i++)
+        //    {
+        //        Destroy(obj[i]);
+
+        //        if (i >= obj.Length - 1)
+        //        {
+        //            DisplayYourConsumables();
+        //            DisplayShop();
+        //        }
+        //    }
+        //}
+
     }
-    
 
 
+    //use this to show the equipment items you have in your inventory
     void DisplayYourEquipment()
     {
         
@@ -96,7 +164,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
         var allEquips = GameManager.Instance.items.allEquipmentDict;
         var yourEquips = GameManager.Instance.GetComponent<YourItems>().yourEquipment;
         var allCells = GameManager.Instance.items.allMonsterCellsDict;
-        var allConsumables = GameManager.Instance.items.allConsumablesDict;
+        //var allConsumables = GameManager.Instance.items.allConsumablesDict;
         int row = 0;
         float rowCheck = 0f;
 
@@ -128,9 +196,18 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
 
                 a.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
                 a.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                a.GetComponent<Image>().color = Color.clear;
+
+
+                a.GetComponent<Image>().enabled = false;
+                //a.GetComponent<Image>().color = Color.clear;
+
+                //a.GetComponent<Image>().material = a.GetComponent<SpriteRenderer>().material;
+                //a.GetComponent<SpriteRenderer>().enabled = false;
+
+
                 a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
                 a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
+                a.tag = "Item";
 
                 //itemSprites[itemSpriteTotal] = Instantiate(allEquips[item.name].equipPrefab, itemScrollContent.transform.position, Quaternion.identity);
                 ////itemQuantities[itemSpriteTotal] = itemSprites[itemSpriteTotal].GetComponentInChildren<TMP_Text>();
@@ -227,18 +304,33 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
 
     }
 
+    //use this to show the consumable items you have in your inventory
+    void DisplayYourConsumables()
+    {
+
+    }
+
+    //use this to display the correct items in the shop
     public void DisplayShop()
     {
-        DisplayShopEquipment();
+        if (displayMode == DisplayMode.Equipment)
+        {
+            DisplayShopEquipment();
+        }
 
-        
+        if (displayMode == DisplayMode.Consumable)
+        {
+            DisplayShopConsumables();
+        }
+
     }
-    
+
+    //use this to show the equipment items for sale in the shop
     public void DisplayShopEquipment()
     {
         var allEquips = GameManager.Instance.items.allEquipmentDict;
         var allCells = GameManager.Instance.items.allMonsterCellsDict;
-        var allConsumables = GameManager.Instance.items.allConsumablesDict;
+        //var allConsumables = GameManager.Instance.items.allConsumablesDict;
 
         int row = 0;
         float rowCheck = 0f;
@@ -276,9 +368,16 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
 
             a.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
             a.GetComponent<SpriteRenderer>().sortingOrder = 1;
-            a.GetComponent<Image>().color = Color.clear;
+            a.GetComponent<Image>().enabled = false;
+            //a.GetComponent<Image>().color = Color.clear;
+
+            //a.GetComponent<Image>().sprite = a.GetComponent<SpriteRenderer>().sprite;
+            //a.GetComponent<Image>().material = a.GetComponent<SpriteRenderer>().material;
+            //a.GetComponent<SpriteRenderer>().enabled = false;
+
             a.transform.position = new Vector3(shopItemSprite.transform.position.x + ((rowCheck * 4) * shopScrollContent.GetComponent<RectTransform>().rect.width / 6), shopItemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
             a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y *1.5f, 1f);
+            a.tag = "Item";
 
             //shopItemSprites[shopSpriteTotal] = Instantiate(allEquips[item.name].equipPrefab, shopScrollContent.transform.position, Quaternion.identity);
             ////itemQuantities[shopSpriteTotal] = itemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
@@ -316,6 +415,62 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
         }
     }
 
+
+
+    public void DisplayShopConsumables()
+    {
+        var consumables = GameManager.Instance.GetComponent<Items>().consumables;
+        var allCells = GameManager.Instance.items.allMonsterCellsDict;
+        //var allConsumables = GameManager.Instance.items.allConsumablesDict;
+
+        int row = 0;
+        float rowCheck = 0f;
+
+
+        foreach (ConsumableItem c in consumables)
+        {
+
+            ConsumableItem item = c;
+
+            int itemCount = PlayerPrefs.GetInt(item.name);
+
+            GameObject a = Instantiate(consumableObject, shopScrollContent.transform.position, Quaternion.identity);
+
+
+            //itemQuantities[shopSpriteTotal] = itemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
+            a.transform.SetParent(shopScrollContent.transform, true);
+
+
+            a.GetComponent<ConsumableObject>().consumableItem = item;
+            a.GetComponent<ConsumableObject>().LoadItem();
+            a.GetComponentInChildren<TMP_Text>().text = item.cost.ToString();
+            //x.transform.localScale = new Vector3(x.transform.localScale.x * 100, x.transform.localScale.y * 100, x.transform.localScale.z);
+            //a.GetComponent<EquipmentItem>().EquipItemInfo(item);
+            //a.GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
+            //a.GetComponent<EquipmentItem>().valueText.text = a.GetComponent<EquipmentItem>().equipDetails.cost.ToString();
+
+
+            a.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
+            a.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            //a.GetComponent<Image>().color = Color.clear;
+            a.transform.position = new Vector3(shopItemSprite.transform.position.x + ((rowCheck * 4) * shopScrollContent.GetComponent<RectTransform>().rect.width / 6), shopItemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
+            a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
+            a.tag = "Item";
+
+
+
+            rowCheck += .25f;
+
+            if (rowCheck > .8f)
+            {
+                rowCheck = 0f;
+                row += 1;
+            }
+
+
+        }
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
 
@@ -327,12 +482,15 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
 
             Debug.Log(tag);
             //if the menu is opened with the purpose of Equipping a monster with an item, then allow it to be equipped. Otherwise, show the item's details
-            if (tag == "Equipment" || tag == "Consumable" || tag == "MonsterCell")
+            if (tag == "Item")
             {
-                EquipmentItem item = hit.gameObject.GetComponent<EquipmentItem>();
+                if (displayMode == DisplayMode.Equipment)
+                {
+                    EquipmentItem item = hit.gameObject.GetComponent<EquipmentItem>();
 
-                itemPopMenu.SetActive(true);
-                itemPopMenu.GetComponent<ItemPopMenu>().DisplayEquipment(item, hit.gameObject);
+                    itemPopMenu.SetActive(true);
+                    itemPopMenu.GetComponent<ItemPopMenu>().DisplayEquipment(item, hit.gameObject);
+                }
             }
         }
 
@@ -343,5 +501,37 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
     void Update()
     {
         
+    }
+
+
+
+    public void RightButton()
+    {
+        int i = (int)displayMode + 1;
+
+        if (i > 2)
+        {
+            i = 1;
+        }
+
+        displayMode = (DisplayMode)Enum.ToObject(typeof(DisplayMode), i);
+        UpdateItem();
+
+        Debug.Log(displayMode);
+    }
+
+    public void LeftButton()
+    {
+        int i = (int)displayMode - 1;
+
+        if (i < 1)
+        {
+            i = 2;
+        }
+
+        displayMode = (DisplayMode)Enum.ToObject(typeof(DisplayMode), i);
+        UpdateItem();
+
+        Debug.Log(displayMode);
     }
 }

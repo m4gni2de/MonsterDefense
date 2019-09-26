@@ -34,6 +34,18 @@ public enum AbilityTargetParameter
     
 }
 
+//if the ability's values are not constant, determine it here
+public enum AbilityParameterScope
+{
+    None,
+    PerEnemyByClass,
+    PerAllyByClass,
+    PerEnemyByType,
+    PerAllyByType,
+
+
+}
+
 [System.Serializable]
 public class Ability
 {
@@ -42,8 +54,9 @@ public class Ability
     public AbilityTarget target;
     public AbilityType type;
     public AbilityTargetParameter parameter;
+    public AbilityParameterScope scope;
 
-    public Type typeParameter;
+    public string typeParameter;
     public MonsterClass classParameter;
     public string speciesParameter;
 
@@ -115,10 +128,35 @@ public class AllAbilities
         type = AbilityType.StatBuff,
         parameter = AbilityTargetParameter.ByClass,
         classParameter = MonsterClass.Flying,
+        scope = AbilityParameterScope.None,
         castingAmmo = 1,
         atkBonus = 5,
+    };
 
+    public Ability BeastSlayer = new Ability
+    {
+        name = "Beast Slayer",
+        description = "All Beast Class Enemies on the field have their defense stat cut in half.",
+        target = AbilityTarget.AllEnemy,
+        type = AbilityType.StatNerf,
+        parameter = AbilityTargetParameter.ByClass,
+        classParameter = MonsterClass.Beast,
+        scope = AbilityParameterScope.None,
+        castingAmmo = 1,
+        defPercentBonus = -.5f,
+    };
 
+    public Ability NaturalQuake = new Ability
+    {
+        name = "Natural Quake",
+        description = "For each Nature Type Enemy on the field, raise this monster's attack by 5.",
+        target = AbilityTarget.Self,
+        type = AbilityType.StatBuff,
+        parameter = AbilityTargetParameter.None,
+        typeParameter = "Nature",
+        scope = AbilityParameterScope.PerEnemyByType,
+        castingAmmo = 1,
+        atkBonus = 5,
     };
 }
 
@@ -137,6 +175,8 @@ public class MonsterAbilities: MonoBehaviour
     void AddAllAbilities()
     {
         allAbilitiesDict.Add(allAbilities.ofAFeather.name, allAbilities.ofAFeather);
+        allAbilitiesDict.Add(allAbilities.BeastSlayer.name, allAbilities.BeastSlayer);
+        allAbilitiesDict.Add(allAbilities.NaturalQuake.name, allAbilities.NaturalQuake);
     }
 }
 
@@ -151,14 +191,28 @@ public class MonsterAbility
         Ability = ability;
         Owner = owner;
 
+        
+        //get the type of ability, and then execute the corresponding method
         if (ability.target == AbilityTarget.AllAlly)
         {
             AllAlly();
         }
 
+        if (ability.target == AbilityTarget.AllEnemy)
+        {
+            AllEnemy();
+        }
+
+        if (ability.target == AbilityTarget.Self)
+        {
+            Self();
+        }
+
+
+
     }
 
-
+    //if an ability affects all allies, use this method
     public void AllAlly()
     {
         var towers = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveTowers;
@@ -168,18 +222,77 @@ public class MonsterAbility
         //if there is a parameter on who the ability targets, figure out the targets
         if (Ability.parameter != AbilityTargetParameter.None)
         {
-            //if your ability affects all allies of a class, do this
-            if (Ability.parameter == AbilityTargetParameter.ByClass)
+            //if the ability relies on a scope,figure out the scope
+            if (Ability.scope == AbilityParameterScope.None)
             {
-                foreach(Monster ally in towers)
+                //if your ability affects all allies of a class, do this
+                if (Ability.parameter == AbilityTargetParameter.ByClass)
                 {
-                    if (ally.info.Class == Ability.classParameter)
+                    foreach (Monster ally in towers)
                     {
-                        ChangeStats(ally);
+                        if (ally.info.Class == Ability.classParameter)
+                        {
+                            ChangeStats(ally);
+                        }
                     }
                 }
             }
         }
+    }
+
+    //if an ability affects all enemies, use this method
+    public void AllEnemy()
+    {
+        var towers = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveTowers;
+        var enemies = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveEnemies;
+
+
+        //if there is a parameter on who the ability targets, figure out the targets
+        if (Ability.parameter != AbilityTargetParameter.None)
+        {
+            //if the ability relies on a scope,figure out the scope
+            if (Ability.scope == AbilityParameterScope.None)
+            {
+                //if your ability affects all allies of a class, do this
+                if (Ability.parameter == AbilityTargetParameter.ByClass)
+                {
+                    foreach (Enemy enemy in enemies)
+                    {
+                        if (enemy.stats.Class == Ability.classParameter)
+                        {
+                            ChangeEnemyStats(enemy);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+    //if an ability affects all enemies, use this method
+    public void Self()
+    {
+        var towers = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveTowers;
+        var enemies = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveEnemies;
+        var allTypes = GameManager.Instance.monstersData.typeChartDict;
+
+            //if the ability relies on a scope,figure out the scope
+            if (Ability.scope == AbilityParameterScope.PerEnemyByType)
+            {
+            //checks all of the enemies to see if they match the scope, and if they do, add that stat
+                foreach (Enemy enemy in enemies)
+                {
+                    if (enemy.stats.type1 == Ability.typeParameter || enemy.stats.type1 == Ability.typeParameter)
+                    {
+                        ChangeStats(Owner);
+                    }
+                }
+            }
+        
     }
 
 
@@ -285,6 +398,38 @@ public class MonsterAbility
     }
 
 
+    public void ChangeEnemyStats(Enemy enemy)
+    {
+        if (Ability.hpBonus != 0)
+            enemy.stats.HP.AddModifier(new StatModifier(Ability.hpBonus, StatModType.Flat, this, Ability.name));
+        if (Ability.atkBonus != 0)
+            enemy.stats.Attack.AddModifier(new StatModifier(Ability.atkBonus, StatModType.Flat, this, Ability.name));
+        if (Ability.defBonus != 0)
+            enemy.stats.Defense.AddModifier(new StatModifier(Ability.defBonus, StatModType.Flat, this, Ability.name));
+        if (Ability.speedBonus != 0)
+            enemy.stats.Speed.AddModifier(new StatModifier(Ability.speedBonus, StatModType.Flat, this, Ability.name));
+
+        if (Ability.hpPercentBonus != 0)
+            enemy.stats.HP.AddModifier(new StatModifier(Ability.hpPercentBonus, StatModType.PercentMult, this, Ability.name));
+        if (Ability.atkPercentBonus != 0)
+            enemy.stats.Attack.AddModifier(new StatModifier(Ability.atkPercentBonus, StatModType.PercentMult, this, Ability.name));
+        if (Ability.defPercentBonus != 0)
+            enemy.stats.Defense.AddModifier(new StatModifier(Ability.defPercentBonus, StatModType.PercentMult, this, Ability.name));
+        if (Ability.spePercentBonus != 0)
+            enemy.stats.Speed.AddModifier(new StatModifier(Ability.spePercentBonus, StatModType.PercentMult, this, Ability.name));
+    }
+
+
+
+    public void RemoveEnemyStatChanges(Enemy enemy)
+    {
+        enemy.stats.HP.RemoveAllModifiersFromSource(this);
+        enemy.stats.Attack.RemoveAllModifiersFromSource(this);
+        enemy.stats.Defense.RemoveAllModifiersFromSource(this);
+        enemy.stats.Speed.RemoveAllModifiersFromSource(this);
+        enemy.stats.Precision.RemoveAllModifiersFromSource(this);
+
+    }
 }
 
 

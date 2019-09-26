@@ -444,6 +444,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
         activeMonster.GetComponent<Tower>().attackNumber = 1;
         monsterName.text = activeMonster.info.name;
         activeMonster.GetComponent<Tower>().AttackRangeUI();
+        activeMonster.monsterMotion.GetComponent<MotionControl>().ResetAttacks();
     }
 
     //use this to select the monster's first attack
@@ -452,6 +453,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
         activeMonster.GetComponent<Tower>().attackNumber = 2;
         monsterName.text = activeMonster.info.name;
         activeMonster.GetComponent<Tower>().AttackRangeUI();
+        activeMonster.monsterMotion.GetComponent<MotionControl>().ResetAttacks();
 
     }
 

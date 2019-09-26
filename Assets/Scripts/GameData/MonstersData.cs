@@ -72,7 +72,7 @@ public class AllMonsterData
         staminaBase = 70,
         energyGenBase = 77,
         energyCost = 7f,
-        abilities = new string[1] { "Of A Feather" },
+        abilities = new string[1] { "Natural Quake" },
 
 
     };
@@ -95,7 +95,7 @@ public class AllMonsterData
         staminaBase = 90,
         energyGenBase = 95,
         energyCost = 5.5f,
-        abilities = new string[1] { "Of A Feather" },
+        abilities = new string[1] { "Beast Slayer" },
 
     };
 
