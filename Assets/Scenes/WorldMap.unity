@@ -13703,8 +13703,8 @@ MonoBehaviour:
   expSlider: {fileID: 2749243115486277349}
   type1: {fileID: 1567726646}
   type2: {fileID: 782148790}
-  equip1: {fileID: 669427060}
-  equip2: {fileID: 1149311071}
+  equip1: {fileID: 669427058}
+  equip2: {fileID: 1149311069}
   staminaBar: {fileID: 1735084327}
   towersFilled: 0
   mainCamera: {fileID: 968736469}

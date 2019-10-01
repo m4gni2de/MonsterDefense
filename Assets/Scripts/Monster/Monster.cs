@@ -48,6 +48,7 @@ public struct MonsterInfo
     public int precBase;
     public float critBase;
     public float evasionBase;
+    public float coinGenBase;
     public int staminaBase;
     public int staminaMax;
     public int level;
@@ -86,12 +87,14 @@ public struct MonsterInfo
     public Stat SpeedPotential;
     public Stat Precision;
     public Stat PrecisionPotential;
+    
 
     //new stats that need to be worked on
     
     public Stat Stamina;
     public Stat EnergyGeneration;
     public Stat EnergyCost;
+    public Stat CoinGeneration;
 
     public int koCount;
 
@@ -120,6 +123,7 @@ public struct TempStats
     public Stat PrecisionPotential;
     public Stat Stamina;
     public Stat EnergyGeneration;
+    public Stat CoinGeneration;
     public Stat EnergyCost;
     public float evasionBase;
     public float critBase;
@@ -850,7 +854,7 @@ public class Monster : MonoBehaviour
         SetExp();
         StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
         GetStats(stats);
-
+        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
         
     }
 
@@ -980,6 +984,7 @@ public class Monster : MonoBehaviour
         info.precBase = monsters[info.species].precBase;
         info.staminaBase = monsters[info.species].staminaBase;
         info.Class = monsters[info.species].Class;
+        info.coinGenBase = monsters[info.species].coinGenBase;
 
         info.attack1Name = saveToken.attack1;
         info.attack2Name = saveToken.attack2;
@@ -1034,5 +1039,34 @@ public class Monster : MonoBehaviour
         info = stats.Monster.info;
         tempStats = stats.Monster.tempStats;
         
+    }
+
+
+
+
+    //use this to launch an attack from a menu screen
+    public void TestAttack()
+    {
+        MonsterAttack attack = new MonsterAttack();
+
+        if (tower.attackNumber == 1)
+        {
+            attack = info.attack1;
+        }
+        else
+        {
+            attack = info.attack2;
+        }
+
+
+
+        var attackSprite = Instantiate(GameManager.Instance.baseAttacks.attackDict[attack.name].attackAnimation, tower.attackPoint.transform.position, Quaternion.identity);
+        attackSprite.gameObject.name = attack.name;
+        attackSprite.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
+        //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+        attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, tempStats.Attack.Value, (int)attack.Power.Value, info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+        attackSprite.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
+
+
     }
 }

@@ -36,7 +36,8 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
     public TMP_Text monsterName, attack1BtnText, attack2BtnText, levelText, atkText, defText, speText, precText, typeText, toLevelText, evasText, enGenText, enCostText, staminaText;
     public Slider expSlider;
-    public Image type1, type2, equip1, equip2;
+    public Image type1, type2;
+    public GameObject equip1, equip2;
     public EnergyBar staminaBar;
 
     //bool to make sure the towers in the list of towers only spawns one time
@@ -151,7 +152,34 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                     infoMenu.SetActive(true);
                     enemyInfoMenu.SetActive(false);
                     activeMonster = hit.collider.gameObject.GetComponent<Monster>();
-                    
+
+                    var equips = GameManager.Instance.items.allEquipmentDict;
+
+                    GameObject[] e = GameObject.FindGameObjectsWithTag("Item");
+
+                    for (int i = 0; i < e.Length; i++)
+                    {
+                        Destroy(e[i]);
+                    }
+
+                    //checks the monster's equipment and displays the matching sprites if there is equipment on the monster
+                    if (equips.ContainsKey(activeMonster.info.equip1Name))
+                    {
+                        var e1 = Instantiate(equips[activeMonster.info.equip1Name].equipPrefab, equip1.transform.position, Quaternion.identity);
+                        e1.transform.SetParent(equip1.transform);
+                        e1.transform.tag = "Item";
+                        e1.name = activeMonster.info.equip1Name;
+                    }
+
+                    //checks the monster's equipment and displays the matching sprites if there is equipment on the monster
+                    if (equips.ContainsKey(activeMonster.info.equip2Name))
+                    {
+                        var e2 = Instantiate(equips[activeMonster.info.equip2Name].equipPrefab, equip2.transform.position, Quaternion.identity);
+                        e2.transform.SetParent(equip1.transform);
+                        e2.transform.tag = "Item";
+                        e2.name = activeMonster.info.equip2Name;
+                    }
+
                 }
                 
             }
@@ -238,9 +266,10 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             //checks the monster's equipment and displays the matching sprites if there is equipment on the monster
             if (equips.ContainsKey(activeMonster.info.equip1Name))
             {
-                equip1.GetComponent<Image>().sprite = equips[activeMonster.info.equip1Name].equipPrefab.GetComponent<Image>().sprite;
-                equip1.GetComponent<Image>().color = Color.white;
-                //type1.transform.localScale = new Vector3(3.5f, 1.25f, type1.transform.localScale.z);
+                //equip1.GetComponent<Image>().sprite = equips[activeMonster.info.equip1Name].equipPrefab.GetComponent<Image>().sprite;
+                equip1.GetComponent<Image>().color = Color.clear;
+                //equip1.GetComponent<Image>().material = equips[activeMonster.info.equip1Name].equipPrefab.GetComponent<Image>().material;
+                ////type1.transform.localScale = new Vector3(3.5f, 1.25f, type1.transform.localScale.z);
                 equip1.name = activeMonster.info.equip1Name;
             }
             else
@@ -252,8 +281,9 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
             if (equips.ContainsKey(activeMonster.info.equip2Name))
             {
-                equip2.GetComponent<Image>().sprite = equips[activeMonster.info.equip2Name].equipPrefab.GetComponent<Image>().sprite;
-                equip2.GetComponent<Image>().color = Color.white;
+                //equip2.GetComponent<Image>().sprite = equips[activeMonster.info.equip2Name].equipPrefab.GetComponent<Image>().sprite;
+                equip2.GetComponent<Image>().color = Color.clear;
+                //equip2.GetComponent<Image>().material = equips[activeMonster.info.equip2Name].equipPrefab.GetComponent<Image>().material;
                 //type2.transform.localScale = new Vector3(3.5f, 1.25f, type2.transform.localScale.z);
                 equip2.name = activeMonster.info.equip2Name;
             }
@@ -299,6 +329,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                             monsterName.text = GameManager.Instance.activeTowers[index].info.name;
                             attack1BtnText.text = GameManager.Instance.activeTowers[index].info.attack1Name;
                             attack2BtnText.text = GameManager.Instance.activeTowers[index].info.attack2Name;
+
                         }
 
 
@@ -477,23 +508,25 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             
 
             //objects with the scriptable object tag are image sprites that can be touched by the player to reveal information about the thing touched in a pop menu
-            if (tag == "ScriptableObject")
+            if (tag == "ScriptableObject" || tag == "Item")
             {
                 var items = GameManager.Instance.items.allItemsDict;
                 var types = GameManager.Instance.monstersData.typeChartDict;
+
+                Debug.Log(tag);
 
                 //checks to see if the item hit was an item. if it was, fill the box with information about the item
                 if (items.ContainsKey(hit.name))
                 {
                         popMenuObject.SetActive(true);
-                        popMenuObject.GetComponent<PopMenuObject>().AcceptObect(hit.name, items[hit.name]);
+                        popMenuObject.GetComponent<PopMenuObject>().AcceptObject(hit.name, items[hit.name]);
                 }
 
                 //checks to see if the item hit was a type. if it was, fill the box with information about the type
                 if (types.ContainsKey(hit.name))
                 {
                     popMenuObject.SetActive(true);
-                    popMenuObject.GetComponent<PopMenuObject>().AcceptObect(hit.name, types[hit.name]);
+                    popMenuObject.GetComponent<PopMenuObject>().AcceptObject(hit.name, types[hit.name]);
                 }
 
             }
@@ -502,6 +535,16 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
 
 
+    }
+
+    public void OnDisable()
+    {
+        GameObject[] e = GameObject.FindGameObjectsWithTag("Item");
+
+        for (int i = 0; i < e.Length; i++)
+        {
+            Destroy(e[i]);
+        }
     }
 
 }

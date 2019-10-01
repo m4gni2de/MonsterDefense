@@ -27,7 +27,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     private float touchTime, acumTime, releaseTime;
 
 
-    public GameObject monsterInfoMenu;
+    public GameObject monsterInfoMenu, accountInfoMenu;
 
     public GameObject consumableObject;
 
@@ -319,7 +319,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                 //monster.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
                 activeMonster = monster.GetComponent<Monster>();
                 monsterSpriteTotal += 1;
-                Debug.Log(monsterSpriteTotal);
+                GameManager.Instance.GetComponent<YourAccount>().account.totalMonstersCollected += 1;
                 LoadMonsters();
             }
         }
@@ -460,6 +460,12 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void AccountMenu()
+    {
+        accountInfoMenu.SetActive(true);
+        accountInfoMenu.GetComponent<AccountInfoMenu>().LoadAccountInfo();
     }
 
     

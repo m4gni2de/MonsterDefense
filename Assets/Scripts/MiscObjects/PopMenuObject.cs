@@ -35,10 +35,12 @@ public class PopMenuObject : MonoBehaviour
     }
 
     //accepts an object and then displays the information about that object based on the object type
-    public void AcceptObect(string name, object obj)
+    public void AcceptObject(string name, object obj)
     {
         var items = GameManager.Instance.items.allItemsDict;
         var types = GameManager.Instance.monstersData.typeChartDict;
+        var effects = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict;
+        var atkModes = GameManager.Instance.GetComponent<Attacks>().atkModeDict;
 
         //checks to see if the object brought over was an item
         if (items.ContainsKey(name))
@@ -52,7 +54,17 @@ public class PopMenuObject : MonoBehaviour
             Type(name);
         }
 
-        
+        if (effects.ContainsKey(name))
+        {
+            StatusEffect(name);
+        }
+
+        if (atkModes.ContainsKey(name))
+        {
+            AttackMode(name);
+        }
+
+
     }
 
     //use this method for an item
@@ -80,6 +92,22 @@ public class PopMenuObject : MonoBehaviour
         titleText.text = "Type";
         menuText.text = types[name].name;
 
+    }
+
+    public void StatusEffect(string name)
+    {
+        var effects = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict;
+
+        titleText.text = name;
+        menuText.text = effects[name].description;
+    }
+
+    public void AttackMode(string name)
+    {
+        var atkModes = GameManager.Instance.GetComponent<Attacks>().atkModeDict;
+
+        titleText.text = "Attack Mode";
+        menuText.text = name;
     }
 
 

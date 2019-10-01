@@ -63,6 +63,7 @@ public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             mapDetails.LoadMap(mapName);
             mapObject.transform.position = new Vector2(0f, 0f);
             loadTowerMenuBtn.interactable = true;
+            GameManager.Instance.inGame = true;
             worldMapObject.SetActive(false);
         }
         

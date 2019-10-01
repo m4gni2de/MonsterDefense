@@ -63,6 +63,8 @@ MonoBehaviour:
   fireAttackColor: {r: 0, g: 0, b: 0, a: 0}
   monsterCount: 0
   monsterJson: 
+  coinGeneration: 0
+  inGame: 0
 --- !u!114 &6317396937658932170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,6 +358,12 @@ MonoBehaviour:
         type: 3}
       forceType: 0
       staminaGained: 0.06
+  attackModeSprites:
+  - {fileID: 21300000, guid: c1c43d0874389e2439a9652eab1d951b, type: 3}
+  - {fileID: 21300002, guid: c1c43d0874389e2439a9652eab1d951b, type: 3}
+  - {fileID: 21300006, guid: c1c43d0874389e2439a9652eab1d951b, type: 3}
+  - {fileID: 21300004, guid: c1c43d0874389e2439a9652eab1d951b, type: 3}
+  - {fileID: 21300008, guid: c1c43d0874389e2439a9652eab1d951b, type: 3}
   waterAttacks: []
   electricAttacks: []
   shadowAttacks: []
@@ -388,6 +396,10 @@ MonoBehaviour:
       defBase: 118
       speBase: 44
       precBase: 86
+      staminaBase: 70
+      energyGenBase: 77
+      energyCost: 7
+      coinGenBase: 4.3
       maxLevel: 100
       levelConst: 1.9
       baseAttacks:
@@ -395,9 +407,6 @@ MonoBehaviour:
       - Misty Spray
       - Wind Cyclone
       - Shadow Blaze Punch
-      staminaBase: 70
-      energyGenBase: 77
-      energyCost: 7
       abilities:
       - Natural Quake
     Armordan:
@@ -414,6 +423,10 @@ MonoBehaviour:
       defBase: 130
       speBase: 39
       precBase: 140
+      staminaBase: 90
+      energyGenBase: 95
+      energyCost: 5.5
+      coinGenBase: 3.4
       maxLevel: 100
       levelConst: 1.9
       baseAttacks:
@@ -424,9 +437,6 @@ MonoBehaviour:
       - Wind Cyclone
       - Misty Spray
       - Darkness Pike
-      staminaBase: 90
-      energyGenBase: 95
-      energyCost: 5.5
       abilities:
       - Beast Slayer
     Fowitzer:
@@ -443,6 +453,10 @@ MonoBehaviour:
       defBase: 76
       speBase: 115
       precBase: 140
+      staminaBase: 90
+      energyGenBase: 86
+      energyCost: 6.5
+      coinGenBase: 2.6
       maxLevel: 100
       levelConst: 1.9
       baseAttacks:
@@ -450,9 +464,33 @@ MonoBehaviour:
       - Aqua Dart
       - Wind Cyclone
       - Energy Dragon
+      abilities:
+      - Of A Feather
+    Iceros:
+      monsterPrefab: {fileID: 7742632022644978468, guid: 7373b0563b529b44886d926dba691deb,
+        type: 3}
+      iconSprite: {fileID: 21300000, guid: 4a82757bcbcd5e04ca4b0506682fe567, type: 3}
+      id: 4
+      species: Iceros
+      type1: Ice
+      type2: none
+      Class: 1
+      hpBase: 112
+      atkBase: 114
+      defBase: 132
+      speBase: 66
+      precBase: 96
       staminaBase: 90
-      energyGenBase: 86
-      energyCost: 6.5
+      energyGenBase: 64
+      energyCost: 8.5
+      coinGenBase: 2.9
+      maxLevel: 100
+      levelConst: 1.9
+      baseAttacks:
+      - Wind Cyclone
+      - Energy Dragon
+      - Aqua Dart
+      - Thunder
       abilities:
       - Of A Feather
   allTypes:
@@ -633,6 +671,8 @@ MonoBehaviour:
       equipType: 0
       typeMonsterReq: Water
       typeMoveReq: Water
+      forceReq: 0
+      attackModeReq: 0
       boosts:
       - Water Type Attacks + 20% Power
       cost: 200
@@ -656,7 +696,7 @@ MonoBehaviour:
       defPercentBonus: 0
       spePercentBonus: 0
       precPercentBonus: 0
-      atkPowerPercentBonus: 0.2
+      atkPowerPercentBonus: 0.1
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
       staminaPercentBonus: 0
@@ -669,6 +709,8 @@ MonoBehaviour:
       equipType: 0
       typeMonsterReq: Electric
       typeMoveReq: 
+      forceReq: 0
+      attackModeReq: 0
       boosts:
       - +10% Attack
       cost: 200
@@ -705,6 +747,8 @@ MonoBehaviour:
       equipType: 0
       typeMonsterReq: Nature
       typeMoveReq: Nature
+      forceReq: 0
+      attackModeReq: 0
       boosts:
       - +10% Attack
       cost: 200
@@ -741,6 +785,8 @@ MonoBehaviour:
       equipType: 0
       typeMonsterReq: Magic
       typeMoveReq: 
+      forceReq: 0
+      attackModeReq: 0
       boosts:
       - +10% Attack
       cost: 200
@@ -777,6 +823,8 @@ MonoBehaviour:
       equipType: 0
       typeMonsterReq: Shadow
       typeMoveReq: 
+      forceReq: 0
+      attackModeReq: 0
       boosts:
       - +10% Attack
       cost: 200
@@ -813,6 +861,8 @@ MonoBehaviour:
       equipType: 0
       typeMonsterReq: Fire
       typeMoveReq: 
+      forceReq: 0
+      attackModeReq: 0
       boosts:
       - +10% Attack
       cost: 200
@@ -849,6 +899,8 @@ MonoBehaviour:
       equipType: 1
       typeMonsterReq: none
       typeMoveReq: none
+      forceReq: 0
+      attackModeReq: 0
       boosts:
       - +5 Attack Power
       cost: 400
@@ -876,8 +928,45 @@ MonoBehaviour:
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
       staminaPercentBonus: 0
+    SpikedKnuckles:
+      name: Spiked Knuckles
+      id: 8
+      equipPrefab: {fileID: 7820865207568744930, guid: c7e3e45625894284198ee9553b387262,
+        type: 3}
+      description: Punch Mode attacks gain 20% attack power.
+      equipType: 2
+      typeMonsterReq: none
+      typeMoveReq: 
+      forceReq: 0
+      attackModeReq: 0
+      boosts:
+      - 20% Punch Attack Power
+      cost: 400
+      equipSlot: 0
+      equipLevel: 0
+      equipLevelMax: 0
+      equipExp: 0
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      staminaBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0.2
+      atkTimePercentBonus: 0
+      evasionPercentBonus: 0
+      staminaPercentBonus: 0
   equipmentList: []
-  consumableList: []
   cellList: []
   consumables:
   - {fileID: 11400000, guid: 48d3ed719667b824eaac63e0f5f2b4b6, type: 2}
@@ -909,6 +998,10 @@ MonoBehaviour:
     playerLevel: 0
     playerExp: 0
     coins: 0
+    totalMonstersCollected: 0
+    playTime: 0
+  sessionPlayTime: 0
+  acumTime: 0
 --- !u!114 &6317396937658932168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -921,6 +1014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76073fdb57263d94cadd6aaf8c566ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  yourMonstersList: []
 --- !u!114 &9114463754745283373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1043,6 +1137,7 @@ MonoBehaviour:
     Burn:
       name: Burn
       effectType: Fire
+      description: Lowers HP by 4% every 3 seconds, for 30 seconds total.
       hpDrop: -0.04
       atkDrop: 0
       defDrop: 0
@@ -1059,6 +1154,7 @@ MonoBehaviour:
     FrostBite:
       name: Frost Bite
       effectType: Ice
+      description: Lowers Defense by 20% and Speed by 15% for 30 seconds.
       hpDrop: 0
       atkDrop: 0
       defDrop: -0.2
@@ -1075,6 +1171,7 @@ MonoBehaviour:
     Paralysis:
       name: Paralysis
       effectType: Electric
+      description: Lowers Evasion by 45% and Speed by 25% for 30 seconds.
       hpDrop: 0
       atkDrop: 0
       defDrop: 0
@@ -1091,6 +1188,8 @@ MonoBehaviour:
     Poison:
       name: Poison
       effectType: Nature
+      description: Lowers Evasion by 25%, HP by 2% and Def by 1% every 4 seconds,
+        for 40 seconds total.
       hpDrop: -0.02
       atkDrop: 0
       defDrop: -0.01
@@ -1107,6 +1206,8 @@ MonoBehaviour:
     Deafen:
       name: Deafen
       effectType: Shadow
+      description: Lowers Evasion by 6% and Speed by 3% every 4 seconds, for 40 seconds
+        total.
       hpDrop: 0
       atkDrop: 0
       defDrop: 0
@@ -1123,6 +1224,7 @@ MonoBehaviour:
     Confusion:
       name: Confusion
       effectType: Magic
+      description: Lowers Evasion by 30% and Speed by 55% for 30 seconds.
       hpDrop: 0
       atkDrop: 0
       defDrop: 0

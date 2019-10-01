@@ -63,6 +63,7 @@ public struct TileInfo
     public string type;
     public string attribute;
     public int level;
+    public float totalExp;
     public int maxLevel;
     public string statBoost;
     public float boostPercentage;

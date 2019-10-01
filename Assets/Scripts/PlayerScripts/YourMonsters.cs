@@ -11,6 +11,10 @@ public class YourMonsters : MonoBehaviour
     public Dictionary<int, string> yourMonstersDict = new Dictionary<int, string>();
     //public Dictionary<int, Monster> yourMonstersAllInfo = new Dictionary<int, Monster>();
 
+    //keeps track of all of your monsters and their coin generation
+    public Dictionary<int, float> coinGenDict = new Dictionary<int, float>();
+    public List<Monster> yourMonstersList = new List<Monster>();
+
     private void Awake()
     {
 
@@ -27,7 +31,8 @@ public class YourMonsters : MonoBehaviour
     public void GetYourMonsters()
     {
         yourMonstersDict.Clear();
-        //yourMonstersAllInfo.Clear();
+        coinGenDict.Clear();
+        GameManager.Instance.coinGeneration = 0;
 
         //var byPrefab = GameManager.Instance.monstersData.monsterPrefabsDict;
         var accountInfo = GameManager.Instance.GetComponent<YourAccount>().account;
@@ -39,12 +44,24 @@ public class YourMonsters : MonoBehaviour
             string json = PlayerPrefs.GetString(i.ToString());
             //yourMonsterTokens.Add(i, json);
 
-            //LoadMonsterFromToken(json);
+            
             yourMonstersDict.Add(i, json);
+            var t = JsonUtility.FromJson<MonsterSaveToken>(json);
+            float coinGen = (int)(t.level * gameObject.GetComponent<MonstersData>().monstersAllDict[t.species].coinGenBase);
+            coinGenDict.Add(t.index, coinGen);
+            
             //Debug.Log(yourMonstersDict[i]);
         }
 
-        
+        //get your coin generation total from all of your monsters
+        foreach(KeyValuePair<int, float> coinGen in coinGenDict)
+        {
+            GameManager.Instance.coinGeneration += coinGen.Value;
+        }
+
+        Debug.Log(GameManager.Instance.coinGeneration);
+
+
 
         //string playerDirectory = Application.persistentDataPath + "/Saves/" + accountInfo.username;
         //string accountText = playerDirectory + "/player.txt";
@@ -64,14 +81,11 @@ public class YourMonsters : MonoBehaviour
         //        yourMonstersDict.Add(i +1, json);
         //    }
 
-            
+
         //}
     }
 
-    public void LoadMonsterFromToken(string tokenJson)
-    {
-
-    }
+   
 
     // Update is called once per frame
     void Update()

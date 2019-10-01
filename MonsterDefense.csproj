@@ -703,7 +703,7 @@
     <Compile Include="Assets\2DxFX\Scripts\Additive2D.cs" />
     <Compile Include="Assets\2DxFX\Scripts\BlackHole.cs" />
     <Compile Include="Assets\2DxFX\Scripts\BloodFX.cs" />
-    <Compile Include="Assets\2DxFX\Scripts\Blur.cs" />
+    <Compile Include="Assets\2DxFX\Scripts\BlurFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\BlurHQ.cs" />
     <Compile Include="Assets\2DxFX\Scripts\BlurHQX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\BurnFX.cs" />
@@ -711,8 +711,8 @@
     <Compile Include="Assets\2DxFX\Scripts\Cartoon.cs" />
     <Compile Include="Assets\2DxFX\Scripts\CircleFade.cs" />
     <Compile Include="Assets\2DxFX\Scripts\Clipping.cs" />
-    <Compile Include="Assets\2DxFX\Scripts\Color.cs" />
     <Compile Include="Assets\2DxFX\Scripts\ColorChange.cs" />
+    <Compile Include="Assets\2DxFX\Scripts\ColorFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\ColorRGB.cs" />
     <Compile Include="Assets\2DxFX\Scripts\CompressionFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\DesintegrationFX.cs" />
@@ -749,7 +749,7 @@
     <Compile Include="Assets\2DxFX\Scripts\MysticDictortionAdditive.cs" />
     <Compile Include="Assets\2DxFX\Scripts\MysticDistortion.cs" />
     <Compile Include="Assets\2DxFX\Scripts\Negative.cs" />
-    <Compile Include="Assets\2DxFX\Scripts\NewTeleporation.cs" />
+    <Compile Include="Assets\2DxFX\Scripts\NewTeleportation.cs" />
     <Compile Include="Assets\2DxFX\Scripts\NewTeleportation2.cs" />
     <Compile Include="Assets\2DxFX\Scripts\NoiseAnimatedFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\NoiseFX.cs" />
@@ -787,7 +787,6 @@
     <Compile Include="Assets\Puppet2D\FightingGame\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Puppet2D\FightingGame\Scripts\FighterAIController.cs" />
     <Compile Include="Assets\Puppet2D\FightingGame\Scripts\FighterRandomIndex.cs" />
-    <Compile Include="Assets\Puppet2D\Platformer\Scripts\PlatformerSimpleController.cs" />
     <Compile Include="Assets\Puppet2D\Scripts\Puppet2D_AngleLimitNode.cs" />
     <Compile Include="Assets\Puppet2D\Scripts\Puppet2d_AnimatorController.cs" />
     <Compile Include="Assets\Puppet2D\Scripts\Puppet2D_BakeAnimation.cs" />
@@ -846,13 +845,19 @@
     <Compile Include="Assets\Puppet2D\Scripts\Triangulation\Utility\Rect2D.cs" />
     <Compile Include="Assets\Scripts\AttackScripts\AttackEffects.cs" />
     <Compile Include="Assets\Scripts\GameData\AllStatusEffects.cs" />
-    <Compile Include="Assets\Scripts\GameData\BaseAttacks.cs" />
+    <Compile Include="Assets\Scripts\GameData\Attacks.cs" />
+    <Compile Include="Assets\Scripts\GameData\Companion\CompanionData.cs" />
+    <Compile Include="Assets\Scripts\GameData\Companion\CompanionScript.cs" />
+    <Compile Include="Assets\Scripts\GameData\Items\ConsumableItem.cs" />
+    <Compile Include="Assets\Scripts\GameData\Items\ConsumableObject.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\EquippableItem.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\Items.cs" />
     <Compile Include="Assets\Scripts\GameData\Maps.cs" />
+    <Compile Include="Assets\Scripts\GameData\MonsterAbilities.cs" />
     <Compile Include="Assets\Scripts\GameData\MonstersData.cs" />
     <Compile Include="Assets\Scripts\GameData\SpriteMaterials.cs" />
     <Compile Include="Assets\Scripts\GameData\StatsCalc.cs" />
+    <Compile Include="Assets\Scripts\GifAnimation.cs" />
     <Compile Include="Assets\Scripts\Items\EquipmentItem.cs" />
     <Compile Include="Assets\Scripts\Items\ItemPopMenu.cs" />
     <Compile Include="Assets\Scripts\MapScripts\EnemySpawn.cs" />
@@ -864,8 +869,12 @@
     <Compile Include="Assets\Scripts\MiscObjects\AccountScene\AccountManagement.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\CameraMotion.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\CameraRenderer.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\Home\AccountInfoMenu.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\EquipmentManager.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterEditor.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterHomeIcon.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterInfoPanel.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterUpgrade.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\YourHome.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\ItemScene\ItemShop.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\MainMenu.cs" />
@@ -881,6 +890,7 @@
     <Compile Include="Assets\Scripts\MiscScripts\Singlenton.cs" />
     <Compile Include="Assets\Scripts\MiscScripts\SortingLayerExposed.cs" />
     <Compile Include="Assets\Scripts\Monster\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Monster\FaceMotion.cs" />
     <Compile Include="Assets\Scripts\Monster\MeshBodyParts.cs" />
     <Compile Include="Assets\Scripts\Monster\Monster.cs" />
     <Compile Include="Assets\Scripts\Monster\MonsterIcon.cs" />

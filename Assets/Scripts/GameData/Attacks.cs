@@ -58,6 +58,7 @@ public enum AttackMode
     Kick,
     Projectile,
     Physical,
+    Mystical,
 }
 
 public enum DamageForce
@@ -249,6 +250,11 @@ public class Attacks : MonoBehaviour
     public AllAttacks allAttacks = new AllAttacks();
     public Dictionary<string, MonsterAttack> attackDict = new Dictionary<string, MonsterAttack>();
 
+    //this is populated in the Inspector
+    public List<Sprite> attackModeSprites;
+    //this is filled on Awake
+    public Dictionary<string, Sprite> atkModeDict = new Dictionary<string, Sprite>();
+
     
     public List<string> waterAttacks = new List<string>();
     public List<string> electricAttacks = new List<string>();
@@ -262,6 +268,7 @@ public class Attacks : MonoBehaviour
     private void Awake()
     {
         SetBaseAttacks();
+        SetSprites();
        
     }
 
@@ -313,6 +320,17 @@ public class Attacks : MonoBehaviour
         }
 
 
+    }
+
+
+    //set the sprite dictionaries for the attack effects
+    public void SetSprites()
+    {
+        atkModeDict.Add("Punch", attackModeSprites[0]);
+        atkModeDict.Add("Kick", attackModeSprites[1]);
+        atkModeDict.Add("Projectile", attackModeSprites[2]);
+        atkModeDict.Add("Physical", attackModeSprites[3]);
+        atkModeDict.Add("Mystical", attackModeSprites[4]);
     }
 
 

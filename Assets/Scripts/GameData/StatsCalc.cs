@@ -38,14 +38,18 @@ public class StatsCalc
         monster.info.Speed.BaseValue = (int)((2 * monster.info.speBase + monster.info.SpeedPotential.BaseValue) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 4);
         //monster.info.precStat = (int)((2 * monster.info.precBase + monster.info.precPot) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 4);
         monster.info.Precision.BaseValue = (int)((2 * monster.info.precBase + monster.info.PrecisionPotential.BaseValue) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 4);
+        
         monster.info.critBase = (monster.info.precBase / 33) + Mathf.Sqrt(monster.info.Precision.BaseValue);
+
+
+        monster.info.CoinGeneration.BaseValue = (int)(level * monster.info.coinGenBase);
 
 
         monster.info.evasionBase = Mathf.Round(((monster.info.Speed.BaseValue / monster.info.HP.BaseValue) / 5) * 100);
         monster.info.Stamina.BaseValue = (int)monster.info.staminaBase;
         monster.info.EnergyCost.BaseValue = (int)monster.info.energyCost;
         monster.info.EnergyGeneration.BaseValue = (monster.info.energyGenBase);
-
+        
         
 
        
@@ -86,6 +90,7 @@ public class StatsCalc
         monster.tempStats.Stamina.BaseValue = monster.info.Stamina.Value;
         monster.tempStats.EnergyCost.BaseValue = monster.info.EnergyCost.Value;
         monster.tempStats.EnergyGeneration.BaseValue = monster.info.EnergyGeneration.Value;
+        monster.tempStats.CoinGeneration.BaseValue = monster.info.CoinGeneration.Value;
         monster.tempStats.evasionBase = monster.info.evasionBase;
         monster.tempStats.critBase = monster.info.critBase;
 
@@ -240,6 +245,7 @@ public class Stat
             }
         }
 
+        
         return (float)Math.Round(finalValue, 0);
     }
 

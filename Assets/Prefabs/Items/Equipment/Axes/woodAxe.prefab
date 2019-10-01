@@ -169,7 +169,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4829067988910132357}
-  - component: {fileID: 5211108887654226318}
   - component: {fileID: 5211108887654226317}
   - component: {fileID: 2641231383062502178}
   - component: {fileID: 1782269563399695789}
@@ -201,54 +200,6 @@ RectTransform:
   m_AnchoredPosition: {x: -201.39171, y: 74.302925}
   m_SizeDelta: {x: 0.55, y: 0.54}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!212 &5211108887654226318
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5211108887654226316}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1234149963
-  m_SortingLayer: 8
-  m_SortingOrder: 7
-  m_Sprite: {fileID: 21300000, guid: 12ab7ff992b5c8342bd4c9bcf8ee13ef, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.26, y: 0.26}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!114 &5211108887654226317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +258,6 @@ MonoBehaviour:
     atkTimePercentBonus: 0
     evasionPercentBonus: 0
     staminaPercentBonus: 0
-  sp: {fileID: 5211108887654226318}
   sprite: {fileID: 0}
   image: {fileID: 1782269563399695789}
   isEquipped: 0
@@ -333,7 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8745099, g: 0.8745099, b: 0.8745099, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

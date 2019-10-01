@@ -45,7 +45,7 @@ public class SpriteMaterials : MonoBehaviour
         //        myTypes.Add(t);
         //        Debug.Log(t);
         //    }
-            
+
         //}
     }
 

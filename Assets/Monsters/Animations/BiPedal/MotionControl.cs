@@ -131,8 +131,17 @@ public class MotionControl : MonoBehaviour
      //once the animation has officially started, actually fire the attack
     public void StartAttack()
     {
-        tower.LaunchAttack(targetTile, enemy);
+        //if the monster is in a game, launch attacks like normal. If not, use the more generalized attack
+        if (GameManager.Instance.inGame == true)
+        {
+            tower.LaunchAttack(targetTile, enemy);
+        }
+        else
+        {
+            monster.TestAttack();
+        }
     }
+
 
 
     public void EndHit()

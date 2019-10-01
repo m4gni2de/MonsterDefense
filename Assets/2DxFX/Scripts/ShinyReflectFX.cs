@@ -58,7 +58,8 @@ using UnityEditor;
             }
             else if (CanvasImage != null)
             {
-                CanvasImage.material.SetTexture("_MainTex2", __MainTex2);
+           
+            CanvasImage.material.SetTexture("_MainTex2", __MainTex2);
             }
 
             // VS AnimationCurve To C# for ShinyLightCurve
@@ -184,7 +185,9 @@ using UnityEditor;
                 }
                 else if (CanvasImage != null)
                 {
-                    Image img = CanvasImage;
+                
+                ///
+                Image img = CanvasImage;
                     if (img.material == null) CanvasImage.material.SetTexture("_MainTex2", __MainTex2);
                 }
             }

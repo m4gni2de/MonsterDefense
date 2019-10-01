@@ -82,6 +82,7 @@ public class AccountManagement : MonoBehaviour
         info.userId = "none";
         info.playerLevel = 0;
         info.playerLevel = 0;
+        info.playTime = 0;
         info.coins = 0;
 
         GameManager.Instance.GetComponent<YourAccount>().account = info;
@@ -213,6 +214,7 @@ public class AccountManagement : MonoBehaviour
         info.emailAddress = player.emailAddress;
         info.playerLevel = player.playerLevel;
         info.playerExp = player.playerExp;
+        info.playTime = player.playTime;
         info.coins = player.coins;
 
         GameManager.Instance.GetComponent<YourAccount>().account = info;

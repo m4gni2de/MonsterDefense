@@ -9,7 +9,8 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //mark the player as not in a game every time the main menu opens
+        GameManager.Instance.inGame = false;
     }
 
     // Update is called once per frame

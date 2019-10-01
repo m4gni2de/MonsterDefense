@@ -9,6 +9,7 @@ public class Status
 {
     public string name;
     public string effectType;
+    public string description;
 
     public float hpDrop;
     public float atkDrop;
@@ -34,6 +35,7 @@ public class AllStatuses
     {
         name = "Burn",
         effectType = "Fire",
+        description = "Lowers HP by 4% every 3 seconds, for 30 seconds total.",
         hpDrop = -.04f,
         duration = 30f,
         interval = 3f,
@@ -44,6 +46,7 @@ public class AllStatuses
     {
         name = "Frost Bite",
         effectType = "Ice",
+        description = "Lowers Defense by 20% and Speed by 15% for 30 seconds.",
         defDrop = -.20f,
         speDrop = -.15f,
         duration = 30f,
@@ -55,6 +58,7 @@ public class AllStatuses
     {
         name = "Paralysis",
         effectType = "Electric",
+        description = "Lowers Evasion by 45% and Speed by 25% for 30 seconds.",
         evasionDrop = -.45f,
         speDrop = -.25f,
         duration = 30f,
@@ -66,10 +70,11 @@ public class AllStatuses
     {
         name = "Poison",
         effectType = "Nature",
-        evasionDrop = -.45f,
+        description = "Lowers Evasion by 25%, HP by 2% and Def by 1% every 4 seconds, for 40 seconds total.",
+        evasionDrop = -.25f,
         hpDrop = -.02f,
         defDrop = -.01f,
-        duration = 30f,
+        duration = 40f,
         interval = 4f,
     };
 
@@ -78,9 +83,10 @@ public class AllStatuses
     {
         name = "Deafen",
         effectType = "Shadow",
+        description = "Lowers Evasion by 6% and Speed by 3% every 4 seconds, for 40 seconds total.",
         evasionDrop = -.06f,
         speDrop = -.03f,
-        duration = 30f,
+        duration = 40f,
         interval = 4f,
     };
 
@@ -88,6 +94,7 @@ public class AllStatuses
     {
         name = "Confusion",
         effectType = "Magic",
+        description = "Lowers Evasion by 30% and Speed by 55% for 30 seconds.",
         evasionDrop = -.30f,
         speDrop = -.55f,
         duration = 30f,

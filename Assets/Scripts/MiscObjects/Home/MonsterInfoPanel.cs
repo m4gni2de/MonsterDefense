@@ -13,15 +13,18 @@ using System.Linq;
 public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 {
     public GameObject monsterSprite, type1, type2;
-    public GameObject equipMenu, equipObject, monsterEditorMenu, monsterUpgradeMenu;
-    public TMP_Text monsterNameText, levelText, atkText, defText, speText, precText, typeText, toNextLevelText, evasionText, energyGenText, energyCostText, stamTxt, abilityNameText, abilityText;
+    public GameObject equipMenu, equipObject, monsterEditorMenu, monsterUpgradeMenu, popMenu;
+    public TMP_Text monsterNameText, levelText, atkText, defText, speText, precText, typeText, toNextLevelText, evasionText, energyGenText, energyCostText, stamTxt, abilityNameText, abilityText, coinGenText;
     public TMP_Text atkBoostText, defBoostText, speBoostText, precBoostText, evasBoostText, enGenBoostText, costBoostText, stamBoostText;
     public TMP_Text attack1, attack2;
     public TMP_Text atk1Attack, atk1Range, atk1Cool, atk1Slow, atk1Effect, atk1Stamina;
     public TMP_Text atk2Attack, atk2Range, atk2Cool, atk2Slow, atk2Effect, atk2Stamina;
     public Slider expSlider;
 
-    
+    //images to represent the attack modes and damage forces of the monster's attacks
+    public Image atk1Mode, atk1Force, atk1Status, atk2Mode, atk2Force, atk2Status;
+
+
 
     private Equipment equip1, equip2;
     public bool isEquip1, isEquip2;
@@ -41,12 +44,13 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         attack1Btn.GetComponent<Button>();
         attack2Btn.GetComponent<Button>();
 
-        
-        
-        
+
+        attack1Btn.interactable = true;
+        attack2Btn.interactable = true;
+
         //deleteButton.GetComponent<Button>();
 
-        
+
     }
 
     // Update is called once per frame
@@ -230,11 +234,12 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         precText.text = thisMonster.info.Precision.Value.ToString();
         evasionText.text = thisMonster.info.evasionBase + "%";
         //energyGenText.text = Math.Round(thisMonster.energyGeneration / 60, 2) + " /s";
-        energyGenText.text = Math.Round(thisMonster.tempStats.EnergyGeneration.Value / 60, 2) + " /s";
+        energyGenText.text = Math.Round(thisMonster.info.EnergyGeneration.Value / 60, 2) + " /s";
         energyCostText.text = thisMonster.info.EnergyCost.Value.ToString();
         stamTxt.text = thisMonster.info.Stamina.Value.ToString();
         abilityNameText.text = thisMonster.info.abilityName;
         abilityText.text = abilities[thisMonster.info.abilityName].description;
+        coinGenText.text = thisMonster.info.CoinGeneration.Value.ToString();
 
         atkBoostText.text = "(+ " + (thisMonster.info.Attack.Value - thisMonster.info.Attack.BaseValue) + ")".ToString();
         defBoostText.text = "(+ " + (thisMonster.info.Defense.Value - thisMonster.info.Defense.BaseValue) + ")".ToString();
@@ -313,9 +318,26 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         atk1Range.text = thisMonster.info.attack1.range.ToString();
         atk1Cool.text = thisMonster.info.attack1.attackTime.ToString();
         atk1Slow.text = thisMonster.info.attack1.hitSlowTime.ToString();
-        atk1Effect.text = thisMonster.info.attack1.effectName + " (" + thisMonster.info.attack1.effectChance * 100 + "%)";
-        atk1Stamina.text = thisMonster.info.attack1.staminaGained.ToString();
         
+        atk1Mode.sprite = GameManager.Instance.baseAttacks.atkModeDict[thisMonster.info.attack1.attackMode.ToString()];
+        atk1Mode.name = thisMonster.info.attack1.attackMode.ToString();
+        atk1Stamina.text = thisMonster.info.attack1.staminaGained.ToString();
+
+        if (thisMonster.info.attack1.effectName != "none")
+        {
+            atk1Effect.text = "+ " + thisMonster.info.attack1.effectChance * 100 + "%";
+            atk1Status.color = Color.white;
+            atk1Status.sprite = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict[thisMonster.info.attack1.effectName].statusSprite;
+            atk1Status.name = thisMonster.info.attack1.effectName;
+            
+        }
+        else
+        {
+            atk1Effect.text = "";
+            atk1Status.sprite = null;
+            atk1Status.color = Color.clear;
+            atk1Status.name = "none";
+        }
 
         if (thisMonster.info.attack1.Power.BaseValue != thisMonster.info.attack1.Power.Value)
         {
@@ -353,9 +375,26 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         atk2Range.text = thisMonster.info.attack2.range.ToString();
         atk2Cool.text = thisMonster.info.attack2.attackTime.ToString();
         atk2Slow.text = thisMonster.info.attack2.hitSlowTime.ToString();
-        atk2Effect.text = thisMonster.info.attack2.effectName;
-        atk2Effect.text = thisMonster.info.attack2.effectName + " (" + thisMonster.info.attack2.effectChance * 100 + "%)";
         atk2Stamina.text = thisMonster.info.attack2.staminaGained.ToString();
+
+        if (thisMonster.info.attack2.effectName != "none")
+        {
+            atk2Effect.text = "+ " + thisMonster.info.attack2.effectChance * 100 + "%";
+            atk2Status.color = Color.white;
+            atk2Status.sprite = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict[thisMonster.info.attack2.effectName].statusSprite;
+            atk2Status.name = thisMonster.info.attack2.effectName;
+        }
+        else
+        {
+            atk2Effect.text = "";
+            atk2Status.sprite = null;
+            atk2Status.color = Color.clear;
+            atk2Status.name = "none";
+        }
+
+
+        atk2Mode.sprite = GameManager.Instance.baseAttacks.atkModeDict[thisMonster.info.attack2.attackMode.ToString()];
+        atk2Mode.name = thisMonster.info.attack2.attackMode.ToString();
 
         if (thisMonster.tempStats.attack2.Power.BaseValue != thisMonster.tempStats.attack2.Power.Value)
         {
@@ -491,7 +530,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             var hit = eventData.pointerEnter.gameObject;
 
 
-            //if the menu is opened with the purpose of Equipping a monster with an item, then allow it to be equipped. Otherwise, show the item's details
+            
             if (tag == "Equipment")
             {
                 var equipment = hit.gameObject.GetComponent<EquipmentItem>();
@@ -506,6 +545,13 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
                 
             }
 
+            //if the player clicks on an icon, open a window that describes what the icon is
+            if (tag == "ScriptableObject")
+            {
+                popMenu.SetActive(true);
+                popMenu.GetComponent<PopMenuObject>().AcceptObject(hit.name, hit);
+            }
+
         }
 
 
@@ -515,53 +561,40 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     //when the attack 1 button is pushed, have the monster shoot a sample of the attack
     public void Attack1Btn()
     {
-        //get a list of all of the animation events on the monster. 
-        AnimationClip[] clips = monster.monsterMotion.runtimeAnimatorController.animationClips;
-        for (int i = 0; i < clips.Length; i++)
-        {
-            //get a list of all animations that have at least 1 event
-            if (clips[i].events.Length > 0)
-            {
-                AnimationEvent[] evt = clips[i].events;
-                for (int e = 0; e < clips[i].events.Length; e++)
-                {
-                    //figure out where the "start attack" event is, and delay the attack by this amount, so that the attack spawns when the attack animation tells it to
-                    if (evt[e].functionName == "StartAttack")
-                    {
-                        StartCoroutine(Attack1(evt[e].time));
-                        return;
-                    }
-                }
-            }
-        }
-
-       
-    }
-
-    public IEnumerator Attack1(float time)
-    {
-       
-
         MonsterAttack attack = monster.tempStats.attack1;
-
 
         monster.GetComponent<Tower>().attackNumber = 1;
         monster.monsterMotion.SetBool("isAttacking", true);
-
+        monster.GetComponent<Tower>().isAttacking = true;
         monster.GetComponent<Tower>().boneStructure.GetComponent<MotionControl>().AttackModeCheck(attack.attackMode);
-        
-        Debug.Log(time + (time * (1 -monster.monsterMotion.speed)));
-        yield return new WaitForSeconds(time + (time * (1 -monster.monsterMotion.speed)));
 
-        var attack1 = Instantiate(monster.info.attack1.attackAnimation, monster.GetComponent<Tower>().attackPoint.transform.position, Quaternion.identity);
-        attack1.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
-        //attack1.GetComponent<AttackEffects>().delay = .3f;
-        attack1.transform.localScale = new Vector3(attack1.transform.localScale.x * 1.5f, attack1.transform.localScale.y * 1.5f, attack1.transform.localScale.z);
-        attack1.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-        attack1.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
-        attack1.GetComponent<AttackEffects>().delay = monster.info.attack1.attackTime;
+        attack1Btn.interactable = false;
+        attack2Btn.interactable = false;
 
+        StartCoroutine(AttackButtonTimer(2f));
+
+        ////get a list of all of the animation events on the monster. 
+        //AnimationClip[] clips = monster.monsterMotion.runtimeAnimatorController.animationClips;
+        //for (int i = 0; i < clips.Length; i++)
+        //{
+        //    //get a list of all animations that have at least 1 event
+        //    if (clips[i].events.Length > 0)
+        //    {
+        //        AnimationEvent[] evt = clips[i].events;
+        //        for (int e = 0; e < clips[i].events.Length; e++)
+        //        {
+        //            //figure out where the "start attack" event is, and delay the attack by this amount, so that the attack spawns when the attack animation tells it to
+        //            if (evt[e].functionName == "StartAttack")
+        //            {
+        //                StartCoroutine(Attack1(evt[e].time));
+        //                return;
+        //            }
+        //        }
+        //    }
+        //}
     }
+
+    
 
     //open the attack editor for the monster's first attack
     public void Atk1Edit()
@@ -574,49 +607,18 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     //when the attack 2 button is pushed, have the monster shoot a sample of the attack
     public void Attack2Btn()
     {
-        //get a list of all of the animation events on the monster. 
-        AnimationClip[] clips = monster.monsterMotion.runtimeAnimatorController.animationClips;
-        for (int i = 0; i < clips.Length; i++)
-        {
-            //get a list of all animations that have at least 1 event
-            if (clips[i].events.Length > 0)
-            {
-                AnimationEvent[] evt = clips[i].events;
-                for (int e = 0; e < clips[i].events.Length; e++)
-                {
-                    //figure out where the "start attack" event is, and delay the attack by this amount, so that the attack spawns when the attack animation tells it to
-                    if (evt[e].functionName == "StartAttack")
-                    {
-                        StartCoroutine(Attack2(evt[e].time));
-                        return;
-                    }
-                }
-            }
-        }
-    }
-
-    public IEnumerator Attack2(float time)
-    {
-
-        MonsterAttack attack = monster.tempStats.attack2;
-
-
+        MonsterAttack attack = monster.info.attack2;
         monster.GetComponent<Tower>().attackNumber = 2;
         monster.monsterMotion.SetBool("isAttacking", true);
+        monster.GetComponent<Tower>().isAttacking = true;
         monster.GetComponent<Tower>().boneStructure.GetComponent<MotionControl>().AttackModeCheck(attack.attackMode);
 
+        attack1Btn.interactable = false;
+        attack2Btn.interactable = false;
 
-        yield return new WaitForSeconds(time + (time * (time -monster.monsterMotion.speed)));
-
-        var attack2 = Instantiate(monster.tempStats.attack2.attackAnimation, monster.GetComponent<Tower>().attackPoint.transform.position, Quaternion.identity);
-        attack2.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
-        //attack2.GetComponent<AttackEffects>().delay = .3f;
-        attack2.transform.localScale = new Vector3(attack2.transform.localScale.x * 1.5f, attack2.transform.localScale.y * 1.5f, attack2.transform.localScale.z);
-        attack2.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-        attack2.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
-        attack2.GetComponent<AttackEffects>().delay = monster.info.attack2.attackTime;
-
+        StartCoroutine(AttackButtonTimer(2f));
     }
+
 
     //open the attack editor for the monster's first attack
     public void Atk2Edit()
@@ -630,6 +632,17 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     {
         monsterUpgradeMenu.SetActive(true);
         monsterUpgradeMenu.GetComponent<MonsterUpgrade>().SelectMonster(GetComponentInParent<YourHome>().activeMonster);
+    }
+
+    //this is used to make the attack buttons interactable again, after the monster attacks
+    public IEnumerator AttackButtonTimer(float delayTime)
+    {
+
+        yield return new WaitForSecondsRealtime(delayTime);
+        attack1Btn.interactable = true;
+        attack2Btn.interactable = true;
+
+        
     }
 
 

@@ -39,6 +39,8 @@ public class Wood2D : MonoBehaviour
     {
         ShaderChange = 0;
         XUpdate();
+
+        
     }
 
     public void CallUpdate()
@@ -102,6 +104,7 @@ public class Wood2D : MonoBehaviour
         if (CanvasSpriteRenderer != null) dfname = CanvasSpriteRenderer.sharedMaterial.shader.name;
         if (CanvasImage != null)
         {
+
             Image img = CanvasImage;
             if (img.material == null) dfname = "Sprites/Default";
         }
@@ -133,6 +136,11 @@ public class Wood2D : MonoBehaviour
             }
             else if (CanvasImage != null)
             {
+                //  THIS IS NEEDED TO UPDATE AN IMAGE'S SHADER VALUES
+                Material mat = Instantiate(CanvasImage.material);
+                CanvasImage.material = mat;
+                ///////
+
                 CanvasImage.material.SetFloat("_Alpha", 1 - _Alpha);
                 CanvasImage.material.SetFloat("_Distortion", IntoWood);
                 CanvasImage.material.SetFloat("_Deep", Deep);

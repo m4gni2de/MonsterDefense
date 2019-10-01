@@ -9,6 +9,7 @@ public enum EquipmentType
 {
     Rune,
     Axe,
+    Glove,
 }
 
 public enum ItemType
@@ -36,6 +37,8 @@ public struct Equipment
     public EquipmentType equipType;
     public string typeMonsterReq;
     public string typeMoveReq;
+    public DamageForce forceReq;
+    public AttackMode attackModeReq;
     public string[] boosts;
     public float cost;
     public int equipSlot;
@@ -69,6 +72,8 @@ public struct Equipment
     public int staminaPercentBonus;
 
     public EquippableItem equippable;
+
+    
     
 };
 
@@ -186,12 +191,25 @@ public class AllEquipment
     {
         name = "Wood Axe",
         id = 7,
-        description = "A simple axe fashioned from, hopefully, the finest wood.",
+        description = "The weielder gains +5 to their attack stat.",
         equipType = EquipmentType.Axe,
         boosts = new string[1] { "+5 Attack Power" },
         typeMonsterReq = "none",
         typeMoveReq = "none",
         atkPowerBonus = 5,
+        cost = 400,
+    };
+
+    public Equipment SpikedKnuckles = new Equipment
+    {
+        name = "Spiked Knuckles",
+        id = 8,
+        description = "Punch Mode attacks gain 20% attack power.",
+        equipType = EquipmentType.Glove,
+        boosts = new string[1] { "20% Punch Attack Power" },
+        typeMonsterReq = "none",
+        attackModeReq = AttackMode.Punch,
+        atkPowerPercentBonus= .2f,
         cost = 400,
     };
 
@@ -240,6 +258,12 @@ public class AllItems
     public AllItem WoodAxe = new AllItem
     {
         name = "Wood Axe",
+        itemType = ItemType.Equipment,
+    };
+
+    public AllItem SpikedKnuckles = new AllItem
+    {
+        name = "Spiked Knuckles",
         itemType = ItemType.Equipment,
     };
 
@@ -317,6 +341,7 @@ public class Items: MonoBehaviour
         allItemsDict.Add(allItems.ShadowRune.name, allItems.MagicRune);
         allItemsDict.Add(allItems.FireRune.name, allItems.FireRune);
         allItemsDict.Add(allItems.WoodAxe.name, allItems.WoodAxe);
+        allItemsDict.Add(allItems.SpikedKnuckles.name, allItems.SpikedKnuckles);
 
 
 
@@ -354,6 +379,7 @@ public class Items: MonoBehaviour
         allEquipmentDict.Add(allEquipment.ShadowRune.name, allEquipment.ShadowRune);
         allEquipmentDict.Add(allEquipment.FireRune.name, allEquipment.FireRune);
         allEquipmentDict.Add(allItems.WoodAxe.name, allEquipment.WoodAxe);
+        allEquipmentDict.Add(allItems.SpikedKnuckles.name, allEquipment.SpikedKnuckles);
 
     }
 

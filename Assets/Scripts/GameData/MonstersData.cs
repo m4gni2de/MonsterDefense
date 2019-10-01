@@ -24,23 +24,26 @@ public struct MonsterData
     public string species;
     public string type1;
     public string type2;
+    //the class of monster, such as Flying, Beast, etc
     public MonsterClass Class;
     public int hpBase;
     public int atkBase;
     public int defBase;
     public int speBase;
     public int precBase;
+    public int staminaBase;
+    public int energyGenBase;
+    public float energyCost;
+    //the rate at which the monster generates coins for the player to spend
+    public float coinGenBase;
     public int maxLevel;
     //used as a multiplier for calculating experience points needed to level up. higher the number, more exp needed, which usually means a stronger monster
     public float levelConst;
     //which attacks the monster can learn, either via levelup or another method
-    
     public string[] baseAttacks;
 
-    public int staminaBase;
-    public int energyGenBase;
-    public float energyCost;
 
+    //which abilities the most can have when it's summoned
     public string[] abilities;
 
 };
@@ -71,6 +74,7 @@ public class AllMonsterData
         levelConst = 1.9f,
         staminaBase = 70,
         energyGenBase = 77,
+        coinGenBase = 4.3f,
         energyCost = 7f,
         abilities = new string[1] { "Natural Quake" },
 
@@ -94,6 +98,7 @@ public class AllMonsterData
         levelConst = 1.9f,
         staminaBase = 90,
         energyGenBase = 95,
+        coinGenBase = 3.4f,
         energyCost = 5.5f,
         abilities = new string[1] { "Beast Slayer" },
 
@@ -114,8 +119,30 @@ public class AllMonsterData
         maxLevel = 100,
         levelConst = 1.9f,
         staminaBase = 90,
+        coinGenBase = 2.6f,
         energyGenBase = 86,
         energyCost = 6.5f,
+        abilities = new string[1] { "Of A Feather" },
+    };
+
+    public MonsterData Iceros = new MonsterData
+    {
+        id = 4,
+        species = "Iceros",
+        type1 = "Ice",
+        type2 = "none",
+        Class = MonsterClass.Beast,
+        hpBase = 112,
+        atkBase = 114,
+        defBase = 132,
+        speBase = 66,
+        precBase = 96,
+        maxLevel = 100,
+        levelConst = 1.9f,
+        staminaBase = 90,
+        coinGenBase = 2.9f,
+        energyGenBase = 64,
+        energyCost = 8.5f,
         abilities = new string[1] { "Of A Feather" },
     };
 
@@ -158,9 +185,11 @@ public class MonstersData : MonoBehaviour
         monstersAllDict.Add(allMonsterData.Lichenthrope.species, allMonsterData.Lichenthrope);
         monstersAllDict.Add(allMonsterData.Armordan.species, allMonsterData.Armordan);
         monstersAllDict.Add(allMonsterData.Fowitzer.species, allMonsterData.Fowitzer);
+        monstersAllDict.Add(allMonsterData.Iceros.species, allMonsterData.Iceros);
         monstersByIdDict.Add(allMonsterData.Lichenthrope.id, allMonsterData.Lichenthrope.species);
         monstersByIdDict.Add(allMonsterData.Armordan.id, allMonsterData.Armordan.species);
         monstersByIdDict.Add(allMonsterData.Fowitzer.id, allMonsterData.Fowitzer.species);
+        monstersByIdDict.Add(allMonsterData.Iceros.id, allMonsterData.Iceros.species);
     }
 
     public void AllTypes()

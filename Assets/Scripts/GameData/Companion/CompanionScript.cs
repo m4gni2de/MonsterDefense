@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CompanionScript : MonoBehaviour
 {
+    public CompanionData data = new CompanionData();
+
     // Start is called before the first frame update
     void Start()
     {

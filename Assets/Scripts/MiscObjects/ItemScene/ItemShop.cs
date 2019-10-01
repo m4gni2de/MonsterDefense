@@ -20,7 +20,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
     public TMP_Text[] itemQuantities, shopItemCosts;
     public GameObject itemScrollContent, shopScrollContent, itemPopMenu;
 
-    private int itemSpriteTotal, shopSpriteTotal;
+    private int shopSpriteTotal;
 
     public GameObject shopCanvas, itemCanvas;
     public GameObject itemPanel, shopPanel;
@@ -30,10 +30,13 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
     //variable used to determine which items are being displayed in the shop
     public DisplayMode displayMode = new DisplayMode();
 
+    //the amount of coins your account has
+    public TMP_Text yourCoinsText;
+    public int yourCoins;
 
     private void Awake()
     {
-        itemSpriteTotal = 0;
+        
         shopSpriteTotal = 0;
         itemQuantity.GetComponent<TMP_Text>();
         displayMode = DisplayMode.Equipment;
@@ -64,7 +67,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
     // Start is called before the first frame update
     void Start()
     {
-        itemSpriteTotal = 0;
+        
         shopSpriteTotal = 0;
 
 
@@ -76,7 +79,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
     {
        
         
-        itemSpriteTotal = 0;
+        
         shopSpriteTotal = 0;
 
         if (displayMode == DisplayMode.Equipment)
@@ -119,39 +122,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
             }
         }
 
-        //if (displayMode == DisplayMode.Equipment)
-        //{
-        //    GameObject[] obj = GameObject.FindGameObjectsWithTag("Equipment");
-
-
-        //        for (int i = 0; i < obj.Length; i++)
-        //        {
-        //            Destroy(obj[i]);
-
-        //            if (i >= obj.Length - 1)
-        //            {
-        //                DisplayYourEquipment();
-        //                DisplayShop();
-        //            }
-        //        }
-
-        //}
-
-        //if (displayMode == DisplayMode.Consumable)
-        //{
-        //    GameObject[] obj = GameObject.FindGameObjectsWithTag("ConsumableItem");
-
-        //    for (int i = 0; i < obj.Length; i++)
-        //    {
-        //        Destroy(obj[i]);
-
-        //        if (i >= obj.Length - 1)
-        //        {
-        //            DisplayYourConsumables();
-        //            DisplayShop();
-        //        }
-        //    }
-        //}
+       
 
     }
 
@@ -184,55 +155,18 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
                 GameObject a = Instantiate(allEquips[item.name].equipPrefab, itemScrollContent.transform.position, Quaternion.identity);
 
 
-                //itemQuantities[shopSpriteTotal] = itemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
+                
                 a.transform.SetParent(itemScrollContent.transform, true);
-
-
 
                 a.GetComponent<EquipmentItem>().EquipItemInfo(item);
                 a.GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
                 a.GetComponent<EquipmentItem>().valueText.text = PlayerPrefs.GetInt(item.name).ToString();
 
-
-                //a.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-                //a.GetComponent<SpriteRenderer>().sortingOrder = 1;
-
-
-                ////a.GetComponent<Image>().enabled = false;
-                ////a.GetComponent<Image>().color = Color.clear;
-
-                //a.GetComponent<Image>().material = a.GetComponent<SpriteRenderer>().material;
-                //a.GetComponent<SpriteRenderer>().enabled = false;
-
-
                 a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
                 a.transform.localScale = new Vector3(a.transform.localScale.x, a.transform.localScale.y, 1f);
                 a.tag = "Item";
 
-                //itemSprites[itemSpriteTotal] = Instantiate(allEquips[item.name].equipPrefab, itemScrollContent.transform.position, Quaternion.identity);
-                ////itemQuantities[itemSpriteTotal] = itemSprites[itemSpriteTotal].GetComponentInChildren<TMP_Text>();
-                //itemSprites[itemSpriteTotal].transform.SetParent(itemScrollContent.transform, true);
-
-
-
-                //itemSprites[itemSpriteTotal].GetComponent<EquipmentItem>().EquipItemInfo(item);
-                //itemSprites[itemSpriteTotal].GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
-                //itemSprites[itemSpriteTotal].GetComponent<EquipmentItem>().valueText.text = PlayerPrefs.GetInt(item.name).ToString();
-
-
-                //itemSprites[itemSpriteTotal].GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-                //itemSprites[itemSpriteTotal].GetComponent<SpriteRenderer>().sortingOrder = 1;
-                //itemSprites[itemSpriteTotal].GetComponent<SpriteRenderer>().sprite = null;
-                //itemSprites[itemSpriteTotal].transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
-
-                //itemQuantities[itemSpriteTotal] = Instantiate(itemQuantity, itemQuantity.transform.position, Quaternion.identity);
-                //itemQuantities[itemSpriteTotal].transform.position = itemQuantity.transform.position;
-                //itemQuantities[itemSpriteTotal].transform.SetParent(a.transform, true);
-
-                //itemQuantities[itemSpriteTotal].text = PlayerPrefs.GetInt(item.name).ToString();
-
-
-                itemSpriteTotal += 1;
+                
                 rowCheck += .25f;
 
                 if (rowCheck > .8f)
@@ -243,64 +177,6 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
             }
 
         }
-
-
-
-
-        //foreach (KeyValuePair<string, Equipment> equipment in allEquips)
-        //{
-            //string name = equipment.Key;
-            
-
-        //        Equipment item = allEquips[name];
-        //        int itemCount = PlayerPrefs.GetInt(item.name);
-        //    //var x = Instantiate(equipByPrefab[item.name], new Vector2(itemSprite.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
-        //    //itemSprites[itemSpriteTotal] = Instantiate(equipByPrefab[item.name], itemSprites[itemSpriteTotal].transform.position, Quaternion.identity);
-        //        itemSprites[itemSpriteTotal] = Instantiate(equipByPrefab[item.name], itemSprites[itemSpriteTotal].transform.position, Quaternion.identity);
-        //        itemSprites[itemSpriteTotal].transform.SetParent(itemScrollContent.transform, true);
-        //        itemSprites[itemSpriteTotal].GetComponent<EquipmentItem>().EquipItemInfo(item);
-        //        //itemSprites[itemSpriteTotal].transform.localScale = new Vector3(10, 10, 10);
-        //        itemSprites[itemSpriteTotal].GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-        //        itemSprites[itemSpriteTotal].GetComponent<SpriteRenderer>().sortingOrder = 1;
-        //        itemSprites[itemSpriteTotal].GetComponent<SpriteRenderer>().sprite = null;
-        //        itemQuantities[itemSpriteTotal] = Instantiate(itemQuantities[itemSpriteTotal], itemSprites[itemSpriteTotal].transform.position, Quaternion.identity);
-        //        itemQuantities[itemSpriteTotal].text = PlayerPrefs.GetInt(item.name).ToString();
-
-        //        Vector3 position = itemQuantities[itemSpriteTotal].transform.position;     
-        //        itemQuantities[itemSpriteTotal].transform.SetParent(itemSprites[itemSpriteTotal].transform, true);
-        //        itemQuantities[itemSpriteTotal].transform.position = position;
-
-        //        //itemSprites[itemSpriteTotal].transform.position = new Vector3(itemSprite.transform.position.x + (itemSpriteTotal * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 30), itemSprite.transform.position.z);
-        //        itemSprites[itemSpriteTotal].transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck *4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
-            
-        //itemQuantities[itemSpriteTotal].name = itemCount.ToString();
-
-
-            
-
-
-            //itemSpriteTotal += 1;
-            //rowCheck += .25f;
-
-            //if (rowCheck > .8f)
-            //{
-            //    rowCheck = 0f;
-            //    row += 1;
-            //}
-
-               
-        //}
-
-        //if (allEquips.Count < itemSprites.Length)
-        //{
-        //    int difference = itemSprites.Length - allEquips.Count;
-
-        //    for (int x = itemSprites.Length; x > difference; x--)
-        //    {
-        //        Destroy(itemSprites[x]);
-        //    }
-        //}
-
 
     }
 
@@ -346,17 +222,11 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
 
 
 
-            //shopItemSprites[shopSpriteTotal].GetComponent<Image>().sprite = item.equipPrefab.GetComponent<SpriteRenderer>().sprite;
-            //shopItemSprites[shopSpriteTotal].GetComponent<SpriteRenderer>().sprite = null;
-            //shopItemSprites[shopSpriteTotal].transform.localScale = new Vector3(175f, 175f, 1f);
-            //shopItemSprites[shopSpriteTotal].tag = "Equipment";
-            //itemQuantities[shopSpriteTotal] = itemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
-            //shopItemSprites[shopSpriteTotal].transform.SetParent(shopScrollContent.transform, true);
-
+           
             GameObject a = Instantiate(allEquips[item.name].equipPrefab, shopScrollContent.transform.position, Quaternion.identity);
 
             
-            //itemQuantities[shopSpriteTotal] = itemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
+            
             a.transform.SetParent(shopScrollContent.transform, true);
 
 
@@ -365,45 +235,10 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
             a.GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
             a.GetComponent<EquipmentItem>().valueText.text = a.GetComponent<EquipmentItem>().equipDetails.cost.ToString();
 
-
-            //a.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-            //a.GetComponent<SpriteRenderer>().sortingOrder = 1;
-            //a.GetComponent<Image>().enabled = false;
-            //a.GetComponent<Image>().color = Color.clear;
-
-            //a.GetComponent<Image>().sprite = a.GetComponent<SpriteRenderer>().sprite;
-            //a.GetComponent<SpriteRenderer>().sprite = null;
-            //a.GetComponent<Image>().material = a.GetComponent<SpriteRenderer>().material;
-            //a.GetComponent<SpriteRenderer>().enabled = false;
-
             a.transform.position = new Vector3(shopItemSprite.transform.position.x + ((rowCheck * 4) * shopScrollContent.GetComponent<RectTransform>().rect.width / 6), shopItemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
             a.transform.localScale = new Vector3(a.transform.localScale.x, a.transform.localScale.y, 1f);
             a.tag = "Item";
 
-            //shopItemSprites[shopSpriteTotal] = Instantiate(allEquips[item.name].equipPrefab, shopScrollContent.transform.position, Quaternion.identity);
-            ////itemQuantities[shopSpriteTotal] = itemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
-            //shopItemSprites[shopSpriteTotal].transform.SetParent(shopScrollContent.transform, true);
-
-
-
-            //shopItemSprites[shopSpriteTotal].GetComponent<EquipmentItem>().EquipItemInfo(item);
-            //shopItemSprites[shopSpriteTotal].GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
-            //shopItemSprites[shopSpriteTotal].GetComponent<EquipmentItem>().valueText.text = shopItemSprites[shopSpriteTotal].GetComponent<EquipmentItem>().equipDetails.cost.ToString();
-
-
-            //shopItemSprites[shopSpriteTotal].GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-            //shopItemSprites[shopSpriteTotal].GetComponent<SpriteRenderer>().sortingOrder = 1;
-            //shopItemSprites[shopSpriteTotal].GetComponent<SpriteRenderer>().sprite = null;
-            //shopItemSprites[shopSpriteTotal].transform.position = new Vector3(shopItemSprite.transform.position.x + ((rowCheck * 4) * shopScrollContent.GetComponent<RectTransform>().rect.width / 6), shopItemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
-
-            //itemQuantities[shopSpriteTotal] = Instantiate(itemQuantity, itemQuantity.transform.position, Quaternion.identity);
-            //itemQuantities[shopSpriteTotal].transform.position = itemQuantity.transform.position;
-            //itemQuantities[shopSpriteTotal].transform.SetParent(itemSprites[shopSpriteTotal].transform, true);
-
-            //itemQuantities[shopSpriteTotal].text = PlayerPrefs.GetInt(item.name).ToString();
-
-
-            //shopSpriteTotal += 1;
             rowCheck += .25f;
 
             if (rowCheck > .8f)
@@ -445,18 +280,10 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
             a.GetComponent<ConsumableObject>().consumableItem = item;
             a.GetComponent<ConsumableObject>().LoadItem();
             a.GetComponentInChildren<TMP_Text>().text = item.cost.ToString();
-            //x.transform.localScale = new Vector3(x.transform.localScale.x * 100, x.transform.localScale.y * 100, x.transform.localScale.z);
-            //a.GetComponent<EquipmentItem>().EquipItemInfo(item);
-            //a.GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
-            //a.GetComponent<EquipmentItem>().valueText.text = a.GetComponent<EquipmentItem>().equipDetails.cost.ToString();
-
-            //a.GetComponent<SpriteRenderer>().sprite = null;
-            //a.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-            //a.GetComponent<SpriteRenderer>().sortingOrder = 1;
-            //a.GetComponent<Image>().color = Color.clear;
             a.transform.position = new Vector3(shopItemSprite.transform.position.x + ((rowCheck * 4) * shopScrollContent.GetComponent<RectTransform>().rect.width / 6), shopItemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
             a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
             a.tag = "Item";
+            a.name = item.name;
 
 
 
@@ -477,7 +304,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
 
         if (eventData.pointerEnter)
         {
-            ;
+            
             var tag = eventData.pointerEnter.gameObject.tag;
             var hit = eventData.pointerEnter.gameObject;
 
@@ -492,6 +319,12 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
                     itemPopMenu.SetActive(true);
                     itemPopMenu.GetComponent<ItemPopMenu>().DisplayEquipment(item, hit.gameObject);
                 }
+
+                if (displayMode == DisplayMode.Consumable)
+                {
+                    itemPopMenu.SetActive(true);
+                    itemPopMenu.GetComponent<ItemPopMenu>().DisplayItem(hit.GetComponent<ConsumableObject>().consumableItem.itemName, DisplayMode.Consumable, hit.gameObject);
+                }
             }
         }
 
@@ -502,6 +335,14 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
     void Update()
     {
         
+    }
+
+
+
+    void LateUpdate()
+    {
+        yourCoins = (int)Mathf.Round((float)GameManager.Instance.GetComponent<YourAccount>().account.coins);
+        yourCoinsText.text = yourCoins.ToString();
     }
 
 
