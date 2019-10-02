@@ -135,7 +135,7 @@ public class AllMonsterData
         hpBase = 112,
         atkBase = 114,
         defBase = 132,
-        speBase = 66,
+        speBase = 35,
         precBase = 96,
         maxLevel = 100,
         levelConst = 1.9f,

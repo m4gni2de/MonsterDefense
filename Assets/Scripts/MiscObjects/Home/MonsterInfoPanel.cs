@@ -56,7 +56,20 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     // Update is called once per frame
     void Update()
     {
-        
+        if (monster)
+        {
+            if (monster.isAttacking)
+            {
+                attack1Btn.interactable = false;
+                attack2Btn.interactable = false;
+                
+            }
+            else
+            {
+                attack1Btn.interactable = true;
+                attack2Btn.interactable = true;
+            }
+        }
     }
 
     public void TouchManager()
@@ -567,11 +580,8 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         monster.monsterMotion.SetBool("isAttacking", true);
         monster.GetComponent<Tower>().isAttacking = true;
         monster.GetComponent<Tower>().boneStructure.GetComponent<MotionControl>().AttackModeCheck(attack.attackMode);
+        monster.isAttacking = true;
 
-        attack1Btn.interactable = false;
-        attack2Btn.interactable = false;
-
-        StartCoroutine(AttackButtonTimer(2f));
 
         ////get a list of all of the animation events on the monster. 
         //AnimationClip[] clips = monster.monsterMotion.runtimeAnimatorController.animationClips;
@@ -612,11 +622,8 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         monster.monsterMotion.SetBool("isAttacking", true);
         monster.GetComponent<Tower>().isAttacking = true;
         monster.GetComponent<Tower>().boneStructure.GetComponent<MotionControl>().AttackModeCheck(attack.attackMode);
+        monster.isAttacking = true;
 
-        attack1Btn.interactable = false;
-        attack2Btn.interactable = false;
-
-        StartCoroutine(AttackButtonTimer(2f));
     }
 
 
@@ -634,16 +641,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         monsterUpgradeMenu.GetComponent<MonsterUpgrade>().SelectMonster(GetComponentInParent<YourHome>().activeMonster);
     }
 
-    //this is used to make the attack buttons interactable again, after the monster attacks
-    public IEnumerator AttackButtonTimer(float delayTime)
-    {
-
-        yield return new WaitForSecondsRealtime(delayTime);
-        attack1Btn.interactable = true;
-        attack2Btn.interactable = true;
-
-        
-    }
+   
 
 
     public void OnDisable()

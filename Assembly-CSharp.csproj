@@ -313,6 +313,7 @@
     <Compile Include="Assets\Scripts\MiscObjects\MenuMovement.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\MonsterManager.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\PopMenuObject.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\TouchObject.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\EnemyInfoPanel.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\MapInfoMenu.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\MapTileMenu.cs" />

@@ -88,6 +88,13 @@ public class MapTileAnimations : MonoBehaviour
             animationTime = rand;
             ElectricTile(rand);
         }
+
+        if (att == TileAttribute.Ice)
+        {
+            float rand = Random.Range(.01f, .20f);
+            animationTime = rand;
+            IceTile(rand);
+        }
     }
 
 
@@ -357,13 +364,18 @@ public class MapTileAnimations : MonoBehaviour
 
         sp.gameObject.GetComponent<Lightning2D>()._Value1 = 47.7f;
         sp.gameObject.GetComponent<Lightning2D>()._Value2 = 2f;
-
-        
-       
+    }
 
 
-       
+    public void IceTile(float time)
+    {
 
+
+        sp.gameObject.AddComponent<Frozen>();
+
+
+        sp.gameObject.GetComponent<Frozen>()._Value1 = .80f - time;
+        sp.gameObject.GetComponent<Frozen>()._Value2 = .976f - time;
     }
 
 }

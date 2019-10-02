@@ -247,7 +247,7 @@ public class Enemy : MonoBehaviour
         StatsCalc StatsCalc = new StatsCalc(gameObject.GetComponent<Monster>());
         GetEnemyStats(StatsCalc);
 
-        speed = 50 * ((float)stats.speBase / 100);
+        speed = 40 * ((float)stats.speBase / 100);
     }
 
    

@@ -61,6 +61,8 @@ MonoBehaviour:
   natureAttackColor: {r: 0, g: 0, b: 0, a: 0}
   shadowAttackColor: {r: 0, g: 0, b: 0, a: 0}
   fireAttackColor: {r: 0, g: 0, b: 0, a: 0}
+  touchIndicator: {fileID: 5124358571584271453, guid: 083862acdfe7e064ca2b63bb83e3290f,
+    type: 3}
   monsterCount: 0
   monsterJson: 
   coinGeneration: 0
@@ -478,7 +480,7 @@ MonoBehaviour:
       hpBase: 112
       atkBase: 114
       defBase: 132
-      speBase: 66
+      speBase: 35
       precBase: 96
       staminaBase: 90
       energyGenBase: 64
@@ -1047,6 +1049,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ed200aceadd81b14e91279d3074cd412, type: 3}
   - {fileID: 21300000, guid: 286109a1229db984ebd76babc0e253e4, type: 3}
   - {fileID: 21300000, guid: 5496b960b1df6334c8f66ce6ee7db06d, type: 3}
+  - {fileID: 21300000, guid: 924a4138c40694d41a2d05c1bbb0394b, type: 3}
   tileTypeSprites:
   - {fileID: 21300000, guid: b27a1646af6e1e44e96ca8e99f8cb9d6, type: 3}
   - {fileID: 21300000, guid: c53053bffa3f44141addf0768e4b109a, type: 3}

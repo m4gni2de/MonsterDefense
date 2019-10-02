@@ -7,7 +7,6 @@ using Puppet2D;
 using TMPro;
 
 
-
 [System.Serializable]
 public struct MonsterSaveToken
 {
@@ -198,6 +197,8 @@ public class Monster : MonoBehaviour
     //script used to access the meshes that make up the monster
     public MeshBodyParts bodyParts;
 
+    //bool used for attack checks for this monster while it's not a tower
+    public bool isAttacking;
     
 
 
@@ -1009,7 +1010,8 @@ public class Monster : MonoBehaviour
         //info.equippable2 = new EquippableItem();
 
         SetExp();
-        
+
+ 
     }
 
     //call this at the start of each game so the equipment items can be in effect during the games
@@ -1062,6 +1064,7 @@ public class Monster : MonoBehaviour
 
         var attackSprite = Instantiate(GameManager.Instance.baseAttacks.attackDict[attack.name].attackAnimation, tower.attackPoint.transform.position, Quaternion.identity);
         attackSprite.gameObject.name = attack.name;
+        attackSprite.transform.localScale = attackSprite.transform.localScale * 2;
         attackSprite.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
         //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
         attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, tempStats.Attack.Value, (int)attack.Power.Value, info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());

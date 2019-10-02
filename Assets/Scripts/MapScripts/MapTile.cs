@@ -14,6 +14,7 @@ public enum TileAttribute
     Magic,
     Electric,
     Poison,
+    Ice,
 };
 
 [System.Serializable]

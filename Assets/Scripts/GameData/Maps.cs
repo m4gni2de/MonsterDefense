@@ -75,10 +75,12 @@ public class AllMaps
     public MapInfo SmallMap = new MapInfo
     {
         mapName = "Small Map",
-        mapCode = "04060504040102020501000504000301000404000006060004040601010400020400050006060005030601020006040603040006000103020100040000000106000605040104",
+        mapCode = "07070504040102020501000504000301000404000006060004040601010400020400050006060005030601020006040603040006000103020100040000000106000605040104",
         pathCode = new string[1] { "040041052039036037048049046033030031042029" },
-        enemies = new int[3] { 1, 2, 3 },
-        enemyChance = new float[3] { 333, 666, 1000 },
+        enemies = new int[1] { 4 },
+        //enemies = new int[3] { 1, 2, 3 },
+        //enemyChance = new float[3] { 333, 666, 1000 },
+        enemyChance = new float[1] { 1000 },
         enemyMax = 50,
         spawnX = -50f,
         spawnY = -118f,

@@ -22,11 +22,14 @@ public class IdleTime : StateMachineBehaviour
         //Animator = animator;
         isIdle = true;
         idleTimer = 0;
+        idleState = animator.GetInteger("idleState");
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        
         if (isIdle)
         {
             idleTimer += Time.deltaTime;
@@ -53,6 +56,7 @@ public class IdleTime : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         idleTimer = 0;
+        idleState = animator.GetInteger("idleState");
         
     }
 

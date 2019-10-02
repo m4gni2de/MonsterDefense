@@ -9,6 +9,7 @@ TextureImporter:
     21300008: rhino_RL_Leg
     21300010: rhino_FR_leg
     21300012: rhino_FL_leg
+    21300014: iceros_eyeLid
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -187,9 +188,9 @@ TextureImporter:
       name: rhino_RR_leg
       rect:
         serializedVersion: 2
-        x: 120
+        x: 109
         y: 233
-        width: 198
+        width: 209
         height: 360
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -259,6 +260,26 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 363f8ed68b136f9428c23efe05df06a8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iceros_eyeLid
+      rect:
+        serializedVersion: 2
+        x: 819
+        y: 681
+        width: 44
+        height: 32
+      alignment: 9
+      pivot: {x: 0.47254667, y: 0.69176674}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56e9eb53bb7f6464297e224f7db802b9
       vertices: []
       indices: 
       edges: []

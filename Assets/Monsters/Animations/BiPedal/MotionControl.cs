@@ -26,6 +26,7 @@ public class MotionControl : MonoBehaviour
     public int dexId;
     public float animatorSpeed;
 
+    public GameObject monsterBreath;
    
     
     
@@ -39,7 +40,7 @@ public class MotionControl : MonoBehaviour
 
 
 
-        monsterAnimator.speed = 1 * ((float)monster.info.speBase / 100);
+        monsterAnimator.speed = 1 * ((float)monster.info.speBase / 75);
         animatorSpeed = monsterAnimator.speed;
         dexId = monster.info.dexId;
         monsterAnimator.SetFloat("attackSpeed", animatorSpeed);
@@ -83,6 +84,7 @@ public class MotionControl : MonoBehaviour
         {
             int rand = Random.Range(1, 3);
             monsterAnimator.SetInteger("idleState", rand);
+            monsterAnimator.GetBehaviour<IdleTime>().idleState = monsterAnimator.GetInteger("idleState");
 
         }
     }
@@ -143,7 +145,7 @@ public class MotionControl : MonoBehaviour
     }
 
 
-
+    //when the monster is done with their "being hit by an attack" animation"
     public void EndHit()
     {
         monsterAnimator.SetBool("isHit", false);
@@ -162,11 +164,31 @@ public class MotionControl : MonoBehaviour
         monsterAnimator.SetBool("isKick", false);
         monsterAnimator.SetBool("isPunch", false);
         tower.isAttacking = false;
+        monster.isAttacking = false;
     }
 
     public void EndClickedAnimation()
     {
         monsterAnimator.SetBool("isClicked", false);
+    }
+
+    //used to signal the monster's breath
+    public void TakeBreath()
+    {
+        
+
+        ParticleSystem ps = monsterBreath.GetComponentInChildren<ParticleSystem>();
+        Renderer rend = ps.GetComponent<Renderer>();
+        rend.sortingLayerName = GetComponent<MeshBodyParts>().bodyMeshes[0].GetComponent<Renderer>().sortingLayerName;
+        rend.sortingOrder = 1000;
+
+        ps.Play();
+    }
+
+    //used to signal the monster to close their eyes
+    public void Blink()
+    {
+
     }
 
 

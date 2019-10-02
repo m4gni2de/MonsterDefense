@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     //everything to do with the current Towers on the field
     public Dictionary<int, Monster> activeTowers = new Dictionary<int, Monster>();
 
-
+    public GameObject touchIndicator;
     
 
     //these varibales will be used to store your monster data offline as playerprefs. monsterCount will be a 3 digit number that corresponds to the number of monsters a player has
@@ -105,11 +105,24 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        TouchIndicator();
 
     }
 
 
+    public void TouchIndicator()
+    {
+        //these are the same thing, but I am using GetMouse for Unity/WebGL and the Touch for mobile
+        if (Input.GetMouseButtonDown(0) || Input.touchCount == 1)
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
+            var x = Instantiate(touchIndicator, transform, false);
+            x.transform.position = new Vector3(mousePos.x, mousePos.y, -2f);
+          
+        }
+    }
 
     
 }
