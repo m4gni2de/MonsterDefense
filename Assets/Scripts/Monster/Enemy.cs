@@ -432,7 +432,7 @@ public class Enemy : MonoBehaviour
         stats.currentHp -= damageTaken;
         enemyHpSlider.value = stats.currentHp;
 
-        //if the enemy's HP falls below 0, it is destroyed and the monster that destroyed it gains EXP
+        //if the enemy's HP falls below 0, it is destroyed and the monster that destroyed it gains EXP, and all other towers on the field gain 10% of that EXP.
         if (stats.currentHp <= 0)
         {
             if (isActiveEnemy)
@@ -440,12 +440,29 @@ public class Enemy : MonoBehaviour
                 map.GetComponentInChildren<EnemyInfoPanel>().enemyInfoMenu.SetActive(false);
             }
             float expGained = (stats.level + 1 * monster.info.levelConst) / (attacker.info.level + (1 /monster.info.levelConst) - stats.level);
+            float expShared = expGained / 10;
 
             if (expGained < 1)
             {
                 expGained = 1;
             }
+
+            if (expShared < 1)
+            {
+                expShared = 1;
+            }
+
             attacker.GainEXP((int)Mathf.Round(expGained));
+
+            //give the other active towers EXP as well
+            foreach (KeyValuePair<int, Monster> towers in GameManager.Instance.activeTowers)
+            {
+                if (attacker.activeIndex != towers.Value.activeIndex)
+                {
+                    Monster m = towers.Value;
+                    m.GainEXP((int)Mathf.Round(expShared));
+                }
+            }
             Destroy(gameObject);
         }
 

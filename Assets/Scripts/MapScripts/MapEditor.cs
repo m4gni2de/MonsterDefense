@@ -62,6 +62,9 @@ public class MapEditor : MonoBehaviour
         TileAttributes.Add("05", "Electric");
         TileAttributes.Add("06", "Poison");
         TileAttributes.Add("07", "Ice");
+        TileAttributes.Add("08", "Shadow");
+        TileAttributes.Add("09", "Mechanical");
+        TileAttributes.Add("10", "Normal");
 
 
     }

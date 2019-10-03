@@ -62,7 +62,8 @@
   <ItemGroup>
     <Compile Include="Assets\2DxFX\ExtraShaders\Examples\_2DC_ArrowSelection.cs" />
     <Compile Include="Assets\2DxFX\ExtraShaders\Examples\_2DC_ShaderLerpDemo.cs" />
-    <Compile Include="Assets\2DxFX\Scripts\2D_FX.cs" />
+    <Compile Include="Assets\2DxFX\Scripts\_2DxFX.cs" />
+    <Compile Include="Assets\2DxFX\Scripts\_4Gradients.cs" />
     <Compile Include="Assets\2DxFX\Scripts\2dxfx_AL\_2dxFX_AL_BlackHole.cs" />
     <Compile Include="Assets\2DxFX\Scripts\2dxfx_AL\_2dxFX_AL_Blood.cs" />
     <Compile Include="Assets\2DxFX\Scripts\2dxfx_AL\_2dxFX_AL_Blur.cs" />
@@ -130,7 +131,6 @@
     <Compile Include="Assets\2DxFX\Scripts\2dxfx_AL\_2dxFX_AL_Twist.cs" />
     <Compile Include="Assets\2DxFX\Scripts\2dxfx_AL\_2dxFX_AL_WoodFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\2dxfx_AL\4Gradients.cs" />
-    <Compile Include="Assets\2DxFX\Scripts\4Gradients.cs" />
     <Compile Include="Assets\2DxFX\Scripts\Additive2D.cs" />
     <Compile Include="Assets\2DxFX\Scripts\BlackHole.cs" />
     <Compile Include="Assets\2DxFX\Scripts\BloodFX.cs" />
@@ -177,9 +177,9 @@
     <Compile Include="Assets\2DxFX\Scripts\Liquid.cs" />
     <Compile Include="Assets\2DxFX\Scripts\Liquify.cs" />
     <Compile Include="Assets\2DxFX\Scripts\MetalFX.cs" />
-    <Compile Include="Assets\2DxFX\Scripts\MysticDictortionAdditive.cs" />
     <Compile Include="Assets\2DxFX\Scripts\MysticDistortion.cs" />
-    <Compile Include="Assets\2DxFX\Scripts\Negative.cs" />
+    <Compile Include="Assets\2DxFX\Scripts\MysticDistortionAdditive.cs" />
+    <Compile Include="Assets\2DxFX\Scripts\NegativeFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\NewTeleportation.cs" />
     <Compile Include="Assets\2DxFX\Scripts\NewTeleportation2.cs" />
     <Compile Include="Assets\2DxFX\Scripts\NoiseAnimatedFX.cs" />
@@ -196,17 +196,17 @@
     <Compile Include="Assets\2DxFX\Scripts\PlasmaRainbow.cs" />
     <Compile Include="Assets\2DxFX\Scripts\PlasmaRainbowColor.cs" />
     <Compile Include="Assets\2DxFX\Scripts\PlasmaShieldFX.cs" />
-    <Compile Include="Assets\2DxFX\Scripts\PosterizeFx.cs" />
+    <Compile Include="Assets\2DxFX\Scripts\PosterizeFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\SandFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\Sepia.cs" />
     <Compile Include="Assets\2DxFX\Scripts\SharpenFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\ShinyReflectFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\SkycloudFX.cs" />
-    <Compile Include="Assets\2DxFX\Scripts\SlimFX.cs" />
+    <Compile Include="Assets\2DxFX\Scripts\SlimeFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\SmokeFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\StoneFX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\TeleportationFX.cs" />
-    <Compile Include="Assets\2DxFX\Scripts\Threshold.cs" />
+    <Compile Include="Assets\2DxFX\Scripts\Threshold_FX.cs" />
     <Compile Include="Assets\2DxFX\Scripts\Twist.cs" />
     <Compile Include="Assets\2DxFX\Scripts\WaterAndBackground.cs" />
     <Compile Include="Assets\2DxFX\Scripts\WaterAndBackgroundDeluxe.cs" />
@@ -301,6 +301,7 @@
     <Compile Include="Assets\Scripts\MiscObjects\CameraMotion.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\CameraRenderer.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\AccountInfoMenu.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\Home\EnviromentCanvas.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\EquipmentManager.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterEditor.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterHomeIcon.cs" />

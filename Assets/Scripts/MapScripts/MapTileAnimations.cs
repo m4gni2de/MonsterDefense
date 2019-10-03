@@ -77,9 +77,9 @@ public class MapTileAnimations : MonoBehaviour
 
         if (att == TileAttribute.Poison)
         {
-            float rand = Random.Range(.03f, .05f);
+            float rand = Random.Range(.01f, .20f);
             animationTime = rand;
-            PoisonTile();
+            PoisonTile(rand);
         }
 
         if (att == TileAttribute.Electric)
@@ -94,6 +94,27 @@ public class MapTileAnimations : MonoBehaviour
             float rand = Random.Range(.01f, .20f);
             animationTime = rand;
             IceTile(rand);
+        }
+
+        if (att == TileAttribute.Shadow)
+        {
+            float rand = Random.Range(-.07f, .07f);
+            animationTime = rand;
+            ShadowTile(rand);
+        }
+
+        if (att == TileAttribute.Mechanical)
+        {
+            float rand = Random.Range(.01f, .1f);
+            animationTime = rand;
+            MechanicalTile(rand);
+        }
+
+        if (att == TileAttribute.Normal)
+        {
+            float rand = Random.Range(.03f, .12f);
+            animationTime = rand;
+            StartCoroutine(NormalTile(animationTime));
         }
     }
 
@@ -335,7 +356,7 @@ public class MapTileAnimations : MonoBehaviour
 
    
 
-    public void PoisonTile()
+    public void PoisonTile(float rand)
     {
         //var poison = Instantiate(topSprite, transform.position, Quaternion.identity, GetComponentInParent<MapTile>().transform);
         //poison.transform.localScale = new Vector3(1f, 1f, 1f);
@@ -350,7 +371,13 @@ public class MapTileAnimations : MonoBehaviour
         //value 2 for Smoke is "Turn to Smoke"
         //sp.gameObject.GetComponent<SmokeFX>()._Value2 = .65f; 
 
-        sp.gameObject.AddComponent<HSV_FX>();
+        sp.gameObject.AddComponent<Liquid>();
+
+
+        sp.gameObject.GetComponent<Liquid>().Heat = .07f;
+        sp.gameObject.GetComponent<Liquid>().Speed = .07f;
+        sp.gameObject.GetComponent<Liquid>().Light = -2f;
+        sp.gameObject.GetComponent<Liquid>().EValue = 1f;
 
     }
 
@@ -376,6 +403,62 @@ public class MapTileAnimations : MonoBehaviour
 
         sp.gameObject.GetComponent<Frozen>()._Value1 = .80f - time;
         sp.gameObject.GetComponent<Frozen>()._Value2 = .976f - time;
+    }
+
+    public void ShadowTile(float time)
+    {
+        if (time == 0)
+        {
+            time = .01f;
+        }
+
+        sp.gameObject.AddComponent<SkycloudFX>();
+
+
+        sp.gameObject.GetComponent<SkycloudFX>()._AutoScrollX = true;
+        sp.gameObject.GetComponent<SkycloudFX>()._AutoScrollY = true;
+        sp.gameObject.GetComponent<SkycloudFX>()._AutoScrollSpeedX = 0 + time;
+        sp.gameObject.GetComponent<SkycloudFX>()._AutoScrollSpeedY = 0 + time;
+        sp.gameObject.GetComponent<SkycloudFX>()._Intensity = 1f;
+        sp.gameObject.GetComponent<SkycloudFX>()._Zoom = .1f;
+
+    }
+
+    public void MechanicalTile(float time)
+    {
+        //if (time == 0)
+        //{
+        //    time = .01f;
+        //}
+
+        sp.gameObject.AddComponent<NewTeleportation2>();
+
+
+        sp.gameObject.GetComponent<NewTeleportation2>()._Fade = .1f + time;
+        sp.gameObject.GetComponent<NewTeleportation2>()._Distortion = .6f + time;
+
+    }
+
+    public IEnumerator NormalTile(float time)
+    {
+        //if (time == 0)
+        //{
+        //    time = .01f;
+        //}
+
+        sp.gameObject.AddComponent<ColorChange>();
+
+
+        for (int i = 0; i < 360; i++) {
+
+            sp.gameObject.GetComponent<ColorChange>()._HueShift = i;
+            yield return new WaitForSeconds(time);
+                if (i >= 359)
+                {
+                    i = 0;
+                }
+        }
+
     }
 
 }

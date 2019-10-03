@@ -15,6 +15,9 @@ public enum TileAttribute
     Electric,
     Poison,
     Ice,
+    Shadow,
+    Mechanical,
+    Normal,
 };
 
 [System.Serializable]

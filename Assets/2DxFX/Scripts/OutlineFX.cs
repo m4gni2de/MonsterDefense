@@ -12,7 +12,7 @@ using UnityEditor;
 [ExecuteInEditMode]
 [AddComponentMenu("2DxFX/Standard/Outline")]
 [System.Serializable]
-public class _2dxFX_Outline : MonoBehaviour
+public class OutlineFX : MonoBehaviour
 {
     [HideInInspector] public Material ForceMaterial;
     [HideInInspector] public bool ActiveChange = true;
@@ -224,7 +224,7 @@ public class _2dxFX_Outline : MonoBehaviour
 
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(_2dxFX_Outline)), CanEditMultipleObjects]
+[CustomEditor(typeof(OutlineFX)), CanEditMultipleObjects]
 public class _2dxFX_Outline_Editor : Editor
 {
     private SerializedObject m_object;
@@ -240,7 +240,7 @@ public class _2dxFX_Outline_Editor : Editor
         m_object.Update();
         DrawDefaultInspector();
 
-        _2dxFX_Outline _2dxScript = (_2dxFX_Outline)target;
+        OutlineFX _2dxScript = (OutlineFX)target;
 
         Texture2D icon = Resources.Load("2dxfxinspector") as Texture2D;
         if (icon)

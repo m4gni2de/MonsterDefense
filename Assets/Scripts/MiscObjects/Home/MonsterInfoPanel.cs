@@ -169,6 +169,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         var equipment = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
         var abilities = GameManager.Instance.GetComponent<MonsterAbilities>().allAbilitiesDict;
 
+        GetComponentInChildren<EnviromentCanvas>().GetEnviroment(thisMonster.info.type1);
 
         //show the equipment item for Slot 1
 

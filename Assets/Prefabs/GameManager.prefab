@@ -1050,6 +1050,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 286109a1229db984ebd76babc0e253e4, type: 3}
   - {fileID: 21300000, guid: 5496b960b1df6334c8f66ce6ee7db06d, type: 3}
   - {fileID: 21300000, guid: 924a4138c40694d41a2d05c1bbb0394b, type: 3}
+  - {fileID: 21300000, guid: 383584707218e834ab6c910dc52e07c2, type: 3}
+  - {fileID: 21300000, guid: 86c78981967962941a2f22c5e2b234c6, type: 3}
+  - {fileID: 21300000, guid: ec7ce2a8a9032004ea4bb880b8bf7834, type: 3}
   tileTypeSprites:
   - {fileID: 21300000, guid: b27a1646af6e1e44e96ca8e99f8cb9d6, type: 3}
   - {fileID: 21300000, guid: c53053bffa3f44141addf0768e4b109a, type: 3}
