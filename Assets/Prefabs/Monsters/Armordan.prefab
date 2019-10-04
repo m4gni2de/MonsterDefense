@@ -343,7 +343,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259364160966492}
-  m_LocalRotation: {x: 0.0003838454, y: 0.000024646517, z: 0.02480318, w: 0.9996923}
+  m_LocalRotation: {x: 0.0003837916, y: 0.000024795532, z: 0.024957703, w: 0.9996885}
   m_LocalPosition: {x: -0.00000002667607, y: 1, z: 0.00000002940061}
   m_LocalScale: {x: 0.90765315, y: 0.90765315, z: 0.9076537}
   m_Children:
@@ -452,7 +452,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259364321792960}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.25365, y: -2.2805543, z: 0}
+  m_LocalPosition: {x: -3.253662, y: -2.2805543, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8236259365724610703}
@@ -482,7 +482,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259364425970703}
-  m_LocalRotation: {x: 0.000012344634, y: -0.0009656096, z: -0.9999182, w: -0.012753907}
+  m_LocalRotation: {x: 0.00001240042, y: -0.00096555194, z: -0.99991727, w: -0.012834194}
   m_LocalPosition: {x: -0.0000000500939, y: 0.99999994, z: -1.049169e-14}
   m_LocalScale: {x: 0.6658111, y: 0.6658111, z: 0.6658089}
   m_Children:
@@ -576,7 +576,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259364453767046}
-  m_LocalRotation: {x: 0.019191656, y: -0.00047185604, z: 0.02457523, w: -0.9995136}
+  m_LocalRotation: {x: 0.019191701, y: -0.00047172312, z: 0.024568383, w: -0.99951386}
   m_LocalPosition: {x: -0.0000000049984137, y: 1.0000001, z: 0.00000008426844}
   m_LocalScale: {x: 0.17428383, y: 0.17428383, z: 0.17428342}
   m_Children:
@@ -1189,7 +1189,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259365082260720}
-  m_LocalRotation: {x: -1.8863165e-10, y: -0.0000000013035112, z: -0.11884933, w: 0.9929123}
+  m_LocalRotation: {x: 0.000000041712337, y: -0.0000000060363785, z: -0.11886008,
+    w: 0.99291104}
   m_LocalPosition: {x: -0.0000000359788, y: 0.99999994, z: 0.00000008342479}
   m_LocalScale: {x: 0.89975584, y: 0.89975584, z: 0.8997554}
   m_Children:
@@ -1342,7 +1343,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259365276351886}
-  m_LocalRotation: {x: -0.000022888182, y: -0.6695842, z: 0.017836094, w: -0.7425219}
+  m_LocalRotation: {x: 0.000026851889, y: -0.6695842, z: 0.017891243, w: -0.7425206}
   m_LocalPosition: {x: 0.00000005143135, y: 1, z: 0.00000006028282}
   m_LocalScale: {x: 4.10425, y: 4.10425, z: 4.104247}
   m_Children:
@@ -1515,7 +1516,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259365346596164}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.3402588, y: -0.9711304, z: 0}
+  m_LocalPosition: {x: -2.3402467, y: -0.9711304, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8236259365724610703}
@@ -1975,7 +1976,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259365632174104}
-  m_LocalRotation: {x: -0, y: -0, z: -0.9896911, w: 0.1432186}
+  m_LocalRotation: {x: -0, y: -0, z: -0.98969054, w: 0.14322254}
   m_LocalPosition: {x: 0.33432, y: -0.5532203, z: 0}
   m_LocalScale: {x: 1.9796704, y: 1.9796704, z: 1.9796705}
   m_Children:
@@ -2226,6 +2227,7 @@ MonoBehaviour:
   hitTime: 0
   dexId: 0
   animatorSpeed: 0
+  monsterBreath: {fileID: 0}
 --- !u!114 &3271274977035346047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3843,6 +3845,7 @@ MonoBehaviour:
     precBase: 0
     critBase: 0
     evasionBase: 0
+    coinGenBase: 0
     staminaBase: 0
     staminaMax: 0
     level: 0
@@ -3851,6 +3854,7 @@ MonoBehaviour:
     levelConst: 0
     energyGenBase: 0
     energyCost: 0
+    Class: 0
     attack1Name: 
     attack1:
       Range:
@@ -3921,6 +3925,66 @@ MonoBehaviour:
       attackAnimation: {fileID: 0}
       forceType: 0
       staminaGained: 0
+    abilityName: 
+    specialAbility:
+      name: 
+      description: 
+      target: 0
+      type: 0
+      parameter: 0
+      scope: 0
+      typeParameter: 
+      classParameter: 0
+      speciesParameter: 
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      staminaBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+      evasionPercentBonus: 0
+      staminaPercentBonus: 0
+      castingAmmo: 0
+      castingCount: 0
+      cooldown: 0
+      targetNumber: 0
+      Range:
+        BaseValue: 0
+      Power:
+        BaseValue: 0
+      CritChance:
+        BaseValue: 0
+      CritMod:
+        BaseValue: 0
+      EffectChance:
+        BaseValue: 0
+      AttackTime:
+        BaseValue: 0
+      AttackSpeed:
+        BaseValue: 0
+      AttackSlow:
+        BaseValue: 0
+      range: 0
+      power: 0
+      critChance: 0
+      critMod: 0
+      effectChance: 0
+      attackTime: 0
+      attackSpeed: 0
+      hitSlowTime: 0
+      attackMode: 0
     equip1Name: 
     equip1:
       name: 
@@ -3930,6 +3994,8 @@ MonoBehaviour:
       equipType: 0
       typeMonsterReq: 
       typeMoveReq: 
+      forceReq: 0
+      attackModeReq: 0
       boosts: []
       cost: 0
       equipSlot: 0
@@ -3946,6 +4012,7 @@ MonoBehaviour:
       atkRangeBonus: 0
       critModBonus: 0
       critChanceBonus: 0
+      staminaBonus: 0
       hpPercentBonus: 0
       atkPercentBonus: 0
       defPercentBonus: 0
@@ -3954,6 +4021,7 @@ MonoBehaviour:
       atkPowerPercentBonus: 0
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
+      staminaPercentBonus: 0
     equip2Name: 
     equip2:
       name: 
@@ -3963,6 +4031,8 @@ MonoBehaviour:
       equipType: 0
       typeMonsterReq: 
       typeMoveReq: 
+      forceReq: 0
+      attackModeReq: 0
       boosts: []
       cost: 0
       equipSlot: 0
@@ -3979,6 +4049,7 @@ MonoBehaviour:
       atkRangeBonus: 0
       critModBonus: 0
       critChanceBonus: 0
+      staminaBonus: 0
       hpPercentBonus: 0
       atkPercentBonus: 0
       defPercentBonus: 0
@@ -3987,6 +4058,7 @@ MonoBehaviour:
       atkPowerPercentBonus: 0
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
+      staminaPercentBonus: 0
     HP:
       BaseValue: 0
     HPPotential:
@@ -4012,6 +4084,8 @@ MonoBehaviour:
     EnergyGeneration:
       BaseValue: 0
     EnergyCost:
+      BaseValue: 0
+    CoinGeneration:
       BaseValue: 0
     koCount: 0
     isEquipped: 0
@@ -4048,6 +4122,8 @@ MonoBehaviour:
     Stamina:
       BaseValue: 0
     EnergyGeneration:
+      BaseValue: 0
+    CoinGeneration:
       BaseValue: 0
     EnergyCost:
       BaseValue: 0
@@ -4143,6 +4219,7 @@ MonoBehaviour:
     precPot: 0
     koCount: 0
     maxLevel: 0
+    specialAbility: 
   activeIndex: 0
   isEnemy: 0
   isTower: 0
@@ -4156,6 +4233,7 @@ MonoBehaviour:
   - {fileID: 3877397562610547508}
   - {fileID: 904711422255921177}
   bodyParts: {fileID: 3271274977035346047}
+  isAttacking: 0
 --- !u!114 &7330748792578770850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4169,6 +4247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetMode: 0
+  Map: {fileID: 0}
   isBeingPlaced: 0
   isPlaced: 0
   touchTime: 0
@@ -4364,6 +4443,7 @@ MonoBehaviour:
       BaseValue: 0
     evasionBase: 0
     critBase: 0
+    Class: 0
   enemyCanvas: {fileID: 1433985147142308102}
   damageText: {fileID: 865395030920622845, guid: 33e9bf084464ef646b8774eff963dc42,
     type: 3}
@@ -4761,6 +4841,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5939123311442692184, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5939123311442692191, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4866,12 +4951,52 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5939123310598128580, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5939123310183928355, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5939123311768579539, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5939123310183928353, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 5f7452f1dabfbfa49bdf96c131bd03b4,
         type: 3}
+    - target: {fileID: 5939123310623338594, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772485228241849735, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752871636588051156, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842977409391204461, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5020150163970001141, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5939123311768579537, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -4891,6 +5016,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898900094927576474, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2509045036938193218, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928943154953569328, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051794378144148041, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3250029341491151999, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
         type: 3}

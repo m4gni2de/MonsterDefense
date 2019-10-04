@@ -368,12 +368,14 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                 loadTowerBtn.GetComponent<Button>().interactable = false;
                 towerMenu.transform.Translate(Vector3.left, Space.World);
                 loadTowerBtn.transform.Translate(Vector3.left, Space.World);
+                mainCamera.GetComponent<CameraMotion>().isFree = false;
             }
             else
             {
                 CancelInvoke("MoveTowerMenu");
                 menuMovements = 0;
                 loadTowerBtn.GetComponent<Button>().interactable = true;
+                //mainCamera.GetComponent<CameraMotion>().isFree = !mainCamera.GetComponent<CameraMotion>().isFree;
             }
         }
         else
@@ -386,12 +388,14 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                 loadTowerBtn.GetComponent<Button>().interactable = false;
                 towerMenu.transform.Translate(Vector3.right, Space.World);
                 loadTowerBtn.transform.Translate(Vector3.right, Space.World);
+                mainCamera.GetComponent<CameraMotion>().isFree = false;
             }
             else
             {
                 CancelInvoke("MoveTowerMenu");
                 menuMovements = 0;
                 loadTowerBtn.GetComponent<Button>().interactable = true;
+                //mainCamera.GetComponent<CameraMotion>().isFree = !mainCamera.GetComponent<CameraMotion>().isFree;
             }
         }
 
@@ -406,13 +410,16 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
         towerMenu.SetActive(true);
         isClicked = !isClicked;
         InvokeRepeating("MoveTowerMenu", 0f, .001f);
- 
+        
+
         //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = false;
     }
 
     public void TowerMenuClose()
     {
+        mainCamera.GetComponent<CameraMotion>().isFree = true;
         towerMenu.SetActive(false);
+        
         //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = true;
     }
 
@@ -531,11 +538,20 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
             }
 
+
+            //if a UI object is tapped, turn the camera off
+            if (hit.layer == 5)
+            {
+                mainCamera.GetComponent<CameraMotion>().isFree = false;
+            }
+
         }
 
 
 
     }
+
+
 
     public void OnDisable()
     {
@@ -546,5 +562,20 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             Destroy(e[i]);
         }
     }
+
+
+    //use this to disable the camera during certain events
+    public void DisableCamera()
+    {
+        mainCamera.GetComponent<CameraMotion>().isFree = false;
+    }
+
+    //use this to disable the camera during certain events
+    public void EnableCamera()
+    {
+        mainCamera.GetComponent<CameraMotion>().isFree = true;
+    }
+
+
 
 }

@@ -271,8 +271,10 @@ public class Enemy : MonoBehaviour
     public void CalculateStatus(StatusEffects effect)
     {
 
+        
         stats = effect.Enemy.stats;
-        stats.currentHp = effect.Enemy.stats.HP.Value;
+        //stats.currentHp = effect.Enemy.stats.currentHp - effect.Enemy.stats.HP.Value;
+        
 
         enemyHpSlider.value = stats.currentHp;
 

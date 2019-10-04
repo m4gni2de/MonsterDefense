@@ -196,8 +196,8 @@ public class MapTileAnimations : MonoBehaviour
         fire.sprite = maps.fireTileTopSprites[0];
         attList.Add(fire.gameObject);
         fire.sortingOrder = topSprite.sortingOrder - 1;
+        fire.sortingLayerName = "MapTiles";
 
-        
         topSprite = fire;
 
         //int to keep track of how long the tile has been animating for. different things happen to different tiles at different ages
@@ -319,6 +319,7 @@ public class MapTileAnimations : MonoBehaviour
         magic.transform.localScale = new Vector3(1f, 1f, 1f);
         magic.sprite = maps.magicTileTopSprites[0];
         magic.sortingOrder = topSprite.sortingOrder - 1;
+        //magic.sortingLayerName = "MapTiles";
 
         //add this component to the list of the tile's extra components, so it can be deleted if the tile is changed
         attList.Add(magic.gameObject);

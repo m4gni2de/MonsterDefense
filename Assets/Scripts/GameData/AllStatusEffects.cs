@@ -230,6 +230,7 @@ public class StatusEffects
 
             if (status.hpDrop != 0)
                 enemy.stats.HP.AddModifier(new StatModifier(status.hpDrop, StatModType.PercentMult, this, timer.Status.name));
+                enemy.stats.currentHp =  enemy.stats.currentHp - (enemy.stats.hpMax * -status.hpDrop);
             if (status.atkDrop != 0)
                 enemy.stats.Attack.AddModifier(new StatModifier(status.atkDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.defDrop != 0)

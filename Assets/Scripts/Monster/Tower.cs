@@ -723,7 +723,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
                     attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.info.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
                     attackSprite.GetComponent<AttackEffects>().AttackMotion(position - attackPoint.transform.position);
-                    staminaBar.BarProgress += attack.staminaGained + (monster.tempStats.Stamina.Value / 1000);
+                    staminaBar.BarProgress += attack.staminaGained + (monster.info.Stamina.Value / 1000);
 
                     
                 }
@@ -740,11 +740,11 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
                     attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.info.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
                     attackSprite.GetComponent<AttackEffects>().AttackMotion(position - attackPoint.transform.position);
-                    staminaBar.BarProgress += attack.staminaGained + (monster.tempStats.Stamina.Value / 1000);
+                    staminaBar.BarProgress += attack.staminaGained + (monster.info.Stamina.Value / 1000);
                 }
             }
 
-            Debug.Log(monster.tempStats.Attack.Value);
+            Debug.Log(monster.info.Attack.Value);
         }
 
 

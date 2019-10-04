@@ -408,3 +408,4 @@ feb6dc853b511d5e11d59e2719dd27e1 Assembly-CSharp.dll:.GifAnimation
 14f725c3bb06cc29ba9b4adf473af6a1 Assembly-CSharp.dll:._2dxFX_AL_Liquify
 afd210ffa36e501ecc6a725d1dc0d17c Assembly-CSharp.dll:._2dxFX_AL_SkyCloud
 ea925e6507b6b33724a60ea2e716a54e Assembly-CSharp.dll:Puppet2D.Puppet2D_FFDStoreData
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.ObjectOnTouch

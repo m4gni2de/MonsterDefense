@@ -765,7 +765,8 @@ public class Monster : MonoBehaviour
     public void CalculateStatus(StatusEffects effect)
     {
 
-        tempStats = effect.Monster.tempStats;
+        //tempStats = effect.Monster.tempStats;
+        info = effect.Monster.info;
  
     }
 
