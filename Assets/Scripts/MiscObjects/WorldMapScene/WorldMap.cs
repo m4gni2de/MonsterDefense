@@ -60,6 +60,11 @@ public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             mapDetails.width = allMaps[mapName].width;
             mapDetails.height = allMaps[mapName].height;
 
+            //clear the active tiles and active towers list
+            GameManager.Instance.activeTiles.Clear();
+            GameManager.Instance.activeTowers.Clear();
+
+
             mapDetails.LoadMap(mapName);
             mapObject.transform.position = new Vector2(0f, 0f);
             loadTowerMenuBtn.interactable = true;

@@ -494,7 +494,7 @@ MonoBehaviour:
       - Aqua Dart
       - Thunder
       abilities:
-      - Of A Feather
+      - Ice Storm
   allTypes:
     Normal:
       name: Normal

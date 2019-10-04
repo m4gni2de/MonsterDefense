@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System;
 
 public class MapTileAnimations : MonoBehaviour
 {
@@ -13,10 +13,13 @@ public class MapTileAnimations : MonoBehaviour
     //the script in the Game Manager that contains all of the special tiles
     public Maps maps;
 
-   
+    //keeps track of all of the extra components added to this tiles
+    public List<GameObject> attList = new List<GameObject>();
+    public List<Component> tileEffects = new List<Component>();
 
     public bool isRoad;
 
+    public SpriteMaterials effects;  
 
     private void Awake()
     {
@@ -26,7 +29,7 @@ public class MapTileAnimations : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        effects = GameManager.Instance.GetComponent<SpriteMaterials>();
     }
 
     // Update is called once per frame
@@ -35,8 +38,49 @@ public class MapTileAnimations : MonoBehaviour
         
     }
 
+
+    //use this to clear all of the tile's added extras and reset it back to a basic tile
+    public void ClearTile()
+    {
+        sp.sprite = null;
+        //sp.color = Color.white;
+        StopAllCoroutines();
+
+
+        if (!GetComponentInParent<MapTile>().isRoad)
+        {
+            topSprite.sprite = null;
+            //topSprite.color = Color.white;
+        }
+
+
+        //destroy each extra tile component, and then clear the list of components
+        for (int i = 0; i < attList.Count; i++)
+        {
+            Destroy(attList[i]);
+        }
+
+        attList.Clear();
+
+        //destroy the added effect components on a tile
+        for (int e = 0; e < tileEffects.Count; e++)
+        {
+
+            Destroy(sp.gameObject.GetComponent(tileEffects[e].GetType().ToString()));
+
+        }
+
+        tileEffects.Clear();
+        
+
+
+    }
+
     public void TileAnimation(TileAttribute att, bool IsRoad)
     {
+        
+
+
         isRoad = IsRoad;
 
         if (att == TileAttribute.None)
@@ -46,21 +90,21 @@ public class MapTileAnimations : MonoBehaviour
 
         if (att == TileAttribute.Water)
         {
-            float rand = Random.Range(.12f, .14f);
+            float rand = UnityEngine.Random.Range(.12f, .14f);
             animationTime = rand;
             StartCoroutine(WaterTile(animationTime));
         }
 
         if (att == TileAttribute.Fire)
         {
-            float rand = Random.Range(.04f, .10f);
+            float rand = UnityEngine.Random.Range(.04f, .10f);
             animationTime = rand;
             StartCoroutine(FireTile(animationTime));
         }
 
         if (att == TileAttribute.Magic)
         {
-            float rand = Random.Range(.08f, .11f);
+            float rand = UnityEngine.Random.Range(.08f, .11f);
 
             animationTime = rand;
             StartCoroutine(MagicTile(animationTime));
@@ -69,7 +113,7 @@ public class MapTileAnimations : MonoBehaviour
 
         if (att == TileAttribute.Nature)
         {
-            float rand = Random.Range(.03f, .05f);
+            float rand = UnityEngine.Random.Range(.03f, .05f);
             animationTime = rand;
             StartCoroutine(NatureTile(animationTime));
         }
@@ -77,42 +121,42 @@ public class MapTileAnimations : MonoBehaviour
 
         if (att == TileAttribute.Poison)
         {
-            float rand = Random.Range(.01f, .20f);
+            float rand = UnityEngine.Random.Range(.01f, .20f);
             animationTime = rand;
             PoisonTile(rand);
         }
 
         if (att == TileAttribute.Electric)
         {
-            float rand = Random.Range(.03f, .05f);
+            float rand = UnityEngine.Random.Range(.03f, .05f);
             animationTime = rand;
             ElectricTile(rand);
         }
 
         if (att == TileAttribute.Ice)
         {
-            float rand = Random.Range(.01f, .20f);
+            float rand = UnityEngine.Random.Range(.01f, .20f);
             animationTime = rand;
             IceTile(rand);
         }
 
         if (att == TileAttribute.Shadow)
         {
-            float rand = Random.Range(-.07f, .07f);
+            float rand = UnityEngine.Random.Range(-.07f, .07f);
             animationTime = rand;
             ShadowTile(rand);
         }
 
         if (att == TileAttribute.Mechanical)
         {
-            float rand = Random.Range(.01f, .1f);
+            float rand = UnityEngine.Random.Range(.01f, .1f);
             animationTime = rand;
             MechanicalTile(rand);
         }
 
         if (att == TileAttribute.Normal)
         {
-            float rand = Random.Range(.03f, .12f);
+            float rand = UnityEngine.Random.Range(.03f, .12f);
             animationTime = rand;
             StartCoroutine(NormalTile(animationTime));
         }
@@ -150,8 +194,10 @@ public class MapTileAnimations : MonoBehaviour
         fire.transform.SetParent(GetComponentInParent<MapTile>().transform, true);
         fire.transform.localScale = new Vector3(1f, 1f, 1f);
         fire.sprite = maps.fireTileTopSprites[0];
-        fire.sortingLayerName = "MapTiles";
+        attList.Add(fire.gameObject);
         fire.sortingOrder = topSprite.sortingOrder - 1;
+
+        
         topSprite = fire;
 
         //int to keep track of how long the tile has been animating for. different things happen to different tiles at different ages
@@ -178,10 +224,10 @@ public class MapTileAnimations : MonoBehaviour
                 {
                     for (int d = 0; d < 20; d++)
                     {
-                        float rand = Random.Range(-100f, 100f);
-                        float randY = Random.Range(10f, 80f);
-                        float scaleX = Random.Range(10f, 25f);
-                        float scaleY = Random.Range(10f, 25f);
+                        float rand = UnityEngine.Random.Range(-100f, 100f);
+                        float randY = UnityEngine.Random.Range(10f, 80f);
+                        float scaleX = UnityEngine.Random.Range(10f, 25f);
+                        float scaleY = UnityEngine.Random.Range(10f, 25f);
 
                         ///Location of the enemies that spawn
                         float x1 = GetComponentInParent<MapTile>().transform.position.x - sp.bounds.size.x / 2;
@@ -189,7 +235,7 @@ public class MapTileAnimations : MonoBehaviour
                         float y1 = GetComponentInParent<MapTile>().transform.position.y - sp.bounds.size.y / 2;
                         float y2 = GetComponentInParent<MapTile>().transform.position.y + sp.bounds.size.y / 2;
 
-                        var spawnPoint = new Vector2(Random.Range(x1, x2), Random.Range(y1, y2));
+                        var spawnPoint = new Vector2(UnityEngine.Random.Range(x1, x2), UnityEngine.Random.Range(y1, y2));
 
 
                         var debris = Instantiate(maps.fireDebris, spawnPoint, Quaternion.identity, GetComponentInParent<MapTile>().transform);
@@ -232,7 +278,7 @@ public class MapTileAnimations : MonoBehaviour
 
 
 
-            //float randX1 = Random.Range(x1, x2);
+            //float randX1 = UnityEngine.Random.Range(x1, x2);
 
             //float randX2 = 1 - (randX1 / (GetComponentInParent<MapTile>().transform.position.x + sp.bounds.size.x / 2));
 
@@ -244,11 +290,12 @@ public class MapTileAnimations : MonoBehaviour
             //float y2 = randX2 * (GetComponentInParent<MapTile>().transform.position.y + sp.bounds.size.y / 2);
 
 
-            //var spawnPoint = new Vector3(randX1, Random.Range(y1, y2), -5);
-            var spawnPoint = new Vector3(Random.Range(x1, x2), Random.Range(y1, y2), -5);
+            //var spawnPoint = new Vector3(randX1, UnityEngine.Random.Range(y1, y2), -5);
+            var spawnPoint = new Vector3(UnityEngine.Random.Range(x1, x2), UnityEngine.Random.Range(y1, y2), -5);
 
             var nature = Instantiate(maps.natureTileBrush[0], spawnPoint, Quaternion.identity, GetComponentInParent<MapTile>().transform);
-            
+
+            attList.Add(nature.gameObject);
             nature.transform.localScale = new Vector3(.4f, .4f, nature.transform.localScale.z);
             nature.GetComponent<SpriteRenderer>().sortingOrder = -(int)spawnPoint.y;
 
@@ -272,22 +319,21 @@ public class MapTileAnimations : MonoBehaviour
         magic.transform.localScale = new Vector3(1f, 1f, 1f);
         magic.sprite = maps.magicTileTopSprites[0];
         magic.sortingOrder = topSprite.sortingOrder - 1;
+
+        //add this component to the list of the tile's extra components, so it can be deleted if the tile is changed
+        attList.Add(magic.gameObject);
         topSprite = magic;
 
-        ////creates a copy of the original tile to retain tile thickness
-        //var sprite = Instantiate(sp, transform.position, Quaternion.identity);
-        //sprite.transform.SetParent(GetComponentInParent<MapTile>().transform);
-        //sprite.transform.localScale = new Vector3(1f, 1f, 1f);
-        //sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.g, .75f);
+        
 
         //turns the tile in to a smokey looking tile, and sets the smoke level to a random number to give the tiles a uniqueness
         sp.gameObject.AddComponent<SmokeFX>();
-        float rand = Random.Range(.14f, .72f);
+        float rand = UnityEngine.Random.Range(.14f, .72f);
         sp.gameObject.GetComponent<SmokeFX>()._Value2 = rand;
         //sp.gameObject.GetComponent<SmokeFX>()._Alpha = sp.gameObject.GetComponent<SmokeFX>()._Value2;
 
-       
-        
+        tileEffects.Add(sp.gameObject.GetComponent<SmokeFX>());
+
         //creates the appearance of smoke within the magic tile
         for (int i = 0; i <=100; i++)
         {
@@ -303,6 +349,8 @@ public class MapTileAnimations : MonoBehaviour
                 x.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
                 x.transform.SetParent(GetComponentInParent<MapTile>().transform, true);
                 x.transform.localScale = new Vector3(25f, 25f, 1f);
+
+                attList.Add(x.gameObject);
 
                 ParticleSystem ps = x.GetComponent<ParticleSystem>();
                 Renderer rend = ps.GetComponent<Renderer>();
@@ -346,7 +394,7 @@ public class MapTileAnimations : MonoBehaviour
         //    rend.sortingOrder = 1000;
 
         //    yield return new WaitForSecondsRealtime(time);
-        //    time = Random.Range(10f, 20f);
+        //    time = UnityEngine.Random.Range(10f, 20f);
         //    if (i >= 1)
         //    {
         //        i = 0;
@@ -379,6 +427,8 @@ public class MapTileAnimations : MonoBehaviour
         sp.gameObject.GetComponent<Liquid>().Light = -2f;
         sp.gameObject.GetComponent<Liquid>().EValue = 1f;
 
+        tileEffects.Add(sp.gameObject.GetComponent<Liquid>());
+
     }
 
 
@@ -391,6 +441,8 @@ public class MapTileAnimations : MonoBehaviour
 
         sp.gameObject.GetComponent<Lightning2D>()._Value1 = 47.7f;
         sp.gameObject.GetComponent<Lightning2D>()._Value2 = 2f;
+
+        tileEffects.Add(sp.gameObject.GetComponent<Lightning2D>());
     }
 
 
@@ -403,6 +455,8 @@ public class MapTileAnimations : MonoBehaviour
 
         sp.gameObject.GetComponent<Frozen>()._Value1 = .80f - time;
         sp.gameObject.GetComponent<Frozen>()._Value2 = .976f - time;
+
+        tileEffects.Add(sp.gameObject.GetComponent<Frozen>());
     }
 
     public void ShadowTile(float time)
@@ -422,6 +476,8 @@ public class MapTileAnimations : MonoBehaviour
         sp.gameObject.GetComponent<SkycloudFX>()._Intensity = 1f;
         sp.gameObject.GetComponent<SkycloudFX>()._Zoom = .1f;
 
+        tileEffects.Add(sp.gameObject.GetComponent<SkycloudFX>());
+
     }
 
     public void MechanicalTile(float time)
@@ -437,6 +493,8 @@ public class MapTileAnimations : MonoBehaviour
         sp.gameObject.GetComponent<NewTeleportation2>()._Fade = .1f + time;
         sp.gameObject.GetComponent<NewTeleportation2>()._Distortion = .6f + time;
 
+        tileEffects.Add(sp.gameObject.GetComponent<NewTeleportation2>());
+
     }
 
     public IEnumerator NormalTile(float time)
@@ -447,7 +505,7 @@ public class MapTileAnimations : MonoBehaviour
         //}
 
         sp.gameObject.AddComponent<ColorChange>();
-
+        tileEffects.Add(sp.gameObject.GetComponent<ColorChange>());
 
         for (int i = 0; i < 360; i++) {
 

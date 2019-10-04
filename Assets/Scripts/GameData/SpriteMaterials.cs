@@ -32,22 +32,24 @@ public class SpriteMaterials : MonoBehaviour
     public MonoBehaviour effect;
 
     public Dictionary<string, SpriteEffect> spriteEffectsList = new Dictionary<string, SpriteEffect>();
+    public List<Type> effectsList = new List<Type>();
     
 
-    private void Awake()
-    {
-        //Type[] types = Assembly.GetExecutingAssembly().GetTypes();
-        //List<Type> myTypes = new List<Type>();
-        //foreach (Type t in types)
-        //{
-        //    if (t.Namespace == "Effects")
-        //    {
-        //        myTypes.Add(t);
-        //        Debug.Log(t);
-        //    }
+    //private void Awake()
+    //{
+    //    Type[] types = Assembly.GetExecutingAssembly().GetTypes();
+    //    List<Type> myTypes = new List<Type>();
+    //    foreach (Type t in types)
+    //    {
+    //        if (t.Namespace == "Effects")
+    //        {
+    //            myTypes.Add(t);
+    //            effectsList.Add(t);
+    //            Debug.Log(t);
+    //        }
 
-        //}
-    }
+    //    }
+    //}
 
 
 

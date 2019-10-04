@@ -112,7 +112,7 @@ public class MonsterEditor : MonoBehaviour
         activeMonster.SaveMonsterToken();
         activeMonster.LoadMonsterToken(activeMonster.saveToken);
         //PlayerPrefs.SetString(activeMonster.info.index.ToString(), JsonUtility.ToJson(activeMonster.info));
-        //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
 
         Button[] buttons = GameObject.FindObjectsOfType<Button>();
 

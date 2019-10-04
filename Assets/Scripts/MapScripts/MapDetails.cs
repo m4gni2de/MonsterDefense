@@ -83,11 +83,15 @@ public class MapDetails : MonoBehaviour
         columns = int.Parse(width.ToString()) / 50;
         rows = int.Parse(height.ToString()) / 50;
 
+        
+
     }
 
     public void LoadMap(string name)
     {
         var allMaps = GameManager.Instance.GetComponent<Maps>().allMapsDict;
+
+        
 
         mapName = name;
 
@@ -157,6 +161,8 @@ public class MapDetails : MonoBehaviour
                     tile.name = tileNumber.ToString();
                     tile.GetComponent<MapTile>().info.row = c *2;
                     tile.GetComponent<MapTile>().info.column = i *2 - 1;
+
+                    
                     tileNumber += 1;
 
 
@@ -169,6 +175,7 @@ public class MapDetails : MonoBehaviour
                 tile2.name = tileNumber.ToString();
                     tile2.GetComponent<MapTile>().info.row = c * 2 - 1;
                     tile2.GetComponent<MapTile>().info.column = i *2;
+                    
                     tileNumber += 1;
 
               
@@ -207,6 +214,9 @@ public class MapDetails : MonoBehaviour
                 var tile = GameObject.Find(t.ToString()).GetComponent<MapTile>();
                 tile.GetAttribute(int.Parse(tileChars[t]));
                 tile.Build();
+
+                //add the tile to the list of active tiles
+                GameManager.Instance.activeTiles.Add(t, tile.GetComponent<MapTile>());
             }
 
             //make a path code for each possible path, and add them to a Dictionary of PathCodes

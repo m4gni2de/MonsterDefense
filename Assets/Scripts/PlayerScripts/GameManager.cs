@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
     //everything to do with the current Towers on the field
     public Dictionary<int, Monster> activeTowers = new Dictionary<int, Monster>();
 
+    //everything to do with the current Tiles on the field
+    public Dictionary<int, MapTile> activeTiles = new Dictionary<int, MapTile>();
+
     public GameObject touchIndicator;
     
 
@@ -106,6 +109,16 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         TouchIndicator();
+
+        //foreach(KeyValuePair<int, MapTile> tile in activeTiles)
+        //{
+        //    if (tile.Value.info.attribute == "Ice")
+        //    {
+        //        Debug.Log(tile.Value.tileNumber);
+        //    }
+        //}
+
+        
 
     }
 

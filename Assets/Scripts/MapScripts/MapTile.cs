@@ -279,6 +279,13 @@ public class MapTile : MonoBehaviour
        
     }
 
+    
+    //use this to clear a tile's attributes before applying a new one
+    public void ClearAttribute()
+    {
+        
+        tileAnimations.ClearTile();
+    }
 
 
     //this method is invoked by a Tower to turn the tile in to an attack range target

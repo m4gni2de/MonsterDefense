@@ -143,7 +143,7 @@ public class AllMonsterData
         coinGenBase = 2.9f,
         energyGenBase = 64,
         energyCost = 8.5f,
-        abilities = new string[1] { "Of A Feather" },
+        abilities = new string[1] { "Ice Storm" },
     };
 
 

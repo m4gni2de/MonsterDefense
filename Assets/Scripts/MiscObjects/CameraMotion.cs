@@ -17,8 +17,8 @@ public class CameraMotion : MonoBehaviour
     private float xDiff, yDiff, acumTime;
 
     //************8VARIBLES FOR TOUCH CAMERA
-    //private float cameraMaxSize = 225;
-    private float cameraMaxSize = 160;
+    private float cameraMaxSize = 225;
+    //private float cameraMaxSize = 160;
     private float cameraMinSize = 50;
 
     Vector2?[] oldTouchPositions = {

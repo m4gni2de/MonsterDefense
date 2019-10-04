@@ -86,7 +86,7 @@ fc108ce7d98c40ac0907e8ca7f500c76 UnityEngine.UI.dll:UnityEngine.UI.Text
 abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 64e54c0cbb0177c5ea26f340efb9ff85 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 98ad81e9f689a492509f07e75b810aaa Unity.TextMeshPro.dll:TMPro.TMP_InputField
-facf8417a0ef8e540200b016a04d5018 Assembly-CSharp.dll:.MapTileAnimations
+e8f296b9066ea606d29b505515617f32 Assembly-CSharp.dll:.MapTileAnimations
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.TouchObject
 1b0d134de08df7ccc82486dae89b271a Assembly-CSharp.dll:.Distortion
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
@@ -319,6 +319,7 @@ bd3f0ca738703903e759f77536ed74fd Assembly-CSharp.dll:TMPro.Examples.TMP_FrameRat
 f24fe3fe312623b4bb1a4221d9890fb2 Assembly-CSharp.dll:._2dxFX_AL_HSV
 a1ca1237bad0f30ea5ba8f4060929114 Assembly-CSharp.dll:TMPro.Examples.TMP_TextSelector_B
 ad3e5dd6780b9423477f8e1150e064cd Assembly-CSharp.dll:._2dxFX_AL_LightningBolt
+8d61d1286b03c0005fc3740de876f4ac Assembly-CSharp.dll:.EnviromentCanvas
 370fcf57f49cb21ac66ea58069a6f9e2 Assembly-CSharp.dll:._2dxFX_AL_ColorRGB
 8409ccf54f695aea464a8e09aed60cbb Assembly-CSharp.dll:.YourMonsters
 a4f0a4f62100f1a4fb5cbe0e00dde83f Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
@@ -407,4 +408,3 @@ feb6dc853b511d5e11d59e2719dd27e1 Assembly-CSharp.dll:.GifAnimation
 14f725c3bb06cc29ba9b4adf473af6a1 Assembly-CSharp.dll:._2dxFX_AL_Liquify
 afd210ffa36e501ecc6a725d1dc0d17c Assembly-CSharp.dll:._2dxFX_AL_SkyCloud
 ea925e6507b6b33724a60ea2e716a54e Assembly-CSharp.dll:Puppet2D.Puppet2D_FFDStoreData
-8d61d1286b03c0005fc3740de876f4ac Assembly-CSharp.dll:.EnviromentCanvas

@@ -721,9 +721,11 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     var attackSprite = Instantiate(attack1Animation, attackPoint.transform.position, Quaternion.identity);
                     attackSprite.gameObject.name = attack.name;
                     //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-                    attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+                    attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.info.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
                     attackSprite.GetComponent<AttackEffects>().AttackMotion(position - attackPoint.transform.position);
                     staminaBar.BarProgress += attack.staminaGained + (monster.tempStats.Stamina.Value / 1000);
+
+                    
                 }
 
 
@@ -736,12 +738,15 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     var attackSprite = Instantiate(attack2Animation, attackPoint.transform.position, Quaternion.identity);
                     attackSprite.gameObject.name = attack.name;
                     //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-                    attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.tempStats.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+                    attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.info.Attack.Value, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
                     attackSprite.GetComponent<AttackEffects>().AttackMotion(position - attackPoint.transform.position);
                     staminaBar.BarProgress += attack.staminaGained + (monster.tempStats.Stamina.Value / 1000);
                 }
             }
+
+            Debug.Log(monster.tempStats.Attack.Value);
         }
+
 
 
         if (staminaBar.BarProgress >= 1)
@@ -1086,13 +1091,13 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
                 Attack(inRange[0].enemy.GetComponent<Monster>(), inRange[0].enemy.currentTile);
                 //targetOrder.Clear();
-                //    n = 0;
-                //    int a = 0;
-                
+                //n = 0;
+                //int a = 0;
+
                 ////for each of the sorted enemies, the first monster in the sorted order becomes the target of the tower
                 //foreach (TargetSort e in inRange)
                 //{
-                    
+
                 //    targetOrder.Add(e.enemy);
                 //    a += 1;
 

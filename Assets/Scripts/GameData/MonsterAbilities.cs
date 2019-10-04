@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 //what monsters does the ability target
 public enum AbilityTarget
@@ -13,6 +14,9 @@ public enum AbilityTarget
     SingleAlly,
     MultiAlly,
     AllAlly,
+    SingleTile, 
+    AllTiles, 
+    MultiTile,
 };
 
 //what the ability does
@@ -21,7 +25,7 @@ public enum AbilityType
     MonsterAttack,
     StatBuff,
     StatNerf,
-
+    TileChange,
 };
 
 //how the ability determines the targets, if any determination is needed
@@ -42,6 +46,8 @@ public enum AbilityParameterScope
     PerAllyByClass,
     PerEnemyByType,
     PerAllyByType,
+    PerTileByType,
+    
 
 
 }
@@ -60,6 +66,9 @@ public class Ability
     public MonsterClass classParameter;
     public string speciesParameter;
 
+    public delegate void AbilityDelegate();
+    public AbilityDelegate abilityMethod;
+    
 
     public int hpBonus;
     public int atkBonus;
@@ -131,6 +140,8 @@ public class AllAbilities
         scope = AbilityParameterScope.None,
         castingAmmo = 1,
         atkBonus = 5,
+       
+        
     };
 
     public Ability BeastSlayer = new Ability
@@ -158,6 +169,18 @@ public class AllAbilities
         castingAmmo = 1,
         atkBonus = 5,
     };
+
+
+    public Ability IceStorm = new Ability
+    {
+        name = "Ice Storm",
+        description = "Converts up to 10 non-Ice Tiles to Ice Tiles",
+        target = AbilityTarget.AllTiles,
+        type = AbilityType.TileChange,
+        parameter = AbilityTargetParameter.None,
+        scope = AbilityParameterScope.None,
+        castingAmmo = 1,
+    };
 }
 
 public class MonsterAbilities: MonoBehaviour
@@ -165,6 +188,10 @@ public class MonsterAbilities: MonoBehaviour
     public Dictionary<string, Ability> allAbilitiesDict = new Dictionary<string, Ability>();
     public AllAbilities allAbilities = new AllAbilities();
 
+
+    //public Monster owner;
+    //public Ability ability;
+    //public MonsterAbility MonsterAbility;
 
     private void Awake()
     {
@@ -177,8 +204,12 @@ public class MonsterAbilities: MonoBehaviour
         allAbilitiesDict.Add(allAbilities.ofAFeather.name, allAbilities.ofAFeather);
         allAbilitiesDict.Add(allAbilities.BeastSlayer.name, allAbilities.BeastSlayer);
         allAbilitiesDict.Add(allAbilities.NaturalQuake.name, allAbilities.NaturalQuake);
+        allAbilitiesDict.Add(allAbilities.IceStorm.name, allAbilities.IceStorm);
     }
+
 }
+
+
 
 
 public class MonsterAbility
@@ -186,117 +217,98 @@ public class MonsterAbility
     public Ability Ability;
     public Monster Owner;
 
+    //this variable is used to delegate which ability method to use, given the name of the ability
+    public delegate void AbilityDelegate();
+    public AbilityDelegate abilityMethod;
+
+    public MonsterAbilities abilities;
+
+
     public MonsterAbility(Ability ability, Monster owner)
     {
         Ability = ability;
         Owner = owner;
 
-        
-        //get the type of ability, and then execute the corresponding method
-        if (ability.target == AbilityTarget.AllAlly)
-        {
-            AllAlly();
-        }
+       
+        //get string of the name of the ability
+        string name = string.Concat(ability.name.Where(c => !char.IsWhiteSpace(c)));
 
-        if (ability.target == AbilityTarget.AllEnemy)
-        {
-            AllEnemy();
-        }
-
-        if (ability.target == AbilityTarget.Self)
-        {
-            Self();
-        }
-
-
-
+        //convert string to a delegate to call the method of the name of the ability
+        abilityMethod = DelegateCreation(this, name);
+        abilityMethod.Invoke();
     }
 
-    //if an ability affects all allies, use this method
-    public void AllAlly()
+
+    //create the method delegate for each ability
+    AbilityDelegate DelegateCreation(object target, string functionName)
     {
-        var towers = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveTowers;
-        var enemies = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveEnemies;
-
-
-        //if there is a parameter on who the ability targets, figure out the targets
-        if (Ability.parameter != AbilityTargetParameter.None)
-        {
-            //if the ability relies on a scope,figure out the scope
-            if (Ability.scope == AbilityParameterScope.None)
-            {
-                //if your ability affects all allies of a class, do this
-                if (Ability.parameter == AbilityTargetParameter.ByClass)
-                {
-                    foreach (Monster ally in towers)
-                    {
-                        if (ally.info.Class == Ability.classParameter)
-                        {
-                            ChangeStats(ally);
-                        }
-                    }
-                }
-            }
-        }
+        AbilityDelegate ab = (AbilityDelegate)Delegate.CreateDelegate(typeof(AbilityDelegate), target, functionName);
+        return ab;
     }
 
-    //if an ability affects all enemies, use this method
-    public void AllEnemy()
+
+
+    //Below is the method for all of the abilities//
+    public void OfAFeather()
     {
         var towers = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveTowers;
-        var enemies = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveEnemies;
 
-
-        //if there is a parameter on who the ability targets, figure out the targets
-        if (Ability.parameter != AbilityTargetParameter.None)
+        foreach (Monster ally in towers)
         {
-            //if the ability relies on a scope,figure out the scope
-            if (Ability.scope == AbilityParameterScope.None)
+            if (ally.info.Class == MonsterClass.Flying)
             {
-                //if your ability affects all allies of a class, do this
-                if (Ability.parameter == AbilityTargetParameter.ByClass)
-                {
-                    foreach (Enemy enemy in enemies)
-                    {
-                        if (enemy.stats.Class == Ability.classParameter)
-                        {
-                            ChangeEnemyStats(enemy);
-                        }
-                    }
-                }
+                ChangeStats(ally);
             }
         }
     }
 
 
-
-
-
-
-    //if an ability affects all enemies, use this method
-    public void Self()
+    public void BeastSlayer()
     {
-        var towers = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveTowers;
         var enemies = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveEnemies;
-        var allTypes = GameManager.Instance.monstersData.typeChartDict;
 
-            //if the ability relies on a scope,figure out the scope
-            if (Ability.scope == AbilityParameterScope.PerEnemyByType)
+        foreach (Enemy enemy in enemies)
+        {
+            if (enemy.stats.Class == MonsterClass.Beast)
             {
-            //checks all of the enemies to see if they match the scope, and if they do, add that stat
-                foreach (Enemy enemy in enemies)
-                {
-                    if (enemy.stats.type1 == Ability.typeParameter || enemy.stats.type1 == Ability.typeParameter)
-                    {
-                        ChangeStats(Owner);
-                    }
-                }
+                ChangeEnemyStats(enemy);
             }
-        
+        }
     }
 
 
+    public void NaturalQuake()
+    {
+        var enemies = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveEnemies;
 
+
+        foreach (Enemy enemy in enemies)
+        {
+            if (enemy.stats.type1 == "Nature" || enemy.stats.type2 == "Nature")
+            {
+                ChangeStats(Owner);
+            }
+        }
+    
+    }
+
+
+    public void IceStorm()
+    {
+        var tiles = GameManager.Instance.activeTiles;
+
+        for (int i = 0; i < 10; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, tiles.Count);
+
+            if (tiles[randomIndex].info.attribute != "Ice")
+            {
+                tiles[randomIndex].ClearAttribute();
+                tiles[randomIndex].GetAttribute(7);
+            }
+
+        }
+    }
 
 
 

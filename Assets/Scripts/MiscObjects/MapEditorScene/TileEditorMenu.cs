@@ -70,7 +70,7 @@ public class TileEditorMenu : MonoBehaviour
 
     public void AttributeValueChange()
     {
-
+        activeTile.ClearAttribute();
         activeTile.GetAttribute(attChangeDrop.value);
         SetActiveTile(activeTile);
         string mapCode = GetComponentInParent<MapDetails>().mapCode;

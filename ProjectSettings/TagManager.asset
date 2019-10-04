@@ -19,6 +19,7 @@ TagManager:
   - MonsterDisplay
   - ConsumableItem
   - Item
+  - TileAttributes
   layers:
   - Default
   - TransparentFX
