@@ -9,7 +9,7 @@ public class AccountInfoMenu : MonoBehaviour
     public TMP_Text nameText, idText, playTimeText, monstersCollectedText, levelText, expToLevelText, currentCoinsText, coinGenText;
     public Slider expSlider;
 
-    public Button xBtn;
+    public Button xBtn, collectBtn;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,39 @@ public class AccountInfoMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        collectBtn.GetComponentInChildren<TMP_Text>().text = "Collect: " + Mathf.FloorToInt((float)GameManager.Instance.GetComponent<YourAccount>().acumCoins);
+
+        float hours = Mathf.Round(GameManager.Instance.GetComponent<YourAccount>().account.playTime / 3600);
+        float minutes = Mathf.Round((GameManager.Instance.GetComponent<YourAccount>().account.playTime % 3600) / 60);
+        float seconds = Mathf.Round((GameManager.Instance.GetComponent<YourAccount>().account.playTime % 3600) % 60);
+
+        string secondsString = seconds.ToString();
+        string minutesString = minutes.ToString();
         
+
+
+        if (seconds < 10)
+        {
+            secondsString = "0" + seconds;
+        }
+        else
+        {
+
+            secondsString = seconds.ToString();
+        }
+
+        if (minutes < 10)
+        {
+            minutesString = "0" + minutes;
+        }
+        else
+        {
+            minutesString = minutes.ToString();
+            
+        }
+
+
+        playTimeText.text = hours + ":" + minutesString + ":" + secondsString;
     }
 
     public void LoadAccountInfo()
@@ -37,6 +69,7 @@ public class AccountInfoMenu : MonoBehaviour
 
         //make this menu's x button pushable
         xBtn.interactable = true;
+        collectBtn.interactable = true;
 
         
         

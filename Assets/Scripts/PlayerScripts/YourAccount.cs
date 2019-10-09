@@ -18,6 +18,7 @@ public struct AccountInfo
     public int totalMonstersCollected;
 
     public float playTime;
+    
 
 
 };
@@ -29,6 +30,8 @@ public class YourAccount : MonoBehaviour
     //variable used to track the current play time, so events can happen at certain intervals
     public float sessionPlayTime;
 
+    //used to hold the value for the amount of coins able to be acquired
+    public double acumCoins;
 
     public float acumTime;
     private void Awake()
@@ -55,15 +58,25 @@ public class YourAccount : MonoBehaviour
         //need to save this to the account playerpref or else it'll reset every time the game is turned off
         account.playTime += Time.deltaTime;
 
+
         acumTime += Time.deltaTime;
-        
+
+        //get an amount of coins that are able to be aquired by the player as long as they active the GetCoins method
         if (acumTime >= 1)
         {
             acumTime = 0;
-            account.coins += GameManager.Instance.coinGeneration / 3600;
+            acumCoins += GameManager.Instance.coinGeneration / 3600;
         }
         
         
+    }
+
+
+    //the coins generate,but can only be gotten using this method
+    public void GetCoins()
+    {
+        account.coins += acumCoins;
+        acumCoins = 0;
     }
 
 

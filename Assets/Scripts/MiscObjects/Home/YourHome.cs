@@ -508,6 +508,12 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     }
 
 
+    public void CollectCoins()
+    {
+        GameManager.Instance.GetComponent<YourAccount>().GetCoins();
+    }
+
+
     //called from the MonsterInfoPanel script to hide all of the monster Icons behind the new menu
     public void HideAllMonsters()
     {

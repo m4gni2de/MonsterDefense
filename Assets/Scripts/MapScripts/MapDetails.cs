@@ -29,8 +29,8 @@ public class MapDetails : MonoBehaviour
 
     public int tileNumber;
     public GameObject mapTile, mapCanvas;
-    
 
+    
     
     public MapTile[] path;
     public List<string> pathOrder = new List<string>();
@@ -52,6 +52,10 @@ public class MapDetails : MonoBehaviour
     public int levelMax;
     public float spawnInterval;
     public int enemyCount;
+    public int mapLevel;
+
+    //use this to weight the chances of higher level tiles appearing
+    public float mapConst;
 
     
 
@@ -90,6 +94,7 @@ public class MapDetails : MonoBehaviour
     public void LoadMap(string name)
     {
         var allMaps = GameManager.Instance.GetComponent<Maps>().allMapsDict;
+        
 
         
 
@@ -121,6 +126,9 @@ public class MapDetails : MonoBehaviour
             spawnY = allMaps[mapName].spawnY;
             width = allMaps[mapName].width;
             height = allMaps[mapName].height;
+            mapLevel = allMaps[mapName].mapLevel;
+
+            
 
             columns = int.Parse(width.ToString()) / 50;
             rows = int.Parse(height.ToString()) / 50;
@@ -161,7 +169,7 @@ public class MapDetails : MonoBehaviour
                     tile.name = tileNumber.ToString();
                     tile.GetComponent<MapTile>().info.row = c *2;
                     tile.GetComponent<MapTile>().info.column = i *2 - 1;
-
+                    
                     
                     tileNumber += 1;
 
@@ -195,10 +203,12 @@ public class MapDetails : MonoBehaviour
                     tile2.GetComponent<MapTile>().roadSprite.sortingLayerName = "Pathways";
                     tile2.GetComponent<MapTile>().roadSprite.sortingOrder = 2 + (int)-tile2.transform.position.y;
 
-                tile.transform.SetParent(mapCanvas.transform, false);
-                tile2.transform.SetParent(mapCanvas.transform, false);
+                    tile.transform.SetParent(mapCanvas.transform, false);
+                    
+                    tile2.transform.SetParent(mapCanvas.transform, false);
+                    
 
-                charCount += 1;
+                    charCount += 1;
 
 
             }
@@ -217,6 +227,8 @@ public class MapDetails : MonoBehaviour
 
                 //add the tile to the list of active tiles
                 GameManager.Instance.activeTiles.Add(t, tile.GetComponent<MapTile>());
+                //set the level and EXP of the tile
+                tile.SetLevel(mapLevel);
             }
 
             //make a path code for each possible path, and add them to a Dictionary of PathCodes
@@ -254,6 +266,7 @@ public class MapDetails : MonoBehaviour
             }
 
             
+
 
             spawnPoint.transform.position = new Vector2(spawnX, spawnY);
         InvokeRepeating("SpawnEnemy", 4f, spawnInterval);

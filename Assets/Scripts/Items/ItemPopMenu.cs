@@ -127,7 +127,7 @@ public class ItemPopMenu : MonoBehaviour
     public void BuyItemBtn()
     {
 
-        if (account.coins >= itemBuyValue)
+        if (GameManager.Instance.GetComponent<YourAccount>().account.coins >= itemBuyValue)
         {
             int itemCount = PlayerPrefs.GetInt(activeItemName, 0);
             PlayerPrefs.SetInt(activeItemName, itemCount + 1);
@@ -135,7 +135,7 @@ public class ItemPopMenu : MonoBehaviour
             GameManager.Instance.GetComponent<YourItems>().GetYourItems();
 
 
-            account.coins -= itemBuyValue;
+            GameManager.Instance.GetComponent<YourAccount>().account.coins -= itemBuyValue;
             GetComponentInParent<ItemShop>().UpdateItem();
             gameObject.SetActive(false);
         }
@@ -154,7 +154,7 @@ public class ItemPopMenu : MonoBehaviour
 
         GameManager.Instance.GetComponent<YourItems>().GetYourItems();
 
-        account.coins += itemSellValue;
+        GameManager.Instance.GetComponent<YourAccount>().account.coins += itemSellValue;
         GetComponentInParent<ItemShop>().UpdateItem();
         gameObject.SetActive(false);
     }
@@ -163,7 +163,7 @@ public class ItemPopMenu : MonoBehaviour
     //use this to check your coins against the value of the item being inspected
     public void PriceCheck()
     {
-        if (yourCoins < itemBuyValue)
+        if (GameManager.Instance.GetComponent<YourAccount>().account.coins < itemBuyValue)
         {
             buyButton.interactable = false;
         }

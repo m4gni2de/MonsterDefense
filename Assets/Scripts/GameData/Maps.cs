@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
@@ -20,6 +21,7 @@ public struct MapInfo
     public int levelMin;
     public int levelMax;
     public float spawnInterval;
+    public int mapLevel;
    
     
 };
@@ -50,6 +52,7 @@ public class AllMaps
         mapId = 0,
         width = 700,
         height = 350,
+        mapLevel = 1
 
     };
 
@@ -69,6 +72,7 @@ public class AllMaps
         mapId = 1,
         width = 700,
         height = 350,
+        mapLevel = 5,
 
     };
 
@@ -90,6 +94,7 @@ public class AllMaps
         mapId = 2,
         width = 350,
         height = 175,
+        mapLevel = 1,
 
     };
 
@@ -109,6 +114,7 @@ public class AllMaps
         mapId = 3,
         width = 350,
         height = 175,
+        mapLevel = 9,
 
     };
 
@@ -122,6 +128,7 @@ public class Maps : MonoBehaviour
     public AllMaps allMaps = new AllMaps();
     public Dictionary<string, MapInfo> allMapsDict = new Dictionary<string, MapInfo>();
     public Dictionary<int, Sprite> allTileSpritesDict = new Dictionary<int, Sprite>();
+    //public Dictionary<int, float> mapLevelConstants = new Dictionary<int, float>();
     //public Dictionary<int, Sprite> tileTypeSpritesDict = new Dictionary<int, Sprite>();
 
 
@@ -143,7 +150,6 @@ public class Maps : MonoBehaviour
 
     public Sprite[] magicTileTopSprites;
     public GameObject magicTileBurst;
-
     public Sprite electricTileTopSprite;
 
 
@@ -156,6 +162,12 @@ public class Maps : MonoBehaviour
 
     private void Awake()
     {
+        //for (int a = 1; a < 20; a++)
+        //{
+        //    mapLevelConstants.Add(a, 1 + (a / 10f));
+        //    //Debug.Log(mapLevelConstants[a]);
+        //}
+
         for (int i = 0; i < tileSprites.Length; i++)
         {
             allTileSpritesDict.Add(i, tileSprites[i]);
@@ -355,4 +367,55 @@ public class TileSprite
         }
 
     }
+}
+
+
+//import a map's level and map level constant to get the formula that weights the chances of a map tile's level
+[System.Serializable]
+public class MapTileLevelCalc
+{
+
+    public float value;
+    public AnimationCurve Curve;
+
+    //public static AnimationCurve CurveField(AnimationCurve value, params GUILayoutOption[] options);
+
+    //the max level that a tile can be, gien the level
+    public int maxLevel;
+
+    public MapTileLevelCalc(int mapLevel, AnimationCurve curve)
+    {
+        float rand = Random.Range(0f, 100f);
+
+        //get the maximum level a tile can be based on the level of the map
+        Keyframe key2 = new Keyframe();
+        float val = (float)(3.639 + 0.783 * (mapLevel));
+        key2.time = 1f;
+        key2.value = Mathf.RoundToInt(val) / 10f;
+        curve.MoveKey(2, key2);
+
+        Keyframe key = new Keyframe();
+        key.time = .9f;
+        key.value = key2.value * ((float)mapLevel / 10f);
+
+        //Debug.Log(key.inTangent);
+        //key.outTangent = 1;
+       key.inTangent = (key.value - (curve.keys[0].value)) / (key.time - curve.keys[0].time);
+        curve.MoveKey(1, key);
+        
+
+        curve.SmoothTangents(2, 2);
+        
+
+        value = curve.Evaluate(Random.value);
+
+        //Debug.Log(x);
+
+        
+        
+        Curve = curve;
+
+    }
+
+    
 }

@@ -73,6 +73,8 @@ public struct TileInfo
     public float boostPercentage;
     public string description;
 
+    public int expToLevel;
+
     public int row;
     public int column;
 
@@ -107,6 +109,7 @@ public class MapTile : MonoBehaviour
     public SpriteRenderer roadSprite;
     public Sprite[] roadSprites;
 
+    [Header("Tile Booleans")]
     //makes the tile a tile that your monsters can be placed on
     public bool isBuildable;
 
@@ -165,6 +168,10 @@ public class MapTile : MonoBehaviour
 
     public List<int> pathDirections = new List<int>();
 
+    [Header("Tile Level Weighted Curve")]
+    public AnimationCurve curve;
+    
+
 
     //public GameObject reflector;
     //public GameObject reflectorCamera;
@@ -180,7 +187,7 @@ public class MapTile : MonoBehaviour
         tileAnimations.GetComponent<MapTileAnimations>();
 
         sprite = sp.sprite;
-
+        
         
         
     }
@@ -190,6 +197,9 @@ public class MapTile : MonoBehaviour
     {
         startingSprite = sp.sprite;
         tileColor = sp.color;
+
+        //info.level = 1;
+        //info.totalExp = 0;
         
     }
 
@@ -216,9 +226,68 @@ public class MapTile : MonoBehaviour
                 isCountingDown = false;
             }
         }
+
     }
 
     
+
+
+    //use this when a tile gets EXP 
+    public void GetExp(int exp)
+    {
+        info.totalExp += exp;
+        info.expToLevel = GameManager.Instance.tileLevelUp[info.level + 1] - (int)info.totalExp;
+
+        //if the exp the tile gains is enough to level it up, then do so
+        if (info.expToLevel <= 0)
+        {
+            //if the tile isn't at the max level, level it up
+            if (info.level < GameManager.Instance.tileMaxLevel)
+            {
+                info.level += 1;
+
+                //checks if the new level is the max tile level or not
+                if (info.level < GameManager.Instance.tileMaxLevel)
+                {
+                    info.expToLevel = GameManager.Instance.tileLevelUp[info.level + 1] - (int)info.totalExp;
+                }
+                else
+                {
+                    info.expToLevel = 0;
+                }
+            }
+        }
+    }
+
+    
+
+    //when the maps are being loaded, call this method from MAPDETAILS to set the level and EXP of the tile, within the random bounds of the map level
+    public void SetLevel(int mapLevel)
+    {
+        float r = UnityEngine.Random.Range(0f, 1f);
+        
+
+
+        //with the level of the map, figure out the maximum level of the tiles, and the chances of each tile being each level
+        MapTileLevelCalc calc = new MapTileLevelCalc(mapLevel, curve);
+
+        curve = calc.Curve;
+
+        if (calc.value < .1f)
+        {
+            calc.value = .1f;
+        }
+
+        //set the level of the tile, and based on its level, give it exp
+        info.level = Mathf.FloorToInt(calc.value * 10);
+        info.totalExp = GameManager.Instance.tileLevelUp[info.level];
+
+        info.expToLevel = GameManager.Instance.tileLevelUp[info.level + 1] - (int)info.totalExp;
+
+        
+
+    }
+
 
     //invoke this method if the tile is going to be able to have a tower placed on it
     public void Build()

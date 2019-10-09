@@ -7,8 +7,8 @@ using UnityEngine.EventSystems;
 
 public class MapTileMenu : MonoBehaviour, IPointerDownHandler
 {
-    public TMP_Text tileNumberText, tileAttText;
-    public SpriteRenderer tileSprite;
+    public TMP_Text tileNumberText, tileAttText, tileLevelText;
+    public SpriteRenderer tileSprite, tileAttSprite;
     public Image monsterSprite;
     public GameObject monsterInfoMenu, worldMap;
     public MonsterInfoMenus infoMenu;
@@ -22,22 +22,40 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
     //a list of the monsters who are able to be placed on to the given Map Tile
     public List<Monster> placeableMonsters = new List<Monster>();
 
+    //used to show the amount of exp a tile has to the next level
+    public EnergyBar tileExpBar;
+
     // Start is called before the first frame update
     void Start()
     {
         tileSprite.GetComponent<SpriteRenderer>();
+        tileAttSprite.GetComponent<SpriteRenderer>();
         infoMenu.GetComponent<MonsterInfoMenus>();
     }
 
     //a tile is imported to this method from the World Map script
     public void LoadTile(MapTile tile)
     {
+        var types = GameManager.Instance.monstersData.typeChartDict;
+
+
         activeTile = tile;
         
 
-        tileNumberText.text = "Tile Number: " + tile.tileNumber.ToString();
+        tileNumberText.text = tile.tileNumber.ToString();
         tileAttText.text = "Tile Attribute: " + tile.tileAtt.ToString();
+        tileLevelText.text = tile.info.level.ToString();
         tileSprite.sprite = tile.GetComponent<SpriteRenderer>().sprite;
+
+        if (types.ContainsKey(tile.tileAtt.ToString()))
+        {
+            tileAttSprite.sprite = types[tile.tileAtt.ToString()].typeSprite;
+        }
+        else
+        {
+            tileAttSprite.sprite = null;
+        }
+       
 
         monsterOnTile = tile.monsterOn;
         
@@ -54,8 +72,16 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
             monsterSprite.GetComponent<Image>().sprite = null;
             monsterSprite.tag = "Untagged";
         }
-        
 
+        float totalNextLevelNeeded = (float)GameManager.Instance.tileLevelUp[tile.info.level + 1];
+        float thisLevelNeeded = (float)GameManager.Instance.tileLevelUp[tile.info.level];
+
+        float nextLevelNeeded = totalNextLevelNeeded - thisLevelNeeded;
+
+        tileExpBar.BarProgress = (nextLevelNeeded  - tile.info.expToLevel) / nextLevelNeeded;
+
+        //Debug.Log(totalNextLevelNeeded - (float)tile.info.totalExp / nextLevelNeeded);
+        
     }
 
     //snap the camera to the active tile

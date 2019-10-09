@@ -45,6 +45,10 @@ public class GameManager : MonoBehaviour
     //bool to tell if the player is in a match or not
     public bool inGame;
 
+    //dictionary that holds the values for the amount of EXP a tile needs to reach the next level
+    public Dictionary<int, int> tileLevelUp = new Dictionary<int, int>();
+    public int tileMaxLevel;
+
     //create the instance of the GameManager to be used throughout the game
     void Awake()
     {
@@ -85,6 +89,22 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         }
+
+
+        tileLevelUp.Add(1, 0);
+        tileLevelUp.Add(2, 4);
+        tileLevelUp.Add(3, 13);
+        tileLevelUp.Add(4, 29);
+        tileLevelUp.Add(5, 54);
+        tileLevelUp.Add(6, 90);
+        tileLevelUp.Add(7, 139);
+        tileLevelUp.Add(8, 203);
+        tileLevelUp.Add(9, 284);
+        tileLevelUp.Add(10, 384);
+        tileLevelUp.Add(11, 505);
+
+        //make the max level of a tile equal to the number of entries in the dictionary
+        tileMaxLevel = tileLevelUp.Count;
 
 
     }

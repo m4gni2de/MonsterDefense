@@ -20,7 +20,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
     public TMP_Text[] itemQuantities, shopItemCosts;
     public GameObject itemScrollContent, shopScrollContent, itemPopMenu;
 
-    private int shopSpriteTotal;
+    //private int shopSpriteTotal;
 
     public GameObject shopCanvas, itemCanvas;
     public GameObject itemPanel, shopPanel;
@@ -37,7 +37,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
     private void Awake()
     {
         
-        shopSpriteTotal = 0;
+        //shopSpriteTotal = 0;
         itemQuantity.GetComponent<TMP_Text>();
         displayMode = DisplayMode.Equipment;
 
@@ -68,7 +68,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
     void Start()
     {
         
-        shopSpriteTotal = 0;
+        //shopSpriteTotal = 0;
 
 
         DisplayShop();
@@ -80,7 +80,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
        
         
         
-        shopSpriteTotal = 0;
+        //shopSpriteTotal = 0;
 
         if (displayMode == DisplayMode.Equipment)
         {

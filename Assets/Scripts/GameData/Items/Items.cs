@@ -19,6 +19,15 @@ public enum ItemType
     Cell
 }
 
+public enum ItemRarity
+{
+    Common, 
+    Rare,
+    Mythic,
+    Legendary,
+    Immortal,
+}
+
 
 public struct AllItem
 {
@@ -43,6 +52,7 @@ public struct Equipment
     public float cost;
     public int equipSlot;
 
+    public ItemRarity rarity;
     public int equipLevel;
     public int equipLevelMax;
     public int equipExp;
@@ -114,7 +124,7 @@ public class AllEquipment
         boosts = new string[1] { "Water Type Attacks + 8% Power" },
         atkPowerPercentBonus = .20f,
         cost = 200,
-
+        rarity = ItemRarity.Common,
 
 
     };
@@ -129,7 +139,7 @@ public class AllEquipment
         typeMonsterReq = "Electric",
         atkPercentBonus = .10f,
         cost = 200,
-
+        rarity = ItemRarity.Common,
 
     };
 
@@ -143,7 +153,7 @@ public class AllEquipment
         typeMonsterReq = "Nature",
         atkPercentBonus = .10f,
         cost = 200,
-
+        rarity = ItemRarity.Common,
 
     };
 
@@ -157,7 +167,7 @@ public class AllEquipment
         typeMonsterReq = "Magic",
         atkPercentBonus = .10f,
         cost = 200,
-
+        rarity = ItemRarity.Common,
 
     };
 
@@ -171,7 +181,7 @@ public class AllEquipment
         typeMonsterReq = "Shadow",
         atkPercentBonus = .10f,
         cost = 200,
-
+        rarity = ItemRarity.Common,
 
     };
 
@@ -185,6 +195,7 @@ public class AllEquipment
         typeMonsterReq = "Fire",
         atkPercentBonus = .10f,
         cost = 200,
+        rarity = ItemRarity.Common,
     };
 
     public Equipment WoodAxe = new Equipment
@@ -198,6 +209,7 @@ public class AllEquipment
         typeMoveReq = "none",
         atkPowerBonus = 5,
         cost = 400,
+        rarity = ItemRarity.Common,
     };
 
     public Equipment SpikedKnuckles = new Equipment
@@ -211,6 +223,7 @@ public class AllEquipment
         attackModeReq = AttackMode.Punch,
         atkPowerPercentBonus= .2f,
         cost = 400,
+        rarity = ItemRarity.Common,
     };
 
 

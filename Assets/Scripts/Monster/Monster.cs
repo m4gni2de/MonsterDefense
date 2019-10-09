@@ -10,6 +10,8 @@ using TMPro;
 [System.Serializable]
 public struct MonsterSaveToken
 {
+
+    [Header("SaveToken")]
     public int index;
     public string species;
     public string name;
@@ -34,6 +36,8 @@ public struct MonsterSaveToken
 [System.Serializable]
 public struct MonsterInfo
 {
+    [Header("Monster Stats")]
+
     public int index;
     public string species;
     public string name;
@@ -58,16 +62,17 @@ public struct MonsterInfo
     public float energyCost;
     public MonsterClass Class;
 
-
+    [Header("Monster Attacks")]
     public string attack1Name;
     public MonsterAttack attack1;
     public string attack2Name;
     public MonsterAttack attack2;
 
+    [Header("Monster Ability")]
     public string abilityName;
     public Ability specialAbility;
 
-
+    [Header("Monster Equips")]
     public string equip1Name;
     public Equipment equip1;
     public string equip2Name;
@@ -76,6 +81,7 @@ public struct MonsterInfo
     public EquippableItem equippable1;
     public EquippableItem equippable2;
 
+    [Header("Monster Stat Values")]
     public Stat HP;
     public Stat HPPotential;
     public Stat Attack;
@@ -110,6 +116,7 @@ public struct MonsterInfo
 [System.Serializable]
 public struct TempStats
 {
+    [Header("Monster Temp Stats")]
     public Stat HP;
     public Stat HPPotential;
     public Stat Attack;
@@ -142,6 +149,7 @@ public struct TempStats
 [System.Serializable]
 public struct MonsterSpecs
 {
+    [Header("Monster Body Specs")]
     //used as the position anchors for tile placement so it appears that the monster's legs are on the tiles instead of the center of its body
     public GameObject[] legs;
     public GameObject head;
