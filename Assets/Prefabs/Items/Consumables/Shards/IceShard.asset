@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: IceShard
   m_EditorClassIdentifier: 
   itemName: Ice Shard
-  id: 5
   description: An Ice Shard
   cost: 0
   sprite: {fileID: 21300000, guid: 4701947e3752358458c6ab828b78e55f, type: 3}
   itemType: 0
+  tileMinedFrom: 7

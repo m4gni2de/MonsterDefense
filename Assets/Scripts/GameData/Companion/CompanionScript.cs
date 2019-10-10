@@ -9,7 +9,8 @@ public class CompanionScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        data.miningRate = 2;
+        data.miningInterval = 2f;
     }
 
     // Update is called once per frame

@@ -142,9 +142,17 @@ public class MapTile : MonoBehaviour
     //the number at which the tile spawned
     public int tileNumber;
 
+
+    [Header("Tile Path Values")]
     //properties of the tile that affect the enemy moving on it
     public float waitSeconds = 0;
     public float speedOut = 0;
+
+    public string pathDirection;
+    //this is used to check for paths that are on different paths, but overlap. if this happens, use the 4 way intersection sprite
+    public int pathCount;
+
+    public List<int> pathDirections = new List<int>();
 
     //set a baseline for its natural color so it can be switched back easily
     public Color tileColor;
@@ -159,19 +167,24 @@ public class MapTile : MonoBehaviour
 
     public TileInfo info = new TileInfo();
 
-    public string pathDirection;
-    //this is used to check for paths that are on different paths, but overlap. if this happens, use the 4 way intersection sprite
-    public int pathCount;
+    
 
     //the tile animator for different elements and their idle/movement animations
     public MapTileAnimations tileAnimations;
 
-    public List<int> pathDirections = new List<int>();
-
-    [Header("Tile Level Weighted Curve")]
-    public AnimationCurve curve;
     
 
+    [Header("Tile Level And Mining")]
+    public AnimationCurve curve;
+
+    public bool isMining;
+    //rate at which tile EXP is mined
+    public float mineRate;
+    public float acumTime;
+    //interval between each "mine"
+    public float mineInterval;
+    //total time the tile has been mined for
+    public float mineAcumTime;
 
     //public GameObject reflector;
     //public GameObject reflectorCamera;
@@ -227,10 +240,47 @@ public class MapTile : MonoBehaviour
             }
         }
 
+        //if the tile is mining, allow the MineTile method to activate every frame
+        if (isMining)
+        {
+            MineTile();
+        }
+
     }
 
-    
+    //this is called from the Tile Info Menu Script to trigger the start of the tile mining
+    public void StartMining()
+    {
+        isMining = true;
+        mineRate = GameManager.Instance.GetComponent<YourAccount>().companion.data.miningRate;
+        mineInterval = GameManager.Instance.GetComponent<YourAccount>().companion.data.miningInterval;
+        GameManager.Instance.tilesMining.Add(this);
+    }
 
+    //use this to stop mining the tile
+    public void StopMining()
+    {
+        isMining = false;
+        GameManager.Instance.tilesMining.Remove(this);
+    }
+
+    //this is the method that is active when a tile is being mined
+    public void MineTile()
+    {
+        acumTime += Time.deltaTime;
+
+        if (acumTime <= mineInterval)
+        {
+            //
+        }
+        else
+        {
+            GetExp((int)mineRate);
+            acumTime = 0;
+        }
+
+        mineAcumTime += Time.deltaTime;
+    }
 
     //use this when a tile gets EXP 
     public void GetExp(int exp)

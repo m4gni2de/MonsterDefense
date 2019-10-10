@@ -71,7 +71,8 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
         isEquipping = true;
 
-        var allItems = GameManager.Instance.items.allItemsDict;
+        //var allItems = GameManager.Instance.items.allItemsDict;
+        //var allItems = GameManager.Instance.items.fullItemList;
         var allEquips = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
         
 
@@ -163,8 +164,9 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     public void LoadEquipment()
     {
         isEquipping = false;
-        
-        var allItems = GameManager.Instance.items.allItemsDict;
+
+        //var allItems = GameManager.Instance.items.allItemsDict;
+        //var allItems = GameManager.Instance.items.fullItemList;
         var allEquips = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
 
         int i = 1;

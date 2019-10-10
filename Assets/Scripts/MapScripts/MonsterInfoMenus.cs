@@ -517,7 +517,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             //objects with the scriptable object tag are image sprites that can be touched by the player to reveal information about the thing touched in a pop menu
             if (tag == "ScriptableObject" || tag == "Item")
             {
-                var items = GameManager.Instance.items.allItemsDict;
+                var items = GameManager.Instance.items.fullItemList;
                 var types = GameManager.Instance.monstersData.typeChartDict;
 
                 Debug.Log(tag);

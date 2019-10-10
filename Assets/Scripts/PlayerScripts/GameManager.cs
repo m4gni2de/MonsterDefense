@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
     //dictionary that holds the values for the amount of EXP a tile needs to reach the next level
     public Dictionary<int, int> tileLevelUp = new Dictionary<int, int>();
     public int tileMaxLevel;
+    public List<MapTile> tilesMining = new List<MapTile>();
+
 
     //create the instance of the GameManager to be used throughout the game
     void Awake()
@@ -55,7 +57,15 @@ public class GameManager : MonoBehaviour
 
         if (instance == null) instance = this;
 
-       
+
+        //PlayerPrefs.DeleteAll();
+
+        if (FindObjectsOfType(GetType()).Length > 1)
+        {
+            Destroy(gameObject);
+
+        }
+
 
         electricAttackColor = new Color(1.0f, 1.0f, 0.0f, 1.0f);
         waterAttackColor = new Color(0.22f, 0.22f, 1.0f, 1.0f);
@@ -74,6 +84,8 @@ public class GameManager : MonoBehaviour
         {
             monsterCount = PlayerPrefs.GetInt("MonsterCount");
             PlayerPrefs.SetInt("MonsterCount", monsterCount);
+
+            Debug.Log(monsterCount);
         }
         else
         {
@@ -82,26 +94,20 @@ public class GameManager : MonoBehaviour
         }
 
 
-        //PlayerPrefs.DeleteAll();
-
-        if (FindObjectsOfType(GetType()).Length > 1)
-        {
-            Destroy(gameObject);
-
-        }
+        
 
 
         tileLevelUp.Add(1, 0);
-        tileLevelUp.Add(2, 4);
-        tileLevelUp.Add(3, 13);
-        tileLevelUp.Add(4, 29);
-        tileLevelUp.Add(5, 54);
-        tileLevelUp.Add(6, 90);
-        tileLevelUp.Add(7, 139);
-        tileLevelUp.Add(8, 203);
-        tileLevelUp.Add(9, 284);
-        tileLevelUp.Add(10, 384);
-        tileLevelUp.Add(11, 505);
+        tileLevelUp.Add(2, 40);
+        tileLevelUp.Add(3, 130);
+        tileLevelUp.Add(4, 290);
+        tileLevelUp.Add(5, 540);
+        tileLevelUp.Add(6, 900);
+        tileLevelUp.Add(7, 1390);
+        tileLevelUp.Add(8, 2030);
+        tileLevelUp.Add(9, 2840);
+        tileLevelUp.Add(10, 3840);
+        tileLevelUp.Add(11, 5050);
 
         //make the max level of a tile equal to the number of entries in the dictionary
         tileMaxLevel = tileLevelUp.Count;

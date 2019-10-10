@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MechShard
   m_EditorClassIdentifier: 
   itemName: Mechanical Shard
-  id: 3
   description: A Mechanical Shard
   cost: 0
   sprite: {fileID: 21300000, guid: 9020ac1f583583646b55b89dc4f89359, type: 3}
   itemType: 0
+  tileMinedFrom: 9

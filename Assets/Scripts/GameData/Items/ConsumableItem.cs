@@ -18,4 +18,5 @@ public class ConsumableItem : ScriptableObject
     public float cost;
     public Sprite sprite;
     public ConsumableType itemType;
+    public TileAttribute tileMinedFrom;
 }

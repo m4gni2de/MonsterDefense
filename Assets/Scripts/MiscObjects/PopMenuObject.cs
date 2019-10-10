@@ -37,7 +37,8 @@ public class PopMenuObject : MonoBehaviour
     //accepts an object and then displays the information about that object based on the object type
     public void AcceptObject(string name, object obj)
     {
-        var items = GameManager.Instance.items.allItemsDict;
+        //var items = GameManager.Instance.items.allItemsDict;
+        var items = GameManager.Instance.items.fullItemList;
         var types = GameManager.Instance.monstersData.typeChartDict;
         var effects = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict;
         var atkModes = GameManager.Instance.GetComponent<Attacks>().atkModeDict;
@@ -70,11 +71,12 @@ public class PopMenuObject : MonoBehaviour
     //use this method for an item
     public void Item(string name)
     {
-        var items = GameManager.Instance.items.allItemsDict;
+        //var items = GameManager.Instance.items.allItemsDict;
+        var items = GameManager.Instance.items.fullItemList;
         var equips = GameManager.Instance.items.allEquipmentDict;
 
 
-        if (items[name].itemType == ItemType.Equipment)
+        if (items[name] == ItemType.Equipment)
         {
             if (equips.ContainsKey(name))
             {

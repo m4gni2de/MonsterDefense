@@ -24,12 +24,12 @@ public class YourItems : MonoBehaviour
         yourEquipment.Clear();
 
         var equips = GameManager.Instance.items.allEquipmentDict;
-        var allItems = GameManager.Instance.items.allItemsDict;
+        var allItems = GameManager.Instance.items.fullItemList;
 
 
 
         //loops through all the items in the game, checks them against a playerpref of the same name. if the playerpref exists, then the player has at least 1 of that item. Add those items to a Dictionary of your items
-        foreach (KeyValuePair<string, AllItem> item in allItems)
+        foreach (KeyValuePair<string, ItemType> item in allItems)
         {
 
             if (PlayerPrefs.HasKey(item.Key))

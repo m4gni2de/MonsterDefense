@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: NatureShard
   m_EditorClassIdentifier: 
   itemName: Nature Shard
-  id: 2
   description: A Nature Shard
   cost: 0
   sprite: {fileID: 21300000, guid: 801f6548e63533542bffdadd763a5c29, type: 3}
   itemType: 0
+  tileMinedFrom: 3

@@ -29,12 +29,6 @@ public enum ItemRarity
 }
 
 
-public struct AllItem
-{
-    public string name;
-    public ItemType itemType;
-}
-
 
 [System.Serializable]
 public struct Equipment
@@ -88,8 +82,7 @@ public struct Equipment
 };
 
 
-
-
+[System.Serializable]
 public struct MonsterCell
 {
     public string name;
@@ -102,197 +95,15 @@ public struct MonsterCell
 
 };
 
-[System.Serializable]
-public class ItemsRoot
-{
-    public Equipment Equipment;
-    //public Consumable Consumable;
-    public MonsterCell MonsterCell;
-}
+
+
+
 
 [System.Serializable]
 public class AllEquipment 
 {
-    public Equipment AquaRune = new Equipment
-    {
-        name = "Aqua Rune",
-        id = 1,
-        description = "A Rune that boosts Water Type attacks from Water Type monsters by 20%",
-        equipType = EquipmentType.Rune,
-        typeMonsterReq = "Water",
-        typeMoveReq = "Water",
-        boosts = new string[1] { "Water Type Attacks + 8% Power" },
-        atkPowerPercentBonus = .20f,
-        cost = 200,
-        rarity = ItemRarity.Common,
-
-
-    };
-
-    public Equipment ThunderRune = new Equipment
-    {
-        name = "Thunder Rune",
-        id = 2,
-        description = "A Rune that boosts an Electric Type monster's attack stat by 10%",
-        equipType = EquipmentType.Rune,
-        boosts = new string[1] { "+10% Attack" },
-        typeMonsterReq = "Electric",
-        atkPercentBonus = .10f,
-        cost = 200,
-        rarity = ItemRarity.Common,
-
-    };
-
-    public Equipment NatureRune = new Equipment
-    {
-        name = "Nature Rune",
-        id = 3,
-        description = "A Rune that boosts a Nature Type monster's attack stat by 10%",
-        equipType = EquipmentType.Rune,
-        boosts = new string[1] { "+10% Attack" },
-        typeMonsterReq = "Nature",
-        atkPercentBonus = .10f,
-        cost = 200,
-        rarity = ItemRarity.Common,
-
-    };
-
-    public Equipment MagicRune = new Equipment
-    {
-        name = "Magic Rune",
-        id = 4,
-        description = "A Rune that boosts a Magic Type monster's attack stat by 10%",
-        equipType = EquipmentType.Rune,
-        boosts = new string[1] { "+10% Attack" },
-        typeMonsterReq = "Magic",
-        atkPercentBonus = .10f,
-        cost = 200,
-        rarity = ItemRarity.Common,
-
-    };
-
-    public Equipment ShadowRune = new Equipment
-    {
-        name = "Shadow Rune",
-        id = 5,
-        description = "A Rune that boosts a Shadow Type monster's attack stat by 10%",
-        equipType = EquipmentType.Rune,
-        boosts = new string[1] { "+10% Attack" },
-        typeMonsterReq = "Shadow",
-        atkPercentBonus = .10f,
-        cost = 200,
-        rarity = ItemRarity.Common,
-
-    };
-
-    public Equipment FireRune = new Equipment
-    {
-        name = "Fire Rune",
-        id = 6,
-        description = "A Rune that boosts a Fire Type monster's attack stat by 10%",
-        equipType = EquipmentType.Rune,
-        boosts = new string[1] { "+10% Attack" },
-        typeMonsterReq = "Fire",
-        atkPercentBonus = .10f,
-        cost = 200,
-        rarity = ItemRarity.Common,
-    };
-
-    public Equipment WoodAxe = new Equipment
-    {
-        name = "Wood Axe",
-        id = 7,
-        description = "The weielder gains +5 to their attack stat.",
-        equipType = EquipmentType.Axe,
-        boosts = new string[1] { "+5 Attack Power" },
-        typeMonsterReq = "none",
-        typeMoveReq = "none",
-        atkPowerBonus = 5,
-        cost = 400,
-        rarity = ItemRarity.Common,
-    };
-
-    public Equipment SpikedKnuckles = new Equipment
-    {
-        name = "Spiked Knuckles",
-        id = 8,
-        description = "Punch Mode attacks gain 20% attack power.",
-        equipType = EquipmentType.Glove,
-        boosts = new string[1] { "20% Punch Attack Power" },
-        typeMonsterReq = "none",
-        attackModeReq = AttackMode.Punch,
-        atkPowerPercentBonus= .2f,
-        cost = 400,
-        rarity = ItemRarity.Common,
-    };
-
-
+    public Equipment[] allEquipment;
 }
-
-
-public class AllItems
-{
-    public AllItem AquaRune = new AllItem
-    {
-        name = "Aqua Rune",
-        itemType = ItemType.Equipment,
-    };
-
-    public AllItem ThunderRune = new AllItem
-    {
-        name = "Thunder Rune",
-        itemType = ItemType.Equipment,
-    };
-
-    public AllItem NatureRune = new AllItem
-    {
-        name = "Nature Rune",
-        itemType = ItemType.Equipment,
-    };
-
-    public AllItem MagicRune = new AllItem
-    {
-        name = "Magic Rune",
-        itemType = ItemType.Equipment,
-    };
-
-    public AllItem ShadowRune = new AllItem
-    {
-        name = "Shadow Rune",
-        itemType = ItemType.Equipment,
-    };
-
-    public AllItem FireRune = new AllItem
-    {
-        name = "Fire Rune",
-        itemType = ItemType.Equipment,
-    };
-
-    public AllItem WoodAxe = new AllItem
-    {
-        name = "Wood Axe",
-        itemType = ItemType.Equipment,
-    };
-
-    public AllItem SpikedKnuckles = new AllItem
-    {
-        name = "Spiked Knuckles",
-        itemType = ItemType.Equipment,
-    };
-
-    public AllItem ExpBoost = new AllItem
-    {
-        name = "Exp Boost",
-        itemType = ItemType.Consumable,
-    };
-
-    public AllItem LichenthropeCell = new AllItem
-    {
-        name = "Lichenthrope Cell",
-        itemType = ItemType.Cell,
-    };
-}
-
 
 
 public class AllMonsterCells
@@ -315,30 +126,37 @@ public class Items: MonoBehaviour
 
     public AllEquipment allEquipment = new AllEquipment();
     public AllMonsterCells allMonsterCells = new AllMonsterCells();
-    public AllItems allItems = new AllItems();
+    
 
 
-    public Dictionary<string, AllItem> allItemsDict = new Dictionary<string, AllItem>();
+
+    public Dictionary<string, ItemType> fullItemList = new Dictionary<string, ItemType>();
+
+    
 
     
     public Dictionary<string, Equipment> allEquipmentDict = new Dictionary<string, Equipment>();
     public Dictionary<string, MonsterCell> allMonsterCellsDict = new Dictionary<string, MonsterCell>();
 
-    public List<string> equipmentList = new List<string>();
-    public List<string> cellList = new List<string>();
+    //public List<string> equipmentList = new List<string>();
+    //public List<string> cellList = new List<string>();
 
     //use lists to manually add non scriptable objects
     public List<ConsumableItem> consumables = new List<ConsumableItem>();
 
     private void Awake()
     {
-        //equipEffects = GetComponent<EquipEffects>();
-
+       
+        
         
         AddItems();
         AddEquipment();
         AddCells();
+
         
+
+
+
     }
 
    
@@ -347,53 +165,49 @@ public class Items: MonoBehaviour
    //creates dictionary for all items together
    void AddItems()
     {
-        allItemsDict.Add(allItems.AquaRune.name, allItems.AquaRune);
-        allItemsDict.Add(allItems.ThunderRune.name, allItems.ThunderRune);
-        allItemsDict.Add(allItems.NatureRune.name, allItems.NatureRune);
-        allItemsDict.Add(allItems.MagicRune.name, allItems.MagicRune);
-        allItemsDict.Add(allItems.ShadowRune.name, allItems.MagicRune);
-        allItemsDict.Add(allItems.FireRune.name, allItems.FireRune);
-        allItemsDict.Add(allItems.WoodAxe.name, allItems.WoodAxe);
-        allItemsDict.Add(allItems.SpikedKnuckles.name, allItems.SpikedKnuckles);
+
+        
+        
+
+        //foreach (KeyValuePair<string, AllItem> item in allItemsDict)
+        //{
+        //    if (item.Value.itemType == ItemType.Equipment)
+        //    {
+        //        equipmentList.Add(item.Key);
+        //    }
 
 
 
+        //    if (item.Value.itemType == ItemType.Cell)
+        //    {
+        //        cellList.Add(item.Key);
+        //    }
 
+        //}
 
-        allItemsDict.Add(allItems.ExpBoost.name, allItems.ExpBoost);
-        allItemsDict.Add(allItems.LichenthropeCell.name, allItems.LichenthropeCell);
-
-
-
-        foreach (KeyValuePair<string, AllItem> item in allItemsDict)
+        foreach (ConsumableItem cItem in consumables)
         {
-            if (item.Value.itemType == ItemType.Equipment)
-            {
-                equipmentList.Add(item.Key);
-            }
-
-           
-
-            if (item.Value.itemType == ItemType.Cell)
-            {
-                cellList.Add(item.Key);
-            }
-
+            fullItemList.Add(cItem.itemName, ItemType.Consumable);
+            
         }
+
+
+
+
     }
 
     
     void AddEquipment()
     {
-        allEquipmentDict.Add(allEquipment.AquaRune.name, allEquipment.AquaRune);
-        allEquipmentDict.Add(allEquipment.ThunderRune.name, allEquipment.ThunderRune);
-        allEquipmentDict.Add(allEquipment.NatureRune.name, allEquipment.NatureRune);
-        allEquipmentDict.Add(allEquipment.MagicRune.name, allEquipment.MagicRune);
-        allEquipmentDict.Add(allEquipment.ShadowRune.name, allEquipment.ShadowRune);
-        allEquipmentDict.Add(allEquipment.FireRune.name, allEquipment.FireRune);
-        allEquipmentDict.Add(allItems.WoodAxe.name, allEquipment.WoodAxe);
-        allEquipmentDict.Add(allItems.SpikedKnuckles.name, allEquipment.SpikedKnuckles);
+       
 
+        foreach(Equipment equipment in allEquipment.allEquipment)
+        {
+            allEquipmentDict.Add(equipment.name, equipment);
+            fullItemList.Add(equipment.name, ItemType.Equipment);
+        }
+       
+        
     }
 
 
@@ -402,6 +216,8 @@ public class Items: MonoBehaviour
     void AddCells()
     {
         allMonsterCellsDict.Add(allMonsterCells.LichenthropeCell.hostMonster, allMonsterCells.LichenthropeCell);
+
+        
        
     }
 

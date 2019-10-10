@@ -203,6 +203,7 @@ public class MonstersData : MonoBehaviour
         typeChartDict.Add(allTypes.Ice.name, allTypes.Ice);
         typeChartDict.Add(allTypes.Mechanical.name, allTypes.Mechanical);
         typeChartDict.Add(allTypes.Normal.name, allTypes.Normal);
+        typeChartDict.Add(allTypes.Poison.name, allTypes.Poison);
 
     }
 
@@ -332,6 +333,16 @@ public class MonsterTypeDetails
     {
         name = "Fire",
         id = 8,
+        noChange = new string[9] { "Normal", "Fire", "Water", "Electric", "Ice", "Mechanical", "Shadow", "Nature", "Magic" },
+        resist = new string[0] { },
+        weakTo = new string[0] { },
+        immune = new string[0] { },
+    };
+
+    public TypeInfo Poison = new TypeInfo
+    {
+        name = "Poison",
+        id = 9,
         noChange = new string[9] { "Normal", "Fire", "Water", "Electric", "Ice", "Mechanical", "Shadow", "Nature", "Magic" },
         resist = new string[0] { },
         weakTo = new string[0] { },

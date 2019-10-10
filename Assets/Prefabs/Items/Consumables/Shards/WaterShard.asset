@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: WaterShard
   m_EditorClassIdentifier: 
   itemName: Water Shard
-  id: 3
   description: A Water Shard
   cost: 0
   sprite: {fileID: 21300000, guid: 804104e615c961344a212375ebe3aa25, type: 3}
   itemType: 0
+  tileMinedFrom: 1

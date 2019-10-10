@@ -27,6 +27,9 @@ public class YourAccount : MonoBehaviour
 
     public AccountInfo account = new AccountInfo();
 
+    //the player's companion
+    public CompanionScript companion;
+
     //variable used to track the current play time, so events can happen at certain intervals
     public float sessionPlayTime;
 

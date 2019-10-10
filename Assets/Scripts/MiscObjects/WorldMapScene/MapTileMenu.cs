@@ -7,11 +7,13 @@ using UnityEngine.EventSystems;
 
 public class MapTileMenu : MonoBehaviour, IPointerDownHandler
 {
-    public TMP_Text tileNumberText, tileAttText, tileLevelText;
+    public TMP_Text tileNumberText, tileLevelText, levelPercentText, minedTimeText;
     public SpriteRenderer tileSprite, tileAttSprite;
     public Image monsterSprite;
     public GameObject monsterInfoMenu, worldMap;
     public MonsterInfoMenus infoMenu;
+
+    public Button miningButton;
 
     public MapTile activeTile;
     private Monster monsterOnTile;
@@ -43,7 +45,7 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
         
 
         tileNumberText.text = tile.tileNumber.ToString();
-        tileAttText.text = "Tile Attribute: " + tile.tileAtt.ToString();
+        minedTimeText.text = "Mined for: " + System.Math.Round(tile.mineAcumTime, 0).ToString() + " s";
         tileLevelText.text = tile.info.level.ToString();
         tileSprite.sprite = tile.GetComponent<SpriteRenderer>().sprite;
 
@@ -79,9 +81,9 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
         float nextLevelNeeded = totalNextLevelNeeded - thisLevelNeeded;
 
         tileExpBar.BarProgress = (nextLevelNeeded  - tile.info.expToLevel) / nextLevelNeeded;
-
+        levelPercentText.text = "Level Percentage: " + System.Math.Round((tileExpBar.BarProgress * 100f), 2) + "%";
         //Debug.Log(totalNextLevelNeeded - (float)tile.info.totalExp / nextLevelNeeded);
-        
+
     }
 
     //snap the camera to the active tile
@@ -94,7 +96,24 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
     // Update is called once per frame
     void Update()
     {
+
         
+
+        if (activeTile)
+        {
+            LoadTile(activeTile);
+
+            if (activeTile.isMining)
+            {
+                miningButton.GetComponentInChildren<TMP_Text>().text = "Stop Mining";
+            }
+            else
+            {
+                miningButton.GetComponentInChildren<TMP_Text>().text = "Start Mining";
+            }
+        }
+        
+
     }
 
 
@@ -123,5 +142,19 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
     public void PlaceMonsterBtn()
     {
         worldMap.GetComponent<MonsterInfoMenus>().TowerMenuBtn();
+    }
+
+    //click this to start mining the tile with your companion
+    public void StartMiningBtn()
+    {
+        if (!activeTile.isMining)
+        {
+            activeTile.StartMining();
+        }
+        else
+        {
+            activeTile.StopMining();
+        }
+        
     }
 }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: NormalShard
   m_EditorClassIdentifier: 
   itemName: Normal Shard
-  id: 3
   description: A Normal Shard
   cost: 0
   sprite: {fileID: 21300000, guid: 9db01f64926611946b6369114a9a6c16, type: 3}
   itemType: 0
+  tileMinedFrom: 10

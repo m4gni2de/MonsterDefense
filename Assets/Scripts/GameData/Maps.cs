@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using System;
 
 [System.Serializable]
 public struct MapInfo
@@ -22,6 +23,7 @@ public struct MapInfo
     public int levelMax;
     public float spawnInterval;
     public int mapLevel;
+    public AllEquipment itemDrops;
    
     
 };
@@ -34,8 +36,11 @@ public class MapsInfoRoot
     
 }
 
+[System.Serializable]
 public class AllMaps
 {
+    [Header("Separate Maps")]
+
     public MapInfo TestMap = new MapInfo
     {
         mapName = "Test Map",
@@ -52,7 +57,9 @@ public class AllMaps
         mapId = 0,
         width = 700,
         height = 350,
-        mapLevel = 1
+        
+        
+        
 
     };
 
@@ -118,6 +125,7 @@ public class AllMaps
 
     };
 
+    
 }
 
 
@@ -125,12 +133,15 @@ public class AllMaps
 
 public class Maps : MonoBehaviour
 {
+    
+
     public AllMaps allMaps = new AllMaps();
     public Dictionary<string, MapInfo> allMapsDict = new Dictionary<string, MapInfo>();
     public Dictionary<int, Sprite> allTileSpritesDict = new Dictionary<int, Sprite>();
     //public Dictionary<int, float> mapLevelConstants = new Dictionary<int, float>();
     //public Dictionary<int, Sprite> tileTypeSpritesDict = new Dictionary<int, Sprite>();
 
+    [Header("Tile Sprite Arrays")]
 
     public Sprite[] tileSprites;
     public Sprite[] tileTypeSprites;
@@ -385,7 +396,7 @@ public class MapTileLevelCalc
 
     public MapTileLevelCalc(int mapLevel, AnimationCurve curve)
     {
-        float rand = Random.Range(0f, 100f);
+        float rand = UnityEngine.Random.Range(0f, 100f);
 
         //get the maximum level a tile can be based on the level of the map
         Keyframe key2 = new Keyframe();
@@ -407,7 +418,7 @@ public class MapTileLevelCalc
         curve.SmoothTangents(2, 2);
         
 
-        value = curve.Evaluate(Random.value);
+        value = curve.Evaluate(UnityEngine.Random.value);
 
         //Debug.Log(x);
 
@@ -418,4 +429,27 @@ public class MapTileLevelCalc
     }
 
     
+}
+
+//import a map and a tile to get a weighted list of possible mining outcomes
+[System.Serializable]
+public class MapTileMining
+{
+    public MapTile MapTile;
+
+    public MapTileMining(MapInfo map, MapTile tile)
+    {
+
+        TileAttribute att = tile.tileAtt;
+        int level = tile.info.level;
+
+        
+
+    }
+
+    
+
+   
+
+
 }

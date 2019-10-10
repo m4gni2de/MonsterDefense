@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MagicShard
   m_EditorClassIdentifier: 
   itemName: Magic Shard
-  id: 1
   description: A Magic Shard
   cost: 0
   sprite: {fileID: 21300000, guid: 466b22e5950f86148915d504f2f15951, type: 3}
   itemType: 0
+  tileMinedFrom: 4
