@@ -127,64 +127,9 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
     }
 
 
-    //use this to show the equipment items you have in your inventory
-    void DisplayYourEquipment()
-    {
-        
+    
 
-        var allEquips = GameManager.Instance.items.allEquipmentDict;
-        var yourEquips = GameManager.Instance.GetComponent<YourItems>().yourEquipment;
-        var allCells = GameManager.Instance.items.allMonsterCellsDict;
-        //var allConsumables = GameManager.Instance.items.allConsumablesDict;
-        int row = 0;
-        float rowCheck = 0f;
-
-
-
-        foreach (KeyValuePair<string, int> equip in yourEquips)
-        {
-            string name = equip.Key;
-
-            //if the player has more than 0 of the item, display it
-            if (equip.Value > 0)
-            {
-
-                Equipment item = allEquips[name];
-                int itemCount = PlayerPrefs.GetInt(item.name);
-
-                GameObject a = Instantiate(allEquips[item.name].equipPrefab, itemScrollContent.transform.position, Quaternion.identity);
-
-
-                
-                a.transform.SetParent(itemScrollContent.transform, true);
-
-                a.GetComponent<EquipmentItem>().EquipItemInfo(item);
-                a.GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
-                a.GetComponent<EquipmentItem>().valueText.text = PlayerPrefs.GetInt(item.name).ToString();
-
-                a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
-                a.transform.localScale = new Vector3(a.transform.localScale.x, a.transform.localScale.y, 1f);
-                a.tag = "Item";
-
-                
-                rowCheck += .25f;
-
-                if (rowCheck > .8f)
-                {
-                    rowCheck = 0f;
-                    row += 1;
-                }
-            }
-
-        }
-
-    }
-
-    //use this to show the consumable items you have in your inventory
-    void DisplayYourConsumables()
-    {
-
-    }
+    
 
     //use this to display the correct items in the shop
     public void DisplayShop()
@@ -251,6 +196,59 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
         }
     }
 
+    //use this to show the equipment items you have in your inventory
+    void DisplayYourEquipment()
+    {
+
+
+        var allEquips = GameManager.Instance.items.allEquipmentDict;
+        var yourEquips = GameManager.Instance.GetComponent<YourItems>().yourEquipment;
+        var allCells = GameManager.Instance.items.allMonsterCellsDict;
+        //var allConsumables = GameManager.Instance.items.allConsumablesDict;
+        int row = 0;
+        float rowCheck = 0f;
+
+
+
+        foreach (KeyValuePair<string, int> equip in yourEquips)
+        {
+            string name = equip.Key;
+
+            //if the player has more than 0 of the item, display it
+            if (equip.Value > 0)
+            {
+
+                Equipment item = allEquips[name];
+                int itemCount = PlayerPrefs.GetInt(item.name);
+
+                GameObject a = Instantiate(allEquips[item.name].equipPrefab, itemScrollContent.transform.position, Quaternion.identity);
+
+
+
+                a.transform.SetParent(itemScrollContent.transform, true);
+
+                a.GetComponent<EquipmentItem>().EquipItemInfo(item);
+                a.GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
+                a.GetComponent<EquipmentItem>().valueText.text = PlayerPrefs.GetInt(item.name).ToString();
+
+                a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
+                a.transform.localScale = new Vector3(a.transform.localScale.x, a.transform.localScale.y, 1f);
+                a.tag = "Item";
+
+
+                rowCheck += .25f;
+
+                if (rowCheck > .8f)
+                {
+                    rowCheck = 0f;
+                    row += 1;
+                }
+            }
+
+        }
+
+    }
+
 
 
     public void DisplayShopConsumables()
@@ -296,6 +294,58 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
             }
 
 
+        }
+    }
+
+    //use this to show the consumable items you have in your inventory
+    void DisplayYourConsumables()
+    {
+        var consumables = GameManager.Instance.GetComponent<YourAccount>().yourItems.yourConsumables;
+        var allCons = GameManager.Instance.items.allConsumablesDict;
+        int row = 0;
+        float rowCheck = 0f;
+
+
+
+        foreach (KeyValuePair<string, int> item in consumables)
+        {
+            if (consumables.ContainsKey(item.Key))
+            {
+
+                string name = item.Key;
+
+                //if the player has more than 0 of the item, display it
+                if (item.Value > 0)
+                {
+
+                    ConsumableItem cItem = allCons[item.Key];
+                    int itemCount = PlayerPrefs.GetInt(cItem.name);
+
+                    GameObject a = Instantiate(consumableObject, itemScrollContent.transform.position, Quaternion.identity);
+
+
+                    //itemQuantities[shopSpriteTotal] = itemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
+                    a.transform.SetParent(itemScrollContent.transform, true);
+
+
+                    a.GetComponent<ConsumableObject>().consumableItem = cItem;
+                    a.GetComponent<ConsumableObject>().LoadItem();
+                    a.GetComponentInChildren<TMP_Text>().text = PlayerPrefs.GetInt(item.Key).ToString();
+                    a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
+                    a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
+                    a.tag = "Item";
+                    a.name = cItem.name;
+
+
+                    rowCheck += .25f;
+
+                    if (rowCheck > .8f)
+                    {
+                        rowCheck = 0f;
+                        row += 1;
+                    }
+                }
+            }
         }
     }
 

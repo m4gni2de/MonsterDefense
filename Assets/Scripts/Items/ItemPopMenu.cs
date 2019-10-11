@@ -107,7 +107,7 @@ public class ItemPopMenu : MonoBehaviour
             typeText.text = "Consumable Item";
             typeReqText.text = "";
             boostsText.text = item.GetComponent<ConsumableObject>().consumableItem.description;
-            yourQuantityText.text = "On hand: " + PlayerPrefs.GetInt(item.name).ToString();
+            yourQuantityText.text = "On hand: " + PlayerPrefs.GetInt(name).ToString();
             buyCostText.text = "Buy For: " + item.GetComponent<ConsumableObject>().consumableItem.cost.ToString();
 
 

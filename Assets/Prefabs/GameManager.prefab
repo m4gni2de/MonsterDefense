@@ -68,6 +68,7 @@ MonoBehaviour:
   monsterJson: 
   coinGeneration: 0
   inGame: 0
+  activeMap: {fileID: 0}
   tileMaxLevel: 0
   tilesMining: []
 --- !u!114 &6317396937658932170
@@ -414,6 +415,10 @@ MonoBehaviour:
       - Shadow Blaze Punch
       abilities:
       - Natural Quake
+      dropRate: 0.2
+      itemDrops:
+      - Nature Rune
+      - Nature Shard
     Armordan:
       monsterPrefab: {fileID: 8546301644363537172, guid: ed1aaac6a03f6e44cb3aa9f6338f85d8,
         type: 3}
@@ -444,6 +449,10 @@ MonoBehaviour:
       - Darkness Pike
       abilities:
       - Beast Slayer
+      dropRate: 0.2
+      itemDrops:
+      - Mechanical Rune
+      - Mechanical Shard
     Fowitzer:
       monsterPrefab: {fileID: 1557278105191115862, guid: 684c16b28784dfc46830d4417162e3df,
         type: 3}
@@ -471,6 +480,10 @@ MonoBehaviour:
       - Energy Dragon
       abilities:
       - Of A Feather
+      dropRate: 0.2
+      itemDrops:
+      - Mechanical Rune
+      - Spiked Knuckles
     Iceros:
       monsterPrefab: {fileID: 7742632022644978468, guid: 7373b0563b529b44886d926dba691deb,
         type: 3}
@@ -498,6 +511,10 @@ MonoBehaviour:
       - Thunder
       abilities:
       - Ice Storm
+      dropRate: 0.2
+      itemDrops:
+      - Ice Shard
+      - Ice Rune
   allTypes:
     Normal:
       name: Normal
@@ -811,7 +828,7 @@ MonoBehaviour:
       attackModeReq: 0
       boosts:
       - +10% Attack
-      cost: 0
+      cost: 200
       equipSlot: 0
       rarity: 0
       equipLevel: 0
@@ -974,7 +991,7 @@ MonoBehaviour:
       defBonus: 0
       speedBonus: 0
       precBonus: 0
-      atkPowerBonus: 2
+      atkPowerBonus: 0
       atkTimeBonus: 0
       atkRangeBonus: 0
       critModBonus: 0
@@ -982,6 +999,44 @@ MonoBehaviour:
       staminaBonus: 0
       hpPercentBonus: 0
       atkPercentBonus: 0
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0.2
+      atkTimePercentBonus: 0
+      evasionPercentBonus: 0
+      staminaPercentBonus: 0
+    - name: Mechanical Rune
+      id: 8
+      equipPrefab: {fileID: 514597310630157409, guid: 42f606e4b86e0bb4c9adf9d96e8e3313,
+        type: 3}
+      description: A Rune that boosts Mechanical Monster's attack stat by 10%
+      equipType: 0
+      typeMonsterReq: Mechanical
+      typeMoveReq: 
+      forceReq: 1
+      attackModeReq: 0
+      boosts:
+      - +20% Attack Power
+      cost: 200
+      equipSlot: 0
+      rarity: 0
+      equipLevel: 0
+      equipLevelMax: 0
+      equipExp: 0
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      staminaBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0.1
       defPercentBonus: 0
       spePercentBonus: 0
       precPercentBonus: 0
@@ -1021,6 +1076,7 @@ MonoBehaviour:
     coins: 0
     totalMonstersCollected: 0
     playTime: 0
+  yourItems: {fileID: 0}
   companion: {fileID: 537237450657558712}
   sessionPlayTime: 0
   acumCoins: 0
@@ -1085,7 +1141,7 @@ MonoBehaviour:
       spawnInterval: 3.8
       mapLevel: 1
       itemDrops:
-        allEquipment: []
+      - 
     DualPath:
       mapName: Dual Path Map
       mapCode: 01000105010304050500040603000604040406060500050306040300040601030205050403010300020300000501060006050202000003020300010106050301050600040603040601010404030606030505030303000503030605020403030306040601020306010300030200010601030202010300050000040303020605040301060605030403060202040003020603030601020500000302060304000003040504060506030300010102000505010605010001010305060406000600060404060604030604040205040605020606040604050204040604000003000301050104060003020605060200030306040103020505010103020506020104050501010204010201010406010104040100030200000606020004020105010501030201030100060304040306010602050501030204030100020602020300060200030406050204020201060403020203000506000205020102020104040604020103000103020402030203010306
@@ -1109,7 +1165,7 @@ MonoBehaviour:
       spawnInterval: 3.8
       mapLevel: 5
       itemDrops:
-        allEquipment: []
+      - 
     SmallMap:
       mapName: Small Map
       mapCode: 07080904040102020501000504000301000404000006060004040601010400020400050006060005030601020006040603040006000103020100040000000106000605041004
@@ -1130,7 +1186,8 @@ MonoBehaviour:
       spawnInterval: 3.8
       mapLevel: 1
       itemDrops:
-        allEquipment: []
+      - Ice Shard
+      - Nature Rune
     BaseMap:
       mapName: Base Map
       mapCode: 04060500020006040002020403000000030206030601020300010303000203010306040506030004040002000303040005050202050205020100050405030504020004050302
@@ -1153,7 +1210,7 @@ MonoBehaviour:
       spawnInterval: 3.8
       mapLevel: 9
       itemDrops:
-        allEquipment: []
+      - 
   tileSprites:
   - {fileID: 21300000, guid: b96d3fcc1ccdb964683f6ad0775ec9ea, type: 3}
   - {fileID: 21300000, guid: 5ed3716f76f1748438f94ab7e4c7deb3, type: 3}

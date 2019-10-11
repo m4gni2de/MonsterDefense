@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
 
     //bool to tell if the player is in a match or not
     public bool inGame;
+    //information about the active map
+    public MapDetails activeMap;
 
     //dictionary that holds the values for the amount of EXP a tile needs to reach the next level
     public Dictionary<int, int> tileLevelUp = new Dictionary<int, int>();

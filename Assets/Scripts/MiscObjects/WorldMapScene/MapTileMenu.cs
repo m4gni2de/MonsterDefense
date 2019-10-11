@@ -45,7 +45,7 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
         
 
         tileNumberText.text = tile.tileNumber.ToString();
-        minedTimeText.text = "Mined for: " + System.Math.Round(tile.mineAcumTime, 0).ToString() + " s";
+        minedTimeText.text = "Mined for: " + System.Math.Round(tile.mineTotalTime, 0).ToString() + " s";
         tileLevelText.text = tile.info.level.ToString();
         tileSprite.sprite = tile.GetComponent<SpriteRenderer>().sprite;
 

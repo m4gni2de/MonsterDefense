@@ -23,7 +23,7 @@ public struct MapInfo
     public int levelMax;
     public float spawnInterval;
     public int mapLevel;
-    public AllEquipment itemDrops;
+    public string[] itemDrops;
    
     
 };
@@ -57,6 +57,7 @@ public class AllMaps
         mapId = 0,
         width = 700,
         height = 350,
+        
         
         
         
@@ -102,6 +103,7 @@ public class AllMaps
         width = 350,
         height = 175,
         mapLevel = 1,
+        itemDrops = new string[2] { "Ice Shard", "Nature Rune" },
 
     };
 
@@ -436,17 +438,88 @@ public class MapTileLevelCalc
 public class MapTileMining
 {
     public MapTile MapTile;
+    public MapDetails Map;
 
-    public MapTileMining(MapInfo map, MapTile tile)
+    //chance out of 100 that an item will be found on the mining check
+    public float mineChance;
+
+    //array to hold item rarities and their chances of being mined
+    public float[] itemChance = new float[3];
+
+    public MapTileMining(MapDetails map, MapTile tile)
     {
+        MapTile = tile;
+        Map = map;
 
         TileAttribute att = tile.tileAtt;
         int level = tile.info.level;
 
-        
+        itemChance[0] = .95f;
+        itemChance[1] = .04f;
+        itemChance[2] = .01f;
+
+        mineChance = .99f;
 
     }
 
+    //use this to check if an item is mined
+    public void MineCheck()
+    {
+        float rand = UnityEngine.Random.Range(0f, 1f);
+
+        
+        
+        if (rand <= mineChance)
+        {
+            MineItem();
+            mineChance = .1f;
+        }
+        else
+        {
+            mineChance += .1f;
+        }
+    }
+
+
+    //use this to actually mine the item
+    public void MineItem()
+    {
+        
+        var allMaps = GameManager.Instance.GetComponent<Maps>().allMapsDict;
+        //get a list of all of the items the map can produce
+        List<string> itemList = new List<string>();
+
+        if (allMaps.ContainsKey(Map.mapName))
+        {
+            
+            Debug.Log(allMaps[Map.mapName].itemDrops.Length);
+            //get all of the items in the map's item drop and add them to a local list
+
+            for (int i = 0; i < allMaps[Map.mapName].itemDrops.Length; i++)
+            {
+                itemList.Add(allMaps[Map.mapName].itemDrops[i]);
+                
+
+                //once the list is full, choose an item to add
+                if (i >= allMaps[Map.mapName].itemDrops.Length - 1)
+                {
+                    int rand = UnityEngine.Random.Range(0, i + 1);
+
+                    bool hasKey = PlayerPrefs.HasKey(itemList[rand]);
+
+                    if (hasKey || !hasKey)
+                    {
+                        int itemAmount = PlayerPrefs.GetInt(itemList[rand], 0);
+
+                        PlayerPrefs.SetInt(itemList[rand], itemAmount + 1);
+                        Debug.Log("Mined a " + itemList[rand] + "! You now have " + (itemAmount + 1) + " of these!");
+                        GameManager.Instance.GetComponent<YourItems>().GetYourItems();
+                    }
+                }
+            }
+            
+        }
+    }
     
 
    

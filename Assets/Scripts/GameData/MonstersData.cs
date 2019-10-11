@@ -46,6 +46,11 @@ public struct MonsterData
     //which abilities the most can have when it's summoned
     public string[] abilities;
 
+    //rate at which an item will even drop in the first place
+    public float dropRate;
+    //what items this monster can drop on defeat
+    public string[] itemDrops;
+
 };
 
 
@@ -77,7 +82,8 @@ public class AllMonsterData
         coinGenBase = 4.3f,
         energyCost = 7f,
         abilities = new string[1] { "Natural Quake" },
-
+        dropRate = .2f,
+        itemDrops = new string[2] { "Nature Rune", "Nature Shard" },
 
     };
 
@@ -101,6 +107,8 @@ public class AllMonsterData
         coinGenBase = 3.4f,
         energyCost = 5.5f,
         abilities = new string[1] { "Beast Slayer" },
+        dropRate = .2f,
+        itemDrops = new string[2] { "Nature Rune", "Nature Shard" },
 
     };
 
@@ -122,7 +130,9 @@ public class AllMonsterData
         coinGenBase = 2.6f,
         energyGenBase = 86,
         energyCost = 6.5f,
+        dropRate = .2f,
         abilities = new string[1] { "Of A Feather" },
+
     };
 
     public MonsterData Iceros = new MonsterData
@@ -144,6 +154,8 @@ public class AllMonsterData
         energyGenBase = 64,
         energyCost = 8.5f,
         abilities = new string[1] { "Ice Storm" },
+        dropRate = .2f,
+        itemDrops = new string[2] { "Ice Shard", "Ice Rune" },
     };
 
 
@@ -409,6 +421,51 @@ public class TypeChart
         //Debug.Log(totalDamage);
 
     }
+}
+
+//call this to determine if a defeated monster drops an item
+public class MonsterItemDrop
+{
+    public List<string> droppableItems = new List<string>();
+
+    public MonsterItemDrop(Enemy enemy)
+    {
+        var allMonsters = GameManager.Instance.monstersData.monstersAllDict;
+
+        Monster thisMonster = enemy.GetComponent<Monster>();
+        float dropRate = allMonsters[enemy.stats.species].dropRate;
+
+        float rand = UnityEngine.Random.Range(0f, 1f);
+
+        //check if an item will be dropped 
+        if (rand <= dropRate)
+        {
+            //make a list of all of the possible drops the monster can drop
+            for (int d = 0; d < allMonsters[enemy.stats.species].itemDrops.Length; d++)
+            {
+                droppableItems.Add(allMonsters[enemy.stats.species].itemDrops[d]);
+
+                //when the list is made, choose one of the items at random to drop
+                if (d >= allMonsters[enemy.stats.species].itemDrops.Length - 1)
+                {
+                    int itemRand = UnityEngine.Random.Range(0, allMonsters[enemy.stats.species].itemDrops.Length + 1);
+
+                    bool hasKey = PlayerPrefs.HasKey(allMonsters[enemy.stats.species].itemDrops[d]);
+
+                    if (hasKey || !hasKey)
+                    {
+                        int itemAmount = PlayerPrefs.GetInt(allMonsters[enemy.stats.species].itemDrops[d], 0);
+
+                        PlayerPrefs.SetInt(allMonsters[enemy.stats.species].itemDrops[d], itemAmount + 1);
+                        Debug.Log("Defeated " + enemy.stats.species + " dropped a " + allMonsters[enemy.stats.species].itemDrops[d] + "! You now have " + (itemAmount + 1) + " of these!");
+                        GameManager.Instance.GetComponent<YourItems>().GetYourItems();
+                    }
+                }
+            }
+        }
+
+    }
+
 }
 
 

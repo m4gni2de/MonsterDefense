@@ -465,6 +465,8 @@ public class Enemy : MonoBehaviour
                     m.GainEXP((int)Mathf.Round(expShared));
                 }
             }
+
+            MonsterItemDrop itemDrop = new MonsterItemDrop(this);
             Destroy(gameObject);
         }
 

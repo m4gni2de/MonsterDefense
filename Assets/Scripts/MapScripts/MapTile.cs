@@ -184,7 +184,12 @@ public class MapTile : MonoBehaviour
     //interval between each "mine"
     public float mineInterval;
     //total time the tile has been mined for
+    public float mineTotalTime;
+    //float to track the time between mining for item checks
     public float mineAcumTime;
+    
+    //the mining object for this tile
+    public MapTileMining miner;
 
     //public GameObject reflector;
     //public GameObject reflectorCamera;
@@ -255,6 +260,9 @@ public class MapTile : MonoBehaviour
         mineRate = GameManager.Instance.GetComponent<YourAccount>().companion.data.miningRate;
         mineInterval = GameManager.Instance.GetComponent<YourAccount>().companion.data.miningInterval;
         GameManager.Instance.tilesMining.Add(this);
+
+        //create a new miner
+        miner = new MapTileMining(GameManager.Instance.activeMap, this);
     }
 
     //use this to stop mining the tile
@@ -268,6 +276,7 @@ public class MapTile : MonoBehaviour
     public void MineTile()
     {
         acumTime += Time.deltaTime;
+        mineAcumTime += Time.deltaTime;
 
         if (acumTime <= mineInterval)
         {
@@ -279,7 +288,15 @@ public class MapTile : MonoBehaviour
             acumTime = 0;
         }
 
-        mineAcumTime += Time.deltaTime;
+        //attempt to mine an item every interval. the interval goes up depending on the level of the tile. higher level = higher rewards
+        if (mineAcumTime >= 10 + (info.level * 2))
+        {
+            miner.MineCheck();
+            mineAcumTime = 0;
+        }
+
+
+        mineTotalTime += Time.deltaTime;
     }
 
     //use this when a tile gets EXP 

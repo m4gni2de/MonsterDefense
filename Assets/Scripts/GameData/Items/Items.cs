@@ -143,6 +143,8 @@ public class Items: MonoBehaviour
 
     //use lists to manually add non scriptable objects
     public List<ConsumableItem> consumables = new List<ConsumableItem>();
+    //add the consumable items to a dictionary so they can be looked up
+    public Dictionary<string, ConsumableItem> allConsumablesDict = new Dictionary<string, ConsumableItem>();
 
     private void Awake()
     {
@@ -188,7 +190,7 @@ public class Items: MonoBehaviour
         foreach (ConsumableItem cItem in consumables)
         {
             fullItemList.Add(cItem.itemName, ItemType.Consumable);
-            
+            allConsumablesDict.Add(cItem.itemName, cItem);
         }
 
 

@@ -9,12 +9,15 @@ public class YourItems : MonoBehaviour
     //make a Dictionary of all of your items
     public Dictionary<string, int> yourInventory = new Dictionary<string, int>();
     public Dictionary<string, int> yourEquipment = new Dictionary<string, int>();
+    public Dictionary<string, int> yourConsumables = new Dictionary<string, int>();
 
 
     // Start is called before the first frame update
     void Start()
     {
         GetYourItems();
+
+        
     }
 
 
@@ -22,8 +25,10 @@ public class YourItems : MonoBehaviour
     {
         yourInventory.Clear();
         yourEquipment.Clear();
+        yourConsumables.Clear();
 
         var equips = GameManager.Instance.items.allEquipmentDict;
+        var consumables = GameManager.Instance.items.allConsumablesDict;
         var allItems = GameManager.Instance.items.fullItemList;
 
 
@@ -36,12 +41,37 @@ public class YourItems : MonoBehaviour
             {
                 yourInventory.Add(item.Key, PlayerPrefs.GetInt(item.Key));
 
-                if (equips.ContainsKey(item.Key))
+                if (allItems.ContainsKey(item.Key))
                 {
-                    
-                    yourEquipment.Add(item.Key, PlayerPrefs.GetInt(item.Key));
+                    //get the type of the item from the all item list
+                    ItemType type = allItems[item.Key];
 
+                    //if the item is an equipment, check the all Equipment Dictionary
+                    if (type == ItemType.Equipment)
+                    {
+                        if (equips.ContainsKey(item.Key))
+                        {
+
+                            yourEquipment.Add(item.Key, PlayerPrefs.GetInt(item.Key));
+
+                        }
+                    }
+
+
+                    if (type == ItemType.Consumable)
+                    {
+                        if (consumables.ContainsKey(item.Key))
+                        {
+                            yourConsumables.Add(item.Key, PlayerPrefs.GetInt(item.Key));
+                        }
+                    }
                 }
+
+                
+
+                
+
+                //Debug.Log(item.Key);
                 
               
             }

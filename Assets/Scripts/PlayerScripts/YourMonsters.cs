@@ -59,7 +59,7 @@ public class YourMonsters : MonoBehaviour
             GameManager.Instance.coinGeneration += coinGen.Value;
         }
 
-        Debug.Log(GameManager.Instance.coinGeneration);
+        //Debug.Log(GameManager.Instance.coinGeneration);
 
 
 

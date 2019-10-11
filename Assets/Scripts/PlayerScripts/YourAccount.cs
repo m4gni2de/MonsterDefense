@@ -26,6 +26,7 @@ public class YourAccount : MonoBehaviour
 {
 
     public AccountInfo account = new AccountInfo();
+    public YourItems yourItems;
 
     //the player's companion
     public CompanionScript companion;
@@ -37,6 +38,7 @@ public class YourAccount : MonoBehaviour
     public double acumCoins;
 
     public float acumTime;
+
     private void Awake()
     {
         
@@ -49,7 +51,7 @@ public class YourAccount : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        yourItems = GetComponent<YourItems>();
 
     }
 
