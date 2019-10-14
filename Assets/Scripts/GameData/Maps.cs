@@ -10,6 +10,7 @@ public struct MapInfo
     public string mapName;
     public string mapCode;
     public int mapId;
+    public int maxHP;
     public float width;
     public float height;
     public string[] pathCode;
@@ -17,8 +18,8 @@ public struct MapInfo
     public int[] enemies;
     public float[] enemyChance;
     public int enemyMax;
-    public float spawnX;
-    public float spawnY;
+    public float pathEndX;
+    public float pathEndY;
     public int levelMin;
     public int levelMax;
     public float spawnInterval;
@@ -49,14 +50,15 @@ public class AllMaps
         enemies = new int[3] { 1, 2, 3 },
         enemyChance = new float[3] { 333, 666, 1000 },
         enemyMax = 50,
-        spawnX = 0f,
-        spawnY = -194f,
+        pathEndX = -331.7f,
+        pathEndY = 43.9f,
         levelMin = 1,
         levelMax = 91,
         spawnInterval = 3.8f,
         mapId = 0,
         width = 700,
         height = 350,
+        maxHP = 25,
         
         
         
@@ -72,8 +74,8 @@ public class AllMaps
         enemies = new int[3] { 1, 2, 3 },
         enemyChance = new float[3] { 333, 666, 1000 },
         enemyMax = 50,
-        spawnX = -241f,
-        spawnY = -205f,
+        pathEndX = 185.6f,
+        pathEndY = -213.3f,
         levelMin = 1,
         levelMax = 99,
         spawnInterval = 3.8f,
@@ -81,6 +83,7 @@ public class AllMaps
         width = 700,
         height = 350,
         mapLevel = 5,
+        maxHP = 25,
 
     };
 
@@ -89,13 +92,13 @@ public class AllMaps
         mapName = "Small Map",
         mapCode = "07080904040102020501000504000301000404000006060004040601010400020400050006060005030601020006040603040006000103020100040000000106000605041004",
         pathCode = new string[1] { "040041052039036037048049046033030031042029" },
-        enemies = new int[1] { 4 },
+        enemies = new int[1] { 3 },
         //enemies = new int[3] { 1, 2, 3 },
         //enemyChance = new float[3] { 333, 666, 1000 },
         enemyChance = new float[1] { 1000 },
         enemyMax = 50,
-        spawnX = -50f,
-        spawnY = -118f,
+        pathEndX = -33.8f,
+        pathEndY = 103f,
         levelMin = 1,
         levelMax = 4,
         spawnInterval = 3.8f,
@@ -103,6 +106,7 @@ public class AllMaps
         width = 350,
         height = 175,
         mapLevel = 1,
+        maxHP = 25,
         itemDrops = new string[2] { "Ice Shard", "Nature Rune" },
 
     };
@@ -115,8 +119,8 @@ public class AllMaps
         enemies = new int[3] { 1, 2, 3 },
         enemyChance = new float[3] { 333, 666, 1000 },
         enemyMax = 50,
-        spawnX = -10.4f,
-        spawnY = -100.7f,
+        pathEndX = 131f,
+        pathEndY = 40.7f,
         levelMin = 1,
         levelMax = 4,
         spawnInterval = 3.8f,
@@ -124,6 +128,7 @@ public class AllMaps
         width = 350,
         height = 175,
         mapLevel = 9,
+        maxHP = 25,
 
     };
 
@@ -458,7 +463,7 @@ public class MapTileMining
         itemChance[1] = .04f;
         itemChance[2] = .01f;
 
-        mineChance = .99f;
+        mineChance = .20f;
 
     }
 

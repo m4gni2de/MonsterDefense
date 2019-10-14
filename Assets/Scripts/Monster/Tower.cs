@@ -657,19 +657,11 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
         if (isScanning && !isAttacking)
         {
+
+
             Enemy enemy = Enemy.GetComponent<Enemy>();
             //change the direction of the tower if the enemy is on the opposite direction of this tower
-            if (enemy.transform.position.x <= attackPoint.transform.position.x)
-            {
-                monster.puppet.flip = true;
-
-            }
-            else
-            {
-                monster.puppet.flip = false;
-            }
-
-
+           
 
 
             //start the monster's attack animation
@@ -682,6 +674,18 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
                     boneStructure.GetComponent<MotionControl>().AttackModeCheck(monster.info.attack1.attackMode);
                     boneStructure.GetComponent<MotionControl>().AttackDirection(tileTarget, enemy);
+
+                    if (enemy.transform.position.x <= attackPoint.transform.position.x)
+                    {
+                        monster.puppet.flip = true;
+
+                    }
+                    else
+                    {
+                        monster.puppet.flip = false;
+                    }
+
+
                 }
             }
             else
@@ -693,6 +697,16 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
                     boneStructure.GetComponent<MotionControl>().AttackModeCheck(monster.info.attack2.attackMode);
                     boneStructure.GetComponent<MotionControl>().AttackDirection(tileTarget, enemy);
+
+                    if (enemy.transform.position.x <= attackPoint.transform.position.x)
+                    {
+                        monster.puppet.flip = true;
+
+                    }
+                    else
+                    {
+                        monster.puppet.flip = false;
+                    }
 
                 }
             }
@@ -711,6 +725,19 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
         if (enemy)
         {
+            
+            ////change the direction of the tower if the enemy is on the opposite direction of this tower
+            //if (enemy.transform.position.x <= attackPoint.transform.position.x)
+            //{
+            //    monster.puppet.flip = true;
+
+            //}
+            //else
+            //{
+            //    monster.puppet.flip = false;
+            //}
+
+
             Vector3 position = enemy.transform.position;
 
             if (attackNumber == 1)
@@ -1089,7 +1116,20 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             
                 {
 
-                Attack(inRange[0].enemy.GetComponent<Monster>(), inRange[0].enemy.currentTile);
+
+                for (int r = 0; r < inRange.Count; r++)
+                {
+                    if (inRange[r].enemy.GetComponent<Monster>())
+                    {
+                        Attack(inRange[r].enemy.GetComponent<Monster>(), inRange[0].enemy.currentTile);
+
+                        break;
+                    }
+                }
+
+                
+                //Attack(inRange[0].enemy.GetComponent<Monster>(), inRange[0].enemy.currentTile);
+
                 //targetOrder.Clear();
                 //n = 0;
                 //int a = 0;

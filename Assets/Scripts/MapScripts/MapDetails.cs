@@ -46,8 +46,8 @@ public class MapDetails : MonoBehaviour
     //variables related to the enemies that the map can spawn, as well as the map itself
     public List<int> enemies = new List<int>();
     public int enemyMax;
-    public float spawnX;
-    public float spawnY;
+    public float pathEndX;
+    public float pathEndY;
     public int levelMin;
     public int levelMax;
     public float spawnInterval;
@@ -59,7 +59,7 @@ public class MapDetails : MonoBehaviour
 
     
 
-    public GameObject spawnPoint;
+    public GameObject pathEnd;
     //public GameObject enemy;
 
     public Dictionary<int, float> spawnRates = new Dictionary<int, float>();
@@ -70,6 +70,7 @@ public class MapDetails : MonoBehaviour
     public MapInformation mapInformation = new MapInformation();
     public GameObject mapInfoMenu;
 
+    public Dictionary<int, Vector3> spawnPoints = new Dictionary<int, Vector3>();
     
     // Start is called before the first frame update
     void Start()
@@ -102,6 +103,9 @@ public class MapDetails : MonoBehaviour
 
         mapInformation.playerEnergy = 10;
         mapInformation.playerEnergyMax = 100;
+        mapInformation.mapHealthMax = allMaps[mapName].maxHP;
+        mapInformation.mapHealthCurrent = allMaps[mapName].maxHP;
+
 
 
         if (allMaps.ContainsKey(mapName))
@@ -122,8 +126,8 @@ public class MapDetails : MonoBehaviour
             levelMin = allMaps[mapName].levelMin;
             levelMax = allMaps[mapName].levelMax;
             spawnInterval = allMaps[mapName].spawnInterval;
-            spawnX = allMaps[mapName].spawnX;
-            spawnY = allMaps[mapName].spawnY;
+            pathEndX = allMaps[mapName].pathEndX;
+            pathEndY = allMaps[mapName].pathEndY;
             width = allMaps[mapName].width;
             height = allMaps[mapName].height;
             mapLevel = allMaps[mapName].mapLevel;
@@ -252,6 +256,12 @@ public class MapDetails : MonoBehaviour
                     path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
                     path[i].Road();
                     pathTiles.Add(path[i]);
+
+                    //add the first tile in each path to a dictionary, so the spawning monster knows where to spawn
+                    if (i == 0)
+                    {
+                        spawnPoints.Add(p, path[i].transform.position);
+                    }
         
                     if (i > 0)
                     {
@@ -259,7 +269,8 @@ public class MapDetails : MonoBehaviour
                         TileSprite tileSprite = new TileSprite(path[i], path[i - 1], "road");
 
                     }
-                   
+
+   
                 }
 
                
@@ -268,7 +279,7 @@ public class MapDetails : MonoBehaviour
             
 
 
-            spawnPoint.transform.position = new Vector2(spawnX, spawnY);
+        pathEnd.transform.position = new Vector2(pathEndX, pathEndY);
         InvokeRepeating("SpawnEnemy", 4f, spawnInterval);
 
         }
@@ -309,9 +320,19 @@ public class MapDetails : MonoBehaviour
 
                     if (monstersDict.ContainsKey(species))
                     {
+                        int r = Random.Range(0, pathCodes.Count);
+
+
+                        //break up each path code in to sections of 3, since each tile is a 3 digit number, and store them in a dictionary of path codes that an enemy will choose at random upon their spawn
+                        string[] pathChars = new string[pathCodes[r].Length];
+                        string code = pathCodes[r];
+                        Debug.Log(spawnPoints[r]);
+                        
+
                         enemyCount += 1;
+                        
                         var enemyMonster = Instantiate(monstersDict[species].monsterPrefab, transform.position, Quaternion.identity);
-                        enemyMonster.transform.position = spawnPoint.transform.position;
+                        //enemyMonster.transform.position = spawnPoints[r];
                         enemyMonster.GetComponent<Monster>().isEnemy = true;
                         enemyMonster.GetComponent<Enemy>().SetEnemyStats(randomLevel);
                         enemyMonster.gameObject.tag = "Enemy";
@@ -319,13 +340,7 @@ public class MapDetails : MonoBehaviour
                         enemyMonster.transform.localScale = new Vector3(1.8f, 1.8f, 1.0f);
                         //liveEnemies.Add(enemyMonster.GetComponent<Enemy>());
                         LiveEnemyList();
-                        int r = Random.Range(0, pathCodes.Count);
-
-
-                            //break up each path code in to sections of 3, since each tile is a 3 digit number, and store them in a dictionary of path codes that an enemy will choose at random upon their spawn
-                            //string[] pathChars = new string[pathCode.Length];
-                            string[] pathChars = new string[pathCodes[r].Length];
-                            string code = pathCodes[r];
+                        
                             
                             int h = 2;
                             for (int i = 0; i < code.Length / 3; i++)
@@ -333,17 +348,22 @@ public class MapDetails : MonoBehaviour
                                 pathChars[i] = code[h - 2].ToString() + code[h - 1].ToString() + code[h].ToString();
                                 h += 3;
                                 int tileCheck = int.Parse(pathChars[i]);
-                                enemyMonster.GetComponent<Enemy>().path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
+                                //enemyMonster.GetComponent<Enemy>().path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
+                                //enemyMonster.GetComponent<Enemy>().pathTileCount += 1;
+                                enemyMonster.GetComponent<Enemy>().pathList.Add(GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>());
 
-                            if (enemyMonster.GetComponent<Enemy>().path.Length > 0)
+                            if (enemyMonster.GetComponent<Enemy>().pathList.Count == 1)
                             {
-                                enemyMonster.GetComponent<Enemy>().currentPath = enemyMonster.GetComponent<Enemy>().path[0];
+                                
+                                enemyMonster.GetComponent<Enemy>().currentPath = enemyMonster.GetComponent<Enemy>().pathList[0];
+                                
                             }
+                            
                             //Map.path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
-                        }
+                            }
+                        enemyMonster.transform.position = enemyMonster.GetComponent<Enemy>().pathList[0].transform.position;
 
 
-                        
 
                     }
 
@@ -365,7 +385,15 @@ public class MapDetails : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
+    }
 
+    //this is invokved by the PathEnd object, when it is hit by an enemy
+    public void MapHealth(Enemy enemy)
+    {
+        mapInformation.mapHealthCurrent -= 1;
+
+        Destroy(enemy.gameObject);
     }
 
 

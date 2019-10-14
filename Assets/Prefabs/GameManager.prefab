@@ -71,6 +71,7 @@ MonoBehaviour:
   activeMap: {fileID: 0}
   tileMaxLevel: 0
   tilesMining: []
+  expCurves: 
 --- !u!114 &6317396937658932170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1136,6 +1137,8 @@ MonoBehaviour:
       enemyMax: 50
       spawnX: 0
       spawnY: -194
+      pathEndX: 0
+      pathEndY: 0
       levelMin: 1
       levelMax: 91
       spawnInterval: 3.8
@@ -1160,6 +1163,8 @@ MonoBehaviour:
       enemyMax: 50
       spawnX: -241
       spawnY: -205
+      pathEndX: -185.6
+      pathEndY: -213.3
       levelMin: 1
       levelMax: 99
       spawnInterval: 3.8
@@ -1175,12 +1180,14 @@ MonoBehaviour:
       pathCode:
       - 040041052039036037048049046033030031042029
       tileTypeCode: 
-      enemies: 04000000
+      enemies: 03000000
       enemyChance:
       - 1000
       enemyMax: 50
       spawnX: -50
       spawnY: -118
+      pathEndX: -28.3
+      pathEndY: 96.9
       levelMin: 1
       levelMax: 4
       spawnInterval: 3.8
@@ -1205,6 +1212,8 @@ MonoBehaviour:
       enemyMax: 50
       spawnX: -10.4
       spawnY: -100.7
+      pathEndX: 0
+      pathEndY: 0
       levelMin: 1
       levelMax: 4
       spawnInterval: 3.8

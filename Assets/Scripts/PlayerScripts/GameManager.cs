@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
     public List<MapTile> tilesMining = new List<MapTile>();
 
 
+    public List<int> expCurves = new List<int>();
+    public Dictionary<int, int> expCurveDicts = new Dictionary<int, int>();
     //create the instance of the GameManager to be used throughout the game
     void Awake()
     {
@@ -163,6 +165,16 @@ public class GameManager : MonoBehaviour
             x.transform.position = new Vector3(mousePos.x, mousePos.y, -2f);
           
         }
+    }
+
+    //hold all of the exp curves for varying constants here, so the mosnters themselves don't need to hold and access them
+    public void ExpCurve()
+    {
+        
+
+        
+
+
     }
 
     

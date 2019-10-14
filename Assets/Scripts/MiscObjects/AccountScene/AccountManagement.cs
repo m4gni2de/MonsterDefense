@@ -211,6 +211,7 @@ public class AccountManagement : MonoBehaviour
 
         info.username = player.username;
         info.password = player.password;
+        info.totalMonstersCollected = player.totalMonstersCollected;
         info.emailAddress = player.emailAddress;
         info.playerLevel = player.playerLevel;
         info.playerExp = player.playerExp;

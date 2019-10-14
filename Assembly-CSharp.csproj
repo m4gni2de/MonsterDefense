@@ -297,6 +297,7 @@
     <Compile Include="Assets\Scripts\MapScripts\MapTile.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MapTileAnimations.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MonsterInfoMenus.cs" />
+    <Compile Include="Assets\Scripts\MapScripts\PathEnd.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\AccountScene\AccountManagement.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\CameraMotion.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\CameraRenderer.cs" />

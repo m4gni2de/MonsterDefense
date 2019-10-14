@@ -52,7 +52,9 @@ public struct EnemyStats
 
 public class Enemy : MonoBehaviour
 {
-    public MapTile[] path;
+    //public MapTile[] path;
+
+    //a list of the tiles in the pathway
     public List<MapTile> pathList = new List<MapTile>();
     public float speed;
 
@@ -68,6 +70,7 @@ public class Enemy : MonoBehaviour
     public int currentIndex = 0;
     private bool isWaiting = false;
     private float speedStorage = 0;
+    
 
     private int count;
 
@@ -526,12 +529,40 @@ public class Enemy : MonoBehaviour
 
         //StartMotion();
 
-        
+        //if (currentPath == null)
+        //{
+        //    gameObject.transform.localScale = new Vector2(.001f, .001f);
+        //}
+        //else
+        //{
+        //    gameObject.transform.localScale = new Vector2(1.8f, 1.8f);
+        //}
 
+
+        //if the path has a value, move the monster towards it
         if (currentPath != null && !isWaiting)
         {
             MoveTowardsPath();
         }
+
+
+        //if the path does NOT have a value, and the monster has finished it's run, have it move towards the End Path Object
+        if (currentPath == null && currentIndex >= pathList.Count - 1)
+        {
+            MoveTowardsPath();
+        }
+
+
+        //if (currentIndex == 0)
+        //{
+        //    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, gameObject.transform.localScale.y, -1);
+        //}
+        //else
+        //{
+        //    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, gameObject.transform.localScale.y, 1);
+        //}
+       
+
 
 
     }
@@ -588,61 +619,61 @@ public class Enemy : MonoBehaviour
     }
 
 
-    void CheckForPathTile()
-    {
-        var aimAngle = Mathf.Atan2(transform.position.x, transform.position.y);
-        if (aimAngle < 0f)
-        {
-            aimAngle = Mathf.PI * 2 + (Time.time * 10);
-        }
-        var aimDirection = Quaternion.Euler(0, 0, aimAngle * Mathf.Rad2Deg) * Vector2.up;
+    //void CheckForPathTile()
+    //{
+    //    var aimAngle = Mathf.Atan2(transform.position.x, transform.position.y);
+    //    if (aimAngle < 0f)
+    //    {
+    //        aimAngle = Mathf.PI * 2 + (Time.time * 10);
+    //    }
+    //    var aimDirection = Quaternion.Euler(0, 0, aimAngle * Mathf.Rad2Deg) * Vector2.up;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, aimDirection * 25);
-        Debug.DrawRay(transform.position, aimDirection * 25, Color.green);
+    //    RaycastHit2D hit = Physics2D.Raycast(transform.position, aimDirection * 25);
+    //    Debug.DrawRay(transform.position, aimDirection * 25, Color.green);
 
 
-        if (Physics2D.Raycast(transform.position, aimDirection * 25, ~1 << 9))
-        {
-            Debug.Log("okay");
-        }
-        if (hit.collider != null)
-        {
-            if (hit.collider.gameObject.name == "mapTile(Clone)")
-            {
-                var tile = hit.collider.gameObject;
+    //    if (Physics2D.Raycast(transform.position, aimDirection * 25, ~1 << 9))
+    //    {
+    //        Debug.Log("okay");
+    //    }
+    //    if (hit.collider != null)
+    //    {
+    //        if (hit.collider.gameObject.name == "mapTile(Clone)")
+    //        {
+    //            var tile = hit.collider.gameObject;
 
-                if (tile.GetComponent<MapTile>().isRoad == true)
-                {
-                    //checks to see if the path hit by the ray was already traveled by the enemy
-                    if (roadsHit.Contains(tile.GetComponent<MapTile>().tileNumber))
-                    {
-                        //
-                    }
-                    else
-                    {
-                        //adds the next visable road to the enemy's path
-                        pathList.Add(tile.GetComponent<MapTile>());
-                        path[roadsHit.Count] = tile.GetComponent<MapTile>();
-                        currentPath = path[roadsHit.Count];
-                    }
-                    //Debug.Log(tile.GetComponent<MapTile>().tileNumber);
+    //            if (tile.GetComponent<MapTile>().isRoad == true)
+    //            {
+    //                //checks to see if the path hit by the ray was already traveled by the enemy
+    //                if (roadsHit.Contains(tile.GetComponent<MapTile>().tileNumber))
+    //                {
+    //                    //
+    //                }
+    //                else
+    //                {
+    //                    //adds the next visable road to the enemy's path
+    //                    pathList.Add(tile.GetComponent<MapTile>());
+    //                    path[roadsHit.Count] = tile.GetComponent<MapTile>();
+    //                    currentPath = path[roadsHit.Count];
+    //                }
+    //                //Debug.Log(tile.GetComponent<MapTile>().tileNumber);
 
-                }
-                else
-                {
-                    //Debug.Log(tile.GetComponent<MapTile>().);
-                }
+    //            }
+    //            else
+    //            {
+    //                //Debug.Log(tile.GetComponent<MapTile>().);
+    //            }
 
-                //Debug.Log(tile.GetComponent<MapTile>().tileNumber);
-            }
-            Debug.Log(hit.collider.gameObject.name);
-        }
+    //            //Debug.Log(tile.GetComponent<MapTile>().tileNumber);
+    //        }
+    //        Debug.Log(hit.collider.gameObject.name);
+    //    }
 
-        //if (currentPath != null && !isWaiting)
-        //{
-        //    MoveTowardsPath();
-        //}
-    }
+    //    //if (currentPath != null && !isWaiting)
+    //    //{
+    //    //    MoveTowardsPath();
+    //    //}
+    //}
 
     public void Pause()
     {
@@ -676,8 +707,19 @@ public class Enemy : MonoBehaviour
         Vector3 currentPosition = averageLegPos;
         //Vector3 currentPosition = new Vector3(monster.transform.position.x, monster.transform.position.y + gameObject.GetComponent<RectTransform>().rect.height, 1f);
 
-        // Get the target waypoints position
-        Vector3 targetPosition = currentPath.transform.position;
+        //gets the next target for the monster.
+        Vector3 targetPosition = new Vector3();
+
+        //if the monster is on the final path, make it's last destination the position of the "end path" object
+        if (currentPath == null)
+        {
+            targetPosition = map.GetComponent<MapDetails>().pathEnd.transform.position;
+        }
+        else
+        {
+            // Get the target waypoints position
+            targetPosition = currentPath.transform.position;
+        }
 
 
         //This code moves the 'mover'
@@ -760,36 +802,22 @@ public class Enemy : MonoBehaviour
 
     private void NextPath()
     {
-        //if (isCircular)
-        //{
-
-        //    if (!inReverse)
-        //    {
-        //        currentIndex = (currentIndex + 1 >= path.Length) ? 0 : currentIndex + 1;
-        //    }
-        //    else
-        //    {
-        //        currentIndex = (currentIndex == 0) ? path.Length - 1 : currentIndex - 1;
-        //    }
-
-        //}
-        //else
-        //{
-
-        //    // If at the start or the end then reverse
-        //    if ((!inReverse && currentIndex + 1 >= path.Length) || (inReverse && currentIndex == 0))
-        //    {
-        //        inReverse = !inReverse;
-        //    }
-        //    currentIndex = (!inReverse) ? currentIndex + 1 : currentIndex - 1;
-
-        //}
+        
 
         currentIndex += 1;
-        currentPath = path[currentIndex];
-        //currentPath = path[roadsHit.Count];
 
+        //if the index becomes larger than the number of tiles in the path, set the path to null
+        if (currentIndex < pathList.Count)
+        {
+            currentPath = pathList[currentIndex];
+        }
+        else
+        {
+            currentPath = null;
+        }
         //currentPath = path[currentIndex];
+        
+       
     }
 
     
