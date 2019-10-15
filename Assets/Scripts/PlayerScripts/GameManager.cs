@@ -25,12 +25,24 @@ public class GameManager : MonoBehaviour
     public Color electricAttackColor, waterAttackColor, natureAttackColor, shadowAttackColor, fireAttackColor;
     public Dictionary<string, Color> typeColorDictionary = new Dictionary<string, Color>();
 
+    //dictionary that holds the values for the amount of EXP a tile needs to reach the next level
+    public Dictionary<int, int> tileLevelUp = new Dictionary<int, int>();
+    public int tileMaxLevel;
+    public List<MapTile> tilesMining = new List<MapTile>();
+
+
+    public List<int> expCurves = new List<int>();
+    public Dictionary<int, int> expCurveDicts = new Dictionary<int, int>();
+
     //everything to do with the current Towers on the field
     public Dictionary<int, Monster> activeTowers = new Dictionary<int, Monster>();
 
     //everything to do with the current Tiles on the field
     public Dictionary<int, MapTile> activeTiles = new Dictionary<int, MapTile>();
+    //Dictionary to keep track of notifications that the player has not yet seen/cleared, as well as their corresponding notification object
+    public Dictionary<Notification, GameObject> activeNotificationsDict = new Dictionary<Notification, GameObject>();
 
+    //public GameObject notificationObject;
     public GameObject touchIndicator;
     
 
@@ -47,14 +59,16 @@ public class GameManager : MonoBehaviour
     //information about the active map
     public MapDetails activeMap;
 
-    //dictionary that holds the values for the amount of EXP a tile needs to reach the next level
-    public Dictionary<int, int> tileLevelUp = new Dictionary<int, int>();
-    public int tileMaxLevel;
-    public List<MapTile> tilesMining = new List<MapTile>();
-
-
-    public List<int> expCurves = new List<int>();
-    public Dictionary<int, int> expCurveDicts = new Dictionary<int, int>();
+    //the camera that renders the canvas
+    public Camera canvasCamera;
+    //canvas that displays the same menus, regardless of the screen
+    public Canvas overworldCanvas;
+    //an object to act as the template for notifications for the player
+    public GameObject notificationObject;
+    //the scrollbar that holds all of the notifications
+    public GameObject notificationScroll;
+    //the content window of the notifications Scroll
+    public GameObject notificationContent;
     //create the instance of the GameManager to be used throughout the game
     void Awake()
     {
@@ -148,8 +162,8 @@ public class GameManager : MonoBehaviour
         //    }
         //}
 
+       
         
-
     }
 
 
@@ -167,16 +181,38 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //hold all of the exp curves for varying constants here, so the mosnters themselves don't need to hold and access them
-    public void ExpCurve()
+    //use this to load a notification for the player
+    public void SendNotificationToPlayer(string target, int quantity, NotificationType type)
     {
-        
+        Notification notify = new Notification();
+
+        notify.id = 1;
+        notify.type = type;
+        notify.target = target;
+        notify.targetQuantity = quantity;
 
         
 
+        var n = Instantiate(notificationObject, notificationObject.transform.position, Quaternion.identity);
+        
+        
 
+
+
+
+        n.GetComponent<NotificationObject>().Notification(notify);
+        activeNotificationsDict.Add(notify, n);
+        n.transform.SetParent(notificationContent.transform, false);
+        n.transform.position = new Vector3(notificationObject.transform.position.x, (notificationObject.transform.position.y - ((n.GetComponent<RectTransform>().rect.height * notificationScroll.transform.localScale.y) * (activeNotificationsDict.Count - 1))), -2f);
+        
     }
 
+
+
+    public void FreezeCameraMotion()
+    {
+        CameraMotion.Instance.isFree = false;
+    }
     
 }
 
@@ -187,3 +223,23 @@ public class GameManager : MonoBehaviour
 ///Items: Int[Itemname, quantity]
 ///Monsters: String[Monster's Index as a String, monster info Json]////
 ///Account: String[account name, account info Json]////
+///
+
+
+//different types of notifications, so the notification popup object knows what to do
+public enum NotificationType
+{
+    LevelUp,
+    ItemGet,
+
+}
+//a class for all notifications that the player will receieve while in game
+public class Notification
+{
+    //ID for the notification so it can be logged
+    public int id;
+    public NotificationType type;
+    public string target;
+    public int targetQuantity;
+
+}

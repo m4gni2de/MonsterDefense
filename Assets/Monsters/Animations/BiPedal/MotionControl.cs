@@ -27,8 +27,8 @@ public class MotionControl : MonoBehaviour
     public float animatorSpeed;
 
     public GameObject monsterBreath;
+
    
-    
     
     // Start is called before the first frame update
     void Start()
@@ -60,7 +60,7 @@ public class MotionControl : MonoBehaviour
         IdleState();
         
         //if a monster is hit with an attack, temporarily slow down it's movement
-        if (isHit)
+        if (isHit && monsterAnimator.GetBool("isDead") == false)
         {
             hitAcumTime += Time.deltaTime;
             monster.GetComponent<Enemy>().speed -= 1;
@@ -170,6 +170,39 @@ public class MotionControl : MonoBehaviour
     public void EndClickedAnimation()
     {
         monsterAnimator.SetBool("isClicked", false);
+    }
+
+
+    //set enemy up for being destroyed
+    public void StartMonsterDie(Enemy Enemy)
+    {
+        //remove it's HP Slider
+        Enemy.enemyHpSlider.gameObject.SetActive(false);
+        //set its Animatoion State to dead
+        monsterAnimator.SetBool("isDead", true);
+        //stop the enemy from moving
+        Enemy.speed = 0;
+        //change its tag so it does not appear in any "Enemy" lists that use the "Enemy" tag
+        Enemy.gameObject.tag = "Corpse";
+
+        Enemy.map.GetComponent<MapDetails>().LiveEnemyList();
+
+    }
+
+
+    //this is activated right at the start of the Death Animation. makes it so any other booleans are false, so another animation state won't override and kick in
+    public void EndMonsterDeathState()
+    {
+        
+        monsterAnimator.SetBool("isHit", false);
+        monsterAnimator.SetBool("isDodge", false);
+    }
+
+    //the actual deal of the monster from the game
+    public void MonsterDeath()
+    {
+        
+        Destroy(monster.gameObject);
     }
 
     //used to signal the monster's breath

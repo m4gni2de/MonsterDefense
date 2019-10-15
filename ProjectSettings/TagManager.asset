@@ -20,6 +20,7 @@ TagManager:
   - ConsumableItem
   - Item
   - TileAttributes
+  - Corpse
   layers:
   - Default
   - TransparentFX

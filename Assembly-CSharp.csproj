@@ -292,6 +292,7 @@
     <Compile Include="Assets\Scripts\Items\EquipmentItem.cs" />
     <Compile Include="Assets\Scripts\Items\ItemPopMenu.cs" />
     <Compile Include="Assets\Scripts\MapScripts\EnemySpawn.cs" />
+    <Compile Include="Assets\Scripts\MapScripts\InGameSettings.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MapDetails.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MapEditor.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MapTile.cs" />
@@ -314,6 +315,7 @@
     <Compile Include="Assets\Scripts\MiscObjects\MapEditorScene\TileEditorMenu.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\MenuMovement.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\MonsterManager.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\NotificationObject.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\ObjectOnTouch.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\PopMenuObject.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\TouchObject.cs" />
@@ -321,6 +323,7 @@
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\MapInfoMenu.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\MapTileMenu.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\WorldMap.cs" />
+    <Compile Include="Assets\Scripts\MiscScripts\CameraGameManager.cs" />
     <Compile Include="Assets\Scripts\MiscScripts\MinMaxSliderAttribute.cs" />
     <Compile Include="Assets\Scripts\MiscScripts\Singlenton.cs" />
     <Compile Include="Assets\Scripts\MiscScripts\SortingLayerExposed.cs" />

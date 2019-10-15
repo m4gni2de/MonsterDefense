@@ -92,7 +92,7 @@ public class AllMaps
         mapName = "Small Map",
         mapCode = "07080904040102020501000504000301000404000006060004040601010400020400050006060005030601020006040603040006000103020100040000000106000605041004",
         pathCode = new string[1] { "040041052039036037048049046033030031042029" },
-        enemies = new int[1] { 3 },
+        enemies = new int[1] { 4 },
         //enemies = new int[3] { 1, 2, 3 },
         //enemyChance = new float[3] { 333, 666, 1000 },
         enemyChance = new float[1] { 1000 },
@@ -517,7 +517,8 @@ public class MapTileMining
                         int itemAmount = PlayerPrefs.GetInt(itemList[rand], 0);
 
                         PlayerPrefs.SetInt(itemList[rand], itemAmount + 1);
-                        Debug.Log("Mined a " + itemList[rand] + "! You now have " + (itemAmount + 1) + " of these!");
+                        //Debug.Log("Mined a " + itemList[rand] + "! You now have " + (itemAmount + 1) + " of these!");
+                        GameManager.Instance.SendNotificationToPlayer(itemList[rand], 1, NotificationType.ItemGet);
                         GameManager.Instance.GetComponent<YourItems>().GetYourItems();
                     }
                 }

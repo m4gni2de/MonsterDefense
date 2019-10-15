@@ -3451,6 +3451,7 @@ GameObject:
   - component: {fileID: 1572054772}
   - component: {fileID: 4606927966004019755}
   - component: {fileID: 201479932594218184}
+  - component: {fileID: 1572054773}
   m_Layer: 5
   m_Name: MapObject
   m_TagString: Map
@@ -3604,6 +3605,18 @@ MonoBehaviour:
   pathDirection: 0
   editorMode: 1
   tileEditorMenu: {fileID: 201479931077267373}
+--- !u!114 &1572054773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572054770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a9305c579fb50641aacc1d54bc3580e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1586469640
 GameObject:
   m_ObjectHideFlags: 0
@@ -6735,15 +6748,15 @@ MonoBehaviour:
   liveTowers: []
   enemies: 
   enemyMax: 0
-  spawnX: 0
-  spawnY: 0
+  pathEndX: 0
+  pathEndY: 0
   levelMin: 0
   levelMax: 0
   spawnInterval: 0
   enemyCount: 0
   mapLevel: 0
   mapConst: 0
-  spawnPoint: {fileID: 201479932154600371}
+  pathEnd: {fileID: 0}
   isOver: 0
   mapInformation:
     playerEnergy: 0

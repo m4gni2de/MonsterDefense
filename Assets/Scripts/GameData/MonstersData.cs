@@ -455,9 +455,11 @@ public class MonsterItemDrop
                     if (hasKey || !hasKey)
                     {
                         int itemAmount = PlayerPrefs.GetInt(allMonsters[enemy.stats.species].itemDrops[d], 0);
+                        
 
                         PlayerPrefs.SetInt(allMonsters[enemy.stats.species].itemDrops[d], itemAmount + 1);
-                        Debug.Log("Defeated " + enemy.stats.species + " dropped a " + allMonsters[enemy.stats.species].itemDrops[d] + "! You now have " + (itemAmount + 1) + " of these!");
+                        //Debug.Log("Defeated " + enemy.stats.species + " dropped a " + allMonsters[enemy.stats.species].itemDrops[d] + "! You now have " + (itemAmount + 1) + " of these!");
+                        GameManager.Instance.SendNotificationToPlayer(allMonsters[enemy.stats.species].itemDrops[d], 1, NotificationType.ItemGet);
                         GameManager.Instance.GetComponent<YourItems>().GetYourItems();
                     }
                 }

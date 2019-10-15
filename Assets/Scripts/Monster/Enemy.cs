@@ -86,11 +86,11 @@ public class Enemy : MonoBehaviour
     //the enemy's canvas for HP and effects
     public GameObject enemyCanvas;
     //the enemy's HP slider
-    private Slider enemyHpSlider;
+    public Slider enemyHpSlider;
     //the box that appears when an enemy takes damage
     public GameObject damageText;
 
-    private GameObject map;
+    public GameObject map;
 
     //used to determine if this enemy is the active enemy on the enemy menu
     public bool isActiveEnemy;
@@ -470,7 +470,8 @@ public class Enemy : MonoBehaviour
             }
 
             MonsterItemDrop itemDrop = new MonsterItemDrop(this);
-            Destroy(gameObject);
+            GetComponentInChildren<MotionControl>().StartMonsterDie(this);
+            //Destroy(gameObject);
         }
 
         //Debug.Log("Current HP: " + stats.currentHp + "  & Damage Taken: " + damageTaken);
