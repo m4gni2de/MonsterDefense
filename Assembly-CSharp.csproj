@@ -335,6 +335,7 @@
     <Compile Include="Assets\Scripts\Monster\MonsterNew.cs" />
     <Compile Include="Assets\Scripts\Monster\Motion.cs" />
     <Compile Include="Assets\Scripts\Monster\Tower.cs" />
+    <Compile Include="Assets\Scripts\NonDrawingGraphic.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\YourAccount.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\YourItems.cs" />

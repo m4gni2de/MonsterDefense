@@ -21,6 +21,7 @@ TagManager:
   - Item
   - TileAttributes
   - Corpse
+  - Notification
   layers:
   - Default
   - TransparentFX

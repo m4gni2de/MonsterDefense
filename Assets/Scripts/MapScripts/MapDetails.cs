@@ -326,7 +326,7 @@ public class MapDetails : MonoBehaviour
                         //break up each path code in to sections of 3, since each tile is a 3 digit number, and store them in a dictionary of path codes that an enemy will choose at random upon their spawn
                         string[] pathChars = new string[pathCodes[r].Length];
                         string code = pathCodes[r];
-                        Debug.Log(spawnPoints[r]);
+                        //Debug.Log(spawnPoints[r]);
                         
 
                         enemyCount += 1;

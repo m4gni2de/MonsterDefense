@@ -771,7 +771,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 }
             }
 
-            Debug.Log(monster.info.Attack.Value);
+            //Debug.Log(monster.info.Attack.Value);
         }
 
 

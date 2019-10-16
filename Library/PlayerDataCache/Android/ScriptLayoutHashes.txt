@@ -211,6 +211,7 @@ e9fcf9590cf98530c76719529a361aa1 Assembly-CSharp.dll:.BurningFX
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.PathEnd
 f72c808788cf03860947bc69ef64621e Assembly-CSharp.dll:._2dxFX_AL_Outline
 468581e195e9cb48443362282c9d5848 Assembly-CSharp.dll:.MonsterHomeIcon
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.CameraGameManager
 f5946f0f62231fe6d6fb517f7e1917c2 Assembly-CSharp.dll:.Waterfall2D
 98d30520ca686004463d3d05394681d7 Assembly-CSharp.dll:.DesintegrationFX
 ad3e5dd6780b9423477f8e1150e064cd Assembly-CSharp.dll:._2dxFX_AL_PixelDie
@@ -291,9 +292,11 @@ e51c09a4cc447f11db225afcd8e3e490 Unity.TextMeshPro.dll:TMPro.TMP_Settings
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TMPro.Examples.TextConsoleSimulator
 ad3e5dd6780b9423477f8e1150e064cd Assembly-CSharp.dll:._2dxFX_AL_Fire
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.SortingLayerExposed
+d144fd72474d6b606980b23801e7cc45 Assembly-CSharp.dll:.InGameSettings
 62fef86270a167c41a606cfca1ecc156 Assembly-CSharp.dll:TMPro.Examples.ShaderPropAnimator
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TMPro.Examples.TMP_TextSelector_A
 1b0d134de08df7ccc82486dae89b271a Assembly-CSharp.dll:.Wave2D
+2bb839f57b0ce472df0515a77d05c03d Assembly-CSharp.dll:.NotificationObject
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.MonsterAbilities
 1eb64b41179df1a0b8d70026cb4ecace Assembly-CSharp.dll:.BurnFX
 cf96e5f7b3d069bab453925bd41be04e UnityEngine.TestRunner.dll:UnityEngine.TestTools.EnumerableSetUpTearDownCommandState
@@ -405,8 +408,9 @@ a1e63c1a6b89869741bcb1748833c00e Assembly-CSharp.dll:.IcedFX
 a0cb4f04339de15e4f52b7c03f253ab4 Assembly-CSharp.dll:.AttackEffects
 8f4ba93234690ac2f7d6af44f78d2b76 Assembly-CSharp.dll:.SkycloudFX
 184251cbf3808832d5d11477dfce25a1 Assembly-CSharp.dll:.HSV_FX
-e80cd8585a92a715dbedffcef189d467 Assembly-CSharp.dll:.GameManager
+0f88903741fdc6d5fae2f729b10a89fb Assembly-CSharp.dll:.GameManager
 feb6dc853b511d5e11d59e2719dd27e1 Assembly-CSharp.dll:.GifAnimation
 14f725c3bb06cc29ba9b4adf473af6a1 Assembly-CSharp.dll:._2dxFX_AL_Liquify
 afd210ffa36e501ecc6a725d1dc0d17c Assembly-CSharp.dll:._2dxFX_AL_SkyCloud
 ea925e6507b6b33724a60ea2e716a54e Assembly-CSharp.dll:Puppet2D.Puppet2D_FFDStoreData
+bffcadb9797d8be363f802c42841d9a7 Assembly-CSharp.dll:.NonDrawingGraphic

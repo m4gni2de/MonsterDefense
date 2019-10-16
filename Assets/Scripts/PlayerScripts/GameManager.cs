@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
 public class GameManager : MonoBehaviour
 {
     // create class as singleton
@@ -41,6 +42,9 @@ public class GameManager : MonoBehaviour
     public Dictionary<int, MapTile> activeTiles = new Dictionary<int, MapTile>();
     //Dictionary to keep track of notifications that the player has not yet seen/cleared, as well as their corresponding notification object
     public Dictionary<Notification, GameObject> activeNotificationsDict = new Dictionary<Notification, GameObject>();
+    //list for pending notifications to go when there are too many to show the player at once
+    public List<Notification> pendingNotificationsList = new List<Notification>();
+
 
     //public GameObject notificationObject;
     public GameObject touchIndicator;
@@ -69,6 +73,7 @@ public class GameManager : MonoBehaviour
     public GameObject notificationScroll;
     //the content window of the notifications Scroll
     public GameObject notificationContent;
+    
     //create the instance of the GameManager to be used throughout the game
     void Awake()
     {
@@ -186,34 +191,87 @@ public class GameManager : MonoBehaviour
     {
         Notification notify = new Notification();
 
-        notify.id = 1;
+        int id = PlayerPrefs.GetInt("Notifications", 0);
+
+        notify.id = id + 1;
         notify.type = type;
         notify.target = target;
         notify.targetQuantity = quantity;
 
+        PlayerPrefs.SetInt("Notifications", notify.id);
+
         
 
-        var n = Instantiate(notificationObject, notificationObject.transform.position, Quaternion.identity);
+        //if there are less than 10 notifications to be seen, don't spawn them. instead, load them in to a List for pending notifications
+        if (activeNotificationsDict.Count <= 9)
+        {
+            var n = Instantiate(notificationObject, notificationObject.transform.position, Quaternion.identity);
+
+
+            n.GetComponent<NotificationObject>().Notification(notify);
+            activeNotificationsDict.Add(notify, n);
+            n.transform.SetParent(notificationContent.transform, false);
+            n.transform.position = new Vector3(notificationObject.transform.position.x, (notificationObject.transform.position.y - ((n.GetComponent<RectTransform>().rect.height * (n.transform.localScale.y * overworldCanvas.transform.localScale.y)) * (activeNotificationsDict.Count - 1))), -2f);
+        }
+        else
+        {
+            pendingNotificationsList.Add(notify);
+        }
+
         
+
+    }
+
+    //this is called from the Notification Object script itself
+    public void RemoveNotification(GameObject notifyObject, Notification notify)
+    {
+        int id = notify.id;
         
+        foreach (KeyValuePair<Notification, GameObject> n in activeNotificationsDict)
+        {
+            //check all of the notifications in the active dictionary. if they have an id larger than the id of the notification being deleted, move them up
+            if (n.Key.id > id)
+            {
+                n.Value.transform.position = new Vector3(n.Value.transform.position.x, (n.Value.transform.position.y + n.Value.GetComponent<RectTransform>().rect.height * (n.Value.transform.localScale.y * overworldCanvas.transform.localScale.y)), -2f);
 
+               
+            }
+        }
 
+        //remove notification from dictionary of active notifications
+        activeNotificationsDict.Remove(notify);
+        //destroy the object that was touched
+        Destroy(notifyObject);
 
+        //checks for pending notifications, and if there are any, add the first one to the active notifications dictionary
+        if (pendingNotificationsList.Count > 0)
+        {
+            var n = Instantiate(notificationObject, notificationObject.transform.position, Quaternion.identity);
+            n.GetComponent<NotificationObject>().Notification(notify);
+            activeNotificationsDict.Add(notify, n);
+            n.transform.SetParent(notificationContent.transform, false);
 
-        n.GetComponent<NotificationObject>().Notification(notify);
-        activeNotificationsDict.Add(notify, n);
-        n.transform.SetParent(notificationContent.transform, false);
-        n.transform.position = new Vector3(notificationObject.transform.position.x, (notificationObject.transform.position.y - ((n.GetComponent<RectTransform>().rect.height * notificationScroll.transform.localScale.y) * (activeNotificationsDict.Count - 1))), -2f);
-        
+            n.transform.position = new Vector3(notificationObject.transform.position.x, (notificationObject.transform.position.y - ((n.GetComponent<RectTransform>().rect.height * (n.transform.localScale.y * overworldCanvas.transform.localScale.y)) * (activeNotificationsDict.Count - 1))), -2f);
+
+            //remove the added notification from the pending list to the active list
+            pendingNotificationsList.Remove(pendingNotificationsList[0]);
+            
+        }
+
     }
 
 
 
     public void FreezeCameraMotion()
     {
-        CameraMotion.Instance.isFree = false;
+        if (CameraMotion.Instance)
+        {
+            CameraMotion.Instance.isFree = false;
+        }
     }
+
     
+
 }
 
 
@@ -223,6 +281,7 @@ public class GameManager : MonoBehaviour
 ///Items: Int[Itemname, quantity]
 ///Monsters: String[Monster's Index as a String, monster info Json]////
 ///Account: String[account name, account info Json]////
+///Notifications: Int[Notifications]
 ///
 
 

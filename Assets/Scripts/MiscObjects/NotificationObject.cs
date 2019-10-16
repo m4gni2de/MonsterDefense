@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class NotificationObject : MonoBehaviour
+public class NotificationObject : MonoBehaviour, IPointerDownHandler
 {
     public GameObject notifyImage;
     public SpriteRenderer notifyImageSp;
     public TMP_Text notifyText;
+    public Notification notification;
 
     // Start is called before the first frame update
     void Start()
@@ -22,8 +24,13 @@ public class NotificationObject : MonoBehaviour
         
     }
 
+    //create the notification image and load it on the player's notification bar
     public void Notification(Notification Notify)
     {
+        gameObject.SetActive(true);
+        gameObject.tag = "Notification";
+
+        notification = Notify;
         string target = Notify.target;
 
         bool hasKey = PlayerPrefs.HasKey(target);
@@ -40,8 +47,9 @@ public class NotificationObject : MonoBehaviour
             if (equips.ContainsKey(target))
             {
                 var item = Instantiate(equips[target].equipPrefab, transform.position, Quaternion.identity);
-                item.transform.SetParent(transform, false);
+                item.transform.SetParent(transform, true);
                 item.transform.position = notifyImage.transform.position;
+                item.GetComponent<Image>().raycastTarget = false;
             }
 
             if (consumables.ContainsKey(target))
@@ -50,9 +58,43 @@ public class NotificationObject : MonoBehaviour
             }
 
 
-            Debug.Log(itemAmount);
+            
             notifyText.text = "You acquired " + Notify.targetQuantity + " " + target + "! You now have " + itemAmount + " of these!";
 
         }
+    }
+
+    
+    //use this to clear a notification from the player
+    public void ClearNotification()
+    {
+
+    }
+
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+
+
+        if (eventData.pointerEnter)
+        {
+
+            
+            var tag = eventData.pointerEnter.gameObject.tag;
+            var hit = eventData.pointerEnter.gameObject;
+
+
+            
+            if (tag == "Notification")
+            {
+                
+                GameManager.Instance.RemoveNotification(gameObject, notification);
+                
+                
+            }
+
+        }
+
+
     }
 }
