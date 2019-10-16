@@ -327,6 +327,7 @@
     <Compile Include="Assets\Scripts\MiscScripts\MinMaxSliderAttribute.cs" />
     <Compile Include="Assets\Scripts\MiscScripts\Singlenton.cs" />
     <Compile Include="Assets\Scripts\MiscScripts\SortingLayerExposed.cs" />
+    <Compile Include="Assets\Scripts\MiscScripts\SwipeMovement.cs" />
     <Compile Include="Assets\Scripts\Monster\Enemy.cs" />
     <Compile Include="Assets\Scripts\Monster\FaceMotion.cs" />
     <Compile Include="Assets\Scripts\Monster\MeshBodyParts.cs" />

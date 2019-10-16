@@ -7,10 +7,13 @@ using UnityEngine.EventSystems;
 
 public class NotificationObject : MonoBehaviour, IPointerDownHandler
 {
-    public GameObject notifyImage;
+    public GameObject notifyImageObject;
     public SpriteRenderer notifyImageSp;
+    public Image notifyImage;
     public TMP_Text notifyText;
     public Notification notification;
+    private GameObject item;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -29,46 +32,98 @@ public class NotificationObject : MonoBehaviour, IPointerDownHandler
     {
         gameObject.SetActive(true);
         gameObject.tag = "Notification";
+        
 
         notification = Notify;
         string target = Notify.target;
 
-        bool hasKey = PlayerPrefs.HasKey(target);
+        
+            bool hasKey = PlayerPrefs.HasKey(target);
 
-        if (hasKey || !hasKey)
-        {
-            int itemAmount = PlayerPrefs.GetInt(target, 0);
-            var equips = GameManager.Instance.items.allEquipmentDict;
-            var consumables = GameManager.Instance.items.allConsumablesDict;
-            var inventory = GameManager.Instance.GetComponent<YourItems>().yourInventory;
-
-            
-
-            if (equips.ContainsKey(target))
+            if (hasKey || !hasKey)
             {
-                var item = Instantiate(equips[target].equipPrefab, transform.position, Quaternion.identity);
-                item.transform.SetParent(transform, true);
-                item.transform.position = notifyImage.transform.position;
-                item.GetComponent<Image>().raycastTarget = false;
+                int itemAmount = PlayerPrefs.GetInt(target, 0);
+                var equips = GameManager.Instance.items.allEquipmentDict;
+                var consumables = GameManager.Instance.items.allConsumablesDict;
+                var inventory = GameManager.Instance.GetComponent<YourItems>().yourInventory;
+
+
+
+                if (equips.ContainsKey(target))
+                {
+                    //var item = Instantiate(equips[target].equipPrefab, transform.position, Quaternion.identity);
+                    item = Instantiate(equips[target].equipPrefab, transform.position, Quaternion.identity);
+                    item.transform.SetParent(transform, true);
+                    item.transform.position = notifyImageObject.transform.position;
+                    item.GetComponent<Image>().raycastTarget = false;
+                }
+
+                if (consumables.ContainsKey(target))
+                {
+                    notifyImageSp.enabled = false;
+                    notifyImage.color = Color.black;
+                    notifyImage.sprite = consumables[target].sprite;
+                }
+
+
+            if (Notify.type == NotificationType.MonsterDrop)
+            {
+                notifyText.text = "Enemy " +  Notify.gotFrom + " dropped " +  Notify.targetQuantity + " " + target + "!";
             }
 
-            if (consumables.ContainsKey(target))
+            if (Notify.type == NotificationType.TileMine)
             {
-                notifyImageSp.sprite = consumables[target].sprite;
+                notifyText.text = "You mined " + Notify.targetQuantity + " " + target + " from " + Notify.gotFrom + "!";
             }
-
-
-            
-            notifyText.text = "You acquired " + Notify.targetQuantity + " " + target + "! You now have " + itemAmount + " of these!";
-
         }
     }
 
-    
-    //use this to clear a notification from the player
-    public void ClearNotification()
+    //use this to remove the object with an animation
+    public IEnumerator ClearObject()
     {
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 999;
+        gameObject.AddComponent<NewTeleportation2>();
+        GetComponent<Image>().color = Color.clear;
+        notifyText.text = "";
+        notifyImage.sprite = null;
+        gameObject.GetComponent<Image>().raycastTarget = false;
 
+        if (item != null)
+        {
+            Destroy(item.gameObject);
+        }
+        var t = GetComponent<NewTeleportation2>();
+
+        transform.SetParent(GetComponentInParent<Canvas>().transform, true);
+        
+
+
+        t._Fade = 0f;
+        t._Distortion = 1;
+        t._Alpha = 1f;
+
+        for (int i = 0; i < 50; i++)
+        {
+            t._Fade += (1f / 30f);
+            t._Distortion += (1f / 50f);
+            t._Alpha -= (1f / 50f);
+
+            //transform.localScale = transform.localScale / 1.05f;
+           
+            transform.Translate(Vector3.right * 2, Space.World);
+            
+
+            if (t._Fade >= .95)
+            {
+                
+                Destroy(gameObject);
+
+                break;
+            }
+
+            yield return new WaitForSeconds(.0005f);
+        }
     }
 
 

@@ -162,6 +162,10 @@
                 }
                 else if (CanvasImage != null)
                 {
+                //  THIS IS NEEDED TO UPDATE AN IMAGE'S SHADER VALUES
+                    Material mat = Instantiate(CanvasImage.material);
+                    CanvasImage.material = mat;
+
                     CanvasImage.material.SetFloat("_Alpha", 1 - _Alpha);
                     CanvasImage.material.SetColor("TeleportationColor", TeleportationColor);
                     CanvasImage.material.SetFloat("_Distortion", _Distortion);

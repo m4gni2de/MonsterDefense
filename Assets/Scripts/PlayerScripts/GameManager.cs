@@ -73,7 +73,8 @@ public class GameManager : MonoBehaviour
     public GameObject notificationScroll;
     //the content window of the notifications Scroll
     public GameObject notificationContent;
-    
+    //the symbol used to notify the player of a new notification
+    public GameObject notifier;
     //create the instance of the GameManager to be used throughout the game
     void Awake()
     {
@@ -167,8 +168,16 @@ public class GameManager : MonoBehaviour
         //    }
         //}
 
-       
-        
+
+        if (activeNotificationsDict.Count > 0)
+        {
+            notificationObject.SetActive(false);
+        }
+        else
+        {
+            notificationObject.SetActive(true);
+        }
+
     }
 
 
@@ -187,7 +196,7 @@ public class GameManager : MonoBehaviour
     }
 
     //use this to load a notification for the player
-    public void SendNotificationToPlayer(string target, int quantity, NotificationType type)
+    public void SendNotificationToPlayer(string target, int quantity, NotificationType type, string GotFrom)
     {
         Notification notify = new Notification();
 
@@ -197,6 +206,7 @@ public class GameManager : MonoBehaviour
         notify.type = type;
         notify.target = target;
         notify.targetQuantity = quantity;
+        notify.gotFrom = GotFrom;
 
         PlayerPrefs.SetInt("Notifications", notify.id);
 
@@ -218,7 +228,7 @@ public class GameManager : MonoBehaviour
             pendingNotificationsList.Add(notify);
         }
 
-        
+        notifier.SetActive(true);
 
     }
 
@@ -241,7 +251,8 @@ public class GameManager : MonoBehaviour
         //remove notification from dictionary of active notifications
         activeNotificationsDict.Remove(notify);
         //destroy the object that was touched
-        Destroy(notifyObject);
+        StartCoroutine(notifyObject.GetComponent<NotificationObject>().ClearObject());
+        //Destroy(notifyObject);
 
         //checks for pending notifications, and if there are any, add the first one to the active notifications dictionary
         if (pendingNotificationsList.Count > 0)
@@ -290,6 +301,8 @@ public enum NotificationType
 {
     LevelUp,
     ItemGet,
+    MonsterDrop,
+    TileMine,
 
 }
 //a class for all notifications that the player will receieve while in game
@@ -300,5 +313,6 @@ public class Notification
     public NotificationType type;
     public string target;
     public int targetQuantity;
+    public string gotFrom;
 
 }

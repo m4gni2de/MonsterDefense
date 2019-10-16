@@ -463,7 +463,7 @@ public class MapTileMining
         itemChance[1] = .04f;
         itemChance[2] = .01f;
 
-        mineChance = .20f;
+        mineChance = .90f;
 
     }
 
@@ -518,7 +518,7 @@ public class MapTileMining
 
                         PlayerPrefs.SetInt(itemList[rand], itemAmount + 1);
                         //Debug.Log("Mined a " + itemList[rand] + "! You now have " + (itemAmount + 1) + " of these!");
-                        GameManager.Instance.SendNotificationToPlayer(itemList[rand], 1, NotificationType.ItemGet);
+                        GameManager.Instance.SendNotificationToPlayer(itemList[rand], 1, NotificationType.TileMine, "Tile " + MapTile.tileNumber);
                         GameManager.Instance.GetComponent<YourItems>().GetYourItems();
                     }
                 }

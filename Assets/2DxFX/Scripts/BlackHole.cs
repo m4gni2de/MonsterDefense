@@ -135,6 +135,10 @@ public class BlackHole : MonoBehaviour
             }
             else if (CanvasImage != null)
             {
+                //  THIS IS NEEDED TO UPDATE AN IMAGE'S SHADER VALUES
+                Material mat = Instantiate(CanvasImage.material);
+                CanvasImage.material = mat;
+
                 CanvasImage.material.SetFloat("_Alpha", 1 - _Alpha);
                 CanvasImage.material.SetFloat("_Distortion", Distortion);
                 CanvasImage.material.SetFloat("_Hole", _Hole);
@@ -252,18 +256,18 @@ public class _2dxFX_BlackHole_Editor : Editor
         BlackHole _2dxScript = (BlackHole)target;
 
 
-        Texture2D icon = Resources.Load("2dxfxinspector-anim") as Texture2D;
-        if (icon)
-        {
-            Rect r;
-            float ih = icon.height;
-            float iw = icon.width;
-            float result = ih / iw;
-            float w = Screen.width;
-            result = result * w;
-            r = GUILayoutUtility.GetRect(ih, result);
-            EditorGUI.DrawTextureTransparent(r, icon);
-        }
+        //Texture2D icon = Resources.Load("2dxfxinspector-anim") as Texture2D;
+        //if (icon)
+        //{
+        //    Rect r;
+        //    float ih = icon.height;
+        //    float iw = icon.width;
+        //    float result = ih / iw;
+        //    float w = Screen.width;
+        //    result = result * w;
+        //    r = GUILayoutUtility.GetRect(ih, result);
+        //    EditorGUI.DrawTextureTransparent(r, icon);
+        //}
 
 
 
