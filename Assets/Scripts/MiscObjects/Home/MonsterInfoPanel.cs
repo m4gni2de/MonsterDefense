@@ -15,7 +15,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     public GameObject monsterSprite, type1, type2;
     public GameObject equipMenu, equipObject, monsterEditorMenu, monsterUpgradeMenu, popMenu;
     public TMP_Text monsterNameText, levelText, atkText, defText, speText, precText, typeText, toNextLevelText, evasionText, energyGenText, energyCostText, stamTxt, abilityNameText, abilityText, coinGenText, koCountText;
-    public TMP_Text atkBoostText, defBoostText, speBoostText, precBoostText, evasBoostText, enGenBoostText, costBoostText, stamBoostText;
+    public TMP_Text atkBoostText, defBoostText, speBoostText, precBoostText, evasBoostText, enGenBoostText, costBoostText, stamBoostText, coinGenBoost;
     public TMP_Text attack1, attack2;
     public TMP_Text atk1Attack, atk1Range, atk1Cool, atk1Slow, atk1Effect, atk1Stamina;
     public TMP_Text atk2Attack, atk2Range, atk2Cool, atk2Slow, atk2Effect, atk2Stamina;
@@ -140,13 +140,13 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         monster.transform.SetParent(transform, true);
         monster.transform.position = monsterSprite.transform.position;
 
-        //make this monster's sorting layer higher than everything else so it shows up on the panel
-        SpriteRenderer[] monsterParts = monster.GetComponentsInChildren<SpriteRenderer>();
-        for (int i = 0; i < monsterParts.Length; i++)
-        {
-            monsterParts[i].sortingLayerName = "GameUI";
-            monsterParts[i].sortingOrder = monsterParts[i].sortingOrder + transform.GetComponent<SpriteRenderer>().sortingOrder;
-        }
+        ////make this monster's sorting layer higher than everything else so it shows up on the panel
+        //SpriteRenderer[] monsterParts = monster.GetComponentsInChildren<SpriteRenderer>();
+        //for (int i = 0; i < monsterParts.Length; i++)
+        //{
+        //    monsterParts[i].sortingLayerName = "GameUI";
+        //    monsterParts[i].sortingOrder = monsterParts[i].sortingOrder + transform.GetComponent<SpriteRenderer>().sortingOrder;
+        //}
 
         RefreshMonsterInfo(thisMonster);
         
@@ -180,7 +180,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             //e1.GetComponent<Image>().color = Color.clear;
             e1.GetComponent<Image>().raycastTarget = false;
             e1.transform.position = equip1Btn.transform.position;
-            e1.transform.localScale = new Vector2(1f, 1f);
+            e1.transform.localScale = new Vector2(60f, 60f);
             e1.tag = "Respawn";
 
 
@@ -219,7 +219,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             //e2.GetComponent<Image>().color = Color.clear;
             e2.GetComponent<Image>().raycastTarget = false;
             e2.transform.position = equip2Btn.transform.position;
-            e2.transform.localScale = new Vector2(1f, 1f);
+            e2.transform.localScale = new Vector2(60f, 60f);
             e2.tag = "Respawn";
 
             equip2 = equipment[monster.info.equip2Name];
@@ -253,8 +253,8 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         stamTxt.text = thisMonster.info.Stamina.Value.ToString();
         abilityNameText.text = thisMonster.info.abilityName;
         abilityText.text = abilities[thisMonster.info.abilityName].description;
-        coinGenText.text = thisMonster.info.CoinGeneration.Value.ToString();
-        koCountText.text = "KO Count: " + thisMonster.info.koCount;
+        coinGenText.text = thisMonster.info.CoinGeneration.Value + " /h";
+        koCountText.text = thisMonster.info.koCount.ToString();
 
         atkBoostText.text = "(+ " + (thisMonster.info.Attack.Value - thisMonster.info.Attack.BaseValue) + ")".ToString();
         defBoostText.text = "(+ " + (thisMonster.info.Defense.Value - thisMonster.info.Defense.BaseValue) + ")".ToString();
@@ -264,6 +264,9 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         enGenBoostText.text = "(+ " + (thisMonster.info.EnergyGeneration.BaseValue - thisMonster.info.EnergyGeneration.Value) + ")".ToString();
         costBoostText.text = "(+ " + (thisMonster.info.EnergyCost.Value - thisMonster.info.EnergyCost.BaseValue) + ")".ToString();
         stamBoostText.text = "(+ " + (thisMonster.info.Stamina.Value - thisMonster.info.Stamina.BaseValue) + ")".ToString();
+        enGenBoostText.text = "(+ 0)";
+        coinGenBoost.text = "(+ 0)";
+        
 
         if (thisMonster.info.Attack.BaseValue != thisMonster.info.Attack.Value)
         {
