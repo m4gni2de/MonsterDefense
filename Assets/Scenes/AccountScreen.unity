@@ -590,6 +590,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107987026}
   m_CullTransparentMesh: 0
+--- !u!21 &112931755
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/GoldFX
+  m_Shader: {fileID: 4800000, guid: e119c2182318cab46b7ce5b0e7bc3e15, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _Distortion: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &125185997
 GameObject:
   m_ObjectHideFlags: 0
@@ -2026,6 +2060,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766819510}
   m_CullTransparentMesh: 0
+--- !u!21 &787539568
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 2DxFX/Standard/Mystic_Distortion_Additive
+  m_Shader: {fileID: 4800000, guid: 60fcafe28a4834b408474282bb9aea3f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Alpha: 0
+    - _ColorMask: 15
+    - _DistanceX: 0.01
+    - _DistanceY: 0.04
+    - _OffsetX: 0
+    - _OffsetY: 0
+    - _Pitch: 0.43760955
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _WaveTimeX: 3.58
+    - _WaveTimeY: 5.12
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &814685562
 GameObject:
   m_ObjectHideFlags: 0
@@ -4638,6 +4712,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6511763901227593703, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 787539568}
     - target: {fileID: 2125318792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
@@ -4690,6 +4769,29 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2125318794, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125318794, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7833154323412574792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -48
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464933632458072910, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.1800003
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464933632458072910, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.35000038
+      objectReference: {fileID: 0}
     - target: {fileID: 6284860453082503986, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -4700,5 +4802,10 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2835933149247908847, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 112931755}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}

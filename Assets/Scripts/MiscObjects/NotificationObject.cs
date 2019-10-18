@@ -75,6 +75,16 @@ public class NotificationObject : MonoBehaviour, IPointerDownHandler
             {
                 notifyText.text = "You mined " + Notify.targetQuantity + " " + target + " from " + Notify.gotFrom + "!";
             }
+
+            if (Notify.type == NotificationType.AbilityReady)
+            {
+                notifyText.text = Notify.gotFrom + "'s Ability " + target + " is ready!";
+            }
+
+            if (Notify.type == NotificationType.LevelUp)
+            {
+                notifyText.text = Notify.target + " has Leveled Up to Level " + Notify.targetQuantity;
+            }
         }
     }
 

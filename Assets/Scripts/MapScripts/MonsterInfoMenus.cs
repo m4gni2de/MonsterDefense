@@ -16,7 +16,8 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     public GameObject menuContentView;
     public GameObject menuCanvas;
     public GameObject popMenuCanvas, popMenuObject;
-
+    public GameObject towerButton;
+    
     
 
     //objects related to the active monster's target moe
@@ -406,7 +407,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     //map this to a button to open the tower menu for players in game and load your available towers
     public void TowerMenuBtn()
     {
-
+        
         towerMenu.SetActive(true);
         isClicked = !isClicked;
         InvokeRepeating("MoveTowerMenu", 0f, .001f);

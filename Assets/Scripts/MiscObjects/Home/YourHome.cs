@@ -27,7 +27,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     private float touchTime, acumTime, releaseTime;
 
 
-    public GameObject monsterInfoMenu, accountInfoMenu;
+    public GameObject monsterInfoMenu, accountInfoMenu, monsterScrollList;
 
     public GameObject consumableObject;
 
@@ -437,6 +437,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
             infoMenu.SetActive(true);
             activeMonster = hit.gameObject.GetComponent<Monster>();
 
+                monsterScrollList.SetActive(false);
             infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(activeMonster);
 
             }
@@ -448,7 +449,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
                 infoMenu.SetActive(true);
                 activeMonster = hit.gameObject.GetComponentInParent<Monster>();
-
+                monsterScrollList.SetActive(false);
                 infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(activeMonster);
             }
         }
@@ -465,6 +466,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     public void AccountMenu()
     {
         accountInfoMenu.SetActive(true);
+        monsterScrollList.SetActive(false);
         accountInfoMenu.GetComponent<AccountInfoMenu>().LoadAccountInfo();
     }
 
@@ -473,7 +475,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     public void ShowEquipment()
     {
         equipListObject.SetActive(true);
-
+        monsterScrollList.SetActive(false);
         equipListObject.GetComponent<EquipmentManager>().LoadEquipment();
 
         
@@ -496,6 +498,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
                 if (i >= equips.Length - 1)
                 {
+                    monsterScrollList.SetActive(true);
                     equipListObject.SetActive(false);
                 }
             }
@@ -513,6 +516,11 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
         GameManager.Instance.GetComponent<YourAccount>().GetCoins();
     }
 
+    //call this from other objects to make the monster list active again
+    public void MonsterListActive()
+    {
+        monsterScrollList.SetActive(true);
+    }
 
     //called from the MonsterInfoPanel script to hide all of the monster Icons behind the new menu
     public void HideAllMonsters()

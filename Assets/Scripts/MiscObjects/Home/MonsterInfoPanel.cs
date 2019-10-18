@@ -12,7 +12,7 @@ using System.Linq;
 
 public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 {
-    public GameObject monsterSprite, type1, type2;
+    public GameObject monsterSprite, type1, type2, attack1Panel, attack2Panel;
     public GameObject equipMenu, equipObject, monsterEditorMenu, monsterUpgradeMenu, popMenu;
     public TMP_Text monsterNameText, levelText, atkText, defText, speText, precText, typeText, toNextLevelText, evasionText, energyGenText, energyCostText, stamTxt, abilityNameText, abilityText, coinGenText, koCountText;
     public TMP_Text atkBoostText, defBoostText, speBoostText, precBoostText, evasBoostText, enGenBoostText, costBoostText, stamBoostText, coinGenBoost;
@@ -340,6 +340,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         atk1Mode.sprite = GameManager.Instance.baseAttacks.atkModeDict[thisMonster.info.attack1.attackMode.ToString()];
         atk1Mode.name = thisMonster.info.attack1.attackMode.ToString();
         atk1Stamina.text = thisMonster.info.attack1.staminaGained.ToString();
+        attack1Panel.GetComponent<SpriteRenderer>().color = GameManager.Instance.typeColorDictionary[thisMonster.info.attack1.type];
 
         if (thisMonster.info.attack1.effectName != "none")
         {
@@ -394,6 +395,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         atk2Cool.text = thisMonster.info.attack2.attackTime.ToString();
         atk2Slow.text = thisMonster.info.attack2.hitSlowTime.ToString();
         atk2Stamina.text = thisMonster.info.attack2.staminaGained.ToString();
+        attack2Panel.GetComponent<SpriteRenderer>().color = GameManager.Instance.typeColorDictionary[thisMonster.info.attack2.type];
 
         if (thisMonster.info.attack2.effectName != "none")
         {
@@ -531,9 +533,9 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         }
 
 
-        
 
 
+        GetComponentInParent<YourHome>().MonsterListActive();
         gameObject.SetActive(false);
     }
 

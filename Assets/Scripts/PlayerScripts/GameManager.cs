@@ -303,6 +303,7 @@ public enum NotificationType
     ItemGet,
     MonsterDrop,
     TileMine,
+    AbilityReady,
 
 }
 //a class for all notifications that the player will receieve while in game

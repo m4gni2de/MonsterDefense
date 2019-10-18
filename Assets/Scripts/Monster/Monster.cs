@@ -865,6 +865,7 @@ public class Monster : MonoBehaviour
         StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
         GetStats(stats);
         GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+        GameManager.Instance.SendNotificationToPlayer(info.name, info.level, NotificationType.LevelUp, "none");
         
     }
 

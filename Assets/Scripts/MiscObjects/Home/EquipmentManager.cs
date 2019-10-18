@@ -248,10 +248,16 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        //if a player holds their finger on an item, equip the item. If they just tap the item, display the item details
+        //if a player holds their finger on an item, display the item details. If they just tap the item, equip it
         if (isTapping)
         {
             if (acumTime >= 1)
+            {
+                isTapping = false;
+                popMenu.SetActive(true);
+                popMenu.GetComponent<PopMenuObject>().Item(equipment.equipDetails.name);
+            }
+            else
             {
                 monster.EquipItem(equipment.equip, slot);
                 infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(monster);
@@ -259,12 +265,9 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 gameObject.SetActive(false);
                 int amount = PlayerPrefs.GetInt(equipment.equip.name);
                 PlayerPrefs.SetInt(equipment.equip.name, amount - 1);
-            }
-            else
-            {
-                isTapping = false;
-                popMenu.SetActive(true);
-                popMenu.GetComponent<PopMenuObject>().Item(equipment.equipDetails.name);
+
+
+                
             }
         }
 
