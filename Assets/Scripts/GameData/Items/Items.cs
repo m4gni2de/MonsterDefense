@@ -10,6 +10,7 @@ public enum EquipmentType
     Rune,
     Axe,
     Glove,
+    Ring,
 }
 
 public enum ItemType

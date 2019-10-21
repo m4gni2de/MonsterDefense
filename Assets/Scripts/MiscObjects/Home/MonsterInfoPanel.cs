@@ -12,7 +12,7 @@ using System.Linq;
 
 public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 {
-    public GameObject monsterSprite, type1, type2, attack1Panel, attack2Panel;
+    public GameObject monsterSprite, type1, type2, attack1Border, attack2Border;
     public GameObject equipMenu, equipObject, monsterEditorMenu, monsterUpgradeMenu, popMenu;
     public TMP_Text monsterNameText, levelText, atkText, defText, speText, precText, typeText, toNextLevelText, evasionText, energyGenText, energyCostText, stamTxt, abilityNameText, abilityText, coinGenText, koCountText;
     public TMP_Text atkBoostText, defBoostText, speBoostText, precBoostText, evasBoostText, enGenBoostText, costBoostText, stamBoostText, coinGenBoost;
@@ -242,28 +242,28 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         //typeText.text = thisMonster.info.type1 + "/" + thisMonster.info.type2;
 
         levelText.text = thisMonster.info.level.ToString();
-        atkText.text = thisMonster.info.Attack.Value.ToString();
-        defText.text = thisMonster.info.Defense.Value.ToString();
-        speText.text = thisMonster.info.Speed.Value.ToString();
-        precText.text = thisMonster.info.Precision.Value.ToString();
+        atkText.text = Math.Round(thisMonster.info.Attack.Value, 0).ToString();
+        defText.text = Math.Round(thisMonster.info.Defense.Value, 0).ToString();
+        speText.text = Math.Round(thisMonster.info.Speed.Value, 0).ToString();
+        precText.text = Math.Round(thisMonster.info.Precision.Value, 0).ToString();
         evasionText.text = thisMonster.info.evasionBase + "%";
         //energyGenText.text = Math.Round(thisMonster.energyGeneration / 60, 2) + " /s";
         energyGenText.text = Math.Round(thisMonster.info.EnergyGeneration.Value / 60, 2) + " /s";
         energyCostText.text = thisMonster.info.EnergyCost.Value.ToString();
-        stamTxt.text = thisMonster.info.Stamina.Value.ToString();
+        stamTxt.text = Math.Round(thisMonster.info.Stamina.Value, 0).ToString();
         abilityNameText.text = thisMonster.info.abilityName;
         abilityText.text = abilities[thisMonster.info.abilityName].description;
         coinGenText.text = thisMonster.info.CoinGeneration.Value + " /h";
         koCountText.text = thisMonster.info.koCount.ToString();
 
-        atkBoostText.text = "(+ " + (thisMonster.info.Attack.Value - thisMonster.info.Attack.BaseValue) + ")".ToString();
-        defBoostText.text = "(+ " + (thisMonster.info.Defense.Value - thisMonster.info.Defense.BaseValue) + ")".ToString();
-        speBoostText.text = "(+ " + (thisMonster.info.Speed.Value - thisMonster.info.Speed.BaseValue) + ")".ToString();
-        precBoostText.text = "(+ " + (thisMonster.info.Precision.Value - thisMonster.info.Precision.BaseValue) + ")".ToString();
-        evasBoostText.text = "(+ " + (thisMonster.info.evasionBase - thisMonster.info.evasionBase) + ")".ToString();
-        enGenBoostText.text = "(+ " + (thisMonster.info.EnergyGeneration.BaseValue - thisMonster.info.EnergyGeneration.Value) + ")".ToString();
-        costBoostText.text = "(+ " + (thisMonster.info.EnergyCost.Value - thisMonster.info.EnergyCost.BaseValue) + ")".ToString();
-        stamBoostText.text = "(+ " + (thisMonster.info.Stamina.Value - thisMonster.info.Stamina.BaseValue) + ")".ToString();
+        atkBoostText.text = "(+ " + Math.Round((thisMonster.info.Attack.Value - thisMonster.info.Attack.BaseValue), 0) + ")".ToString();
+        defBoostText.text = "(+ " + Math.Round((thisMonster.info.Defense.Value - thisMonster.info.Defense.BaseValue), 0) + ")".ToString();
+        speBoostText.text = "(+ " + Math.Round((thisMonster.info.Speed.Value - thisMonster.info.Speed.BaseValue), 0) + ")".ToString();
+        precBoostText.text = "(+ " + Math.Round((thisMonster.info.Precision.Value - thisMonster.info.Precision.BaseValue), 0) + ")".ToString();
+        evasBoostText.text = "(+ " + Math.Round((thisMonster.info.evasionBase - thisMonster.info.evasionBase), 0) + ")".ToString();
+        enGenBoostText.text = "(+ " + Math.Round((thisMonster.info.EnergyGeneration.BaseValue - thisMonster.info.EnergyGeneration.Value), 2) + ")".ToString();
+        costBoostText.text = "(+ " + Math.Round((thisMonster.info.EnergyCost.Value - thisMonster.info.EnergyCost.BaseValue), 0) + ")".ToString();
+        stamBoostText.text = "(+ " + Math.Round((thisMonster.info.Stamina.Value - thisMonster.info.Stamina.BaseValue), 0) + ")".ToString();
         enGenBoostText.text = "(+ 0)";
         coinGenBoost.text = "(+ 0)";
         
@@ -304,25 +304,16 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             precText.color = Color.white;
         }
 
-        //if (thisMonster.info.Evasion.BaseValue != thisMonster.info.Evasion.Value)
-        //{
-        //    evasionText.color = Color.yellow;
-        //}
-        //else
-        //{
-        //    evasionText.color = Color.white;
-        //}
+        if (Math.Round(thisMonster.info.EnergyGeneration.BaseValue, 0) != Math.Round(thisMonster.info.EnergyGeneration.Value, 0))
+        {
+            energyGenText.color = Color.yellow;
+        }
+        else
+        {
+            energyGenText.color = Color.white;
+        }
 
-        //if (thisMonster.info.EnergyGeneration.BaseValue != thisMonster.info.EnergyGeneration.Value)
-        //{
-        //    energyGenText.color = Color.yellow;
-        //}
-        //else
-        //{
-        //    energyGenText.color = Color.white;
-        //}
-
-        if (thisMonster.info.EnergyCost.BaseValue != thisMonster.info.EnergyCost.Value)
+        if (Math.Round(thisMonster.info.EnergyCost.BaseValue, 0) != Math.Round(thisMonster.info.EnergyCost.Value, 0))
         {
             energyCostText.color = Color.yellow;
         }
@@ -330,6 +321,26 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         {
             energyCostText.color = Color.white;
         }
+
+        if (Math.Round(thisMonster.info.Stamina.BaseValue, 0) != Math.Round(thisMonster.info.Stamina.Value, 0))
+        {
+            stamTxt.color = Color.yellow;
+        }
+        else
+        {
+            stamTxt.color = Color.white;
+        }
+
+        if (Math.Round(thisMonster.info.CoinGeneration.BaseValue, 0) != Math.Round(thisMonster.info.CoinGeneration.Value, 0))
+        {
+            coinGenText.color = Color.yellow;
+        }
+        else
+        {
+            coinGenText.color = Color.white;
+        }
+
+        evasionText.color = Color.white;
 
         attack1.text = thisMonster.info.attack1Name;
         atk1Attack.text = thisMonster.info.attack1.Power.Value.ToString();
@@ -340,7 +351,15 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         atk1Mode.sprite = GameManager.Instance.baseAttacks.atkModeDict[thisMonster.info.attack1.attackMode.ToString()];
         atk1Mode.name = thisMonster.info.attack1.attackMode.ToString();
         atk1Stamina.text = thisMonster.info.attack1.staminaGained.ToString();
-        attack1Panel.GetComponent<SpriteRenderer>().color = GameManager.Instance.typeColorDictionary[thisMonster.info.attack1.type];
+        attack1Border.GetComponent<SpriteRenderer>().color = GameManager.Instance.typeColorDictionary[thisMonster.info.attack1.type];
+
+        ColorBlock cb = new ColorBlock();
+        cb.normalColor = GameManager.Instance.typeColorDictionary[thisMonster.info.attack1.type];
+        cb.highlightedColor = GameManager.Instance.typeColorDictionary[thisMonster.info.attack1.type];
+        cb.pressedColor = new Color(.78f, .78f, .78f, 1f);
+        cb.disabledColor = new Color(.78f, .78f, .78f, .5f);
+        cb.colorMultiplier = 1f;
+        attack1Btn.colors = cb;
 
         if (thisMonster.info.attack1.effectName != "none")
         {
@@ -385,9 +404,9 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         //    atk1Cool.color = Color.white;
         //}
 
-       
 
-        
+
+        Color color2 = GameManager.Instance.typeColorDictionary[thisMonster.info.attack2.type];
 
         attack2.text = thisMonster.info.attack2Name;
         atk2Attack.text = thisMonster.info.attack2.Power.Value.ToString();
@@ -395,7 +414,17 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         atk2Cool.text = thisMonster.info.attack2.attackTime.ToString();
         atk2Slow.text = thisMonster.info.attack2.hitSlowTime.ToString();
         atk2Stamina.text = thisMonster.info.attack2.staminaGained.ToString();
-        attack2Panel.GetComponent<SpriteRenderer>().color = GameManager.Instance.typeColorDictionary[thisMonster.info.attack2.type];
+        attack2Border.GetComponent<SpriteRenderer>().color = color2;
+        //attack2Panel.GetComponent<SpriteRenderer>().color = GameManager.Instance.typeColorDictionary[thisMonster.info.attack2.type];
+
+        ColorBlock cb2 = new ColorBlock();
+
+        cb2.normalColor = color2;
+        cb2.highlightedColor = color2;
+        cb2.pressedColor = new Color(.78f, .78f, .78f, 1f);
+        cb2.disabledColor = new Color(.78f, .78f, .78f, .5f);
+        cb2.colorMultiplier = 1f;
+        attack2Btn.colors = cb2;
 
         if (thisMonster.info.attack2.effectName != "none")
         {

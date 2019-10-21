@@ -166,6 +166,12 @@ public class Lightning2D : MonoBehaviour
             }
             else if (CanvasImage != null)
             {
+                //  THIS IS NEEDED TO UPDATE AN IMAGE'S SHADER VALUES
+                Material mat = Instantiate(CanvasImage.material);
+                DestroyImmediate(CanvasImage.material);
+                CanvasImage.material = mat;
+
+
                 CanvasImage.material.SetFloat("_Alpha", 1 - _Alpha);
                 CanvasImage.material.SetFloat("_Value1", _Value1);
                 CanvasImage.material.SetFloat("_Value2", _Value2);

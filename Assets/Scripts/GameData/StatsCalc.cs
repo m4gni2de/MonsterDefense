@@ -246,7 +246,8 @@ public class Stat
         }
 
         
-        return (float)Math.Round(finalValue, 0);
+        //return (float)Math.Round(finalValue, 0);
+        return (float)Math.Round(finalValue, 2);
     }
 
 

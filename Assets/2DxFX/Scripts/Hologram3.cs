@@ -136,6 +136,13 @@ public class Hologram3 : MonoBehaviour
             }
             else if (CanvasImage != null)
             {
+                //  THIS IS NEEDED TO UPDATE AN IMAGE'S SHADER VALUES
+                Material mat = Instantiate(CanvasImage.material);
+                DestroyImmediate(CanvasImage.material);
+                CanvasImage.material = mat;
+
+
+
                 CanvasImage.material.SetFloat("_Alpha", 1 - _Alpha);
                 _TimeX += Time.deltaTime * Speed;
                 if (_TimeX > 100) _TimeX = 0;

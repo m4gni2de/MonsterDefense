@@ -130,7 +130,13 @@ using UnityEditor;
                 }
                 else if (CanvasImage != null)
                 {
-                    CanvasImage.material.SetFloat("_Alpha", 1 - _Alpha);
+                //  THIS IS NEEDED TO UPDATE AN IMAGE'S SHADER VALUES
+                Material mat = Instantiate(CanvasImage.material);
+                DestroyImmediate(CanvasImage.material);
+                CanvasImage.material = mat;
+
+
+                CanvasImage.material.SetFloat("_Alpha", 1 - _Alpha);
                     CanvasImage.material.SetFloat("_Distortion", Distortion);
                 }
 

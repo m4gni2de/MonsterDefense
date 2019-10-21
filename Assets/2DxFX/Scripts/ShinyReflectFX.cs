@@ -118,6 +118,8 @@ using UnityEditor;
             if (CanvasImage == null)
             {
                 if (this.gameObject.GetComponent<Image>() != null) CanvasImage = this.gameObject.GetComponent<Image>();
+
+
             }
             if (CanvasSpriteRenderer == null)
             {
@@ -218,8 +220,9 @@ using UnityEditor;
                 {
                 //  THIS IS NEEDED TO UPDATE AN IMAGE'S SHADER VALUES
                 Material mat = Instantiate(CanvasImage.material);
+                DestroyImmediate(CanvasImage.material);
                 CanvasImage.material = mat;
-
+                
 
                 CanvasImage.material.SetFloat("_Alpha", 1 - _Alpha);
                     if (UseShinyCurve)

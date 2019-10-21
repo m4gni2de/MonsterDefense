@@ -665,8 +665,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 290, y: -131.5}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchoredPosition: {x: 354.1, y: -131.5}
+  m_SizeDelta: {x: 229.28, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1884480804
 MonoBehaviour:
@@ -978,8 +978,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.2969, y: 0.039}
-  m_SizeDelta: {x: 60.5197, y: 46.261}
+  m_AnchoredPosition: {x: 1.776, y: 0.02}
+  m_SizeDelta: {x: 66.76, y: 64.858}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5691741245475209218
 CanvasRenderer:
@@ -1037,16 +1037,16 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 10.95
+  m_fontSize: 10
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 1
-  m_fontSizeMax: 72
+  m_fontSizeMax: 10
   m_fontStyle: 0
-  m_textAlignment: 513
+  m_textAlignment: 514
   m_isAlignmentEnumConverted: 1
-  m_characterSpacing: -5
+  m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1303,7 +1303,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -42.4, y: 40.15}
+  m_AnchoredPosition: {x: -30, y: 28}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5848911715870107688
@@ -1456,8 +1456,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000022888184, y: 179.58}
-  m_SizeDelta: {x: 8.08, y: 4.72}
+  m_AnchoredPosition: {x: -0.68, y: 169.59}
+  m_SizeDelta: {x: 9.52, y: 6.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6027471883724241070
 CanvasRenderer:
@@ -2658,6 +2658,44 @@ MonoBehaviour:
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
       staminaPercentBonus: 0
+    - name: Ring of Fluctuation
+      id: 10
+      equipPrefab: {fileID: 7752677865731068215, guid: f3496d6b324aa4a4d9ae9d8839145699,
+        type: 3}
+      description: A ring that increases the wearer's speed by 25%
+      equipType: 3
+      typeMonsterReq: none
+      typeMoveReq: 
+      forceReq: 1
+      attackModeReq: 0
+      boosts:
+      - +20% Attack Power
+      cost: 200
+      equipSlot: 0
+      rarity: 1
+      equipLevel: 0
+      equipLevelMax: 0
+      equipExp: 0
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      staminaBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0
+      defPercentBonus: 0
+      spePercentBonus: 0.25
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+      evasionPercentBonus: 0
+      staminaPercentBonus: 0
   consumables:
   - {fileID: 11400000, guid: 48d3ed719667b824eaac63e0f5f2b4b6, type: 2}
   - {fileID: 11400000, guid: dced8e80b87e905449caad19f7357a3a, type: 2}
@@ -3240,14 +3278,14 @@ RectTransform:
   m_GameObject: {fileID: 8423286372886084710}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 8804077127791257800}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.7633, y: -0.01}
+  m_AnchoredPosition: {x: -2.97, y: -0.01}
   m_SizeDelta: {x: 25.0103, y: 43.877}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5137430008453369463
