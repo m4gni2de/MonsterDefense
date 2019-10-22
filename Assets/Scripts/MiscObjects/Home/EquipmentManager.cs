@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -96,7 +97,16 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                         var x = Instantiate(equipmentObject, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
                         x.transform.SetParent(transform, true);
                         x.GetComponent<EquipmentObject>().LoadItem(item);
-                        //x.transform.SetParent(transform, true);
+                        x.GetComponent<EquipmentObject>().valueText.text = "";
+                        item.ActivateItem(item, x);
+
+                        ////if the equipment has a type to be added, add it on the sprite
+                        //if (item.spriteEffect != EquipmentSpriteEffect.None)
+                        //{
+
+                        //    x.AddComponent(Type.GetType(item.spriteEffect.ToString()));
+                        //}
+
                         //x.GetComponent<EquipmentItem>().EquipItemInfo(item);
                         x.transform.localScale = new Vector3(1f, 1f, 1f);
                         //x.GetComponent<Image>().color = Color.white;
@@ -109,59 +119,12 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 }
 
                 
-                //var x = Instantiate(allEquips[item.name].equipPrefab, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
-                //x.transform.SetParent(transform, true);
-                //x.GetComponent<EquipmentItem>().EquipItemInfo(item);
-                //x.transform.localScale = Vector3.one;
-                //x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-                //x.GetComponent<SpriteRenderer>().sortingOrder = 1;
-
-                //if (item.typeMonsterReq == monster.info.type1 || item.typeMonsterReq == monster.info.type2)
-                //{
-
-                //}
-                //else
-                //{
-                //    x.name = "Ineligible";
-                //}
-                //i += 1;
+               
             }
         }
 
 
-        //for (int i = 1; i <= equipIds.Count; i++)
-        //{
-
-        //    if (equipIds.ContainsKey(i))
-        //    {
-        //        string name = equipIds[i];
-
-        //        if (PlayerPrefs.HasKey(name))
-        //        {
-        //            Equipment item = allEquips[name];
-        //            int itemCount = PlayerPrefs.GetInt(item.name);
-        //            var x = Instantiate(equipByPrefab[item.name], new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
-        //            x.transform.SetParent(transform, true);
-        //            x.GetComponent<EquipmentItem>().EquipItemInfo(item);
-        //            x.transform.localScale = Vector3.one;
-        //            x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-        //            x.GetComponent<SpriteRenderer>().sortingOrder = 1;
-
-        //            if (item.typeMonsterReq ==  monster.info.type1 || item.typeMonsterReq == monster.info.type2)
-        //            {
-                        
-        //            }
-        //            else
-        //            {
-        //                x.name = "Ineligible";
-        //            }
-
-        //        }
-        //    }
-        //}
-
-       
-
+        
         
     }
 
@@ -189,13 +152,20 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 var x = Instantiate(equipmentObject, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
                 x.transform.SetParent(transform, true);
                 x.GetComponent<EquipmentObject>().LoadItem(item);
+                x.GetComponent<EquipmentObject>().valueText.text = "";
+
+                item.ActivateItem(item, x);
                 //x.transform.SetParent(transform, true);
                 //x.GetComponent<EquipmentItem>().EquipItemInfo(item);
                 x.transform.localScale = new Vector3(1f, 1f, 1f);
-                //x.GetComponent<Image>().color = Color.white;
-                //x.GetComponent<SpriteRenderer>().sortingLayerName = "Equipment";
-                //x.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                
+
+                ////if the equipment has a type to be added, add it on the sprite
+                //if (item.spriteEffect != EquipmentSpriteEffect.None)
+                //{
+
+                //    x.AddComponent(Type.GetType(item.spriteEffect.ToString()));
+                //}
+
                 i += 1;
             }
         }
@@ -282,7 +252,7 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         }
 
         
-
+        
 
     }
 

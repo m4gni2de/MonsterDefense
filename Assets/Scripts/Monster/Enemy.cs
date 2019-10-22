@@ -131,7 +131,7 @@ public class Enemy : MonoBehaviour
     {
         var attacksDict = GameManager.Instance.baseAttacks.attackDict;
 
-        var equip = GameManager.Instance.items.allEquipmentDict;
+        var equip = GameManager.Instance.items.allEquipsDict;
         var dict = GameManager.Instance.monstersData.monstersAllDict;
         var name = monster.info.species;
 
@@ -433,7 +433,9 @@ public class Enemy : MonoBehaviour
             damageTaken = 0;
         }
 
-        
+        //Debug.Log("Attacker Base: " + attacker.info.Attack.BaseValue);
+        //Debug.Log("Attacker New: " + attacker.info.Attack.Value);
+
         stats.currentHp -= damageTaken;
         enemyHpSlider.value = stats.currentHp;
 

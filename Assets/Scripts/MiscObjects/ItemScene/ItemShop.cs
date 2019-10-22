@@ -193,6 +193,8 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
                 a.GetComponent<EquipmentObject>().LoadItem(item);
             //a.GetComponentInChildren<TMP_Text>().text = PlayerPrefs.GetInt(item.name).ToString();
             a.GetComponentInChildren<TMP_Text>().text = item.cost.ToString();
+
+                item.ActivateItem(item, a);
                 a.transform.position = new Vector3(shopItemSprite.transform.position.x + ((rowCheck * 4) * shopScrollContent.GetComponent<RectTransform>().rect.width / 6), shopItemSprite.transform.position.y - (row * 35), shopItemSprite.transform.position.z);
                 a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
                 a.tag = "Item";
@@ -252,7 +254,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
                 a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
                 a.tag = "Item";
                 a.name = item.name;
-
+                item.ActivateItem(item, a);
 
                 rowCheck += .25f;
 
@@ -302,7 +304,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
             a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
             a.tag = "Item";
             a.name = item.name;
-
+            
 
 
             rowCheck += .25f;

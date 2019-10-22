@@ -65,13 +65,14 @@ public class PopMenuObject : MonoBehaviour
             AttackMode(name);
         }
 
+        
 
     }
 
     //use this method for an item
     public void Item(string name)
     {
-        //var items = GameManager.Instance.items.allItemsDict;
+        
         var items = GameManager.Instance.items.fullItemList;
         var equips = GameManager.Instance.items.allEquipsDict;
 
@@ -80,7 +81,7 @@ public class PopMenuObject : MonoBehaviour
         {
             if (equips.ContainsKey(name))
             {
-                titleText.text = equips[name].name;
+                titleText.text = equips[name].itemName;
                 menuText.text = equips[name].description;
             }
         }

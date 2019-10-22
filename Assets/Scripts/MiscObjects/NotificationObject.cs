@@ -43,7 +43,7 @@ public class NotificationObject : MonoBehaviour, IPointerDownHandler
             if (hasKey || !hasKey)
             {
                 int itemAmount = PlayerPrefs.GetInt(target, 0);
-                var equips = GameManager.Instance.items.allEquipmentDict;
+                var equips = GameManager.Instance.items.allEquipsDict;
                 var consumables = GameManager.Instance.items.allConsumablesDict;
                 var inventory = GameManager.Instance.GetComponent<YourItems>().yourInventory;
 
@@ -51,11 +51,9 @@ public class NotificationObject : MonoBehaviour, IPointerDownHandler
 
                 if (equips.ContainsKey(target))
                 {
-                    //var item = Instantiate(equips[target].equipPrefab, transform.position, Quaternion.identity);
-                    item = Instantiate(equips[target].equipPrefab, transform.position, Quaternion.identity);
-                    item.transform.SetParent(transform, true);
-                    item.transform.position = notifyImageObject.transform.position;
-                    item.GetComponent<Image>().raycastTarget = false;
+                    notifyImageSp.enabled = false;
+                    notifyImage.color = Color.white;
+                    notifyImage.sprite = equips[target].sprite;
                 }
 
                 if (consumables.ContainsKey(target))

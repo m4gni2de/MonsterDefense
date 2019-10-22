@@ -17,8 +17,8 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     public GameObject menuCanvas;
     public GameObject popMenuCanvas, popMenuObject;
     public GameObject towerButton;
-    
-    
+
+
 
     //objects related to the active monster's target moe
     public TMP_Dropdown targetModeDropdown;
@@ -29,7 +29,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     //used to count the amount of pixels the menu has moved
     public int menuMovements;
     public bool isClicked;
-    
+
 
     public bool isChecking;
 
@@ -39,6 +39,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     public Slider expSlider;
     public Image type1, type2;
     public GameObject equip1, equip2;
+    public EquipmentScript e1, e2;
     public EnergyBar staminaBar;
 
     //bool to make sure the towers in the list of towers only spawns one time
@@ -47,7 +48,8 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     //the main Camera on the map
     public Camera mainCamera;
 
-    
+    //list that holds the sprite effects on the items and monster
+    public List<string> effectTypes = new List<string>();
 
     private void Awake()
     {
@@ -57,7 +59,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     // Start is called before the first frame update
     void Start()
     {
-        
+
         LoadYourTowers();
 
         List<string> targetModes = new List<string>();
@@ -70,6 +72,9 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
         targetModeDropdown.AddOptions(targetModes);
         targetModeDropdown.value = 0;
+
+        e1 = new EquipmentScript();
+        e2 = new EquipmentScript();
 
     }
 
@@ -88,7 +93,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
             for (int i = 1; i <= monsters.Count; i++)
             {
-               
+
                 if (monsters.ContainsKey(i))
                 {
                     string monsterJson = monsters[i];
@@ -96,27 +101,27 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
 
                     string species = info.species;
-                        if (monstersDict.ContainsKey(species))
+                    if (monstersDict.ContainsKey(species))
+                    {
+                        var tower = Instantiate(monstersDict[species].monsterPrefab, menuContentView.transform.position, Quaternion.identity);
+                        tower.transform.SetParent(menuContentView.transform, false);
+                        tower.transform.position = new Vector3(towerBase.transform.position.x, towerBase.transform.position.y - ((i - 1) * 60), -2f);
+                        tower.transform.localScale = new Vector3(tower.transform.localScale.x * 3.5f, tower.transform.localScale.y * 3.5f, tower.transform.localScale.z);
+                        tower.GetComponent<Monster>().isTower = true;
+                        tower.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
+                        //tower.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
+                        tower.GetComponent<Monster>().saveToken = JsonUtility.FromJson<MonsterSaveToken>(monsters[i]);
+                        tower.GetComponent<Monster>().LoadMonsterToken(tower.GetComponent<Monster>().saveToken);
+                        tower.GetComponent<Monster>().MonsterEquipment();
+                        tower.gameObject.tag = "Tower";
+                        tower.gameObject.name = tower.GetComponent<Monster>().info.species + " " + tower.GetComponent<Monster>().info.index;
+
+                        SpriteRenderer[] sprites = tower.GetComponentsInChildren<SpriteRenderer>();
+
+                        for (int s = 0; s < sprites.Length; s++)
                         {
-                            var tower = Instantiate(monstersDict[species].monsterPrefab, menuContentView.transform.position, Quaternion.identity);
-                            tower.transform.SetParent(menuContentView.transform, false);
-                            tower.transform.position = new Vector3(towerBase.transform.position.x, towerBase.transform.position.y - ((i - 1) * 60), -2f);
-                            tower.transform.localScale = new Vector3(tower.transform.localScale.x * 3.5f, tower.transform.localScale.y * 3.5f, tower.transform.localScale.z);
-                            tower.GetComponent<Monster>().isTower = true;
-                            tower.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
-                            //tower.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
-                            tower.GetComponent<Monster>().saveToken = JsonUtility.FromJson<MonsterSaveToken>(monsters[i]);
-                            tower.GetComponent<Monster>().LoadMonsterToken(tower.GetComponent<Monster>().saveToken);
-                            tower.GetComponent<Monster>().MonsterEquipment();
-                            tower.gameObject.tag = "Tower";
-                            tower.gameObject.name = tower.GetComponent<Monster>().info.species + " " + tower.GetComponent<Monster>().info.index;
-
-                            SpriteRenderer[] sprites = tower.GetComponentsInChildren<SpriteRenderer>();
-
-                            for (int s = 0; s < sprites.Length; s++)
-                            {
-                                sprites[s].sortingLayerName = "GameUI";
-                            }
+                            sprites[s].sortingLayerName = "GameUI";
+                        }
                         //}
                     }
 
@@ -136,7 +141,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
         if (Input.GetMouseButtonDown(0))
         {
-
+            var equips = GameManager.Instance.items.allEquipsDict;
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
@@ -154,35 +159,46 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                     enemyInfoMenu.SetActive(false);
                     activeMonster = hit.collider.gameObject.GetComponent<Monster>();
 
-                    var equips = GameManager.Instance.items.allEquipmentDict;
-
-                    GameObject[] e = GameObject.FindGameObjectsWithTag("Item");
-
-                    for (int i = 0; i < e.Length; i++)
-                    {
-                        Destroy(e[i]);
-                    }
-
                     //checks the monster's equipment and displays the matching sprites if there is equipment on the monster
                     if (equips.ContainsKey(activeMonster.info.equip1Name))
                     {
-                        var e1 = Instantiate(equips[activeMonster.info.equip1Name].equipPrefab, equip1.transform.position, Quaternion.identity);
-                        e1.transform.SetParent(equip1.transform);
-                        e1.transform.tag = "Item";
-                        e1.name = activeMonster.info.equip1Name;
+                        e1 = equips[activeMonster.info.equip1Name];
+                        //equip1.GetComponent<Image>().color = Color.white;
+                        equip1.name = activeMonster.info.equip1Name;
+                        equip1.GetComponent<SpriteRenderer>().sprite = equips[activeMonster.info.equip1Name].sprite;
+
+                        e1.ActivateItem(e1, equip1);
+                    }
+                    else
+                    {
+                        equip1.GetComponent<SpriteRenderer>().sprite = null;
+                        //equip1.GetComponent<Image>().color = Color.clear;
+                        equip1.name = "Equip1";
+                        e1.DeactivateItem(e1, equip1);
+                        //e1 = null;
+                        
                     }
 
-                    //checks the monster's equipment and displays the matching sprites if there is equipment on the monster
                     if (equips.ContainsKey(activeMonster.info.equip2Name))
                     {
-                        var e2 = Instantiate(equips[activeMonster.info.equip2Name].equipPrefab, equip2.transform.position, Quaternion.identity);
-                        e2.transform.SetParent(equip1.transform);
-                        e2.transform.tag = "Item";
-                        e2.name = activeMonster.info.equip2Name;
+                        e2 = equips[activeMonster.info.equip2Name];
+                        //equip2.GetComponent<Image>().color = Color.white;
+                        equip2.name = activeMonster.info.equip2Name;
+                        equip2.GetComponent<SpriteRenderer>().sprite = equips[activeMonster.info.equip2Name].sprite;
+                        e2.ActivateItem(e2, equip2);
+                    }
+                    else
+                    {
+                        equip2.GetComponent<SpriteRenderer>().sprite = null;
+                        equip2.name = "Equip2";
+                        e2.DeactivateItem(e2, equip2);
+                        //e2 = null;
+                        //equip2.GetComponent<Image>().color = Color.clear;
+                        
                     }
 
                 }
-                
+
             }
         }
 
@@ -262,35 +278,6 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                 type2.GetComponent<Image>().color = Color.clear;
                 type2.name = "Type2";
             }
-
-
-            //checks the monster's equipment and displays the matching sprites if there is equipment on the monster
-            if (equips.ContainsKey(activeMonster.info.equip1Name))
-            {
-                equip1.GetComponent<Image>().color = Color.white;
-                equip1.name = activeMonster.info.equip1Name;
-                equip1.GetComponent<Image>().sprite = equips[activeMonster.info.equip1Name].sprite;
-            }
-            else
-            {
-                equip1.GetComponent<Image>().sprite = null;
-                equip1.GetComponent<Image>().color = Color.clear;
-                equip1.name = "Equip1";
-            }
-
-            if (equips.ContainsKey(activeMonster.info.equip2Name))
-            {
-                equip2.GetComponent<Image>().color = Color.white;
-                equip2.name = activeMonster.info.equip2Name;
-                equip2.GetComponent<Image>().sprite = equips[activeMonster.info.equip2Name].sprite;
-            }
-            else
-            {
-                equip2.GetComponent<Image>().sprite = null;
-                equip2.GetComponent<Image>().color = Color.clear;
-                equip2.name = "Equip2";
-            }
-
 
             targetModeDropdown.value = (int)Enum.ToObject(typeof(TargetMode), activeMonster.GetComponent<Tower>().targetMode);
             staminaBar.BarProgress = activeMonster.GetComponent<Tower>().staminaBar.BarProgress;
@@ -403,11 +390,11 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     //map this to a button to open the tower menu for players in game and load your available towers
     public void TowerMenuBtn()
     {
-        
+
         towerMenu.SetActive(true);
         isClicked = !isClicked;
         InvokeRepeating("MoveTowerMenu", 0f, .001f);
-        
+
 
         //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = false;
     }
@@ -416,7 +403,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     {
         mainCamera.GetComponent<CameraMotion>().isFree = true;
         towerMenu.SetActive(false);
-        
+
         //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = true;
     }
 
@@ -495,10 +482,10 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     //use this to snap the camera to the active monster
     public void FindMonsterBtn()
     {
-        
+
         mainCamera.transform.position = new Vector3(activeMonster.transform.position.x, activeMonster.transform.position.y, -10f);
         mainCamera.orthographicSize = 35;
-        
+
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -509,7 +496,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             var tag = eventData.pointerEnter.gameObject.tag;
             var hit = eventData.pointerEnter.gameObject;
 
-            
+
 
             //objects with the scriptable object tag are image sprites that can be touched by the player to reveal information about the thing touched in a pop menu
             if (tag == "ScriptableObject" || tag == "Item")
@@ -522,8 +509,8 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                 //checks to see if the item hit was an item. if it was, fill the box with information about the item
                 if (items.ContainsKey(hit.name))
                 {
-                        popMenuObject.SetActive(true);
-                        popMenuObject.GetComponent<PopMenuObject>().AcceptObject(hit.name, items[hit.name]);
+                    popMenuObject.SetActive(true);
+                    popMenuObject.GetComponent<PopMenuObject>().AcceptObject(hit.name, items[hit.name]);
                 }
 
                 //checks to see if the item hit was a type. if it was, fill the box with information about the type
@@ -552,12 +539,27 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
     public void OnDisable()
     {
-        GameObject[] e = GameObject.FindGameObjectsWithTag("Item");
+        //GameObject[] e = GameObject.FindGameObjectsWithTag("Item");
 
-        for (int i = 0; i < e.Length; i++)
-        {
-            Destroy(e[i]);
-        }
+        //for (int i = 0; i < e.Length; i++)
+        //{
+        //    Destroy(e[i]);
+        //}
+
+        //for (int i = 0; i < effectTypes.Count; i++)
+        //{
+        //    if (equip1.GetComponent(Type.GetType(effectTypes[i].ToString(), true)))
+        //    {
+        //        Destroy(equip1.GetComponent(effectTypes[i].ToString()));
+        //    }
+
+        //    if (equip2.GetComponent(Type.GetType(effectTypes[i].ToString(), true)))
+        //    {
+        //        Destroy(equip2.GetComponent(effectTypes[i].ToString()));
+        //    }
+        //}
+
+        //effectTypes.Clear();
     }
 
 

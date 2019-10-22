@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using System;
 
 //[System.Serializable]
 //public struct EquipmentInformation
@@ -50,32 +51,18 @@ public class EquipmentObject : MonoBehaviour, IPointerEnterHandler, IPointerExit
         equipment = equip;
         image.sprite = equipment.sprite;
         gameObject.name = equipment.itemName;
+
+        ////if the equipment has a type to be added, add it on the sprite
+        //if (equip.spriteEffect != EquipmentSpriteEffect.None)
+        //{
+
+        //    gameObject.AddComponent(Type.GetType(equip.spriteEffect.ToString()));
+        //}
         //image.material = sp.material;
         //sp.enabled = false;
     }
 
-    ////use this when the equipment is equipped to a monster
-    //public void GetEquipInfo(EquipmentScript Equip, Monster Monster, int equipSlot)
-    //{
-    //    equipment = Equip;
-    //    info.equipSlot = equipSlot;
-    //    info.equippedMonster = Monster;
-
-    //    info.isEquipped = true;
-
-
-
-    //    for (int i = 0; i < equipment.boosts.Length; i++)
-    //    {
-    //        info.boosts.Add(equipment.boosts[i]);
-
-    //    }
-
-    //    //unequip the item first to avoid stacking of the same item's equipment
-    //    UnEquip();
-    //    EquipItem();
-    //}
-
+    
 
 
     //use this when the equipment is just in your inventory

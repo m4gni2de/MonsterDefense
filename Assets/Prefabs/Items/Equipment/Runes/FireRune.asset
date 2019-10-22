@@ -26,6 +26,7 @@ MonoBehaviour:
   cost: 400
   rarity: 0
   equipLevelMax: 0
+  spriteEffect: 0
   hpBonus: 0
   atkBonus: 0
   defBonus: 0

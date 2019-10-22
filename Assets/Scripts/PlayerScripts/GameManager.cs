@@ -119,6 +119,7 @@ public class GameManager : MonoBehaviour
 
 
         
+        
 
 
         tileLevelUp.Add(1, 0);

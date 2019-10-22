@@ -26,6 +26,7 @@ MonoBehaviour:
   cost: 400
   rarity: 0
   equipLevelMax: 0
+  spriteEffect: 1
   hpBonus: 0
   atkBonus: 0
   defBonus: 0
@@ -46,3 +47,11 @@ MonoBehaviour:
   atkTimePercentBonus: 0
   evasionPercentBonus: 0
   staminaPercentBonus: 0
+  info:
+    equipSlot: 1
+    quantity: 0
+    equipLevel: 0
+    equipExp: 0
+    isEquipped: 1
+    equippedMonster: {fileID: 0}
+    boosts: []

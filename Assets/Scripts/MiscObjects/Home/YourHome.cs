@@ -333,13 +333,13 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     public void SummonItem()
     {
        
-        var items = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
+        var items = GameManager.Instance.GetComponent<Items>().allEquipsDict;
         int rand = Random.Range(1, items.Count);
         Dictionary<int, string> equipIds = new Dictionary<int, string>();
         int i = 1;
 
         //makes a dictionary of all of the equipment items and their id's
-        foreach (KeyValuePair<string, Equipment> equips in items)
+        foreach (KeyValuePair<string, EquipmentScript> equips in items)
         {
             equipIds.Add(equips.Value.id, equips.Key);     
             i += 1;
@@ -349,7 +349,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
         {
             if (items.ContainsKey(equipIds[rand]))
             {
-                Equipment item = items[equipIds[rand]];
+                EquipmentScript item = items[equipIds[rand]];
                 int itemCount = PlayerPrefs.GetInt(item.name);
                 PlayerPrefs.SetInt(item.name, itemCount + 1);
                 GameManager.Instance.GetComponent<YourItems>().GetYourItems();

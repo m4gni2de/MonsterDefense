@@ -74,12 +74,7 @@ public struct MonsterInfo
 
     [Header("Monster Equips")]
     public string equip1Name;
-    //public Equipment equip1;
     public string equip2Name;
-    //public Equipment equip2;
-    //public EquippableItem equippable;
-    //public EquippableItem equippable1;
-    //public EquippableItem equippable2;
 
     public EquipmentScript equipment1;
     public EquipmentScript equipment2;
@@ -362,14 +357,14 @@ public class Monster : MonoBehaviour
         if (slot == 1)
         {
             info.equip1Name = equip.itemName;
-            //info.equippable1.Equip(gameObject.GetComponent<Monster>(), 1);
+            info.equipment1 = equip;
 
         }
 
         if (slot == 2)
         {
             info.equip2Name = equip.itemName;
-            //info.equippable2.Equip(gameObject.GetComponent<Monster>(), 2);
+            info.equipment2 = equip;
 
         }
 
@@ -390,14 +385,14 @@ public class Monster : MonoBehaviour
         {
            
             info.equip1Name = "none";
-            //info.equip1 = new equipment();
+            info.equipment1 = null;
 
         }
         if (slot == 2)
         {
             //info.equippable2.unequip(gameobject.getcomponent<monster>());
             info.equip2Name = "none";
-            //info.equip2 = new equipment();
+            info.equipment2 = null;
         }
 
         int itemCount = PlayerPrefs.GetInt(equip.name);
@@ -1049,15 +1044,17 @@ public class Monster : MonoBehaviour
 
         if (equipment.ContainsKey(info.equip1Name))
         {
-            EquipmentScript equip1 = equipment[info.equip1Name];
-            equip1.GetEquipInfo(this, 1);
+            //EquipmentScript equip1 = equipment[info.equip1Name];
+            info.equipment1 = equipment[info.equip1Name];
+            info.equipment1.GetEquipInfo(this, 1);
 
             
         }
         if (equipment.ContainsKey(info.equip2Name))
         {
-            EquipmentScript equip2 = equipment[info.equip2Name];
-            equip2.GetEquipInfo(this, 1);
+            //EquipmentScript equip2 = equipment[info.equip2Name];
+            info.equipment2 = equipment[info.equip2Name];
+            info.equipment2.GetEquipInfo(this, 2);
         }
 
     }

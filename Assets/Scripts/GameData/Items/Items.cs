@@ -31,56 +31,56 @@ public enum ItemRarity
 
 
 
-[System.Serializable]
-public struct Equipment
-{
-    public string name;
-    public int id;
-    public GameObject equipPrefab;
-    public string description;
-    public EquipmentType equipType;
-    public string typeMonsterReq;
-    public string typeMoveReq;
-    public DamageForce forceReq;
-    public AttackMode attackModeReq;
-    public string[] boosts;
-    public float cost;
-    public int equipSlot;
+//[System.Serializable]
+//public struct Equipment
+//{
+//    public string name;
+//    public int id;
+//    public GameObject equipPrefab;
+//    public string description;
+//    public EquipmentType equipType;
+//    public string typeMonsterReq;
+//    public string typeMoveReq;
+//    public DamageForce forceReq;
+//    public AttackMode attackModeReq;
+//    public string[] boosts;
+//    public float cost;
+//    public int equipSlot;
 
-    public ItemRarity rarity;
-    public int equipLevel;
-    public int equipLevelMax;
-    public int equipExp;
+//    public ItemRarity rarity;
+//    public int equipLevel;
+//    public int equipLevelMax;
+//    public int equipExp;
     
     
 
-    public int hpBonus;
-    public int atkBonus;
-    public int defBonus;
-    public int speedBonus;
-    public int precBonus;
-    public int atkPowerBonus;
-    public int atkTimeBonus;
-    public int atkRangeBonus;
-    public int critModBonus;
-    public int critChanceBonus;
-    public int staminaBonus;
+//    public int hpBonus;
+//    public int atkBonus;
+//    public int defBonus;
+//    public int speedBonus;
+//    public int precBonus;
+//    public int atkPowerBonus;
+//    public int atkTimeBonus;
+//    public int atkRangeBonus;
+//    public int critModBonus;
+//    public int critChanceBonus;
+//    public int staminaBonus;
 
-    public float hpPercentBonus;
-    public float atkPercentBonus;
-    public float defPercentBonus;
-    public float spePercentBonus;
-    public float precPercentBonus;
-    public float atkPowerPercentBonus;
-    public float atkTimePercentBonus;
-    public float evasionPercentBonus;
-    public int staminaPercentBonus;
+//    public float hpPercentBonus;
+//    public float atkPercentBonus;
+//    public float defPercentBonus;
+//    public float spePercentBonus;
+//    public float precPercentBonus;
+//    public float atkPowerPercentBonus;
+//    public float atkTimePercentBonus;
+//    public float evasionPercentBonus;
+//    public int staminaPercentBonus;
 
-    public EquippableItem equippable;
+
 
     
     
-};
+//};
 
 
 [System.Serializable]
@@ -100,11 +100,11 @@ public struct MonsterCell
 
 
 
-[System.Serializable]
-public class AllEquipment 
-{
-    public Equipment[] allEquipment;
-}
+//[System.Serializable]
+//public class AllEquipment 
+//{
+//    public Equipment[] allEquipment;
+//}
 
 
 public class AllMonsterCells
@@ -125,7 +125,7 @@ public class Items: MonoBehaviour
 {
     
 
-    public AllEquipment allEquipment = new AllEquipment();
+    //public AllEquipment allEquipment = new AllEquipment();
     public AllMonsterCells allMonsterCells = new AllMonsterCells();
     
 
@@ -133,14 +133,9 @@ public class Items: MonoBehaviour
 
     public Dictionary<string, ItemType> fullItemList = new Dictionary<string, ItemType>();
 
-    
-
-    
-    public Dictionary<string, Equipment> allEquipmentDict = new Dictionary<string, Equipment>();
+   
     public Dictionary<string, MonsterCell> allMonsterCellsDict = new Dictionary<string, MonsterCell>();
 
-    //public List<string> equipmentList = new List<string>();
-    //public List<string> cellList = new List<string>();
 
     //use lists to manually add non scriptable objects
     public List<ConsumableItem> consumables = new List<ConsumableItem>();
@@ -212,11 +207,7 @@ public class Items: MonoBehaviour
             fullItemList.Add(equip.itemName, ItemType.Equipment);
         }
 
-        //foreach (Equipment equipment in allEquipment.allEquipment)
-        //{
-        //    allEquipmentDict.Add(equipment.name, equipment);
-        //    fullItemList.Add(equipment.name, ItemType.Equipment);
-        //}
+        
        
         
     }
