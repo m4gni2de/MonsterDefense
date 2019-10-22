@@ -475,10 +475,13 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         //    atk2Cool.color = Color.white;
         //}
 
-        if (thisMonster.expToLevel.ContainsKey(thisMonster.info.level))
+        
+        if (GetComponentInParent<YourHome>().activeMonster.expToLevel.ContainsKey(thisMonster.info.level))
         {
-            int toNextLevel = thisMonster.expToLevel[thisMonster.info.level + 1];
-            int totalNextLevel = thisMonster.totalExpForLevel[thisMonster.info.level + 1];
+            
+
+            int toNextLevel = GetComponentInParent<YourHome>().activeMonster.expToLevel[thisMonster.info.level + 1];
+            int totalNextLevel = GetComponentInParent<YourHome>().activeMonster.totalExpForLevel[thisMonster.info.level + 1];
             int nextLevelDiff = totalNextLevel - thisMonster.info.totalExp;
 
             expSlider.maxValue = toNextLevel;
@@ -486,6 +489,8 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
             toNextLevelText.text = "EXP Until Level Up: " + nextLevelDiff.ToString();
         }
+
+
 
         //show the correct number of rank stars
         for (int i = 0; i < rankSprites.Length; i++)
@@ -509,13 +514,13 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         equipMenu.GetComponent<EquipmentManager>().ChangeEquipment(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>(), 1);
         if (isEquip1)
         {
-            //GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equip1.equipPrefab.GetComponent<EquipmentItem>().equip, 1);
+            
             GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equips1, 1);
-            //equip1.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
             equips1.UnEquip();
+
             isEquip1 = false;
             equip1Btn.GetComponent<Image>().sprite = null;
-            RefreshMonsterInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
+            LoadInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
             
         }
         
@@ -529,11 +534,10 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         if (isEquip2)
         {
             GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equips2, 2);
-            //equip2.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
             equips2.UnEquip();
             isEquip2 = false;
             equip2Btn.GetComponent<Image>().sprite = null;
-            RefreshMonsterInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
+            LoadInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
             
         }
 

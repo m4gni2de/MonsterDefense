@@ -135,4 +135,32 @@ public class EquipEffect
     {
         monster.info.Speed.AddModifier(new StatModifier(equipment.spePercentBonus, StatModType.PercentMult, this, equipment.name));
     }
+
+
+    public void FrostAxe()
+    {
+        var tiles = GameManager.Instance.activeTiles;
+        int total = 0;
+        int tileCount = 0;
+
+        foreach(KeyValuePair<int, MapTile> tile in tiles)
+        {
+            if (tile.Value.tileAtt == TileAttribute.Ice)
+            {
+                total += equipment.atkBonus;
+            }
+
+            tileCount += 1;
+
+            if (tileCount >= tiles.Count - 1)
+            {
+                monster.info.Attack.AddModifier(new StatModifier(equipment.atkBonus, StatModType.Flat, this, equipment.name));
+
+                return;
+            }
+            
+        }
+
+        
+    }
 }

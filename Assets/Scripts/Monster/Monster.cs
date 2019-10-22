@@ -370,7 +370,14 @@ public class Monster : MonoBehaviour
 
 
         SaveMonsterToken();
-        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+        GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Remove(info.index);
+        GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Add(info.index, PlayerPrefs.GetString(info.index.ToString()));
+        //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+
+
+
+
+
         //StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
         //GetStats(stats);
     }
@@ -399,7 +406,13 @@ public class Monster : MonoBehaviour
         PlayerPrefs.SetInt(equip.name, itemCount + 1);
 
         SaveMonsterToken();
-        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+        GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Remove(info.index);
+        GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Add(info.index, PlayerPrefs.GetString(info.index.ToString()));
+        //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+
+
+
+
         //StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
         //GetStats(stats);
 
@@ -800,8 +813,8 @@ public class Monster : MonoBehaviour
                 totalExpForLevel.Add(i, totalExp);
             }
 
-            
 
+            
             if (i >= info.maxLevel)
             {
                 SetExp();
@@ -863,7 +876,8 @@ public class Monster : MonoBehaviour
         SetExp();
         StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
         GetStats(stats);
-        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+        GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Remove(info.index);
+        GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Add(info.index, PlayerPrefs.GetString(info.index.ToString()));
         GameManager.Instance.SendNotificationToPlayer(info.name, info.level, NotificationType.LevelUp, "none");
         
     }
@@ -977,6 +991,7 @@ public class Monster : MonoBehaviour
         var monsters = GameManager.Instance.monstersData.monstersAllDict;
         var attacks = GameManager.Instance.baseAttacks.attackDict;
         var abilities = GameManager.Instance.GetComponent<MonsterAbilities>().allAbilitiesDict;
+        var allEquips = GameManager.Instance.items.allEquipsDict;
 
         info.type1 = monsters[info.species].type1;
         info.type2 = monsters[info.species].type2;
@@ -1012,6 +1027,24 @@ public class Monster : MonoBehaviour
         info.equip1Name = saveToken.equip1;
         info.equip2Name = saveToken.equip2;
         info.maxLevel = saveToken.maxLevel;
+
+        //if (allEquips.ContainsKey(info.equip1Name))
+        //{
+        //    info.equipment1 = allEquips[info.equip1Name];
+        //}
+        //else
+        //{
+        //    info.equipment1 = null;
+        //}
+
+        //if (allEquips.ContainsKey(info.equip2Name))
+        //{
+        //    info.equipment2 = allEquips[info.equip2Name];
+        //}
+        //else
+        //{
+        //    info.equipment2 = null;
+        //}
 
         info.abilityName = saveToken.specialAbility;
         info.specialAbility = abilities[info.abilityName];

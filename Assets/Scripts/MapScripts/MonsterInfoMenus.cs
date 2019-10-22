@@ -239,6 +239,8 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             enCostText.text = "Cost: " + activeMonster.info.EnergyCost.Value;
             staminaText.text = "Stamina: " + activeMonster.tempStats.Stamina.Value;
 
+            
+
             if (activeMonster.expToLevel.ContainsKey(activeMonster.info.level))
             {
                 int toNextLevel = activeMonster.expToLevel[activeMonster.info.level + 1];
@@ -248,6 +250,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                 expSlider.maxValue = toNextLevel;
                 expSlider.value = toNextLevel - nextLevelDiff;
 
+                
                 toLevelText.text = "EXP Until Level Up: " + nextLevelDiff.ToString();
             }
 

@@ -24,6 +24,7 @@ public enum EquipmentSpriteEffect
     Hologram, 
     Hologram2, 
     Hologram3,
+    Ice,
 }
 
 
