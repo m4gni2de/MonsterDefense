@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 
@@ -138,15 +139,42 @@ public class EquipmentScript : ScriptableObject
 
 
     //use this to give a gameobjec's renderer that this object is spawned on to the correct properties
-    public void ActivateItem(EquipmentScript e, GameObject g)
+    public void ActivateItem(EquipmentScript eq, GameObject g)
     {  
        
 
         //if the equipment has a type to be added, add it on the sprite
-        if (e.spriteEffect != EquipmentSpriteEffect.None)
+        if (eq.spriteEffect != EquipmentSpriteEffect.None)
         {
 
-            g.AddComponent(Type.GetType(e.spriteEffect.ToString()));
+            g.AddComponent(Type.GetType(eq.spriteEffect.ToString()));
+            Component comp = g.GetComponent(Type.GetType(eq.spriteEffect.ToString()));
+
+
+            //checks the variables against variable values for this equipment, and then make the values for the added component equal to the values
+            foreach (FieldInfo fi in comp.GetType().GetFields())
+            {
+                object obj = (System.Object)comp;
+
+                if (fi.Name == "_ColorX")
+                {
+                    fi.SetValue(obj, _ColorX);
+                }
+
+                if (fi.Name == "Distortion")
+                {
+                    fi.SetValue(obj, Distortion);
+                }
+
+                if (fi.Name == "Speed")
+                {
+                    fi.SetValue(obj, Speed);
+                }
+            }
+
+
+
+
         }
     }
 

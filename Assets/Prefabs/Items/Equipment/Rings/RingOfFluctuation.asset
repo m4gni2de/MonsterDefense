@@ -23,7 +23,7 @@ MonoBehaviour:
   attackModeReq: 0
   boosts:
   - Speed +20%
-  cost: 0
+  cost: 900
   rarity: 2
   equipLevelMax: 0
   spriteEffect: 2
@@ -49,9 +49,9 @@ MonoBehaviour:
   staminaPercentBonus: 0
   _Alpha: 0
   _TimeX: 0
-  _ColorX: {r: 0, g: 0, b: 0, a: 0}
-  Speed: 0
-  Distortion: 0
+  _ColorX: {r: 1, g: 0.03225806, b: 0, a: 1}
+  Speed: 0.6
+  Distortion: 0.2
   info:
     equipSlot: 2
     quantity: 0
