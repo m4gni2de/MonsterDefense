@@ -146,6 +146,9 @@ public class Items: MonoBehaviour
     public List<ConsumableItem> consumables = new List<ConsumableItem>();
     //add the consumable items to a dictionary so they can be looked up
     public Dictionary<string, ConsumableItem> allConsumablesDict = new Dictionary<string, ConsumableItem>();
+    //use lists to manually add non scriptable objects
+    public List<EquipmentScript> equipment = new List<EquipmentScript>();
+    public Dictionary<string, EquipmentScript> allEquipsDict = new Dictionary<string, EquipmentScript>();
 
     private void Awake()
     {
@@ -202,13 +205,18 @@ public class Items: MonoBehaviour
     
     void AddEquipment()
     {
-       
 
-        foreach(Equipment equipment in allEquipment.allEquipment)
+        foreach (EquipmentScript equip in equipment)
         {
-            allEquipmentDict.Add(equipment.name, equipment);
-            fullItemList.Add(equipment.name, ItemType.Equipment);
+            allEquipsDict.Add(equip.itemName, equip);
+            fullItemList.Add(equip.itemName, ItemType.Equipment);
         }
+
+        //foreach (Equipment equipment in allEquipment.allEquipment)
+        //{
+        //    allEquipmentDict.Add(equipment.name, equipment);
+        //    fullItemList.Add(equipment.name, ItemType.Equipment);
+        //}
        
         
     }

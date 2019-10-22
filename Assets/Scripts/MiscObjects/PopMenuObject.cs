@@ -73,7 +73,7 @@ public class PopMenuObject : MonoBehaviour
     {
         //var items = GameManager.Instance.items.allItemsDict;
         var items = GameManager.Instance.items.fullItemList;
-        var equips = GameManager.Instance.items.allEquipmentDict;
+        var equips = GameManager.Instance.items.allEquipsDict;
 
 
         if (items[name] == ItemType.Equipment)

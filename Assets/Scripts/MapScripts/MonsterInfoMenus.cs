@@ -196,7 +196,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
 
             var types = GameManager.Instance.monstersData.typeChartDict;
-            var equips = GameManager.Instance.items.allEquipmentDict;
+            var equips = GameManager.Instance.items.allEquipsDict;
 
             monsterName.text = activeMonster.info.name;
             attack1BtnText.text = activeMonster.info.attack1Name;
@@ -267,11 +267,9 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             //checks the monster's equipment and displays the matching sprites if there is equipment on the monster
             if (equips.ContainsKey(activeMonster.info.equip1Name))
             {
-                //equip1.GetComponent<Image>().sprite = equips[activeMonster.info.equip1Name].equipPrefab.GetComponent<Image>().sprite;
-                equip1.GetComponent<Image>().color = Color.clear;
-                //equip1.GetComponent<Image>().material = equips[activeMonster.info.equip1Name].equipPrefab.GetComponent<Image>().material;
-                ////type1.transform.localScale = new Vector3(3.5f, 1.25f, type1.transform.localScale.z);
+                equip1.GetComponent<Image>().color = Color.white;
                 equip1.name = activeMonster.info.equip1Name;
+                equip1.GetComponent<Image>().sprite = equips[activeMonster.info.equip1Name].sprite;
             }
             else
             {
@@ -282,11 +280,9 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
             if (equips.ContainsKey(activeMonster.info.equip2Name))
             {
-                //equip2.GetComponent<Image>().sprite = equips[activeMonster.info.equip2Name].equipPrefab.GetComponent<Image>().sprite;
-                equip2.GetComponent<Image>().color = Color.clear;
-                //equip2.GetComponent<Image>().material = equips[activeMonster.info.equip2Name].equipPrefab.GetComponent<Image>().material;
-                //type2.transform.localScale = new Vector3(3.5f, 1.25f, type2.transform.localScale.z);
+                equip2.GetComponent<Image>().color = Color.white;
                 equip2.name = activeMonster.info.equip2Name;
+                equip2.GetComponent<Image>().sprite = equips[activeMonster.info.equip2Name].sprite;
             }
             else
             {

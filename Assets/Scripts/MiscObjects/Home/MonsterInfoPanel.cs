@@ -27,6 +27,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
 
     private Equipment equip1, equip2;
+    private EquipmentScript equips1, equips2;
     public bool isEquip1, isEquip2;
     private Monster monster, clickedMonsterIcon;
 
@@ -167,35 +168,43 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         }
 
         var equipment = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
+        var allEquipment = GameManager.Instance.GetComponent<Items>().allEquipsDict;
+        
         var abilities = GameManager.Instance.GetComponent<MonsterAbilities>().allAbilitiesDict;
 
         GetComponentInChildren<EnviromentCanvas>().GetEnviroment(thisMonster.info.type1);
 
         //show the equipment item for Slot 1
 
-        if (equipment.ContainsKey(thisMonster.info.equip1Name))
+        //if (equipment.ContainsKey(thisMonster.info.equip1Name))
+        if (allEquipment.ContainsKey(thisMonster.info.equip1Name))
         {
-            GameObject e1 = Instantiate(equipment[monster.info.equip1Name].equipPrefab, equipObject.transform.position, Quaternion.identity);
-            e1.transform.SetParent(equipObject.transform);
-            //e1.GetComponent<Image>().color = Color.clear;
-            e1.GetComponent<Image>().raycastTarget = false;
-            e1.transform.position = equip1Btn.transform.position;
-            e1.transform.localScale = new Vector2(60f, 60f);
-            e1.tag = "Respawn";
+            //GameObject e1 = Instantiate(equipment[monster.info.equip1Name].equipPrefab, equipObject.transform.position, Quaternion.identity);
+            //e1.transform.SetParent(equipObject.transform);
+            ////e1.GetComponent<Image>().color = Color.clear;
+            //e1.GetComponent<Image>().raycastTarget = false;
+            //e1.transform.position = equip1Btn.transform.position;
+            //e1.transform.localScale = new Vector2(60f, 60f);
+            //e1.tag = "Respawn";
 
 
-            equip1 = equipment[monster.info.equip1Name];
+            //equip1 = equipment[monster.info.equip1Name];
+
+
+            //equip1.equipPrefab.GetComponent<EquipmentItem>().GetEquipInfo(equipment[thisMonster.info.equip1Name], thisMonster, 1);
+
+            equip1Btn.GetComponent<Image>().color = Color.white;
+            equips1 = allEquipment[monster.info.equip1Name];
+            equips1.GetEquipInfo(thisMonster, 1);
             equip1Btn.interactable = false;
-            equip1.equipPrefab.GetComponent<EquipmentItem>().GetEquipInfo(equipment[thisMonster.info.equip1Name], thisMonster, 1);
-            //equip1Btn.GetComponent<Image>().sprite = equip1.equipPrefab.GetComponent<Image>().sprite;
-
-           
-            equip1Btn.name = equipment[monster.info.equip1Name].name;
+            equip1Btn.GetComponent<Image>().sprite = equips1.sprite;
+            equip1Btn.name = allEquipment[monster.info.equip1Name].name;
             isEquip1 = true;
         }
         else
         {
-
+            equip1Btn.GetComponent<Image>().sprite = null;
+            equip1Btn.GetComponent<Image>().color = Color.clear;
             equip1Btn.interactable = true;
             isEquip1 = false;
         }
@@ -212,28 +221,29 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         //    //Destroy(e2.gameObject);
         //    isEquip2 = true;
         //}
-        if (equipment.ContainsKey(thisMonster.info.equip2Name))
+        if (allEquipment.ContainsKey(thisMonster.info.equip2Name))
         {
-            GameObject e2 = Instantiate(equipment[monster.info.equip2Name].equipPrefab, equipObject.transform.position, Quaternion.identity);
-            e2.transform.SetParent(equipObject.transform);
-            //e2.GetComponent<Image>().color = Color.clear;
-            e2.GetComponent<Image>().raycastTarget = false;
-            e2.transform.position = equip2Btn.transform.position;
-            e2.transform.localScale = new Vector2(60f, 60f);
-            e2.tag = "Respawn";
+            //GameObject e2 = Instantiate(equipment[monster.info.equip2Name].equipPrefab, equipObject.transform.position, Quaternion.identity);
+            //e2.transform.SetParent(equipObject.transform);
+            ////e2.GetComponent<Image>().color = Color.clear;
+            //e2.GetComponent<Image>().raycastTarget = false;
+            //e2.transform.position = equip2Btn.transform.position;
+            //e2.transform.localScale = new Vector2(60f, 60f);
+            //e2.tag = "Respawn";
 
-            equip2 = equipment[monster.info.equip2Name];
+            equip2Btn.GetComponent<Image>().color = Color.white;
+            equips2 = allEquipment[monster.info.equip2Name];
+            equips2.GetEquipInfo(thisMonster, 2);
             equip2Btn.interactable = false;
-            equip2Btn.name = equipment[monster.info.equip2Name].name;
-            equip2.equipPrefab.GetComponent<EquipmentItem>().GetEquipInfo(equipment[thisMonster.info.equip2Name], thisMonster, 2);
-            //equip2Btn.GetComponent<Image>().sprite = equip2.equipPrefab.GetComponent<Image>().sprite;
+            equip2Btn.GetComponent<Image>().sprite = equips2.sprite;
+            equip2Btn.name = allEquipment[monster.info.equip2Name].name;
             isEquip2 = true;
-            equip2Btn.name = equipment[monster.info.equip2Name].name;
 
         }
         else
         {
-
+            equip2Btn.GetComponent<Image>().sprite = null;
+            equip2Btn.GetComponent<Image>().color = Color.clear;
             equip2Btn.interactable = true;
             isEquip2 = false;
         }
@@ -506,8 +516,10 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         equipMenu.GetComponent<EquipmentManager>().ChangeEquipment(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>(), 1);
         if (isEquip1)
         {
-            GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equip1.equipPrefab.GetComponent<EquipmentItem>().equip, 1);
-            equip1.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
+            //GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equip1.equipPrefab.GetComponent<EquipmentItem>().equip, 1);
+            GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equips1, 1);
+            //equip1.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
+            equips1.UnEquip();
             isEquip1 = false;
             equip1Btn.GetComponent<Image>().sprite = null;
             RefreshMonsterInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
@@ -523,8 +535,9 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         equipMenu.GetComponent<EquipmentManager>().ChangeEquipment(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>(), 2);
         if (isEquip2)
         {
-            GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equip2.equipPrefab.GetComponent<EquipmentItem>().equip, 2);
-            equip2.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
+            GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equips2, 2);
+            //equip2.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
+            equips2.UnEquip();
             isEquip2 = false;
             equip2Btn.GetComponent<Image>().sprite = null;
             RefreshMonsterInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
@@ -552,13 +565,23 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         Destroy(monster.gameObject);
         
 
-        if (equip1.equipPrefab)
+        //if (equip1.equipPrefab)
+        //{
+        //    equip1.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
+        //}
+        //if (equip2.equipPrefab)
+        //{
+        //    equip2.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
+        //}
+
+
+        if (equips1)
         {
-            equip1.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
+            equips1.UnEquip();
         }
-        if (equip2.equipPrefab)
+        if (equips2)
         {
-            equip2.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
+            equips2.UnEquip();
         }
 
 

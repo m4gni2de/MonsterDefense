@@ -27,7 +27,8 @@ public class YourItems : MonoBehaviour
         yourEquipment.Clear();
         yourConsumables.Clear();
 
-        var equips = GameManager.Instance.items.allEquipmentDict;
+        //var equips = GameManager.Instance.items.allEquipmentDict;
+        var equips = GameManager.Instance.items.allEquipsDict;
         var consumables = GameManager.Instance.items.allConsumablesDict;
         var allItems = GameManager.Instance.items.fullItemList;
 

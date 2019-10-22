@@ -1674,6 +1674,8 @@ MonoBehaviour:
   shopPanel: {fileID: 1708802803}
   consumableObject: {fileID: 3786990032402090933, guid: b41702da653800f42be0c5d67e536d57,
     type: 3}
+  equipmentObject: {fileID: 1040814893437746030, guid: 28c7f5adaeda4174db0cc65e9daa6067,
+    type: 3}
   displayMode: 0
   yourCoinsText: {fileID: 1525550426}
   yourCoins: 0

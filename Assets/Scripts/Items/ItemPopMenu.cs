@@ -35,7 +35,7 @@ public class ItemPopMenu : MonoBehaviour
         yourCoins = (int)Mathf.Round((float)account.coins);
     }
 
-    public void DisplayEquipment(EquipmentItem equip, GameObject obj)
+    public void DisplayEquipment(EquipmentScript equip, GameObject obj)
     {
         GameObject[] r = GameObject.FindGameObjectsWithTag("Respawn");
         
@@ -55,30 +55,30 @@ public class ItemPopMenu : MonoBehaviour
         item.tag = "Respawn";
 
         //itemSprite.GetComponent<SpriteRenderer>().sprite = equip.GetComponent<Image>().sprite;
-        nameText.text = equip.equip.name;
-        typeText.text = equip.equip.equipType.ToString();
+        nameText.text = equip.itemName;
+        typeText.text = equip.equipClass.ToString();
 
         //if the item doesn't have a required time, or doesn't even list one, check for that
-        if (equip.equip.typeMonsterReq != "")
+        if (equip.typeMonsterReq != "")
         {
-            typeReqText.text = "Required Type: " + equip.equip.typeMonsterReq;
+            typeReqText.text = "Required Type: " + equip.typeMonsterReq;
         }
         else
         {
             typeReqText.text = "Required Type: none";
         }
 
-        boostsText.text = equip.equip.description;
-        yourQuantityText.text = "On hand: " + PlayerPrefs.GetInt(equip.equip.name).ToString();
-        buyCostText.text = "Buy For: " + equip.equip.cost.ToString();
+        boostsText.text = equip.description;
+        yourQuantityText.text = "On hand: " + PlayerPrefs.GetInt(equip.itemName).ToString();
+        buyCostText.text = "Buy For: " + equip.cost.ToString();
 
-        float sellValue = equip.equip.cost * .8f;
+        float sellValue = equip.cost * .8f;
         sellCostText.text = "Sell For: " + sellValue;
 
-        activeItemName = equip.equip.name;
+        activeItemName = equip.itemName;
         activeItem = obj;
 
-        itemBuyValue = (int)equip.equip.cost;
+        itemBuyValue = (int)equip.cost;
         itemSellValue = (int)sellValue;
 
         PriceCheck();

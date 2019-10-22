@@ -9,22 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01e4e4b77c73c8408e5465bda0c221e, type: 3}
+  m_Script: {fileID: 11500000, guid: 013899317669b9e4fa6245e2db65b25a, type: 3}
   m_Name: FireRune
   m_EditorClassIdentifier: 
   itemName: Fire Rune
+  id: 1
   description: A Rune that boosts a Fire Type monster's attack stat by 10%
-  cost: 200
   sprite: {fileID: 21300000, guid: f7204ffd38efac3438ff176b40040580, type: 3}
-  itemType: 0
+  equipClass: 0
   typeMonsterReq: Fire
   typeMoveReq: none
+  forceReq: 0
+  attackModeReq: 0
   boosts:
-  - +10% Attack
-  equipSlot: 0
-  equipLevel: 0
+  - Attack +10%
+  cost: 400
+  rarity: 0
   equipLevelMax: 0
-  equipExp: 0
   hpBonus: 0
   atkBonus: 0
   defBonus: 0
@@ -45,3 +46,11 @@ MonoBehaviour:
   atkTimePercentBonus: 0
   evasionPercentBonus: 0
   staminaPercentBonus: 0
+  info:
+    equipSlot: 0
+    quantity: 0
+    equipLevel: 0
+    equipExp: 0
+    isEquipped: 0
+    equippedMonster: {fileID: 0}
+    boosts: []

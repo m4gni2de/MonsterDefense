@@ -74,12 +74,16 @@ public struct MonsterInfo
 
     [Header("Monster Equips")]
     public string equip1Name;
-    public Equipment equip1;
+    //public Equipment equip1;
     public string equip2Name;
-    public Equipment equip2;
-    public EquippableItem equippable;
-    public EquippableItem equippable1;
-    public EquippableItem equippable2;
+    //public Equipment equip2;
+    //public EquippableItem equippable;
+    //public EquippableItem equippable1;
+    //public EquippableItem equippable2;
+
+    public EquipmentScript equipment1;
+    public EquipmentScript equipment2;
+
 
     [Header("Monster Stat Values")]
     public Stat HP;
@@ -351,20 +355,20 @@ public class Monster : MonoBehaviour
     }
 
     //Equip a new item to this monster
-    public void EquipItem(Equipment equip, int slot)
+    public void EquipItem(EquipmentScript equip, int slot)
     {
 
 
         if (slot == 1)
         {
-            info.equip1Name = equip.name;
+            info.equip1Name = equip.itemName;
             //info.equippable1.Equip(gameObject.GetComponent<Monster>(), 1);
 
         }
 
         if (slot == 2)
         {
-            info.equip2Name = equip.name;
+            info.equip2Name = equip.itemName;
             //info.equippable2.Equip(gameObject.GetComponent<Monster>(), 2);
 
         }
@@ -377,7 +381,7 @@ public class Monster : MonoBehaviour
     }
 
     //unequip an item from this monster
-    public void UnEquipItem(Equipment equip, int slot)
+    public void UnEquipItem(EquipmentScript equip, int slot)
     {
 
 
@@ -1027,17 +1031,33 @@ public class Monster : MonoBehaviour
     //call this at the start of each game so the equipment items can be in effect during the games
     public void MonsterEquipment()
     {
-        var equipment = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
-        
+        //var equipment = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
+
+        //if (equipment.ContainsKey(info.equip1Name))
+        //{
+        //    Equipment equip1 = equipment[info.equip1Name];
+        //    equip1.equipPrefab.GetComponent<EquipmentItem>().GetEquipInfo(equip1, this, 1);
+        //}
+        //if (equipment.ContainsKey(info.equip2Name))
+        //{
+        //    Equipment equip2 = equipment[info.equip2Name];
+        //    equip2.equipPrefab.GetComponent<EquipmentItem>().GetEquipInfo(equip2, this, 2);
+        //}
+
+
+        var equipment = GameManager.Instance.GetComponent<Items>().allEquipsDict;
+
         if (equipment.ContainsKey(info.equip1Name))
         {
-            Equipment equip1 = equipment[info.equip1Name];
-            equip1.equipPrefab.GetComponent<EquipmentItem>().GetEquipInfo(equip1, this, 1);
+            EquipmentScript equip1 = equipment[info.equip1Name];
+            equip1.GetEquipInfo(this, 1);
+
+            
         }
         if (equipment.ContainsKey(info.equip2Name))
         {
-            Equipment equip2 = equipment[info.equip2Name];
-            equip2.equipPrefab.GetComponent<EquipmentItem>().GetEquipInfo(equip2, this, 2);
+            EquipmentScript equip2 = equipment[info.equip2Name];
+            equip2.GetEquipInfo(this, 1);
         }
 
     }

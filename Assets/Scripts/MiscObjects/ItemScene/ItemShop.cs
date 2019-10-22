@@ -25,7 +25,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
     public GameObject shopCanvas, itemCanvas;
     public GameObject itemPanel, shopPanel;
 
-    public GameObject consumableObject;
+    public GameObject consumableObject, equipmentObject;
     
     //variable used to determine which items are being displayed in the shop
     public DisplayMode displayMode = new DisplayMode();
@@ -118,9 +118,25 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
                     DisplayShop();
                 }
 
-                
+                return;
             }
         }
+
+        if (obj.Length == 0)
+        {
+            if (displayMode == DisplayMode.Equipment)
+            {
+                DisplayYourEquipment();
+                DisplayShop();
+            }
+
+            if (displayMode == DisplayMode.Consumable)
+            {
+                DisplayYourConsumables();
+                DisplayShop();
+            }
+        }
+        
 
        
 
@@ -149,49 +165,48 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
     //use this to show the equipment items for sale in the shop
     public void DisplayShopEquipment()
     {
-        var allEquips = GameManager.Instance.items.allEquipmentDict;
+        var allEquips = GameManager.Instance.items.allEquipsDict;
         var allCells = GameManager.Instance.items.allMonsterCellsDict;
         //var allConsumables = GameManager.Instance.items.allConsumablesDict;
 
         int row = 0;
         float rowCheck = 0f;
-        
 
-        foreach (KeyValuePair<string, Equipment> equipment in allEquips)
+
+        foreach (KeyValuePair<string, EquipmentScript> equip in allEquips)
         {
-            string name = equipment.Key;
+            string name = equip.Key;
 
-            Equipment item = allEquips[name];
-            int itemCount = PlayerPrefs.GetInt(item.name);
+            //Debug.Log(name);
+
+            //if the player has more than 0 of the item, display it
+
+                EquipmentScript item = allEquips[name];
+
+                GameObject a = Instantiate(equipmentObject, shopScrollContent.transform.position, Quaternion.identity);
 
 
 
+                a.transform.SetParent(shopScrollContent.transform, true);
 
-           
-            GameObject a = Instantiate(allEquips[item.name].equipPrefab, shopScrollContent.transform.position, Quaternion.identity);
+                a.GetComponent<EquipmentObject>().equipment = item;
+                a.GetComponent<EquipmentObject>().LoadItem(item);
+            //a.GetComponentInChildren<TMP_Text>().text = PlayerPrefs.GetInt(item.name).ToString();
+            a.GetComponentInChildren<TMP_Text>().text = item.cost.ToString();
+                a.transform.position = new Vector3(shopItemSprite.transform.position.x + ((rowCheck * 4) * shopScrollContent.GetComponent<RectTransform>().rect.width / 6), shopItemSprite.transform.position.y - (row * 35), shopItemSprite.transform.position.z);
+                a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
+                a.tag = "Item";
+                a.name = item.name;
 
+
+                rowCheck += .25f;
+
+                if (rowCheck > .8f)
+                {
+                    rowCheck = 0f;
+                    row += 1;
+                }
             
-            
-            a.transform.SetParent(shopScrollContent.transform, true);
-
-
-
-            a.GetComponent<EquipmentItem>().EquipItemInfo(item);
-            a.GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
-            a.GetComponent<EquipmentItem>().valueText.text = a.GetComponent<EquipmentItem>().equipDetails.cost.ToString();
-
-            a.transform.position = new Vector3(shopItemSprite.transform.position.x + ((rowCheck * 4) * shopScrollContent.GetComponent<RectTransform>().rect.width / 6), shopItemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
-            a.transform.localScale = new Vector3(a.transform.localScale.x, a.transform.localScale.y, 1f);
-            a.tag = "Item";
-
-            rowCheck += .25f;
-
-            if (rowCheck > .8f)
-            {
-                rowCheck = 0f;
-                row += 1;
-            }
-
 
         }
     }
@@ -200,8 +215,8 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
     void DisplayYourEquipment()
     {
 
-
-        var allEquips = GameManager.Instance.items.allEquipmentDict;
+        //var equips = GameManager.Instance.items.equipment;
+        var allEquips = GameManager.Instance.items.allEquipsDict;
         var yourEquips = GameManager.Instance.GetComponent<YourItems>().yourEquipment;
         var allCells = GameManager.Instance.items.allMonsterCellsDict;
         //var allConsumables = GameManager.Instance.items.allConsumablesDict;
@@ -214,26 +229,29 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
         {
             string name = equip.Key;
 
+            //Debug.Log(name);
+
             //if the player has more than 0 of the item, display it
             if (equip.Value > 0)
             {
 
-                Equipment item = allEquips[name];
+                EquipmentScript item = allEquips[name];
                 int itemCount = PlayerPrefs.GetInt(item.name);
 
-                GameObject a = Instantiate(allEquips[item.name].equipPrefab, itemScrollContent.transform.position, Quaternion.identity);
+                GameObject a = Instantiate(equipmentObject, itemSprite.transform.position, Quaternion.identity);
 
 
 
                 a.transform.SetParent(itemScrollContent.transform, true);
 
-                a.GetComponent<EquipmentItem>().EquipItemInfo(item);
-                a.GetComponent<EquipmentItem>().valueText.gameObject.SetActive(true);
-                a.GetComponent<EquipmentItem>().valueText.text = PlayerPrefs.GetInt(item.name).ToString();
-
+                a.GetComponent<EquipmentObject>().equipment = item;
+                a.GetComponent<EquipmentObject>().LoadItem(item);
+                //a.GetComponentInChildren<TMP_Text>().text = PlayerPrefs.GetInt(item.name).ToString();
+                a.GetComponentInChildren<TMP_Text>().text = equip.Value.ToString();
                 a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
-                a.transform.localScale = new Vector3(a.transform.localScale.x, a.transform.localScale.y, 1f);
+                a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
                 a.tag = "Item";
+                a.name = item.name;
 
 
                 rowCheck += .25f;
@@ -247,6 +265,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
 
         }
 
+        
     }
 
 
@@ -260,10 +279,11 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
         int row = 0;
         float rowCheck = 0f;
 
+        Debug.Log("ok");
 
         foreach (ConsumableItem c in consumables)
         {
-
+            
             ConsumableItem item = c;
 
             int itemCount = PlayerPrefs.GetInt(item.name);
@@ -364,7 +384,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
             {
                 if (displayMode == DisplayMode.Equipment)
                 {
-                    EquipmentItem item = hit.gameObject.GetComponent<EquipmentItem>();
+                    EquipmentScript item = hit.GetComponent<EquipmentObject>().equipment;
 
                     itemPopMenu.SetActive(true);
                     itemPopMenu.GetComponent<ItemPopMenu>().DisplayEquipment(item, hit.gameObject);
