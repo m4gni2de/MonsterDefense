@@ -119,6 +119,10 @@ public class EquipmentScript : ScriptableObject
     public GameObject GameObject;
 
     
+    public EquipmentScript()
+    {
+        equip = new EquipManager();
+    }
 
     //use this when the equipment is equipped to a monster
     public void GetEquipInfo(Monster Monster, int EquipSlot)
@@ -216,7 +220,7 @@ public class EquipmentScript : ScriptableObject
     //if an equipment item has dynamic stats, call this to trigger its stat change
     public void TriggerEvent()
     {
-        UnEquip();
+        //UnEquip();
         info.triggerCount += 1;
         EquipItem();
     }

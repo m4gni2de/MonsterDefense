@@ -79,6 +79,10 @@ public struct MonsterInfo
     public EquipmentScript equipment1;
     public EquipmentScript equipment2;
 
+    public Equipment equip1;
+    public Equipment equip2;
+    
+
 
     [Header("Monster Stat Values")]
     public Stat HP;
@@ -260,14 +264,34 @@ public class Monster : MonoBehaviour
 
 
         //EquipmentBoosts();
+        var equipment = GameManager.Instance.GetComponent<Items>().allEquipsDict;
+
+        if (equipment.ContainsKey(info.equip1Name))
+        {
+            EquipmentScript equip1 = Instantiate(equipment[info.equip1Name]);
+            info.equipment1 = equip1;
+            info.equipment1.info.equippedMonster = this;
+        }
+        else
+        {
+            info.equipment1 = null;
+        }
+
+        if (equipment.ContainsKey(info.equip2Name))
+        {
+            EquipmentScript equip2 = Instantiate(equipment[info.equip2Name]);
+            info.equipment2 = equip2;
+            info.equipment2.info.equippedMonster = this;
+        }
+        else
+        {
+            info.equipment2 = null;
+        }
 
 
 
-        //info.equipment1 = ScriptableObject.CreateInstance<EquipmentScript>();
-        //info.equipment2 = ScriptableObject.CreateInstance<EquipmentScript>();
-
-
-
+        //info.equip1 = new Equipment();
+        //info.equip2 = new Equipment();
 
 
         ////gives the monster temporary stats that can be changed in game, without affecting the monster's saved stats. these values are changed during a game, not anything in monster.info
@@ -1073,14 +1097,12 @@ public class Monster : MonoBehaviour
 
         if (equipment.ContainsKey(info.equip1Name))
         {
-            //EquipmentScript equip1 = equipment[info.equip1Name];
-            //info.equipment1 = equipment[info.equip1Name];
-            //info.equipment1.trigger = new EventTrigger(info.equipment1.triggerType, info.equipment1);
-            //info.equipment1.GetEquipInfo(this, 1);
+            //info.equip1.equipment = equipment[info.equip1Name];
+            //info.equip1.equipment.GetEquipInfo(this, 1);
 
-            EquipmentScript equip1 = ScriptableObject.CreateInstance<EquipmentScript>();
-            equip1 = equipment[info.equip1Name];
-            info.equipment2 = equip1;
+
+            EquipmentScript equip1 = Instantiate(equipment[info.equip1Name]);
+            info.equipment1 = equip1;
             //info.equipment2.trigger = new EventTrigger(info.equipment2.triggerType, info.equipment2);
             info.equipment1.GetEquipInfo(this, 1);
 
@@ -1088,15 +1110,21 @@ public class Monster : MonoBehaviour
         }
         if (equipment.ContainsKey(info.equip2Name))
         {
-            EquipmentScript equip2 = ScriptableObject.CreateInstance<EquipmentScript>();
-            equip2 = equipment[info.equip2Name];
+            //info.equip2.equipment = equipment[info.equip2Name];
+            //info.equip2.equipment.GetEquipInfo(this, 2);
+
+
+            EquipmentScript equip2 = Instantiate(equipment[info.equip2Name]);
             info.equipment2 = equip2;
             //info.equipment2.trigger = new EventTrigger(info.equipment2.triggerType, info.equipment2);
             info.equipment2.GetEquipInfo(this, 2);
-            
+
         }
 
     }
+
+
+
 
     //use this to get a monster's potential stats without saving them
     public void CheckStats(MonsterSaveToken m)

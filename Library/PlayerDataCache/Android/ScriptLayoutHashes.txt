@@ -37,7 +37,7 @@ e7a73f5f78ba6445195ec23b74a1ce2d Unity.TextMeshPro.dll:TMPro.TMP_ScrollbarEventH
 0f50e629cb1cd8aebc82da0fc07e60d0 Assembly-CSharp.dll:Puppet2D.Puppet2D_BlendShape
 dec4a033732d6a2efcf991b59d8b912c Assembly-CSharp.dll:.BlurFX
 3571d10c300f3dcdc896bfdb448393be Assembly-CSharp.dll:.Tower
-a7a84623a3b34df6ddcdd35eb4dfb8fc Assembly-CSharp.dll:.EquipmentScript
+bac2762334a114c4e93fa48a6fcae736 Assembly-CSharp.dll:.EquipmentScript
 2bf1b3db8595c0267e2ff2864fd43bba Assembly-CSharp.dll:.SharpenFX
 30205f79223ef55f30e86e1599d1f6d1 Assembly-CSharp.dll:.EquipmentManager
 2e85effe4e42a1ac6fae9cb41318470c Assembly-CSharp.dll:Puppet2D.Puppet2D_ParentControl
@@ -142,7 +142,7 @@ e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.P
 201e3fde670b00545944bb3db215c80a UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 06542f33c83d7e6058874d447c0d7d6d Assembly-CSharp.dll:.MapDetails
 20339f9caf6c11ac71395b68779a5041 Assembly-CSharp.dll:.Fire
-662aec68a74a6916be3bfaf7e3133c40 Assembly-CSharp.dll:.Items
+5732fd6db9a37caf8903264cf4ea52e5 Assembly-CSharp.dll:.Items
 00274a21279f5cb831ce20f895049e38 Unity.TextMeshPro.dll:TMPro.TMP_SubMeshUI
 174d1e566f61b65129268cf8e5ad5a7c Assembly-CSharp.dll:.MapTileMenu
 e6ae40841db498b6e673877ac45ad208 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
@@ -285,7 +285,7 @@ ca1c9695bbafcb52af6a07f1bd4c4ea5 Assembly-CSharp.dll:TMPro.Examples.TMP_TextInfo
 bd3f0ca738703903e759f77536ed74fd Assembly-CSharp.dll:TMPro.Examples.TMP_FrameRateCounter
 a1ca1237bad0f30ea5ba8f4060929114 Assembly-CSharp.dll:TMPro.Examples.TMP_TextSelector_B
 8d61d1286b03c0005fc3740de876f4ac Assembly-CSharp.dll:.EnviromentCanvas
-8409ccf54f695aea464a8e09aed60cbb Assembly-CSharp.dll:.YourMonsters
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.YourMonsters
 a4f0a4f62100f1a4fb5cbe0e00dde83f Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
 5fc094978ce3e3591a7500ed380d854a Unity.Analytics.DataPrivacy.dll:UnityEngine.Analytics.DataPrivacyButton
 27e5341178f188b89bdc6495710b590c Assembly-CSharp.dll:TMPro.Examples.Benchmark01_UGUI
@@ -306,7 +306,7 @@ bd3f0ca738703903e759f77536ed74fd Assembly-CSharp.dll:TMPro.Examples.TMP_UiFrameR
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TMPro.Examples.VertexColorCycler
 e63944317d2f5958e31963668bb29158 Assembly-CSharp.dll:TMPro.Examples.VertexZoom
 5171edb225f5fcdb2613328e60c164aa Assembly-CSharp.dll:.PopMenuObject
-fdc346fa7e1ec7340b1de401c8584e58 Assembly-CSharp.dll:.MonsterInfoPanel
+259c5b7198cee051fb701e71ae14fd04 Assembly-CSharp.dll:.MonsterInfoPanel
 6c7256978a9302e733e74231b64cc68d Assembly-CSharp.dll:.Hologram3
 dc01a2dd6f68d048a00e20662aaf4704 Assembly-CSharp.dll:.NegativeFX
 20339f9caf6c11ac71395b68779a5041 Assembly-CSharp.dll:.Frozen
@@ -348,6 +348,6 @@ a1e63c1a6b89869741bcb1748833c00e Assembly-CSharp.dll:.IcedFX
 a0cb4f04339de15e4f52b7c03f253ab4 Assembly-CSharp.dll:.AttackEffects
 8f4ba93234690ac2f7d6af44f78d2b76 Assembly-CSharp.dll:.SkycloudFX
 184251cbf3808832d5d11477dfce25a1 Assembly-CSharp.dll:.HSV_FX
-c52a72e8bf6be3c7efda773a74ee6659 Assembly-CSharp.dll:.GameManager
+aea224e973aa46ce681f9aa49739dce1 Assembly-CSharp.dll:.GameManager
 feb6dc853b511d5e11d59e2719dd27e1 Assembly-CSharp.dll:.GifAnimation
 ea925e6507b6b33724a60ea2e716a54e Assembly-CSharp.dll:Puppet2D.Puppet2D_FFDStoreData
