@@ -11,6 +11,12 @@ public class MainMenu : MonoBehaviour
     {
         //mark the player as not in a game every time the main menu opens
         GameManager.Instance.inGame = false;
+
+        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+
+        GameManager.Instance.eventTriggers.Clear();
+        GameManager.Instance.eventTriggerCount = 0;
+
     }
 
     // Update is called once per frame

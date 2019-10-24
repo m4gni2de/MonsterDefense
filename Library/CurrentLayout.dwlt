@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 7}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 548}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -43,10 +43,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 683, y: 498}
+  m_MinSize: {x: 681, y: 498}
   m_MaxSize: {x: 14004, y: 14048}
   vertical: 1
-  controlID: 119
+  controlID: 108
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -68,10 +68,10 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 947
-  m_MinSize: {x: 683, y: 498}
+  m_MinSize: {x: 681, y: 498}
   m_MaxSize: {x: 14004, y: 14048}
   vertical: 0
-  controlID: 120
+  controlID: 109
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -118,8 +118,8 @@ MonoBehaviour:
     y: 0
     width: 285
     height: 608
-  m_MinSize: {x: 202, y: 224}
-  m_MaxSize: {x: 4002, y: 4024}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -240,7 +240,7 @@ MonoBehaviour:
     y: 0
     width: 1371
     height: 947
-  m_MinSize: {x: 406, y: 498}
+  m_MinSize: {x: 404, y: 498}
   m_MaxSize: {x: 10002, y: 14048}
   vertical: 1
   controlID: 55
@@ -265,8 +265,8 @@ MonoBehaviour:
     y: 0
     width: 1371
     height: 608
-  m_MinSize: {x: 406, y: 224}
-  m_MaxSize: {x: 8006, y: 4024}
+  m_MinSize: {x: 404, y: 224}
+  m_MaxSize: {x: 8004, y: 4024}
   vertical: 0
   controlID: 56
 --- !u!114 &12
@@ -521,7 +521,7 @@ MonoBehaviour:
     height: 319
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SearchFilter:
-    m_NameFilter: tower
+    m_NameFilter: equipment
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -532,20 +532,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/Items/Equipment/Axes
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 54
   m_LastFolders:
-  - Assets/Prefabs/Items/Equipment/Axes
+  - Assets
   m_LastFoldersGridSize: 54
   m_LastProjectPath: C:\Users\Steve\Desktop\MonsterDefense
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 420}
+    scrollPos: {x: 0, y: 619}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ba2a0000ec2a0000d62b00002e2c00009c2c00007a2e0000a22e0000662f00008e2f0000c63000000831000014310000403100006431000096310000c43100003a3200005032000080320000b4320000dc320000ac330000ba33000060340000983400006a35000072350000a4350000ae350000ae360000183700004e370000f6370000fa3700002a3800003e3800009038000024390000be390000d4390000303a0000e44a0000e64a0000e84a0000ea4a0000ec4a0000ee4a0000f04a0000f24a0000f44a0000f64a0000f84a000000ca9a3b
+    m_ExpandedIDs: 00000000bc2a0000ee2a0000d82b0000302c00009e2c0000802e0000a82e00006c2f0000942f0000cc3000000e3100001a310000463100006a3100009c310000ca310000423200005832000088320000bc320000e4320000b4330000c233000068340000a4340000763500007e350000b0350000ba350000ba360000243700005a370000063800000a3800003a3800004e380000a038000034390000ce390000e4390000403a0000f24a0000f44a0000f64a0000f84a0000fa4a0000fc4a0000fe4a0000004b0000024b0000044b0000064b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -573,7 +573,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ba2a0000ec2a0000d62b00002e2c00009c2c00007a2e0000a22e0000662f00008e2f00007e300000c63000000831000014310000403100006431000096310000c43100003a3200005032000080320000b4320000dc320000ac330000ba33000060340000983400006a35000072350000a4350000ae350000ae360000183700004e370000f6370000fa3700002a3800003e3800009038000024390000be390000d4390000303a0000e44a0000e64a0000e84a0000ea4a0000ec4a0000ee4a0000f04a0000f24a0000f44a0000f64a0000f84a0000
+    m_ExpandedIDs: 00000000bc2a0000ee2a0000d82b0000302c00009e2c0000802e0000a82e00006c2f0000942f0000cc3000000e3100001a310000463100006a3100009c310000ca310000423200005832000088320000bc320000e4320000b4330000c233000068340000a4340000763500007e350000b0350000ba350000ba360000243700005a370000063800000a3800003a3800004e380000a038000034390000ce390000e4390000403a0000f24a0000f44a0000f64a0000f84a0000fa4a0000fc4a0000fe4a0000004b0000024b0000044b0000064b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -692,9 +692,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: c4d10400
       m_LastClickedID: 0
-      m_ExpandedIDs: ec63f9fffe63f9ff4c66f9ff6666f9ff4467f9ff5a67f9ff6c67f9ff7467f9ffa08dfaffc6f1fbff4c30fdff7095fdff949efdffd684feff20c8feff1a14ffffba4dffffd64fffff6887ffff3689ffff30d3ffffbcd4ffff90f1ffffd8f3ffffa6f6ffffb8f6ffff00f9ffff16f9fffff0f9ffff02faffff10faffff14faffffd6fbffff1a630000ac640000b06500003e670000ea670000846a0000d06b000068810000fa820000fe830000168500008c85000038860000e68700007e880000d28800001e8a0000fcaa00008eac000092ad0000c4ad0000aaae000020af0000ccaf00007ab100002cb2000066b20000b2b30000cac90000d8ca000066cc00006acd0000b0d00000fcd10000ce1c01005c1e0100601f010040200100a6220100f223010028330100443301004c3401001c350100043601004a390100024201009043010094440100da47010026490100346b01000c7701002877010030780100007901002e7d010046ce010062ce01006acf01003ad0010022d101003ed3010014d4010068d4010052d50100b4d50100
+      m_ExpandedIDs: 98a4f1fffe03f3ffda29f3ff7ee2f4ff1204f5ffa425f5ffc273f6ff8858f7ff74cbf7ff2ccdf7ff6245f9ff528df9ff50b1f9ff98f3faff34cafbff7ea1fcff0023ffff0625ffffd6fbffffe23d0000a0ee0000aaee0000e0ee0000d43303001a37030066380300105b03002c5b0300345c0300045d030032610300
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -750,9 +750,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.08697365, y: -0.21994884, z: -1.81302}
+    m_Target: {x: -104.887985, y: -130.59756, z: 87.86425}
     speed: 2
-    m_Value: {x: 0.08697365, y: -0.21994884, z: -1.81302}
+    m_Value: {x: -104.887985, y: -130.59756, z: 87.86425}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -784,9 +784,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 1.922913
+    m_Target: 338.5496
     speed: 2
-    m_Value: 1.922913
+    m_Value: 338.5496
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -834,8 +834,8 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -507.5
-    m_HBaseRangeMax: 507.5
+    m_HBaseRangeMin: -457
+    m_HBaseRangeMax: 457
     m_VBaseRangeMin: -285.5
     m_VBaseRangeMax: 285.5
     m_HAllowExceedBaseRangeMin: 1

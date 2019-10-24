@@ -14,6 +14,13 @@ public enum EquipmentClass
     Ring,
 }
 
+//to tell if the equipment's boost values can change
+public enum EquipBoostVariance
+{
+    Static,
+    Dynamic,
+}
+
 //if a sprite component is to be added, choose it from here
 public enum EquipmentSpriteEffect
 {
@@ -42,6 +49,7 @@ public struct EquipmentInformation
     public Monster equippedMonster;
     public List<string> boosts;
 
+    public int triggerCount;
     
 }
 
@@ -59,11 +67,16 @@ public class EquipmentScript : ScriptableObject
     public AttackMode attackModeReq;
     public string[] boosts;
     public float cost;
+    public EquipBoostVariance variance;
+
+    //if the item can receive an event trigger
+    public TriggerType triggerType;
+    public EventTrigger trigger;
 
     public ItemRarity rarity;
     public int equipLevelMax;
 
-    public EquipmentSpriteEffect spriteEffect;
+    
 
 
     public int hpBonus;
@@ -89,17 +102,23 @@ public class EquipmentScript : ScriptableObject
     public int staminaPercentBonus;
 
     //these variables exist to affect the possible sprite effects that can be added
+    public EquipmentSpriteEffect spriteEffect;
+    //use these variables to change the properties of the sprite effect
     public float _Alpha;
     public float _TimeX;
     public Color _ColorX;
     public float Speed;
     public float Distortion;
 
-    public EquipManager equip = new EquipManager();
-    public EquipmentInformation info = new EquipmentInformation();
+    //public EquipManager equip = new EquipManager();
+    //public EquipmentInformation info = new EquipmentInformation();
+    public EquipManager equip;
+    public EquipmentInformation info;
 
     //the gameobject that the item spawns upon
     public GameObject GameObject;
+
+    
 
     //use this when the equipment is equipped to a monster
     public void GetEquipInfo(Monster Monster, int EquipSlot)
@@ -111,13 +130,10 @@ public class EquipmentScript : ScriptableObject
 
         info.isEquipped = true;
 
-
-
-        //unequip the item first to avoid stacking of the same item's equipment
-        UnEquip();
         EquipItem();
 
-       
+
+        
     }
 
     
@@ -125,21 +141,22 @@ public class EquipmentScript : ScriptableObject
     //used to equip the attached monster with this item
     public void EquipItem()
     {
-        
         equip.Equip(info.equippedMonster, info.equipSlot, this);
-
     }
+
 
 
     public void UnEquip()
     {
-        
         equip.Unequip(info.equippedMonster);
+        
 
+
+       
     }
 
 
-    //use this to give a gameobjec's renderer that this object is spawned on to the correct properties
+    //use this to give a gameobject's renderer that this object is spawned on to the correct properties
     public void ActivateItem(EquipmentScript eq, GameObject g)
     {  
        
@@ -152,7 +169,7 @@ public class EquipmentScript : ScriptableObject
             Component comp = g.GetComponent(Type.GetType(eq.spriteEffect.ToString()));
 
 
-            //checks the variables against variable values for this equipment, and then make the values for the added component equal to the values
+            //checks the variable values for this equipment, and then make the values for the added component equal to the values
             foreach (FieldInfo fi in comp.GetType().GetFields())
             {
                 object obj = (System.Object)comp;
@@ -195,6 +212,14 @@ public class EquipmentScript : ScriptableObject
             
         }
     }
+
+    //if an equipment item has dynamic stats, call this to trigger its stat change
+    public void TriggerEvent()
+    {
+        UnEquip();
+        info.triggerCount += 1;
+        EquipItem();
+    }
 }
 
 
@@ -219,6 +244,16 @@ public class EquipManager
         equipment = equip;
 
         EquipEffect effect = new EquipEffect(monster, equipment, Slot);
+
+        if (slot == 1)
+        {
+            monster.info.equipment1 = equip;
+        }
+        else if (slot == 2)
+        {
+            monster.info.equipment2 = equip;
+        }
+        
 
     }
 
@@ -277,5 +312,9 @@ public class EquipManager
         monster.info.attack2.CritChance.RemoveAllModifiersFromSource(this);
         monster.info.attack2.CritMod.RemoveAllModifiersFromSource(this);
         monster.info.attack2.EffectChance.RemoveAllModifiersFromSource(this);
+
+        //monster.UnEquipItem(equip, slot);
     }
 }
+
+

@@ -27,7 +27,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
 
 
-    private EquipmentScript equips1, equips2;
+    public EquipmentScript equips1, equips2;
     public bool isEquip1, isEquip2;
     private Monster monster, clickedMonsterIcon;
 
@@ -193,8 +193,9 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
            
 
             equip1Btn.GetComponent<Image>().color = Color.white;
-            equips1 = allEquipment[monster.info.equip1Name];
-            //equips1.GetEquipInfo(thisMonster, 1);
+            //equips1 = allEquipment[monster.info.equip1Name];
+            //equips1 = thisMonster.info.equipment1;
+            equips1 = monster.info.equipment1;
             equips1.GetEquipInfo(monster, 1);
             //set this monster to be displayed as the monster equipped with an item, to prevent item stacking
             thisMonster = equips1.info.equippedMonster;
@@ -221,7 +222,9 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             
 
             equip2Btn.GetComponent<Image>().color = Color.white;
-            equips2 = allEquipment[monster.info.equip2Name];
+            //equips2 = allEquipment[monster.info.equip2Name];
+            //equips2 = thisMonster.info.equipment2;
+            equips2 = monster.info.equipment2;
             equips2.GetEquipInfo(monster, 2);
             //set this monster to be displayed as the monster equipped with an item, to prevent item stacking
             thisMonster = equips2.info.equippedMonster;
@@ -517,7 +520,6 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             
             GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equips1, 1);
             equips1.UnEquip();
-
             isEquip1 = false;
             equip1Btn.GetComponent<Image>().sprite = null;
             LoadInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
@@ -582,6 +584,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         if (equips2)
         {
             equips2.UnEquip();
+
         }
 
         Destroy(monster.gameObject);

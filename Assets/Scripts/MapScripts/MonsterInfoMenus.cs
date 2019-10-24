@@ -73,8 +73,8 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
         targetModeDropdown.AddOptions(targetModes);
         targetModeDropdown.value = 0;
 
-        e1 = new EquipmentScript();
-        e2 = new EquipmentScript();
+        e1 = ScriptableObject.CreateInstance<EquipmentScript>();
+        e2 = ScriptableObject.CreateInstance<EquipmentScript>();
 
     }
 

@@ -44,7 +44,8 @@ public class EquipEffect
     {
         if (monster.info.type1 == "Nature" || monster.info.type2 == "Nature")
         {
-            monster.info.Attack.AddModifier(new StatModifier(equipment.atkPercentBonus, StatModType.PercentMult, this, equipment.name));
+
+            monster.info.Attack.AddModifier(new StatModifier(equipment.atkPercentBonus * (equipment.info.triggerCount +1), StatModType.PercentMult, this, equipment.name));
         }
     }
 
@@ -92,7 +93,8 @@ public class EquipEffect
     {
         if (monster.info.type1 == "Ice" || monster.info.type2 == "Ice")
         {
-            monster.info.Attack.AddModifier(new StatModifier(equipment.atkPercentBonus, StatModType.PercentMult, this, equipment.name));
+            //monster.info.Attack.AddModifier(new StatModifier(equipment.atkPercentBonus, StatModType.PercentMult, this, equipment.name));
+            monster.info.Attack.AddModifier(new StatModifier((equipment.atkBonus * (equipment.info.triggerCount +1)), StatModType.Flat, this, equipment.name));
         }
     }
 

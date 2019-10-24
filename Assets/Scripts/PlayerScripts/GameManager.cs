@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using System;
+using System.Reflection;
 
 public class GameManager : MonoBehaviour
 {
@@ -75,6 +76,19 @@ public class GameManager : MonoBehaviour
     public GameObject notificationContent;
     //the symbol used to notify the player of a new notification
     public GameObject notifier;
+
+    //the current active scene in the game
+    public Scene activeScene;
+
+
+
+    //list of equipments on your monsters that have trigger events
+    public Dictionary<int, EventTrigger> eventTriggers = new Dictionary<int, EventTrigger>();
+    public int eventTriggerCount;
+    
+
+    
+
     //create the instance of the GameManager to be used throughout the game
     void Awake()
     {
@@ -118,8 +132,8 @@ public class GameManager : MonoBehaviour
         }
 
 
-        
-        
+
+       
 
 
         tileLevelUp.Add(1, 0);
@@ -169,6 +183,7 @@ public class GameManager : MonoBehaviour
         //    }
         //}
 
+        //Debug.Log(eventTriggers.Count);
 
         if (activeNotificationsDict.Count > 0)
         {
@@ -178,6 +193,11 @@ public class GameManager : MonoBehaviour
         {
             notificationObject.SetActive(true);
         }
+
+        
+        //Monster[] monsters = FindObjectsOfType<Monster>();
+
+        //Debug.Log(monsters.Length);
 
     }
 
@@ -200,6 +220,7 @@ public class GameManager : MonoBehaviour
     public void SendNotificationToPlayer(string target, int quantity, NotificationType type, string GotFrom)
     {
         Notification notify = new Notification();
+        notify.CreateTrigger(type);
 
         int id = PlayerPrefs.GetInt("Notifications", 0);
 
@@ -209,6 +230,7 @@ public class GameManager : MonoBehaviour
         notify.targetQuantity = quantity;
         notify.gotFrom = GotFrom;
 
+        
         PlayerPrefs.SetInt("Notifications", notify.id);
 
         
@@ -282,8 +304,63 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+    //call this from other objects to add or remove a trigger from the list of triggers
+    public void EventTriggerManager(Scene scene)
+    {
+        //if (isAdding)
+        //{
+        //    eventTriggerCount += 1;
+        //    trigger.id = eventTriggerCount;
+        //    eventTriggers.Add(eventTriggerCount, trigger);
+        //}
 
+        //BindingFlags bindingFlags = BindingFlags.Public |
+        //                    BindingFlags.NonPublic |
+        //                    BindingFlags.Instance |
+        //                    BindingFlags.Static;
+
+
+        //int i = 0;
+
+
+
+
+        
+
+
+
+
+    } 
+
+    //call this from other objects and use it as a Global Event Trigger call
+    public void TriggerEvent(TriggerType type)
+    {
+
+        foreach (KeyValuePair<int, Monster> monster in GetComponent<YourMonsters>().yourMonstersComplete)
+        {
+            MonsterInfo m = monster.Value.info;
+
+            if (m.equipment1 != null)
+            {
+                m.equipment1.trigger.equipment = m.equipment1;
+                m.equipment1.trigger.ActivateTrigger(m.equipment1.triggerType);
+            }
+
+            if (m.equipment2 != null)
+            {
+                m.equipment2.trigger.equipment = m.equipment2;
+                m.equipment2.trigger.ActivateTrigger(m.equipment2.triggerType);
+            }
+        }
+
+    }
+
+    public void MonsterList()
+    {
+        Monster[] monsters = FindObjectsOfType<Monster>();
+
+        Debug.Log(monsters.Length);
+    }
 }
 
 
@@ -316,5 +393,23 @@ public class Notification
     public string target;
     public int targetQuantity;
     public string gotFrom;
+
+    //used to create an event trigger when a notification happens
+    public void CreateTrigger(NotificationType n)
+    {
+        if (n == NotificationType.ItemGet || n == NotificationType.MonsterDrop)
+        {
+            //EventTrigger trigger = new EventTrigger(TriggerType.ItemGet);
+            GameManager.Instance.TriggerEvent(TriggerType.ItemGet);
+        }
+
+        if (n == NotificationType.LevelUp)
+        {
+            //EventTrigger trigger = new EventTrigger(TriggerType.LevelUp);
+            GameManager.Instance.TriggerEvent(TriggerType.LevelUp);
+        }
+
+        
+    }
 
 }

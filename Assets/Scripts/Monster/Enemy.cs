@@ -473,6 +473,7 @@ public class Enemy : MonoBehaviour
 
             MonsterItemDrop itemDrop = new MonsterItemDrop(this);
             GetComponentInChildren<MotionControl>().StartMonsterDie(this);
+            GameManager.Instance.TriggerEvent(TriggerType.EnemyKO);
             //Destroy(gameObject);
         }
 

@@ -217,8 +217,7 @@ public class Monster : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-
-
+        
 
         tower = GetComponent<Tower>();
         enemy = GetComponent<Enemy>();
@@ -264,7 +263,8 @@ public class Monster : MonoBehaviour
 
 
 
-
+        //info.equipment1 = ScriptableObject.CreateInstance<EquipmentScript>();
+        //info.equipment2 = ScriptableObject.CreateInstance<EquipmentScript>();
 
 
 
@@ -358,14 +358,17 @@ public class Monster : MonoBehaviour
         {
             info.equip1Name = equip.itemName;
             info.equipment1 = equip;
-
         }
 
         if (slot == 2)
         {
+            
+
             info.equip2Name = equip.itemName;
             info.equipment2 = equip;
 
+            //info.equipment2.trigger = new EventTrigger(info.equipment2.triggerType, info.equipment2);
+            //info.equipment2.GetEquipInfo(this, 2);
         }
 
 
@@ -976,10 +979,16 @@ public class Monster : MonoBehaviour
         token.CreateMonsterToken(this);
         saveToken = token.newToken;
 
-
-        PlayerPrefs.SetString(saveToken.index.ToString(), JsonUtility.ToJson(saveToken));
-        //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
         
+        PlayerPrefs.SetString(saveToken.index.ToString(), JsonUtility.ToJson(saveToken));
+
+        //change this monster's dictionary item in your monster list dictionary
+        GameManager.Instance.GetComponent<YourMonsters>().MonsterList(info.index, this);
+
+        
+        //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+        //GameManager.Instance.GetComponent<YourMonsters>().MonsterList(this);
+
     }
 
    
@@ -1028,23 +1037,23 @@ public class Monster : MonoBehaviour
         info.equip2Name = saveToken.equip2;
         info.maxLevel = saveToken.maxLevel;
 
-        //if (allEquips.ContainsKey(info.equip1Name))
-        //{
-        //    info.equipment1 = allEquips[info.equip1Name];
-        //}
-        //else
-        //{
-        //    info.equipment1 = null;
-        //}
+        if (allEquips.ContainsKey(info.equip1Name))
+        {
+            info.equipment1 = allEquips[info.equip1Name];
+        }
+        else
+        {
+            info.equipment1 = null;
+        }
 
-        //if (allEquips.ContainsKey(info.equip2Name))
-        //{
-        //    info.equipment2 = allEquips[info.equip2Name];
-        //}
-        //else
-        //{
-        //    info.equipment2 = null;
-        //}
+        if (allEquips.ContainsKey(info.equip2Name))
+        {
+            info.equipment2 = allEquips[info.equip2Name];
+        }
+        else
+        {
+            info.equipment2 = null;
+        }
 
         info.abilityName = saveToken.specialAbility;
         info.specialAbility = abilities[info.abilityName];
@@ -1059,35 +1068,32 @@ public class Monster : MonoBehaviour
     //call this at the start of each game so the equipment items can be in effect during the games
     public void MonsterEquipment()
     {
-        //var equipment = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
-
-        //if (equipment.ContainsKey(info.equip1Name))
-        //{
-        //    Equipment equip1 = equipment[info.equip1Name];
-        //    equip1.equipPrefab.GetComponent<EquipmentItem>().GetEquipInfo(equip1, this, 1);
-        //}
-        //if (equipment.ContainsKey(info.equip2Name))
-        //{
-        //    Equipment equip2 = equipment[info.equip2Name];
-        //    equip2.equipPrefab.GetComponent<EquipmentItem>().GetEquipInfo(equip2, this, 2);
-        //}
-
-
+       
         var equipment = GameManager.Instance.GetComponent<Items>().allEquipsDict;
 
         if (equipment.ContainsKey(info.equip1Name))
         {
             //EquipmentScript equip1 = equipment[info.equip1Name];
-            info.equipment1 = equipment[info.equip1Name];
+            //info.equipment1 = equipment[info.equip1Name];
+            //info.equipment1.trigger = new EventTrigger(info.equipment1.triggerType, info.equipment1);
+            //info.equipment1.GetEquipInfo(this, 1);
+
+            EquipmentScript equip1 = ScriptableObject.CreateInstance<EquipmentScript>();
+            equip1 = equipment[info.equip1Name];
+            info.equipment2 = equip1;
+            //info.equipment2.trigger = new EventTrigger(info.equipment2.triggerType, info.equipment2);
             info.equipment1.GetEquipInfo(this, 1);
 
-            
+
         }
         if (equipment.ContainsKey(info.equip2Name))
         {
-            //EquipmentScript equip2 = equipment[info.equip2Name];
-            info.equipment2 = equipment[info.equip2Name];
+            EquipmentScript equip2 = ScriptableObject.CreateInstance<EquipmentScript>();
+            equip2 = equipment[info.equip2Name];
+            info.equipment2 = equip2;
+            //info.equipment2.trigger = new EventTrigger(info.equipment2.triggerType, info.equipment2);
             info.equipment2.GetEquipInfo(this, 2);
+            
         }
 
     }
@@ -1103,7 +1109,11 @@ public class Monster : MonoBehaviour
         
     }
 
+    //call this from YourMonsters.cs to send a message to your monsters
+    public void AcceptMessage()
+    {
 
+    }
 
 
     //use this to launch an attack from a menu screen

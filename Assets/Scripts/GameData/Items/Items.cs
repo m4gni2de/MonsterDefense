@@ -127,8 +127,9 @@ public class Items: MonoBehaviour
 
     //public AllEquipment allEquipment = new AllEquipment();
     public AllMonsterCells allMonsterCells = new AllMonsterCells();
-    
 
+    //list of equipment that are affected by event triggers
+    public List<EquipmentScript> triggerEquips = new List<EquipmentScript>();
 
 
     public Dictionary<string, ItemType> fullItemList = new Dictionary<string, ItemType>();
@@ -144,6 +145,8 @@ public class Items: MonoBehaviour
     //use lists to manually add non scriptable objects
     public List<EquipmentScript> equipment = new List<EquipmentScript>();
     public Dictionary<string, EquipmentScript> allEquipsDict = new Dictionary<string, EquipmentScript>();
+
+
 
     private void Awake()
     {
@@ -203,7 +206,21 @@ public class Items: MonoBehaviour
 
         foreach (EquipmentScript equip in equipment)
         {
+            //add them all to a dictionary of all of the equipment
             allEquipsDict.Add(equip.itemName, equip);
+
+            //give them each an EquipManager and EquipmentInformation
+            equip.equip = new EquipManager();
+            equip.info = new EquipmentInformation();
+
+            //if the item has an event trigger, set the trigger on the item itself
+            if (equip.triggerType != TriggerType.None)
+            {
+                //set their event trigger with their type of trigger
+                equip.trigger = new EventTrigger(equip.triggerType, equip);
+                //add the item to the list of triggerable equipment
+                triggerEquips.Add(equip);
+            }
             fullItemList.Add(equip.itemName, ItemType.Equipment);
         }
 

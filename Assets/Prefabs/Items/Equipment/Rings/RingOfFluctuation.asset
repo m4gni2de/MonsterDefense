@@ -24,9 +24,13 @@ MonoBehaviour:
   boosts:
   - Speed +20%
   cost: 900
+  variance: 0
+  triggerType: 0
+  trigger:
+    triggerType: 4
+    id: 0
   rarity: 2
   equipLevelMax: 0
-  spriteEffect: 2
   hpBonus: 0
   atkBonus: 0
   defBonus: 0
@@ -47,17 +51,19 @@ MonoBehaviour:
   atkTimePercentBonus: 0
   evasionPercentBonus: 0
   staminaPercentBonus: 0
+  spriteEffect: 2
   _Alpha: 0
   _TimeX: 0
   _ColorX: {r: 1, g: 0.03225806, b: 0, a: 1}
   Speed: 0.6
   Distortion: 0.2
   info:
-    equipSlot: 2
+    equipSlot: 0
     quantity: 0
     equipLevel: 0
     equipExp: 0
-    isEquipped: 1
+    isEquipped: 0
     equippedMonster: {fileID: 0}
     boosts: []
+    triggerCount: 0
   GameObject: {fileID: 0}

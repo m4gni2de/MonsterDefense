@@ -13,7 +13,10 @@ public class YourMonsters : MonoBehaviour
 
     //keeps track of all of your monsters and their coin generation
     public Dictionary<int, float> coinGenDict = new Dictionary<int, float>();
-    public List<Monster> yourMonstersList = new List<Monster>();
+    //dictionary to hold all of your monsters
+
+
+    public Dictionary<int, Monster> yourMonstersComplete = new Dictionary<int, Monster>();
 
     private void Awake()
     {
@@ -85,12 +88,29 @@ public class YourMonsters : MonoBehaviour
         //}
     }
 
+    //call this from other scripts to add or remove monsters from your list of monsters
+    public void MonsterList(int index, Monster monster)
+    {
+        
+
+        if (!GameManager.Instance.GetComponent<YourMonsters>().yourMonstersComplete.ContainsKey(index))
+        {
+            GameManager.Instance.GetComponent<YourMonsters>().yourMonstersComplete.Add(index, monster);
+        }
+        else
+        {
+            GameManager.Instance.GetComponent<YourMonsters>().yourMonstersComplete.Remove(index);
+            GameManager.Instance.GetComponent<YourMonsters>().yourMonstersComplete.Add(index, monster);
+        }
+
+    }
+
    
 
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log(yourMonstersComplete.Count);
     }
 }
 

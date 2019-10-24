@@ -90,8 +90,15 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 EquipmentScript item = allEquips[name];
                 int itemCount = PlayerPrefs.GetInt(item.name);
 
-                if (item.name != monster.info.equip1Name || item.name != monster.info.equip2Name)
+                
+                if (item.itemName == monster.info.equip1Name || item.itemName == monster.info.equip2Name)
                 {
+                    //
+                    
+                }
+                    else
+                    {
+                    //Debug.Log(item.itemName + "    " + monster.info.equip1Name);
                     if (item.typeMonsterReq == monster.info.type1 || item.typeMonsterReq == monster.info.type2 || item.typeMonsterReq == "none")
                     {
                         var x = Instantiate(equipmentObject, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
@@ -111,10 +118,6 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                         x.transform.localScale = new Vector3(1f, 1f, 1f);
                         //x.GetComponent<Image>().color = Color.white;
                         i += 1;
-                    }
-                    else
-                    {
-                        //x.name = "Ineligible";
                     }
                 }
 

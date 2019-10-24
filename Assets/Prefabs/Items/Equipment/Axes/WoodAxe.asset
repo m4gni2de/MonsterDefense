@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WoodAxe
   m_EditorClassIdentifier: 
   itemName: Wood Axe
-  id: 0
+  id: 1
   description: The weielder gains +5 to all of their attack's Power.
   sprite: {fileID: 21300000, guid: 12ab7ff992b5c8342bd4c9bcf8ee13ef, type: 3}
   equipClass: 1
@@ -24,9 +24,13 @@ MonoBehaviour:
   boosts:
   - +5 to all Attacks' Power
   cost: 320
+  variance: 0
+  triggerType: 0
+  trigger:
+    triggerType: 1
+    id: 0
   rarity: 0
   equipLevelMax: 0
-  spriteEffect: 3
   hpBonus: 0
   atkBonus: 0
   defBonus: 0
@@ -47,11 +51,19 @@ MonoBehaviour:
   atkTimePercentBonus: 0
   evasionPercentBonus: 0
   staminaPercentBonus: 0
+  spriteEffect: 3
+  _Alpha: 0
+  _TimeX: 0
+  _ColorX: {r: 0, g: 0, b: 0, a: 0}
+  Speed: 0
+  Distortion: 0
   info:
-    equipSlot: 1
+    equipSlot: 2
     quantity: 0
     equipLevel: 0
     equipExp: 0
     isEquipped: 1
     equippedMonster: {fileID: 0}
     boosts: []
+    triggerCount: 0
+  GameObject: {fileID: 0}

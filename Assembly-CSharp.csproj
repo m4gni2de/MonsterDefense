@@ -212,9 +212,11 @@
     <Compile Include="Assets\Scripts\GameData\Attacks.cs" />
     <Compile Include="Assets\Scripts\GameData\Companion\CompanionData.cs" />
     <Compile Include="Assets\Scripts\GameData\Companion\CompanionScript.cs" />
+    <Compile Include="Assets\Scripts\GameData\EventTrigger.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\ConsumableItem.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\ConsumableObject.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\EquipEffect.cs" />
+    <Compile Include="Assets\Scripts\GameData\Items\Equipment.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\EquipmentObject.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\EquipmentScript.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\Items.cs" />

@@ -225,7 +225,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
             
                 //deletes the key of the monster being destroyed
                 PlayerPrefs.DeleteKey(activeMonster.info.index.ToString());
-
+                GameManager.Instance.GetComponent<YourMonsters>().yourMonstersComplete.Clear();
 
                 //checks all of your current monsters, and if their index is ABOVE that of the deleted monster, reduce them all by 1 
                 for (int i = 1; i <= GameManager.Instance.monsterCount; i++)
@@ -233,7 +233,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                     string monsterJson = GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict[i];
                     //var info = JsonUtility.FromJson<MonsterInfo>(monsterJson);
                     var info = JsonUtility.FromJson<MonsterSaveToken>(monsterJson);
-                    Debug.Log(i);
+                    //Debug.Log(i);
 
                     if (info.index > indexDeleted)
                     {
@@ -253,6 +253,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                         var position = activeMonster.transform.position;
                         Destroy(activeMonster.gameObject);
                         infoMenu.SetActive(false);
+                        monsterScrollList.SetActive(true);
                         LoadMonsters();
                     }
 

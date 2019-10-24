@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MechRune
   m_EditorClassIdentifier: 
   itemName: Mechanical Rune
-  id: 4
+  id: 0
   description: A Rune that boosts a Mechanical Type monster's attack stat by 10%
   sprite: {fileID: 21300000, guid: fe78fe1d7b58b1d4ead82fe87e67962c, type: 3}
   equipClass: 0
@@ -24,6 +24,11 @@ MonoBehaviour:
   boosts:
   - Attack +10%
   cost: 400
+  variance: 0
+  triggerType: 0
+  trigger:
+    triggerType: 0
+    id: 0
   rarity: 0
   equipLevelMax: 0
   hpBonus: 0
@@ -46,11 +51,19 @@ MonoBehaviour:
   atkTimePercentBonus: 0
   evasionPercentBonus: 0
   staminaPercentBonus: 0
+  spriteEffect: 0
+  _Alpha: 0
+  _TimeX: 0
+  _ColorX: {r: 0, g: 0, b: 0, a: 0}
+  Speed: 0
+  Distortion: 0
   info:
-    equipSlot: 0
+    equipSlot: 1
     quantity: 0
     equipLevel: 0
     equipExp: 0
-    isEquipped: 0
+    isEquipped: 1
     equippedMonster: {fileID: 0}
     boosts: []
+    triggerCount: 0
+  GameObject: {fileID: 0}
