@@ -421,6 +421,7 @@ public class MapTile : MonoBehaviour
     {
         
         tileAnimations.ClearTile();
+        GameManager.Instance.TriggerEvent(TriggerType.TileChange);
     }
 
 

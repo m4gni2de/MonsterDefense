@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class YourMonsters : MonoBehaviour
 {
 
-
+    //dictionary for your monsters as save tokens
     public Dictionary<int, string> yourMonstersDict = new Dictionary<int, string>();
     //public Dictionary<int, Monster> yourMonstersAllInfo = new Dictionary<int, Monster>();
 
@@ -15,7 +15,7 @@ public class YourMonsters : MonoBehaviour
     public Dictionary<int, float> coinGenDict = new Dictionary<int, float>();
     //dictionary to hold all of your monsters
 
-
+    //dictionary for your monsters as monster objects, not just their save tokens
     public Dictionary<int, Monster> yourMonstersComplete = new Dictionary<int, Monster>();
 
     private void Awake()
@@ -110,7 +110,7 @@ public class YourMonsters : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(yourMonstersComplete.Count);
+        //Debug.Log(yourMonstersComplete.Count);
     }
 }
 

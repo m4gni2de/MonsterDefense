@@ -32,6 +32,7 @@ public class EventTrigger
     public object triggerObject;
     public int id;
 
+    //all of the possible objects that can have a trigger on them
     [HideInInspector] public EquipmentScript equipment;
 
 
@@ -50,8 +51,10 @@ public class EventTrigger
     {
 
 
+
         if (triggerType == type)
         {
+            Debug.Log("Type Accepted: " + type + "   This Type: " + triggerType);
 
             if (triggerType == TriggerType.ItemGet)
             {
@@ -67,6 +70,11 @@ public class EventTrigger
             {
                 EnemyKO();
             }
+
+            if (triggerType == TriggerType.TileChange)
+            {
+                TileChange();
+            }
         }
 
         
@@ -78,11 +86,6 @@ public class EventTrigger
     {
        if (equipment != null)
         {
-            //equipment.info.equippedMonster.UnEquipItem(equipment, equipment.info.equipSlot);
-            //equipment.UnEquip();
-            //equipment.EquipItem();
-            //equipment.info.triggerCount += 1;
-
             equipment.TriggerEvent();
         }
 
@@ -92,7 +95,10 @@ public class EventTrigger
     //trigger for when a tile or tiles change on the map
     public void TileChange()
     {
-
+        if (equipment != null)
+        {
+            equipment.TriggerEvent();
+        }
     }
 
     //trigger for when a tile on the map increases level

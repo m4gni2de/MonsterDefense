@@ -134,6 +134,7 @@ public class EquipmentScript : ScriptableObject
 
         info.isEquipped = true;
 
+        
         EquipItem();
 
 
@@ -204,7 +205,7 @@ public class EquipmentScript : ScriptableObject
     //remove the properties on the gameobject for this equipment
     public void DeactivateItem(EquipmentScript e, GameObject g)
     {
-        
+        //Debug.Log(e.itemName);
 
         //if the equipment has a type to be added, add it on the sprite
         if (e.spriteEffect != EquipmentSpriteEffect.None)
@@ -220,7 +221,7 @@ public class EquipmentScript : ScriptableObject
     //if an equipment item has dynamic stats, call this to trigger its stat change
     public void TriggerEvent()
     {
-        //UnEquip();
+        UnEquip();
         info.triggerCount += 1;
         EquipItem();
     }
@@ -237,7 +238,7 @@ public class EquipManager
     public EquipmentScript equipment;
     public int Slot;
 
-
+    
     
 
 
@@ -294,28 +295,28 @@ public class EquipManager
     //invoke this to remove all of the stat boosts when unequipping an equipment item
     public void Unequip(Monster monster)
     {
-        monster.info.HP.RemoveAllModifiersFromSource(this);
-        monster.info.Attack.RemoveAllModifiersFromSource(this);
-        monster.info.Defense.RemoveAllModifiersFromSource(this);
-        monster.info.Speed.RemoveAllModifiersFromSource(this);
-        monster.info.Precision.RemoveAllModifiersFromSource(this);
+        monster.info.HP.RemoveAllModifiersFromSource(equipment);
+        monster.info.Attack.RemoveAllModifiersFromSource(equipment);
+        monster.info.Defense.RemoveAllModifiersFromSource(equipment);
+        monster.info.Speed.RemoveAllModifiersFromSource(equipment);
+        monster.info.Precision.RemoveAllModifiersFromSource(equipment);
 
 
-        monster.info.attack1.Power.RemoveAllModifiersFromSource(this);
-        monster.info.attack1.Range.RemoveAllModifiersFromSource(this);
-        monster.info.attack1.AttackSpeed.RemoveAllModifiersFromSource(this);
-        monster.info.attack1.AttackTime.RemoveAllModifiersFromSource(this);
-        monster.info.attack1.CritChance.RemoveAllModifiersFromSource(this);
-        monster.info.attack1.CritMod.RemoveAllModifiersFromSource(this);
-        monster.info.attack1.EffectChance.RemoveAllModifiersFromSource(this);
+        monster.info.attack1.Power.RemoveAllModifiersFromSource(equipment);
+        monster.info.attack1.Range.RemoveAllModifiersFromSource(equipment);
+        monster.info.attack1.AttackSpeed.RemoveAllModifiersFromSource(equipment);
+        monster.info.attack1.AttackTime.RemoveAllModifiersFromSource(equipment);
+        monster.info.attack1.CritChance.RemoveAllModifiersFromSource(equipment);
+        monster.info.attack1.CritMod.RemoveAllModifiersFromSource(equipment);
+        monster.info.attack1.EffectChance.RemoveAllModifiersFromSource(equipment);
 
-        monster.info.attack2.Power.RemoveAllModifiersFromSource(this);
-        monster.info.attack2.Range.RemoveAllModifiersFromSource(this);
-        monster.info.attack2.AttackSpeed.RemoveAllModifiersFromSource(this);
-        monster.info.attack2.AttackTime.RemoveAllModifiersFromSource(this);
-        monster.info.attack2.CritChance.RemoveAllModifiersFromSource(this);
-        monster.info.attack2.CritMod.RemoveAllModifiersFromSource(this);
-        monster.info.attack2.EffectChance.RemoveAllModifiersFromSource(this);
+        monster.info.attack2.Power.RemoveAllModifiersFromSource(equipment);
+        monster.info.attack2.Range.RemoveAllModifiersFromSource(equipment);
+        monster.info.attack2.AttackSpeed.RemoveAllModifiersFromSource(equipment);
+        monster.info.attack2.AttackTime.RemoveAllModifiersFromSource(equipment);
+        monster.info.attack2.CritChance.RemoveAllModifiersFromSource(equipment);
+        monster.info.attack2.CritMod.RemoveAllModifiersFromSource(equipment);
+        monster.info.attack2.EffectChance.RemoveAllModifiersFromSource(equipment);
 
         //monster.UnEquipItem(equip, slot);
     }

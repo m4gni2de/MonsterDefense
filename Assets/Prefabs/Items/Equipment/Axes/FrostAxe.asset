@@ -25,15 +25,20 @@ MonoBehaviour:
   boosts:
   - +5 Attack for each Ice Type Tile
   cost: 11000
+  variance: 1
+  triggerType: 2
+  trigger:
+    triggerType: 2
+    id: 0
+    equipment: {fileID: 0}
   rarity: 3
   equipLevelMax: 0
-  spriteEffect: 7
   hpBonus: 0
-  atkBonus: 0
+  atkBonus: 5
   defBonus: 0
   speedBonus: 0
   precBonus: 0
-  atkPowerBonus: 5
+  atkPowerBonus: 0
   atkTimeBonus: 0
   atkRangeBonus: 0
   critModBonus: 0
@@ -48,17 +53,19 @@ MonoBehaviour:
   atkTimePercentBonus: 0
   evasionPercentBonus: 0
   staminaPercentBonus: 0
+  spriteEffect: 7
   _Alpha: 0
   _TimeX: 0
   _ColorX: {r: 0, g: 0, b: 0, a: 0}
   Speed: 0
   Distortion: 0
   info:
-    equipSlot: 0
+    equipSlot: 1
     quantity: 0
     equipLevel: 0
     equipExp: 0
-    isEquipped: 0
+    isEquipped: 1
     equippedMonster: {fileID: 0}
     boosts: []
+    triggerCount: 0
   GameObject: {fileID: 0}

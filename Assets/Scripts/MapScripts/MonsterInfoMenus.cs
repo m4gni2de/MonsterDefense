@@ -60,7 +60,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     void Start()
     {
 
-        LoadYourTowers();
+        
 
         List<string> targetModes = new List<string>();
         //the cap is 9 because there are currently 8 Target Modes, so this will fill them all
@@ -162,6 +162,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                     //checks the monster's equipment and displays the matching sprites if there is equipment on the monster
                     if (equips.ContainsKey(activeMonster.info.equip1Name))
                     {
+                        e1.DeactivateItem(e1, equip1);
                         e1 = equips[activeMonster.info.equip1Name];
                         //equip1.GetComponent<Image>().color = Color.white;
                         equip1.name = activeMonster.info.equip1Name;
@@ -181,6 +182,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
                     if (equips.ContainsKey(activeMonster.info.equip2Name))
                     {
+                        e2.DeactivateItem(e2, equip2);
                         e2 = equips[activeMonster.info.equip2Name];
                         //equip2.GetComponent<Image>().color = Color.white;
                         equip2.name = activeMonster.info.equip2Name;

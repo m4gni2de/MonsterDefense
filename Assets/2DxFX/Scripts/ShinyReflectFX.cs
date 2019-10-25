@@ -159,41 +159,41 @@ using UnityEditor;
                 ShaderChange = 0;
             }
 
-#if UNITY_EDITOR
-            string dfname = "";
-            if (CanvasSpriteRenderer != null) dfname = CanvasSpriteRenderer.sharedMaterial.shader.name;
-            if (CanvasImage != null)
-            {
-                Image img = CanvasImage;
-                if (img.material == null) dfname = "Sprites/Default";
-            }
-            if (dfname == "Sprites/Default")
-            {
-                ForceMaterial.shader = Shader.Find(shader);
-                ForceMaterial.hideFlags = HideFlags.None;
-                if (CanvasSpriteRenderer != null)
-                {
-                    CanvasSpriteRenderer.sharedMaterial = ForceMaterial;
-                }
-                else if (CanvasImage != null)
-                {
-                    Image img = CanvasImage;
-                    if (img.material == null) CanvasImage.material = ForceMaterial;
-                }
-                __MainTex2 = Resources.Load("_2dxFX_Gradient") as Texture2D;
-                if (CanvasSpriteRenderer != null)
-                {
-                    CanvasSpriteRenderer.sharedMaterial.SetTexture("_MainTex2", __MainTex2);
-                }
-                else if (CanvasImage != null)
-                {
+//#if UNITY_EDITOR
+//            string dfname = "";
+//            if (CanvasSpriteRenderer != null) dfname = CanvasSpriteRenderer.sharedMaterial.shader.name;
+//            if (CanvasImage != null)
+//            {
+//                Image img = CanvasImage;
+//                if (img.material == null) dfname = "Sprites/Default";
+//            }
+//            if (dfname == "Sprites/Default")
+//            {
+//                ForceMaterial.shader = Shader.Find(shader);
+//                ForceMaterial.hideFlags = HideFlags.None;
+//                if (CanvasSpriteRenderer != null)
+//                {
+//                    CanvasSpriteRenderer.sharedMaterial = ForceMaterial;
+//                }
+//                else if (CanvasImage != null)
+//                {
+//                    Image img = CanvasImage;
+//                    if (img.material == null) CanvasImage.material = ForceMaterial;
+//                }
+//                __MainTex2 = Resources.Load("_2dxFX_Gradient") as Texture2D;
+//                if (CanvasSpriteRenderer != null)
+//                {
+//                    CanvasSpriteRenderer.sharedMaterial.SetTexture("_MainTex2", __MainTex2);
+//                }
+//                else if (CanvasImage != null)
+//                {
                 
-                ///
-                Image img = CanvasImage;
-                    if (img.material == null) CanvasImage.material.SetTexture("_MainTex2", __MainTex2);
-                }
-            }
-#endif
+//                ///
+//                Image img = CanvasImage;
+//                    if (img.material == null) CanvasImage.material.SetTexture("_MainTex2", __MainTex2);
+//                }
+//            }
+//#endif
             if (ActiveChange)
             {
             

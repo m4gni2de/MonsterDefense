@@ -298,7 +298,7 @@ public class Enemy : MonoBehaviour
         {
             if (GameManager.Instance.monstersData.typeChartDict.ContainsKey(atkType) && GameManager.Instance.monstersData.typeChartDict.ContainsKey(stats.type1))
             {
-                float force = (((attackerLevel * 2) / 5) + 2) * atkPower * (atkStat / stats.Defense.Value);
+                float force = (((attackerLevel * 2) / 2) + 2) * atkPower * (atkStat / stats.Defense.Value);
                 //float force = (((attackerLevel * 2) / 5) + 2) * atkPower * (atkStat / stats.def);
                 //float resistance = 38 * (stats.def / atkStat);
                 float resistance = 38 * (stats.Defense.Value / atkStat);
@@ -315,7 +315,7 @@ public class Enemy : MonoBehaviour
         {
             if (GameManager.Instance.monstersData.typeChartDict.ContainsKey(atkType) && GameManager.Instance.monstersData.typeChartDict.ContainsKey(stats.type1) && GameManager.Instance.monstersData.typeChartDict.ContainsKey(stats.type2))
             {
-                float force = (((attackerLevel * 2) / 5) + 2) * atkPower * (atkStat / stats.Defense.Value);
+                float force = (((attackerLevel * 2) / 2) + 2) * atkPower * (atkStat / stats.Defense.Value);
                 //float force = (((attackerLevel * 2) / 5) + 2) * atkPower * (atkStat / stats.def);
                 //float resistance = 38 * (stats.def / atkStat);
                 float resistance = 38 * (stats.Defense.Value / atkStat);

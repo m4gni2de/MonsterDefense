@@ -165,9 +165,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this);
-
-        
-
+        SceneManager.activeSceneChanged += OnSceneChange;
     }
 
     // Update is called once per frame
@@ -307,28 +305,7 @@ public class GameManager : MonoBehaviour
     //call this from other objects to add or remove a trigger from the list of triggers
     public void EventTriggerManager(Scene scene)
     {
-        //if (isAdding)
-        //{
-        //    eventTriggerCount += 1;
-        //    trigger.id = eventTriggerCount;
-        //    eventTriggers.Add(eventTriggerCount, trigger);
-        //}
-
-        //BindingFlags bindingFlags = BindingFlags.Public |
-        //                    BindingFlags.NonPublic |
-        //                    BindingFlags.Instance |
-        //                    BindingFlags.Static;
-
-
-        //int i = 0;
-
-
-
-
         
-
-
-
 
     } 
 
@@ -340,13 +317,13 @@ public class GameManager : MonoBehaviour
         {
             MonsterInfo m = monster.Value.info;
 
-            if (m.equipment1 != null)
+            if (m.equipment1 != null && m.equipment1.triggerType == type)
             {
                 m.equipment1.trigger.equipment = m.equipment1;
                 m.equipment1.trigger.ActivateTrigger(m.equipment1.triggerType);
             }
 
-            if (m.equipment2 != null)
+            if (m.equipment2 != null && m.equipment2.triggerType == type)
             {
                 m.equipment2.trigger.equipment = m.equipment2;
                 m.equipment2.trigger.ActivateTrigger(m.equipment2.triggerType);
@@ -355,11 +332,21 @@ public class GameManager : MonoBehaviour
 
     }
 
+
     public void MonsterList()
     {
         Monster[] monsters = FindObjectsOfType<Monster>();
 
         Debug.Log(monsters.Length);
+    }
+
+
+    //this activates every time a scene is changed
+    private void OnSceneChange(Scene arg0, Scene arg1)
+    {
+        //Debug.Log("Test:" + arg0.name + " -> " + arg1.name);
+
+        activeTiles.Clear();
     }
 }
 

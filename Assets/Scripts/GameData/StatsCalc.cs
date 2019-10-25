@@ -28,16 +28,16 @@ public class StatsCalc
 
 
 
-        //monster.info.hpMax = (int)((2 * monster.info.hpBase + monster.info.hpPot) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 4);
-        monster.info.HP.BaseValue = (int)((2 * monster.info.hpBase + monster.info.HPPotential.BaseValue) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 4);
-        //monster.info.defStat = (int)((2 * monster.info.defBase + monster.info.defPot) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 4);
-        monster.info.Defense.BaseValue = (int)((2 * monster.info.defBase + monster.info.DefensePotential.BaseValue) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 4);
-        //monster.info.atkStat = (int)((2 * monster.info.atkBase + monster.info.atkPot) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 4);
-        monster.info.Attack.BaseValue = (int)((2 * monster.info.atkBase + monster.info.AttackPotential.BaseValue) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 4);
-        //monster.info.speStat = (int)((2 * monster.info.speBase + monster.info.spePot) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 4);
-        monster.info.Speed.BaseValue = (int)((2 * monster.info.speBase + monster.info.SpeedPotential.BaseValue) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 4);
-        //monster.info.precStat = (int)((2 * monster.info.precBase + monster.info.precPot) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 4);
-        monster.info.Precision.BaseValue = (int)((2 * monster.info.precBase + monster.info.PrecisionPotential.BaseValue) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 4);
+        //monster.info.hpMax = (int)((2 * monster.info.hpBase + monster.info.hpPot) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 100);
+        monster.info.HP.BaseValue = (int)((2 * monster.info.hpBase + monster.info.HPPotential.BaseValue) * (level / 25) * Mathf.Sqrt(1 + (level / 100)) + 4);
+        //monster.info.defStat = (int)((2 * monster.info.defBase + monster.info.defPot) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 100);
+        monster.info.Defense.BaseValue = (int)((2 * monster.info.defBase + monster.info.DefensePotential.BaseValue) * (level / 25) * Mathf.Sqrt(1 + (level / 100)) + 4);
+        //monster.info.atkStat = (int)((2 * monster.info.atkBase + monster.info.atkPot) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 100);
+        monster.info.Attack.BaseValue = (int)((2 * monster.info.atkBase + monster.info.AttackPotential.BaseValue) * (level / 25) * Mathf.Sqrt(1 + (level / 100)) + 4);
+        //monster.info.speStat = (int)((2 * monster.info.speBase + monster.info.spePot) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 100);
+        monster.info.Speed.BaseValue = (int)((2 * monster.info.speBase + monster.info.SpeedPotential.BaseValue) * (level / 25) * Mathf.Sqrt(1 + (level / 100)) + 4);
+        //monster.info.precStat = (int)((2 * monster.info.precBase + monster.info.precPot) * (level / 100) * Mathf.Sqrt(1 + (level / 100)) + 100);
+        monster.info.Precision.BaseValue = (int)((2 * monster.info.precBase + monster.info.PrecisionPotential.BaseValue) * (level / 25) * Mathf.Sqrt(1 + (level / 100)) + 4);
         
         monster.info.critBase = (monster.info.precBase / 33) + Mathf.Sqrt(monster.info.Precision.BaseValue);
 

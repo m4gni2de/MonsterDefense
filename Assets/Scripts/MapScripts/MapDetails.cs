@@ -284,7 +284,8 @@ public class MapDetails : MonoBehaviour
 
         }
 
-       
+
+        GetComponent<MonsterInfoMenus>().LoadYourTowers();
     }
 
     
