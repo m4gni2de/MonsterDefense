@@ -268,6 +268,7 @@
     <Compile Include="Assets\Scripts\Monster\FaceMotion.cs" />
     <Compile Include="Assets\Scripts\Monster\MeshBodyParts.cs" />
     <Compile Include="Assets\Scripts\Monster\Monster.cs" />
+    <Compile Include="Assets\Scripts\Monster\MonsterAvatar.cs" />
     <Compile Include="Assets\Scripts\Monster\MonsterIcon.cs" />
     <Compile Include="Assets\Scripts\Monster\MonsterNew.cs" />
     <Compile Include="Assets\Scripts\Monster\Motion.cs" />

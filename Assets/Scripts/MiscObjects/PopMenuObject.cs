@@ -7,8 +7,10 @@ using UnityEngine.UI;
 //this script is used to display pop menu boxes 
 public class PopMenuObject : MonoBehaviour
 {
-    public TMP_Text menuText, titleText;
+    public TMP_Text menuText, titleText, secondaryText;
 
+    //set an active monster to this object so that it can display information about that monster
+    public Monster activeMonster;
     
 
     // Start is called before the first frame update
@@ -16,6 +18,7 @@ public class PopMenuObject : MonoBehaviour
     {
         menuText.GetComponent<TMP_Text>();
         titleText.GetComponent<TMP_Text>();
+        secondaryText.GetComponent<TMP_Text>();
 
        
 
@@ -34,84 +37,42 @@ public class PopMenuObject : MonoBehaviour
         menuText.text = desc;
     }
 
-    //accepts an object and then displays the information about that object based on the object type
-    public void AcceptObject(string name, object obj)
+    //use this to display equipment information
+    public void AcceptEquipment(EquipmentScript equip)
     {
-        //var items = GameManager.Instance.items.allItemsDict;
-        var items = GameManager.Instance.items.fullItemList;
-        var types = GameManager.Instance.monstersData.typeChartDict;
-        var effects = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict;
-        var atkModes = GameManager.Instance.GetComponent<Attacks>().atkModeDict;
-
-        //checks to see if the object brought over was an item
-        if (items.ContainsKey(name))
-        {
-            Item(name);
-        }
-
-        //checks to see if the object brought over was a type
-        if (types.ContainsKey(name))
-        {
-            Type(name);
-        }
-
-        if (effects.ContainsKey(name))
-        {
-            StatusEffect(name);
-        }
-
-        if (atkModes.ContainsKey(name))
-        {
-            AttackMode(name);
-        }
-
-        
-
+        titleText.text = equip.itemName;
+        menuText.text = equip.description;
+        secondaryText.text = "";
     }
 
-    //use this method for an item
-    public void Item(string name)
+    //use this to display status information
+    public void AcceptStatus(Status status)
     {
-        
-        var items = GameManager.Instance.items.fullItemList;
-        var equips = GameManager.Instance.items.allEquipsDict;
-
-
-        if (items[name] == ItemType.Equipment)
-        {
-            if (equips.ContainsKey(name))
-            {
-                titleText.text = equips[name].itemName;
-                menuText.text = equips[name].description;
-            }
-        }
+        titleText.text = status.name;
+        menuText.text = status.description;
+        secondaryText.text = "";
     }
 
-    //use this method for an item
-    public void Type(string name)
+    //use this to display status information
+    public void AcceptType(TypeInfo type)
     {
-        var types = GameManager.Instance.monstersData.typeChartDict;
-
         titleText.text = "Type";
-        menuText.text = types[name].name;
-
+        menuText.text = type.name;
+        secondaryText.text = "";
     }
 
-    public void StatusEffect(string name)
+    //use this to display status information
+    public void AcceptAttackMode(string mode)
     {
-        var effects = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict;
-
-        titleText.text = name;
-        menuText.text = effects[name].description;
-    }
-
-    public void AttackMode(string name)
-    {
-        var atkModes = GameManager.Instance.GetComponent<Attacks>().atkModeDict;
-
         titleText.text = "Attack Mode";
-        menuText.text = name;
+        menuText.text = mode;
+        secondaryText.text = "";
     }
+
+
+
+
+    
 
 
 }

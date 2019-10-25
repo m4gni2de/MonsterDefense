@@ -14,8 +14,8 @@ public class MainMenu : MonoBehaviour
 
         GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
 
-        GameManager.Instance.eventTriggers.Clear();
-        GameManager.Instance.eventTriggerCount = 0;
+        //GameManager.Instance.eventTriggers.Clear();
+        //GameManager.Instance.eventTriggerCount = 0;
 
     }
 

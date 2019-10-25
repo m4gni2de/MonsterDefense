@@ -15,7 +15,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     public GameObject towerMenu, infoMenu, enemyInfoMenu;
     public GameObject menuContentView;
     public GameObject menuCanvas;
-    public GameObject popMenuCanvas, popMenuObject;
+    public GameObject popMenuCanvas;
     public GameObject towerButton;
 
 
@@ -500,6 +500,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
         {
             var tag = eventData.pointerEnter.gameObject.tag;
             var hit = eventData.pointerEnter.gameObject;
+            var name = eventData.pointerEnter.gameObject.name;
 
 
 
@@ -507,22 +508,31 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             if (tag == "ScriptableObject" || tag == "Item")
             {
                 var items = GameManager.Instance.items.fullItemList;
+                var equips = GameManager.Instance.items.allEquipsDict;
                 var types = GameManager.Instance.monstersData.typeChartDict;
 
-                Debug.Log(tag);
+                Debug.Log(name);
 
                 //checks to see if the item hit was an item. if it was, fill the box with information about the item
                 if (items.ContainsKey(hit.name))
                 {
-                    popMenuObject.SetActive(true);
-                    popMenuObject.GetComponent<PopMenuObject>().AcceptObject(hit.name, items[hit.name]);
+                    if (equips.ContainsKey(hit.name))
+                    {
+                        GameManager.Instance.DisplayPopMenu(equips[hit.name]);
+                    }
+                    else
+                    {
+                       
+                        GameManager.Instance.DisplayPopMenu(items[hit.name]);
+                    }
+                    
                 }
 
                 //checks to see if the item hit was a type. if it was, fill the box with information about the type
                 if (types.ContainsKey(hit.name))
                 {
-                    popMenuObject.SetActive(true);
-                    popMenuObject.GetComponent<PopMenuObject>().AcceptObject(hit.name, types[hit.name]);
+                    
+                    GameManager.Instance.DisplayPopMenu(types[hit.name]);
                 }
 
             }
@@ -533,6 +543,13 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             {
                 mainCamera.GetComponent<CameraMotion>().isFree = false;
             }
+
+            ////if a monster's stat box is tapped, pull up the pop menu to show that stat's boosts
+            //if (name == atkText.name)
+            //{
+            //    popMenuObject.SetActive(true);
+            //    popMenuObject.GetComponent<PopMenuObject>().AcceptObject("attack", activeMonster);
+            //}
 
         }
 

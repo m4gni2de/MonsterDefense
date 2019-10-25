@@ -211,6 +211,7 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 {
                     //equipment = hit.gameObject.GetComponent<EquipmentItem>();
                     equipment = hit.gameObject.GetComponent<EquipmentObject>().equipment;
+                   
 
                     if (isEquipping)
                     {
@@ -218,8 +219,9 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                     }
                     else
                     {
-                    popMenu.SetActive(true);
-                    popMenu.GetComponent<PopMenuObject>().Item(equipment.itemName);
+                    //popMenu.SetActive(true);
+                    //popMenu.GetComponent<PopMenuObject>().Item(equipment.itemName);
+                    GameManager.Instance.DisplayPopMenu(equipment);
                 }
                 }
 
@@ -237,8 +239,9 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             if (acumTime >= 1)
             {
                 isTapping = false;
-                popMenu.SetActive(true);
-                popMenu.GetComponent<PopMenuObject>().Item(equipment.itemName);
+                //popMenu.SetActive(true);
+                //popMenu.GetComponent<PopMenuObject>().Item(equipment.itemName);
+                GameManager.Instance.DisplayPopMenu(equipment);
             }
             else
             {

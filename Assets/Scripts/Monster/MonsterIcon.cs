@@ -15,6 +15,12 @@ public class MonsterIcon : MonoBehaviour
 
     public GameObject[] rankSprite;
     public Sprite rankIconSprite;
+
+
+    public SpriteRenderer monsterSprite;
+
+
+    public SpriteRenderer[] renderers;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +30,7 @@ public class MonsterIcon : MonoBehaviour
         nameText.GetComponent<TMP_Text>();
         levelText.GetComponent<TMP_Text>();
         //sp.GetComponent<SpriteRenderer>();
-        canvas.sortingLayerName = "GameUI";
+        //canvas.sortingLayerName = "GameUI";
     }
 
     // Update is called once per frame
@@ -38,6 +44,7 @@ public class MonsterIcon : MonoBehaviour
 
             gameObject.tag = GetComponentInParent<Monster>().gameObject.tag;
 
+            monsterSprite.sprite = GameManager.Instance.monstersData.monstersAllDict[GetComponentInParent<Monster>().info.species].frontIcon;
 
         }
     }
@@ -50,7 +57,14 @@ public class MonsterIcon : MonoBehaviour
     {
         canvas.overrideSorting = true;
         canvas.sortingLayerName = layerName;
-        gameObject.GetComponent<SpriteRenderer>().sortingLayerName = layerName;
+
+
+        foreach (SpriteRenderer s in renderers)
+        {
+            s.sortingLayerName = canvas.sortingLayerName;
+            //s.sortingOrder += 20;
+        }
+        //gameObject.GetComponent<SpriteRenderer>().sortingLayerName = layerName;
     }
 
 
@@ -61,8 +75,15 @@ public class MonsterIcon : MonoBehaviour
 
             for (int i = 0; i < GetComponentInParent<Monster>().saveToken.rank; i++)
             {
-                rankSprite[i].GetComponent<Image>().sprite = rankIconSprite;
-                rankSprite[i].GetComponent<Image>().color = Color.white;
+                //rankSprite[i].GetComponent<Image>().sprite = rankIconSprite;
+                //rankSprite[i].GetComponent<Image>().color = Color.white;
+
+                rankSprite[i].GetComponent<SpriteRenderer>().sprite = rankIconSprite;
+            }
+
+            foreach (SpriteRenderer s in renderers)
+            {
+                s.sortingLayerName = canvas.sortingLayerName;
             }
         }
     }

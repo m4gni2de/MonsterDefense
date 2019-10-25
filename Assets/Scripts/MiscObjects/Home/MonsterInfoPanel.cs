@@ -13,7 +13,7 @@ using System.Linq;
 public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 {
     public GameObject monsterSprite, type1, type2, attack1Border, attack2Border;
-    public GameObject equipMenu, equipObject, monsterEditorMenu, monsterUpgradeMenu, popMenu;
+    public GameObject equipMenu, equipObject, monsterEditorMenu, monsterUpgradeMenu;
     public TMP_Text monsterNameText, levelText, atkText, defText, speText, precText, typeText, toNextLevelText, evasionText, energyGenText, energyCostText, stamTxt, abilityNameText, abilityText, coinGenText, koCountText;
     public TMP_Text atkBoostText, defBoostText, speBoostText, precBoostText, evasBoostText, enGenBoostText, costBoostText, stamBoostText, coinGenBoost;
     public TMP_Text attack1, attack2;
@@ -118,9 +118,11 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         if (types.ContainsKey(monster.info.type1))
         {
             type1.GetComponent<SpriteRenderer>().sprite = types[monster.info.type1].typeSprite;
+            type1.name = monster.info.type1;
         }
         else
         {
+            type1.name = "type1";
             type1.GetComponent<SpriteRenderer>().sprite = null;
             
         }
@@ -128,10 +130,11 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         if (types.ContainsKey(monster.info.type2))
         {
             type2.GetComponent<SpriteRenderer>().sprite = types[monster.info.type2].typeSprite;
-            
+            type2.name = monster.info.type2;
         }
         else
         {
+            type2.name = "type2";
             type2.GetComponent<SpriteRenderer>().sprite = null;
            
         }
@@ -598,6 +601,11 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        var items = GameManager.Instance.items.fullItemList;
+        var equips = GameManager.Instance.items.allEquipsDict;
+        var types = GameManager.Instance.monstersData.typeChartDict;
+        var effects = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict;
+        var atkModes = GameManager.Instance.GetComponent<Attacks>().atkModeDict;
 
         if (eventData.pointerEnter)
         {
@@ -618,11 +626,47 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
                 
             }
 
+            //checks to see if the item hit was a type. if it was, fill the box with information about the type
+            if (types.ContainsKey(hit.name))
+            {
+                GameManager.Instance.DisplayPopMenu(types[hit.name]);
+            }
+
             //if the player clicks on an icon, open a window that describes what the icon is
             if (tag == "ScriptableObject")
             {
-                popMenu.SetActive(true);
-                popMenu.GetComponent<PopMenuObject>().AcceptObject(hit.name, hit);
+                
+                
+
+                //checks to see if the item hit was an item. if it was, fill the box with information about the item
+                if (items.ContainsKey(hit.name))
+                {
+                    
+                    if (equips.ContainsKey(hit.name))
+                    {
+                       
+                        GameManager.Instance.DisplayPopMenu(equips[hit.name]);
+                    }
+                    else
+                    {
+                        GameManager.Instance.DisplayPopMenu(items[hit.name]);
+                    }
+                }
+
+                if (effects.ContainsKey(hit.name))
+                {
+                    GameManager.Instance.DisplayPopMenu(effects[hit.name]);
+                }
+
+                if (atkModes.ContainsKey(hit.name))
+                {
+
+                    GameManager.Instance.DisplayPopMenu(hit);
+                }
+
+
+                //popMenu.SetActive(true);
+                //popMenu.GetComponent<PopMenuObject>().AcceptObject(hit.name, hit);
             }
 
         }

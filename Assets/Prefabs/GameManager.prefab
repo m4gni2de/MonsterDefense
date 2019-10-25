@@ -770,6 +770,7 @@ RectTransform:
   m_Children:
   - {fileID: 1884480801}
   - {fileID: 7833154323412574792}
+  - {fileID: 2520100497547051060}
   m_Father: {fileID: 3890321496488870181}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1647,6 +1648,9 @@ MonoBehaviour:
   notificationScroll: {fileID: 1884480800}
   notificationContent: {fileID: 1548638824}
   notifier: {fileID: 607100945183120363}
+  activeScene:
+    m_Handle: 0
+  popMenu: {fileID: 862134898870441725}
 --- !u!114 &6317396937658932170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1968,6 +1972,7 @@ MonoBehaviour:
       monsterPrefab: {fileID: 3756733178258105696, guid: b9e802c2ecb6b8f46baaa297d60de0d9,
         type: 3}
       iconSprite: {fileID: 21300000, guid: 955dc6420e7de684caf307d23bca5ce5, type: 3}
+      frontIcon: {fileID: 21300000, guid: 32a396424b1b09d4695de7afc10b2bcf, type: 3}
       id: 1
       species: Lichenthrope
       type1: Nature
@@ -1999,6 +2004,7 @@ MonoBehaviour:
       monsterPrefab: {fileID: 8546301644363537172, guid: ed1aaac6a03f6e44cb3aa9f6338f85d8,
         type: 3}
       iconSprite: {fileID: 21300000, guid: 5f7452f1dabfbfa49bdf96c131bd03b4, type: 3}
+      frontIcon: {fileID: 21300000, guid: 9cebd327b28345a4097a18e110a411ae, type: 3}
       id: 2
       species: Armordan
       type1: Normal
@@ -2033,6 +2039,7 @@ MonoBehaviour:
       monsterPrefab: {fileID: 1557278105191115862, guid: 684c16b28784dfc46830d4417162e3df,
         type: 3}
       iconSprite: {fileID: 21300000, guid: c0e17bb4c3fa5744b9a5690b07b386b2, type: 3}
+      frontIcon: {fileID: 21300000, guid: 03341e8522eddbd45b6821308dab8707, type: 3}
       id: 3
       species: Fowitzer
       type1: Mechanical
@@ -2064,6 +2071,7 @@ MonoBehaviour:
       monsterPrefab: {fileID: 7742632022644978468, guid: 7373b0563b529b44886d926dba691deb,
         type: 3}
       iconSprite: {fileID: 21300000, guid: 4a82757bcbcd5e04ca4b0506682fe567, type: 3}
+      frontIcon: {fileID: 21300000, guid: b11f09fefb9d4864fb86c8b15519c3ba, type: 3}
       id: 4
       species: Iceros
       type1: Ice
@@ -2263,6 +2271,8 @@ MonoBehaviour:
       weakTo: []
       immune: []
       typeSprite: {fileID: 21300030, guid: 9fe6a498cd8d8284c8786cd5159a7fc5, type: 3}
+  monsterAvatar: {fileID: 866557648045152187, guid: f7bb57893453f594091c2873a83e97cf,
+    type: 3}
 --- !u!114 &3861695980770531831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2275,6 +2285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d72972839c3c75b4e827d6b04b36556e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerEquips: []
   consumables:
   - {fileID: 11400000, guid: 48d3ed719667b824eaac63e0f5f2b4b6, type: 2}
   - {fileID: 11400000, guid: dced8e80b87e905449caad19f7357a3a, type: 2}
@@ -2337,7 +2348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76073fdb57263d94cadd6aaf8c566ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yourMonstersList: []
 --- !u!114 &9114463754745283373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2965,3 +2975,109 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!1001 &7717206288276664768
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2125318792}
+    m_Modifications:
+    - target: {fileID: 6985062286562420541, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_Name
+      value: PopMenuObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 6985062286562420541, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323312173160067572, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323312173160067572, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323312173160067572, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323312173160067572, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323312173160067572, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323312173160067572, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323312173160067572, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323312173160067572, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323312173160067572, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323312173160067572, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323312173160067572, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6985062286490388793, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7850697915843896015, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906683655025853604, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906683656569426478, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4b66cf29fc5015048badf8a1dea3af1a, type: 3}
+--- !u!1 &862134898870441725 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6985062286562420541, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7717206288276664768}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2520100497547051060 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5323312173160067572, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7717206288276664768}
+  m_PrefabAsset: {fileID: 0}

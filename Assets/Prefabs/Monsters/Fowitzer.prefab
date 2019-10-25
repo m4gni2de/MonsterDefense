@@ -329,81 +329,9 @@ MonoBehaviour:
       hitSlowTime: 0
       attackMode: 0
     equip1Name: 
-    equip1:
-      name: 
-      id: 0
-      equipPrefab: {fileID: 0}
-      description: 
-      equipType: 0
-      typeMonsterReq: 
-      typeMoveReq: 
-      forceReq: 0
-      attackModeReq: 0
-      boosts: []
-      cost: 0
-      equipSlot: 0
-      rarity: 0
-      equipLevel: 0
-      equipLevelMax: 0
-      equipExp: 0
-      hpBonus: 0
-      atkBonus: 0
-      defBonus: 0
-      speedBonus: 0
-      precBonus: 0
-      atkPowerBonus: 0
-      atkTimeBonus: 0
-      atkRangeBonus: 0
-      critModBonus: 0
-      critChanceBonus: 0
-      staminaBonus: 0
-      hpPercentBonus: 0
-      atkPercentBonus: 0
-      defPercentBonus: 0
-      spePercentBonus: 0
-      precPercentBonus: 0
-      atkPowerPercentBonus: 0
-      atkTimePercentBonus: 0
-      evasionPercentBonus: 0
-      staminaPercentBonus: 0
     equip2Name: 
-    equip2:
-      name: 
-      id: 0
-      equipPrefab: {fileID: 0}
-      description: 
-      equipType: 0
-      typeMonsterReq: 
-      typeMoveReq: 
-      forceReq: 0
-      attackModeReq: 0
-      boosts: []
-      cost: 0
-      equipSlot: 0
-      rarity: 0
-      equipLevel: 0
-      equipLevelMax: 0
-      equipExp: 0
-      hpBonus: 0
-      atkBonus: 0
-      defBonus: 0
-      speedBonus: 0
-      precBonus: 0
-      atkPowerBonus: 0
-      atkTimeBonus: 0
-      atkRangeBonus: 0
-      critModBonus: 0
-      critChanceBonus: 0
-      staminaBonus: 0
-      hpPercentBonus: 0
-      atkPercentBonus: 0
-      defPercentBonus: 0
-      spePercentBonus: 0
-      precPercentBonus: 0
-      atkPowerPercentBonus: 0
-      atkTimePercentBonus: 0
-      evasionPercentBonus: 0
-      staminaPercentBonus: 0
+    equipment1: {fileID: 0}
+    equipment2: {fileID: 0}
     HP:
       BaseValue: 0
     HPPotential:
@@ -633,106 +561,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85cd3a1ff31cd8469e8f828ba836cdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   pathList: []
   speed: 0
   isCircular: 0
@@ -743,7 +571,6 @@ MonoBehaviour:
   currentPath: {fileID: 0}
   currentTile: 0
   currentIndex: 0
-  pathTileCount: 0
   stats:
     species: 
     name: 
@@ -791,8 +618,10 @@ MonoBehaviour:
     critBase: 0
     Class: 0
   enemyCanvas: {fileID: 1047255246739567655}
+  enemyHpSlider: {fileID: 0}
   damageText: {fileID: 865395030920622845, guid: 33e9bf084464ef646b8774eff963dc42,
     type: 3}
+  map: {fileID: 0}
   isActiveEnemy: 0
   isLeft: 0
   isRight: 0
@@ -5869,6 +5698,7 @@ MonoBehaviour:
   image: {fileID: 0}
   rankSprite: []
   rankIconSprite: {fileID: 0}
+  monsterSprite: {fileID: 0}
 --- !u!1001 &3498577920792653204
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6310,7 +6140,7 @@ PrefabInstance:
     - target: {fileID: 5939123310623338595, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2847304237472646674, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
         type: 3}
@@ -6381,6 +6211,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2515566574700395428, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e1c2dbbc05328c4a8b97e1583d89de5, type: 3}

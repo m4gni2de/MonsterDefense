@@ -146,7 +146,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                 //monsterFile.Close();
 
 
-
+                
 
                 string species = info.species;
                 
@@ -162,11 +162,12 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                     {
 
                     monsterList[i - 1] = Instantiate(monstersDict[species].monsterPrefab, monsterSprites[i - 1].transform.position, Quaternion.identity);
-                   
+
+
                     var monster = monsterList[i - 1];
                     monster.transform.SetParent(scrollContent.transform, true);
 
-
+                    
                     monster.GetComponent<Tower>().boneStructure.SetActive(false);
                     monster.GetComponent<Monster>().monsterIcon.transform.localScale = new Vector3(25, 25, transform.localScale.z);
                     monster.tag = "MonsterIcon";
@@ -175,29 +176,16 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                     monster.GetComponent<Monster>().LoadMonsterToken(monster.GetComponent<Monster>().saveToken);
                     monster.GetComponent<Monster>().monsterIcon.SetActive(true);
 
-                    //monster.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
-                    //monsterSprites[i - 1].GetComponent<Image>().color = Color.white;
-                    //monsterSprites[i - 1].GetComponent<Image>().sprite = monstersDict[species].iconSprite;
-                    //monsterSprites[i - 1].GetComponent<MonsterHomeIcon>().nameText.text = monster.GetComponent<Monster>().info.name;
-                    //monsterSprites[i - 1].GetComponent<MonsterHomeIcon>().levelText.text = monster.GetComponent<Monster>().info.level.ToString();
-                    //monsterSprites[i - 1].GetComponent<MonsterHomeIcon>().rankText.text = monster.GetComponent<Monster>().info.monsterRank.ToString();
+
+
+                   
+                    //monsterList[i - 1] = Instantiate(GameManager.Instance.monstersData.monsterAvatar, monsterSprites[i - 1].transform.position, Quaternion.identity);
+
+
 
                     monsterSpriteTotal += 1;
 
-                    //monsterList[i - 1] = Instantiate(monstersDict[species].monsterPrefab, monsterSprites[i - 1].transform.position, Quaternion.identity);
-                    //var monster = monsterList[i - 1];
-                    //monster.transform.SetParent(scrollContent.transform, true);
-                    //monster.GetComponent<Monster>().monsterIcon.SetActive(true);
-                    //monster.GetComponent<Tower>().boneStructure.SetActive(false);
-                    //monster.GetComponentInChildren<MonsterIcon>().sp.color = Color.clear;
-                    //monster.GetComponentInChildren<MonsterIcon>().image.color = Color.white;
-                    //monster.GetComponent<Monster>().monsterIcon.transform.localScale = new Vector3(transform.localScale.x * 3, transform.localScale.y * 3, transform.localScale.z);
-                    //monster.tag = "Monster";
-                    //monster.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
-                    //monster.GetComponent<Monster>().info = JsonUtility.FromJson<MonsterInfo>(monsters[i]);
-                    //monsterSpriteTotal += 1;
-
-
+              
                 }
                 //}
 

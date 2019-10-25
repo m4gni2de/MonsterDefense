@@ -80,11 +80,12 @@ public class GameManager : MonoBehaviour
     //the current active scene in the game
     public Scene activeScene;
 
-
+    //gameobject that acts as a quick popmenu for displaying information to the player
+    public GameObject popMenu;
 
     //list of equipments on your monsters that have trigger events
-    public Dictionary<int, EventTrigger> eventTriggers = new Dictionary<int, EventTrigger>();
-    public int eventTriggerCount;
+    //public Dictionary<int, EventTrigger> eventTriggers = new Dictionary<int, EventTrigger>();
+    //public int eventTriggerCount;
     
 
     
@@ -347,6 +348,39 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Test:" + arg0.name + " -> " + arg1.name);
 
         activeTiles.Clear();
+    }
+
+    //accept an object and display it on the popmenu
+    public void DisplayPopMenu(object obj)
+    {
+        Debug.Log(obj);
+        if (obj.GetType() == typeof(EquipmentScript))
+        {
+            popMenu.SetActive(true);
+            popMenu.GetComponent<PopMenuObject>().AcceptEquipment((EquipmentScript)obj);
+        }
+
+        if (obj.GetType() == typeof(GameObject))
+        {
+            GameObject name = (GameObject)obj;
+            string n = name.name;
+            popMenu.SetActive(true);
+            popMenu.GetComponent<PopMenuObject>().AcceptAttackMode(n);
+        }
+
+        if (obj.GetType() == typeof(Status))
+        {
+            popMenu.SetActive(true);
+            popMenu.GetComponent<PopMenuObject>().AcceptStatus((Status)obj);
+        }
+
+        if (obj.GetType() == typeof(TypeInfo))
+        {
+            popMenu.SetActive(true);
+            popMenu.GetComponent<PopMenuObject>().AcceptType((TypeInfo)obj);
+        }
+
+
     }
 }
 

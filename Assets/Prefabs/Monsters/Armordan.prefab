@@ -343,7 +343,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259364160966492}
-  m_LocalRotation: {x: 0.0003837916, y: 0.000024795532, z: 0.024957703, w: 0.9996885}
+  m_LocalRotation: {x: 0.0003838444, y: 0.000024616713, z: 0.024765309, w: 0.9996933}
   m_LocalPosition: {x: -0.00000002667607, y: 1, z: 0.00000002940061}
   m_LocalScale: {x: 0.90765315, y: 0.90765315, z: 0.9076537}
   m_Children:
@@ -482,7 +482,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259364425970703}
-  m_LocalRotation: {x: 0.00001240042, y: -0.00096555194, z: -0.99991727, w: -0.012834194}
+  m_LocalRotation: {x: 0.000012355574, y: -0.0009655987, z: -0.9999185, w: -0.012733796}
   m_LocalPosition: {x: -0.0000000500939, y: 0.99999994, z: -1.049169e-14}
   m_LocalScale: {x: 0.6658111, y: 0.6658111, z: 0.6658089}
   m_Children:
@@ -576,7 +576,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259364453767046}
-  m_LocalRotation: {x: 0.019191701, y: -0.00047172312, z: 0.024568383, w: -0.99951386}
+  m_LocalRotation: {x: 0.019191656, y: -0.00047185604, z: 0.02457523, w: -0.9995136}
   m_LocalPosition: {x: -0.0000000049984137, y: 1.0000001, z: 0.00000008426844}
   m_LocalScale: {x: 0.17428383, y: 0.17428383, z: 0.17428342}
   m_Children:
@@ -1189,8 +1189,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259365082260720}
-  m_LocalRotation: {x: 0.000000041712337, y: -0.0000000060363785, z: -0.11886008,
-    w: 0.99291104}
+  m_LocalRotation: {x: -1.8863165e-10, y: -0.0000000013035112, z: -0.11884933, w: 0.9929123}
   m_LocalPosition: {x: -0.0000000359788, y: 0.99999994, z: 0.00000008342479}
   m_LocalScale: {x: 0.89975584, y: 0.89975584, z: 0.8997554}
   m_Children:
@@ -1343,7 +1342,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259365276351886}
-  m_LocalRotation: {x: 0.000026851889, y: -0.6695842, z: 0.017891243, w: -0.7425206}
+  m_LocalRotation: {x: -0.000034779307, y: -0.66958433, z: 0.017822895, w: -0.7425223}
   m_LocalPosition: {x: 0.00000005143135, y: 1, z: 0.00000006028282}
   m_LocalScale: {x: 4.10425, y: 4.10425, z: 4.104247}
   m_Children:
@@ -1976,7 +1975,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259365632174104}
-  m_LocalRotation: {x: -0, y: -0, z: -0.98969054, w: 0.14322254}
+  m_LocalRotation: {x: -0, y: -0, z: -0.9896911, w: 0.1432186}
   m_LocalPosition: {x: 0.33432, y: -0.5532203, z: 0}
   m_LocalScale: {x: 1.9796704, y: 1.9796704, z: 1.9796705}
   m_Children:
@@ -3986,79 +3985,9 @@ MonoBehaviour:
       hitSlowTime: 0
       attackMode: 0
     equip1Name: 
-    equip1:
-      name: 
-      id: 0
-      equipPrefab: {fileID: 0}
-      description: 
-      equipType: 0
-      typeMonsterReq: 
-      typeMoveReq: 
-      forceReq: 0
-      attackModeReq: 0
-      boosts: []
-      cost: 0
-      equipSlot: 0
-      equipLevel: 0
-      equipLevelMax: 0
-      equipExp: 0
-      hpBonus: 0
-      atkBonus: 0
-      defBonus: 0
-      speedBonus: 0
-      precBonus: 0
-      atkPowerBonus: 0
-      atkTimeBonus: 0
-      atkRangeBonus: 0
-      critModBonus: 0
-      critChanceBonus: 0
-      staminaBonus: 0
-      hpPercentBonus: 0
-      atkPercentBonus: 0
-      defPercentBonus: 0
-      spePercentBonus: 0
-      precPercentBonus: 0
-      atkPowerPercentBonus: 0
-      atkTimePercentBonus: 0
-      evasionPercentBonus: 0
-      staminaPercentBonus: 0
     equip2Name: 
-    equip2:
-      name: 
-      id: 0
-      equipPrefab: {fileID: 0}
-      description: 
-      equipType: 0
-      typeMonsterReq: 
-      typeMoveReq: 
-      forceReq: 0
-      attackModeReq: 0
-      boosts: []
-      cost: 0
-      equipSlot: 0
-      equipLevel: 0
-      equipLevelMax: 0
-      equipExp: 0
-      hpBonus: 0
-      atkBonus: 0
-      defBonus: 0
-      speedBonus: 0
-      precBonus: 0
-      atkPowerBonus: 0
-      atkTimeBonus: 0
-      atkRangeBonus: 0
-      critModBonus: 0
-      critChanceBonus: 0
-      staminaBonus: 0
-      hpPercentBonus: 0
-      atkPercentBonus: 0
-      defPercentBonus: 0
-      spePercentBonus: 0
-      precPercentBonus: 0
-      atkPowerPercentBonus: 0
-      atkTimePercentBonus: 0
-      evasionPercentBonus: 0
-      staminaPercentBonus: 0
+    equipment1: {fileID: 0}
+    equipment2: {fileID: 0}
     HP:
       BaseValue: 0
     HPPotential:
@@ -4288,106 +4217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85cd3a1ff31cd8469e8f828ba836cdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   pathList: []
   speed: 0
   isCircular: 0
@@ -4445,8 +4274,10 @@ MonoBehaviour:
     critBase: 0
     Class: 0
   enemyCanvas: {fileID: 1433985147142308102}
+  enemyHpSlider: {fileID: 0}
   damageText: {fileID: 865395030920622845, guid: 33e9bf084464ef646b8774eff963dc42,
     type: 3}
+  map: {fileID: 0}
   isActiveEnemy: 0
   isLeft: 0
   isRight: 0

@@ -50,27 +50,28 @@ public class MonsterUpgrade : MonoBehaviour, IPointerDownHandler
                     //checks your monsters for other monsters of the same species as the active monster
                     if (info.species == activeMonster.info.species && info.rank == activeMonster.info.monsterRank)
                     {
-                        var option = Instantiate(monsterSprite, new Vector3(monsterSprite.transform.position.x, monsterSprite.transform.position.y - (upgradeOptions.Count * (monsterSprite.GetComponent<RectTransform>().rect.height * monsterSprite.transform.localScale.y)), monsterSprite.transform.position.z), Quaternion.identity);
-                        option.transform.SetParent(monsterScroll.transform, true);
-                        option.GetComponent<Image>().sprite = monstersDict[species].iconSprite;
-                        upgradeOptions.Add(option, info);
-                        option.transform.localScale = new Vector2(45f, 25f);
-                        option.tag = "Respawn";
-                        option.name = info.index.ToString();
-                        option.GetComponent<MonsterHomeIcon>().nameText.text = info.name;
-                        option.GetComponent<MonsterHomeIcon>().levelText.text = info.level.ToString();
-
-                        //var option = Instantiate(monstersDict[species].monsterPrefab, new Vector3(monsterSprite.transform.position.x, monsterSprite.transform.position.y - (upgradeOptions.Count * (monsterSprite.GetComponent<RectTransform>().rect.height * monsterSprite.transform.localScale.y)), monsterSprite.transform.position.z), Quaternion.identity);
+                        //var option = Instantiate(monsterSprite, new Vector3(monsterSprite.transform.position.x, monsterSprite.transform.position.y - (upgradeOptions.Count * (monsterSprite.GetComponent<RectTransform>().rect.height * monsterSprite.transform.localScale.y)), monsterSprite.transform.position.z), Quaternion.identity);
                         //option.transform.SetParent(monsterScroll.transform, true);
-                        //option.GetComponent<Tower>().boneStructure.SetActive(false);
-                        //option.GetComponent<Monster>().monsterIcon.transform.localScale = new Vector3(25, 25, transform.localScale.z);
+                        //option.GetComponent<Image>().sprite = monstersDict[species].iconSprite;
+                        //upgradeOptions.Add(option, info);
+                        //option.transform.localScale = new Vector2(45f, 25f);
                         //option.tag = "Respawn";
                         //option.name = info.index.ToString();
-                        //option.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
-                        //option.GetComponent<Monster>().saveToken = JsonUtility.FromJson<MonsterSaveToken>(monsters[i]);
-                        //option.GetComponent<Monster>().LoadMonsterToken(option.GetComponent<Monster>().saveToken);
-                        //option.GetComponent<Monster>().monsterIcon.SetActive(true);
-                        //upgradeOptions.Add(option, info);
+                        //option.GetComponent<MonsterHomeIcon>().nameText.text = info.name;
+                        //option.GetComponent<MonsterHomeIcon>().levelText.text = info.level.ToString();
+
+                        var option = Instantiate(monstersDict[species].monsterPrefab, new Vector3(monsterSprite.transform.position.x, monsterSprite.transform.position.y - (upgradeOptions.Count * (monsterSprite.GetComponent<RectTransform>().rect.height * monsterSprite.transform.localScale.y)), monsterSprite.transform.position.z), Quaternion.identity);
+                        option.transform.SetParent(monsterScroll.transform, true);
+                        option.GetComponent<Tower>().boneStructure.SetActive(false);
+                        option.GetComponent<Monster>().monsterIcon.transform.localScale = new Vector3(25, 25, transform.localScale.z);
+                        option.tag = "Respawn";
+                        option.name = info.index.ToString();
+                        option.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
+                        option.GetComponent<Monster>().saveToken = JsonUtility.FromJson<MonsterSaveToken>(monsters[i]);
+                        option.GetComponent<Monster>().LoadMonsterToken(option.GetComponent<Monster>().saveToken);
+                        option.GetComponent<Monster>().monsterIcon.SetActive(true);
+                        option.GetComponent<Monster>().monsterIcon.GetComponentInChildren<MonsterIcon>().IconVisibility("Overlays");
+                        upgradeOptions.Add(option, info);
 
                     }
 

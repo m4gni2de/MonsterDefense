@@ -20,6 +20,7 @@ public struct MonsterData
 {
     public GameObject monsterPrefab;
     public Sprite iconSprite;
+    public Sprite frontIcon;
     public int id;
     public string species;
     public string type1;
@@ -175,7 +176,7 @@ public class MonstersData : MonoBehaviour
 
     public Dictionary<string, TypeInfo> typeChartDict = new Dictionary<string, TypeInfo>();
 
-    
+    public GameObject monsterAvatar;
 
    
 
