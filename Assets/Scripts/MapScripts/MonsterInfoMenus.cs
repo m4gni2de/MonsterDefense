@@ -113,6 +113,8 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                         tower.GetComponent<Monster>().saveToken = JsonUtility.FromJson<MonsterSaveToken>(monsters[i]);
                         tower.GetComponent<Monster>().LoadMonsterToken(tower.GetComponent<Monster>().saveToken);
                         tower.GetComponent<Monster>().MonsterEquipment();
+                        tower.GetComponent<Monster>().monsterIcon.GetComponentInChildren<MonsterIcon>().DisplayMonster(tower.GetComponent<Monster>());
+
                         tower.gameObject.tag = "Tower";
                         tower.gameObject.name = tower.GetComponent<Monster>().info.species + " " + tower.GetComponent<Monster>().info.index;
 

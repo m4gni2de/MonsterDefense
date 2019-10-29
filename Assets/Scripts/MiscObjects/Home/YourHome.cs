@@ -9,8 +9,7 @@ using System.IO;
 
 public class YourHome : MonoBehaviour, IPointerDownHandler
 {
-    public GameObject homeCanvas, infoMenu, deleteButton, menuCanvas, equipListObject, equipPlacement;
-    public GameObject scrollContent;
+    public GameObject homeCanvas, infoMenu, deleteButton, menuCanvas, equipListObject, equipPlacement, sortMenu, scrollContent;
 
     public GameObject monsterSprite;
     public GameObject[] monsterSprites;
@@ -19,17 +18,19 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     public GameObject[] monsterList;
     public int monsterSpriteTotal;
 
+    //list of monsters in the array
+    public List<GameObject> iconsList;
+
     //public TMP_Text monsterName, levelText, atkText, defText, speText, precText, typeText, toNextLevelText;
     public Monster activeMonster;
 
     public Slider expSlider;
 
     private float touchTime, acumTime, releaseTime;
+    public GameObject monsterInfoMenu, accountInfoMenu, monsterScrollList, consumableObject;
 
-
-    public GameObject monsterInfoMenu, accountInfoMenu, monsterScrollList;
-
-    public GameObject consumableObject;
+    public SortMonsters sorter;
+    public TMP_Text sortModeText;
 
     private void Awake()
     {
@@ -42,7 +43,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
             {
                 monsterSprites[monsterSpriteTotal] = Instantiate(monsterSprite, homeCanvas.transform.position, Quaternion.identity);
                 monsterSprites[monsterSpriteTotal].transform.SetParent(scrollContent.transform, true);
-                monsterSprites[monsterSpriteTotal].transform.position = new Vector3(monsterSprite.transform.position.x + (r * 100), monsterSprite.transform.position.y - (c * 100), monsterSprite.transform.position.z);
+                monsterSprites[monsterSpriteTotal].transform.position = new Vector3(monsterSprite.transform.position.x + (r * 96), monsterSprite.transform.position.y - (c * 75), monsterSprite.transform.position.z);
                 monsterSpriteTotal += 1;
             }
 
@@ -52,7 +53,10 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     // Start is called before the first frame update
     void Start()
     {
+        sorter.sortMode = SortMode.Index;
+
         
+
         expSlider.GetComponent<Slider>();
         LoadMonsters();
 
@@ -74,30 +78,64 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
         //if there are monsters that are showing, delete them to avoid duplicates
         GameObject[] mons = GameObject.FindGameObjectsWithTag("MonsterIcon");
 
-
         monsterSpriteTotal = 0;
 
-        if (mons.Length > 0)
+        if (iconsList.Count > 0)
         {
 
-            for (int m = 0; m < mons.Length; m++)
+            for (int m = 0; m < iconsList.Count; m++)
             {
-                monsterSprites[m].GetComponent<Image>().sprite = null;
-                monsterSprites[m].GetComponent<Image>().color = Color.clear;
-                monsterSprites[m].GetComponent<MonsterHomeIcon>().nameText.text = "";
-                monsterSprites[m].GetComponent<MonsterHomeIcon>().levelText.text = "";
-                Destroy(mons[m]);
+                
 
-                if (m >= mons.Length - 1)
+                //monsterSprites[m].GetComponent<Image>().sprite = null;
+                //monsterSprites[m].GetComponent<Image>().color = Color.clear;
+                //monsterSprites[m].GetComponent<MonsterHomeIcon>().nameText.text = "";
+                //monsterSprites[m].GetComponent<MonsterHomeIcon>().levelText.text = "";
+                Destroy(iconsList[m]);
+
+                //if (m >= iconsList.Count - 1)
+                if (m >= iconsList.Count - 1)
                 {
+                    iconsList.Clear();
                     DisplayMonsters();
+                    
+                    return;
                 }
             }
         }
         else
         {
+            iconsList.Clear();
             DisplayMonsters();
         }
+
+
+        //monsterSpriteTotal = 0;
+
+        //if (mons.Length > 0)
+        //{
+
+        //    for (int m = 0; m <= mons.Length; m++)
+        //    {
+        //        Debug.Log(m);
+
+        //        //monsterSprites[m].GetComponent<Image>().sprite = null;
+        //        //monsterSprites[m].GetComponent<Image>().color = Color.clear;
+        //        //monsterSprites[m].GetComponent<MonsterHomeIcon>().nameText.text = "";
+        //        //monsterSprites[m].GetComponent<MonsterHomeIcon>().levelText.text = "";
+        //        Destroy(mons[m]);
+
+        //        if (m > mons.Length)
+        //        {
+        //            DisplayMonsters();
+        //            break;
+        //        }
+        //    }
+        //}
+        //else
+        //{
+        //    DisplayMonsters();
+        //}
     }
 
     public void DisplayMonsters()
@@ -113,17 +151,21 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
         //var playerInfo = GameManager.Instance.GetComponent<YourAccount>().account;
         //string yourMonsters = Application.persistentDataPath + "/Saves/" + playerInfo.username + "/monsters.txt";
-        
+
         //string[] lines = File.ReadAllLines(yourMonsters);
 
         //StreamWriter monsterFile;
 
-        
+
 
 
         //int index = new int();
 
         //List<int> indexes = new List<int>();
+
+        string mode = PlayerPrefs.GetString("SortMode", "Index");
+        sortModeText.text = "Sorted By: " + mode;
+        
 
         for (int i = 1; i <= monsters.Count; i++)
         {
@@ -144,46 +186,30 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                 //monsterFile = File.AppendText(yourMonsters);
                 //monsterFile.WriteLine(monsterJson);
                 //monsterFile.Close();
+            string species = info.species;
 
-
-                
-
-                string species = info.species;
-                
-
-                ////if the monster appears on the Active Towers list, skip over the spawning of it
-                //if (indexes.Contains(i))
-                //{
-                //    //
-                //}
-                //else
-                //{
-                    if (monstersDict.ContainsKey(species))
-                    {
-
-                    monsterList[i - 1] = Instantiate(monstersDict[species].monsterPrefab, monsterSprites[i - 1].transform.position, Quaternion.identity);
-
-
-                    var monster = monsterList[i - 1];
-                    monster.transform.SetParent(scrollContent.transform, true);
+                if (monstersDict.ContainsKey(species))
+                {
+                var monster = Instantiate(monstersDict[species].monsterPrefab, monsterSprites[i - 1].transform.position, Quaternion.identity);
+                monster.transform.SetParent(scrollContent.transform, true);
 
                     
-                    monster.GetComponent<Tower>().boneStructure.SetActive(false);
-                    monster.GetComponent<Monster>().monsterIcon.transform.localScale = new Vector3(25, 25, transform.localScale.z);
-                    monster.tag = "MonsterIcon";
-                    monster.GetComponent<Monster>().GetComponent<Enemy>().enemyCanvas.SetActive(false);
-                    monster.GetComponent<Monster>().saveToken = JsonUtility.FromJson<MonsterSaveToken>(monsters[i]);
-                    monster.GetComponent<Monster>().LoadMonsterToken(monster.GetComponent<Monster>().saveToken);
-                    monster.GetComponent<Monster>().monsterIcon.SetActive(true);
+                monster.GetComponent<Tower>().boneStructure.SetActive(false);
+                monster.GetComponent<Monster>().monsterIcon.transform.localScale = new Vector3(20f, 20f, transform.localScale.z);
+                monster.tag = "MonsterIcon";
+                    
 
 
+                monster.GetComponent<Monster>().saveToken = JsonUtility.FromJson<MonsterSaveToken>(monsters[i]);
+                monster.GetComponent<Monster>().DisplayIcon();
+                monster.GetComponent<Monster>().MonsterEquipment();
 
-                   
-                    //monsterList[i - 1] = Instantiate(GameManager.Instance.monstersData.monsterAvatar, monsterSprites[i - 1].transform.position, Quaternion.identity);
+                    monster.GetComponent<Monster>().monsterIcon.GetComponentInChildren<MonsterIcon>().DisplayCorrectText(sorter.sortMode);
 
+                    iconsList.Add(monster);
 
-
-                    monsterSpriteTotal += 1;
+                  
+                monsterSpriteTotal += 1;
 
               
                 }
@@ -290,8 +316,9 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
 
                 //var monster = Instantiate(monstersDict[species].monsterPrefab, homeCanvas.transform.position, Quaternion.identity);
-                monsterList[monsterSpriteTotal] = Instantiate(monstersDict[species].monsterPrefab, scrollContent.transform.position, Quaternion.identity);
-                var monster = monsterList[monsterSpriteTotal];
+                //monsterList[monsterSpriteTotal] = Instantiate(monstersDict[species].monsterPrefab, scrollContent.transform.position, Quaternion.identity);
+                var monster = Instantiate(monstersDict[species].monsterPrefab, scrollContent.transform.position, Quaternion.identity);
+                //var monster = monsterList[monsterSpriteTotal];
                 //monster.transform.SetParent(homeCanvas.transform, true);
                 monster.transform.SetParent(scrollContent.transform, true);
                 monster.GetComponent<Monster>().monsterIcon.SetActive(true);
@@ -306,9 +333,11 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                 //monster.transform.position = spawnPoint;
                 monster.GetComponent<Monster>().monsterIcon.transform.localScale = new Vector3(transform.localScale.x * 3, transform.localScale.y * 3, transform.localScale.z);
                 //monster.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                iconsList.Add(monster);
                 activeMonster = monster.GetComponent<Monster>();
                 monsterSpriteTotal += 1;
                 GameManager.Instance.GetComponent<YourAccount>().account.totalMonstersCollected += 1;
+                
                 LoadMonsters();
             }
         }
@@ -510,6 +539,14 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     {
         monsterScrollList.SetActive(true);
     }
+
+    
+
+
+
+
+
+
 
     //called from the MonsterInfoPanel script to hide all of the monster Icons behind the new menu
     public void HideAllMonsters()

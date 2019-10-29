@@ -71,6 +71,7 @@ public class MonsterUpgrade : MonoBehaviour, IPointerDownHandler
                         option.GetComponent<Monster>().LoadMonsterToken(option.GetComponent<Monster>().saveToken);
                         option.GetComponent<Monster>().monsterIcon.SetActive(true);
                         option.GetComponent<Monster>().monsterIcon.GetComponentInChildren<MonsterIcon>().IconVisibility("Overlays");
+                        option.GetComponent<Monster>().monsterIcon.GetComponentInChildren<MonsterIcon>().DisplayMonster(option.GetComponent<Monster>());
                         upgradeOptions.Add(option, info);
 
                     }
@@ -190,12 +191,29 @@ public class MonsterUpgrade : MonoBehaviour, IPointerDownHandler
         var monstersDict = GameManager.Instance.monstersData.monstersAllDict;
         var monsters = GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict;
 
-       
 
-        monster1.GetComponent<Image>().sprite = monstersDict[activeMonster.info.species].iconSprite;
-        monster1.GetComponent<MonsterHomeIcon>().nameText.text = activeMonster.info.name;
-        monster1.GetComponent<MonsterHomeIcon>().levelText.text = activeMonster.info.level.ToString();
-        monster1.GetComponent<MonsterHomeIcon>().rankText.text = activeMonster.info.monsterRank.ToString();
+
+        //monster1.GetComponent<Image>().sprite = monstersDict[activeMonster.info.species].iconSprite;
+        //monster1.GetComponent<MonsterHomeIcon>().nameText.text = activeMonster.info.name;
+        //monster1.GetComponent<MonsterHomeIcon>().levelText.text = activeMonster.info.level.ToString();
+        //monster1.GetComponent<MonsterHomeIcon>().rankText.text = activeMonster.info.monsterRank.ToString();
+
+
+
+        //monster1 = Instantiate(activeMonster.monsterIcon, monster1.transform.position, Quaternion.identity);
+        var monster = Instantiate(activeMonster.monsterIcon, monster1.transform.position, Quaternion.identity);
+        monster.GetComponentInChildren<MonsterIcon>().IconVisibility("Overlays");
+
+        //var monster = monster1;
+        monster.transform.SetParent(upgradePopMenu.transform, true);
+        monster.tag = "Tower";
+
+
+        //monster.GetComponent<Tower>().boneStructure.SetActive(false);
+        //monster.GetComponent<Monster>().monsterIcon.SetActive(true);
+        //monster.GetComponent<Monster>().monsterIcon.GetComponentInChildren<MonsterIcon>().DisplayMonster(activeMonster);
+
+
 
         hp1.text = "HP: " + activeMonster.info.HP.Value.ToString();
         atk1.text = "Atk: " + activeMonster.info.Attack.Value.ToString();
@@ -205,15 +223,25 @@ public class MonsterUpgrade : MonoBehaviour, IPointerDownHandler
         maxLevel1.text = "Max Level: " + activeMonster.info.maxLevel.ToString();
         rank1.text = "Rank: " + activeMonster.info.monsterRank.ToString();
 
+        
 
-        monster2.GetComponent<Image>().sprite = monstersDict[upgradeOptions[hit].species].iconSprite;
-        monster2.GetComponent<MonsterHomeIcon>().nameText.text = upgradeOptions[hit].name;
-        monster2.GetComponent<MonsterHomeIcon>().levelText.text = upgradeOptions[hit].level.ToString();
-        monster2.GetComponent<MonsterHomeIcon>().rankText.text = upgradeOptions[hit].rank.ToString();
+        //monster2.GetComponent<Image>().sprite = monstersDict[upgradeOptions[hit].species].iconSprite;
+        //monster2.GetComponent<MonsterHomeIcon>().nameText.text = upgradeOptions[hit].name;
+        //monster2.GetComponent<MonsterHomeIcon>().levelText.text = upgradeOptions[hit].level.ToString();
+        //monster2.GetComponent<MonsterHomeIcon>().rankText.text = upgradeOptions[hit].rank.ToString();
 
         //create a temporary monster for the 2nd monster, to avoid having to spawn an entirely new monster
         if (monsters.ContainsKey(upgradeOptions[hit].index))
         {
+            //monster2 = Instantiate(activeMonster.monsterIcon, monster2.transform.position, Quaternion.identity);
+            var tempMonster2 = Instantiate(activeMonster.monsterIcon, monster2.transform.position, Quaternion.identity);
+            tempMonster2.GetComponentInChildren<MonsterIcon>().IconVisibility("Overlays");
+            tempMonster2.tag = "Tower";
+
+            //var m = monster2;
+            tempMonster2.transform.SetParent(upgradePopMenu.transform, true);
+
+
             string monsterJson = monsters[upgradeOptions[hit].index];
             MonsterSaveToken info = JsonUtility.FromJson<MonsterSaveToken>(monsterJson);
             string species = info.species;
@@ -221,7 +249,7 @@ public class MonsterUpgrade : MonoBehaviour, IPointerDownHandler
             m2 = monstersDict[species].monsterPrefab.GetComponent<Monster>();
             m2.saveToken = info;
             m2.LoadMonsterToken(m2.saveToken);
-
+            tempMonster2.GetComponentInChildren<MonsterIcon>().DisplayMonster(m2);
 
             
             hp2.text = "HP: " + m2.info.HP.Value.ToString();
@@ -237,6 +265,14 @@ public class MonsterUpgrade : MonoBehaviour, IPointerDownHandler
         //set the changes that will occur for the newly upgraded monster
         m3 = activeMonster;
 
+        //monster3 = Instantiate(activeMonster.monsterIcon, monster3.transform.position, Quaternion.identity);
+        var newMonster3 = Instantiate(activeMonster.monsterIcon, monster3.transform.position, Quaternion.identity);
+        newMonster3.GetComponentInChildren<MonsterIcon>().IconVisibility("Overlays");
+        newMonster3.tag = "Tower";
+
+        //var m = monster3;
+        newMonster3.transform.SetParent(upgradePopMenu.transform, true);
+
         m3.saveToken.rank = activeMonster.saveToken.rank +1;
         m3.saveToken.maxLevel = activeMonster.saveToken.maxLevel + (10 * (m3.saveToken.rank - 1));
 
@@ -250,12 +286,13 @@ public class MonsterUpgrade : MonoBehaviour, IPointerDownHandler
         maxLevel3.text = "Max Level: " + m3.info.maxLevel.ToString();
         rank3.text = "Rank: " + m3.info.monsterRank.ToString();
 
-        monster3.GetComponent<Image>().sprite = monstersDict[activeMonster.info.species].iconSprite;
-        monster3.GetComponent<MonsterHomeIcon>().nameText.text = activeMonster.info.name;
-        monster3.GetComponent<MonsterHomeIcon>().levelText.text = activeMonster.info.level.ToString();
-        monster3.GetComponent<MonsterHomeIcon>().rankText.text = activeMonster.saveToken.rank.ToString();
+        newMonster3.GetComponentInChildren<MonsterIcon>().DisplayMonster(m3);
+        //monster3.GetComponent<Image>().sprite = monstersDict[activeMonster.info.species].iconSprite;
+        //monster3.GetComponent<MonsterHomeIcon>().nameText.text = activeMonster.info.name;
+        //monster3.GetComponent<MonsterHomeIcon>().levelText.text = activeMonster.info.level.ToString();
+        //monster3.GetComponent<MonsterHomeIcon>().rankText.text = activeMonster.saveToken.rank.ToString();
 
-        
+
 
     }
 
@@ -266,12 +303,14 @@ public class MonsterUpgrade : MonoBehaviour, IPointerDownHandler
         activeMonster.saveToken = m3.saveToken;
         activeMonster.SaveMonsterToken();
         activeMonster.LoadMonsterToken(activeMonster.saveToken);
+        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
 
+        Debug.Log(m2.info.index);
         if (GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Count > 1)
         {
             int indexDeleted = m2.info.index;
 
-            Debug.Log(indexDeleted);
+            //Debug.Log(indexDeleted);
 
 
             //deletes the key of the monster being destroyed
@@ -284,7 +323,7 @@ public class MonsterUpgrade : MonoBehaviour, IPointerDownHandler
                 string monsterJson = GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict[i];
                 //var info = JsonUtility.FromJson<MonsterInfo>(monsterJson);
                 var info = JsonUtility.FromJson<MonsterSaveToken>(monsterJson);
-                Debug.Log(i);
+                //Debug.Log(i);
 
                 if (info.index > indexDeleted)
                 {
@@ -302,10 +341,11 @@ public class MonsterUpgrade : MonoBehaviour, IPointerDownHandler
                     GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
                     //Debug.Log(PlayerPrefs.GetInt("MonsterCount"));
                     var position = activeMonster.transform.position;
-                    //Destroy(activeMonster.gameObject);
-                    upgradePopMenu.SetActive(false);
-                    GetComponentInParent<YourHome>().LoadMonsters();
-                    //GetComponentInParent<YourHome>().infoMenu.GetComponent<MonsterInfoPanel>().ClosePanel();
+                    
+                    
+                    
+                   
+                    
                     CloseMenuBtn();
                 }
 
@@ -334,17 +374,34 @@ public class MonsterUpgrade : MonoBehaviour, IPointerDownHandler
     {
         Button[] buttons = GameObject.FindObjectsOfType<Button>();
 
+        //activeMonster = null;
+        //m2 = null;
+        //m3 = null;
+
         for (int i = 0; i < buttons.Length; i++)
         {
 
             buttons[i].interactable = true;
         }
 
-        foreach(KeyValuePair<GameObject, MonsterSaveToken> icon in upgradeOptions)
+        GameObject[] respawn = GameObject.FindGameObjectsWithTag("Tower");
+
+        for (int a = 0; a < respawn.Length; a++)
+        {
+            Debug.Log("here");
+            Destroy(respawn[a]);
+        }
+
+        foreach (KeyValuePair<GameObject, MonsterSaveToken> icon in upgradeOptions)
         {
             Destroy(icon.Key);
         }
 
+
+        GetComponentInParent<YourHome>().infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(activeMonster);
+        GetComponentInParent<YourHome>().LoadMonsters();
+        Destroy(activeMonster.gameObject);
+        upgradePopMenu.SetActive(false);
         gameObject.SetActive(false);
     }
 }

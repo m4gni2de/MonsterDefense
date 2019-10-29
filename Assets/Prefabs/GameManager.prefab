@@ -766,7 +766,7 @@ RectTransform:
   m_GameObject: {fileID: 2125318791}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2}
-  m_LocalScale: {x: 0.60083276, y: 0.60083276, z: 0.60083276}
+  m_LocalScale: {x: 0.5976621, y: 0.5976621, z: 0.5976621}
   m_Children:
   - {fileID: 1884480801}
   - {fileID: 7833154323412574792}
@@ -776,8 +776,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 649, y: 589}
-  m_SizeDelta: {x: 474.34164, y: 1011.92883}
+  m_AnchoredPosition: {x: 647.5, y: 589}
+  m_SizeDelta: {x: 471.83853, y: 1017.29724}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2125318795
 Canvas:
@@ -1632,6 +1632,9 @@ MonoBehaviour:
   natureAttackColor: {r: 0, g: 0, b: 0, a: 0}
   shadowAttackColor: {r: 0, g: 0, b: 0, a: 0}
   fireAttackColor: {r: 0, g: 0, b: 0, a: 0}
+  iceAttackColor: {r: 0.10791205, g: 0.9150943, b: 0.87255174, a: 1}
+  mechAttackColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
+  magicAttackColor: {r: 0.6886792, g: 0, b: 0.34401253, a: 1}
   tileMaxLevel: 0
   tilesMining: []
   expCurves: 
@@ -3047,22 +3050,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6985062286490388793, guid: 4b66cf29fc5015048badf8a1dea3af1a,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7850697915843896015, guid: 4b66cf29fc5015048badf8a1dea3af1a,
         type: 3}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4906683655025853604, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+    - target: {fileID: 6985062286490388793, guid: 4b66cf29fc5015048badf8a1dea3af1a,
         type: 3}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4906683656569426478, guid: 4b66cf29fc5015048badf8a1dea3af1a,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906683655025853604, guid: 4b66cf29fc5015048badf8a1dea3af1a,
         type: 3}
       propertyPath: m_havePropertiesChanged
       value: 1

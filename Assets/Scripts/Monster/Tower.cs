@@ -1231,16 +1231,20 @@ public class TargetSort : IEquatable<TargetSort>, IComparable<TargetSort>
             return 1;
 
         else
-            return this.enemy.stats.currentHp.CompareTo(comparePart.enemy.stats.currentHp);
+            //return this.enemy.stats.currentHp.CompareTo(comparePart.enemy.stats.currentHp);
+            //return CompareTo(comparePart);
+            return 0;
     }
     public override int GetHashCode()
     {
-        return enemy.GetComponent<Monster>().info.level;
+        //return enemy.GetComponent<Monster>().info.level;
+        return enemy.GetHashCode();
     }
     public bool Equals(TargetSort other)
     {
         if (other == null) return false;
-        return (this.enemy.GetComponent<Monster>().info.level.Equals(other.enemy.GetComponent<Monster>().info.level));
+        //return (this.enemy.GetComponent<Monster>().info.level.Equals(other.enemy.GetComponent<Monster>().info.level));
+        return true;
     }
     // Should also override == and != operators.
 }

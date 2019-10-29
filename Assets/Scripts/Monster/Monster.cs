@@ -110,7 +110,8 @@ public struct MonsterInfo
 
     public int monsterRank;
 
-    
+    //use this when sorting the monsters from your home, and then display them according to this index
+    public int sortIndex;
 
     
 };
@@ -289,6 +290,7 @@ public class Monster : MonoBehaviour
         }
 
 
+        info.sortIndex = info.index;
 
         //info.equip1 = new Equipment();
         //info.equip2 = new Equipment();
@@ -417,14 +419,12 @@ public class Monster : MonoBehaviour
 
         if (slot == 1)
         {
-           
             info.equip1Name = "none";
             info.equipment1 = null;
 
         }
         if (slot == 2)
         {
-            //info.equippable2.unequip(gameobject.getcomponent<monster>());
             info.equip2Name = "none";
             info.equipment2 = null;
         }
@@ -1060,6 +1060,7 @@ public class Monster : MonoBehaviour
         info.equip1Name = saveToken.equip1;
         info.equip2Name = saveToken.equip2;
         info.maxLevel = saveToken.maxLevel;
+        
 
         if (allEquips.ContainsKey(info.equip1Name))
         {
@@ -1169,5 +1170,21 @@ public class Monster : MonoBehaviour
         attackSprite.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
 
 
+    }
+
+
+    //call this from other scripts to display the icon of the monster instead of its full body
+    public void DisplayIcon()
+    {
+       
+
+        if (enemy)
+        {
+            enemy.enemyCanvas.SetActive(false);
+        }
+        LoadMonsterToken(saveToken);
+
+        monsterIcon.SetActive(true);
+        monsterIcon.GetComponentInChildren<MonsterIcon>().DisplayMonster(this);
     }
 }

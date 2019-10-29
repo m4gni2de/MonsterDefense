@@ -134,7 +134,7 @@ public class EquipmentScript : ScriptableObject
 
         info.isEquipped = true;
 
-        
+        //UnEquip();
         EquipItem();
 
 

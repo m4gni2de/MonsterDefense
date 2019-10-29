@@ -21,6 +21,16 @@ public class MonsterIcon : MonoBehaviour
 
 
     public SpriteRenderer[] renderers;
+
+
+
+
+    public GameObject outline, background;
+
+    private Monster Monster;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,21 +46,66 @@ public class MonsterIcon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.activeSelf)
-        {
+        //if (gameObject.activeSelf)
+        //{
             
-            nameText.text = GetComponentInParent<Monster>().info.name;
-            levelText.text = GetComponentInParent<Monster>().info.level.ToString();
+        //    nameText.text = GetComponentInParent<Monster>().info.name;
+        //    levelText.text = GetComponentInParent<Monster>().info.level.ToString();
 
-            gameObject.tag = GetComponentInParent<Monster>().gameObject.tag;
+        //    gameObject.tag = GetComponentInParent<Monster>().gameObject.tag;
 
-            monsterSprite.sprite = GameManager.Instance.monstersData.monstersAllDict[GetComponentInParent<Monster>().info.species].frontIcon;
+        //    monsterSprite.sprite = GameManager.Instance.monstersData.monstersAllDict[GetComponentInParent<Monster>().info.species].frontIcon;
 
-        }
+        //}
     }
 
-    
+    //call this when making the icon visible
+    public void DisplayMonster(Monster monster)
+    {
+        var colors = GameManager.Instance.typeColorDictionary;
 
+        Monster = monster;
+
+        nameText.text = monster.info.name;
+        levelText.text = monster.info.level.ToString();
+
+        gameObject.tag = monster.gameObject.tag;
+
+        monsterSprite.sprite = GameManager.Instance.monstersData.monstersAllDict[monster.info.species].frontIcon;
+
+
+       
+
+        if (colors.ContainsKey(monster.info.type1))
+        {
+            Color type1Color = colors[monster.info.type1];
+
+            outline.GetComponent<SpriteRenderer>().color = type1Color;
+            background.GetComponent<SpriteRenderer>().color = type1Color;
+        }
+
+        //if (colors.ContainsKey(monster.info.type2))
+        //{
+           
+        //}
+        
+
+        
+
+
+        for (int i = 0; i < monster.saveToken.rank; i++)
+        {
+            //rankSprite[i].GetComponent<Image>().sprite = rankIconSprite;
+            //rankSprite[i].GetComponent<Image>().color = Color.white;
+
+            rankSprite[i].GetComponent<SpriteRenderer>().sprite = rankIconSprite;
+        }
+
+        foreach (SpriteRenderer s in renderers)
+        {
+            s.sortingLayerName = canvas.sortingLayerName;
+        }
+    }
 
     //these methods are called from other scripts to hide or show the icon in different menus
     public void IconVisibility(string layerName)
@@ -68,24 +123,74 @@ public class MonsterIcon : MonoBehaviour
     }
 
 
+    //call this from scripts to display the stat that is being sorted 
+    public void DisplayCorrectText(SortMode s)
+    {
+        if (s == SortMode.Attack)
+        {
+            nameText.text = Mathf.Round(Monster.info.Attack.Value).ToString();
+        }
+
+        if (s == SortMode.Defense)
+        {
+            nameText.text = Mathf.Round(Monster.info.Defense.Value).ToString();
+        }
+
+        if (s == SortMode.Evasion)
+        {
+            nameText.text = Monster.info.evasionBase + "%";
+        }
+
+        if (s == SortMode.CoinGen)
+        {
+            nameText.text = System.Math.Round(Monster.info.CoinGeneration.Value, 2) + "/m";
+        }
+
+        if (s == SortMode.Precision)
+        {
+            nameText.text = Mathf.Round(Monster.info.Precision.Value).ToString();
+        }
+
+        if (s == SortMode.EnGen)
+        {
+            nameText.text = System.Math.Round(Monster.info.EnergyGeneration.Value / 60f, 2) + " /s";
+        }
+
+        if (s == SortMode.Speed)
+        {
+            nameText.text = Mathf.Round(Monster.info.Speed.Value).ToString();
+        }
+
+        if (s == SortMode.Cost)
+        {
+            nameText.text = Mathf.Round(Monster.info.EnergyCost.Value).ToString();
+        }
+
+        if (s == SortMode.KOCount)
+        {
+            nameText.text = Mathf.Round(Monster.info.koCount).ToString();
+        }
+    }
+
+
     public void OnEnable()
     {
-        if (gameObject.activeSelf)
-        {
+        //if (gameObject.activeSelf)
+        //{
 
-            for (int i = 0; i < GetComponentInParent<Monster>().saveToken.rank; i++)
-            {
-                //rankSprite[i].GetComponent<Image>().sprite = rankIconSprite;
-                //rankSprite[i].GetComponent<Image>().color = Color.white;
+        //    for (int i = 0; i < GetComponentInParent<Monster>().saveToken.rank; i++)
+        //    {
+        //        //rankSprite[i].GetComponent<Image>().sprite = rankIconSprite;
+        //        //rankSprite[i].GetComponent<Image>().color = Color.white;
 
-                rankSprite[i].GetComponent<SpriteRenderer>().sprite = rankIconSprite;
-            }
+        //        rankSprite[i].GetComponent<SpriteRenderer>().sprite = rankIconSprite;
+        //    }
 
-            foreach (SpriteRenderer s in renderers)
-            {
-                s.sortingLayerName = canvas.sortingLayerName;
-            }
-        }
+        //    foreach (SpriteRenderer s in renderers)
+        //    {
+        //        s.sortingLayerName = canvas.sortingLayerName;
+        //    }
+        //}
     }
 
 

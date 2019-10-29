@@ -24,7 +24,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     //images to represent the attack modes and damage forces of the monster's attacks
     public Image atk1Mode, atk1Force, atk1Status, atk2Mode, atk2Force, atk2Status;
 
-
+    
 
 
     public EquipmentScript equips1, equips2;
@@ -152,7 +152,8 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         //    monsterParts[i].sortingOrder = monsterParts[i].sortingOrder + transform.GetComponent<SpriteRenderer>().sortingOrder;
         //}
 
-        RefreshMonsterInfo(thisMonster);
+        //RefreshMonsterInfo(thisMonster);
+        RefreshMonsterInfo(monster);
         
         
 
@@ -520,13 +521,11 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         equipMenu.GetComponent<EquipmentManager>().ChangeEquipment(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>(), 1);
         if (isEquip1)
         {
-            
             GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>().UnEquipItem(equips1, 1);
             equips1.UnEquip();
             isEquip1 = false;
             equip1Btn.GetComponent<Image>().sprite = null;
             LoadInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
-            
         }
         
     }   
@@ -543,7 +542,6 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             isEquip2 = false;
             equip2Btn.GetComponent<Image>().sprite = null;
             LoadInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
-            
         }
 
 
@@ -567,8 +565,8 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         //clickedMonsterIcon.gameObject.GetComponentInChildren<MonsterIcon>().IconVisibility("GameUI");
 
         gameObject.GetComponentInParent<YourHome>().ShowAllMonsters();
-        
-        
+
+
 
         //if (equip1.equipPrefab)
         //{

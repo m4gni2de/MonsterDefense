@@ -245,6 +245,7 @@
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterHomeIcon.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterInfoPanel.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterUpgrade.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\Home\SortMonsters.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\YourHome.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\ItemScene\ItemShop.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\MainMenu.cs" />

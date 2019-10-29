@@ -24,6 +24,11 @@ public class EnviromentCanvas : MonoBehaviour
 
     public void GetEnviroment(string type)
     {
+        GameObject bg = GameObject.Find("Background");
+
+        Destroy(bg);
+
+
         if (type == "Ice")
         {
             IceEnviroment();

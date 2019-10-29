@@ -93,16 +93,17 @@ public class YourMonsters : MonoBehaviour
     {
         
 
-        if (!GameManager.Instance.GetComponent<YourMonsters>().yourMonstersComplete.ContainsKey(index))
+        if (!yourMonstersComplete.ContainsKey(index))
         {
-            GameManager.Instance.GetComponent<YourMonsters>().yourMonstersComplete.Add(index, monster);
+            yourMonstersComplete.Add(index, monster);
         }
         else
         {
-            GameManager.Instance.GetComponent<YourMonsters>().yourMonstersComplete.Remove(index);
-            GameManager.Instance.GetComponent<YourMonsters>().yourMonstersComplete.Add(index, monster);
+            yourMonstersComplete.Remove(index);
+            yourMonstersComplete.Add(index, monster);
         }
 
+        
     }
 
    
@@ -110,7 +111,12 @@ public class YourMonsters : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(yourMonstersComplete.Count);
+        //foreach(KeyValuePair<int, Monster> monster in yourMonstersComplete)
+        //{
+        //    Debug.Log(monster.Value.info.name + ": " + monster.Value.info.Attack.Value);
+        //}
+
+       
     }
 }
 

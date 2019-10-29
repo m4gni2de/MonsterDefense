@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public Items items;
 
     //everything to do with the colors
-    public Color electricAttackColor, waterAttackColor, natureAttackColor, shadowAttackColor, fireAttackColor;
+    public Color electricAttackColor, waterAttackColor, natureAttackColor, shadowAttackColor, fireAttackColor, iceAttackColor, mechAttackColor, magicAttackColor, normalAttackColor;
     public Dictionary<string, Color> typeColorDictionary = new Dictionary<string, Color>();
 
     //dictionary that holds the values for the amount of EXP a tile needs to reach the next level
@@ -111,12 +111,20 @@ public class GameManager : MonoBehaviour
         natureAttackColor = new Color(0f, 0.85f, .21f, 1.0f);
         shadowAttackColor = new Color(.36f, 0f, .37f, 1.0f);
         fireAttackColor = new Color(.98f, .20f, 0f, 1.0f);
+        iceAttackColor = new Color(.11f, .91f, .87f, 1.0f);
+        mechAttackColor = new Color(.48f, .48f, .48f, 1.0f);
+        magicAttackColor = new Color(.68f, 0f, .34f, 1.0f);
+        normalAttackColor = new Color(1f, 1f, 1f, 1.0f);
 
         typeColorDictionary.Add("Electric", electricAttackColor);
         typeColorDictionary.Add("Water", waterAttackColor);
         typeColorDictionary.Add("Nature", natureAttackColor);
         typeColorDictionary.Add("Shadow", shadowAttackColor);
         typeColorDictionary.Add("Fire", fireAttackColor);
+        typeColorDictionary.Add("Ice", iceAttackColor);
+        typeColorDictionary.Add("Mechanical", mechAttackColor);
+        typeColorDictionary.Add("Magic", magicAttackColor);
+        typeColorDictionary.Add("Normal", normalAttackColor);
 
 
         if (PlayerPrefs.HasKey("MonsterCount"))
@@ -348,6 +356,11 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Test:" + arg0.name + " -> " + arg1.name);
 
         activeTiles.Clear();
+
+        GameObject camera = GameObject.Find("Main Camera");
+
+        canvasCamera = camera.GetComponent<Camera>();
+        Instance.overworldCanvas.worldCamera = GameManager.Instance.canvasCamera;
     }
 
     //accept an object and display it on the popmenu
@@ -392,6 +405,7 @@ public class GameManager : MonoBehaviour
 ///Monsters: String[Monster's Index as a String, monster info Json]////
 ///Account: String[account name, account info Json]////
 ///Notifications: Int[Notifications]
+///Monster Sort Mode: String["SortMode", SortMode.Mode.ToString()]
 ///
 
 

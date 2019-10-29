@@ -248,12 +248,10 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 monster.EquipItem(equipment, slot);
                 infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(monster);
                 isTapping = false;
-                gameObject.SetActive(false);
                 int amount = PlayerPrefs.GetInt(equipment.name);
                 PlayerPrefs.SetInt(equipment.name, amount - 1);
+                CloseEquipment();
 
-
-                
             }
         }
 

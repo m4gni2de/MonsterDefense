@@ -13,7 +13,7 @@ using UnityEditor;
 [ExecuteInEditMode]
 [AddComponentMenu("2DxFX/Standard/Pattern")]
 [System.Serializable]
-public class _2dxFX_Pattern : MonoBehaviour
+public class PatternFX : MonoBehaviour
 {
     [HideInInspector] public Material ForceMaterial;
     [HideInInspector] public bool ActiveChange = true;
@@ -292,7 +292,7 @@ public class _2dxFX_Pattern : MonoBehaviour
 
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(_2dxFX_Pattern)), CanEditMultipleObjects]
+[CustomEditor(typeof(PatternFX)), CanEditMultipleObjects]
 public class _2dxFX_Pattern_Editor : Editor
 {
     private SerializedObject m_object;
@@ -308,20 +308,20 @@ public class _2dxFX_Pattern_Editor : Editor
         m_object.Update();
         DrawDefaultInspector();
 
-        _2dxFX_Pattern _2dxScript = (_2dxFX_Pattern)target;
+        PatternFX _2dxScript = (PatternFX)target;
 
-        Texture2D icon = Resources.Load("2dxfxinspector-anim") as Texture2D;
-        if (icon)
-        {
-            Rect r;
-            float ih = icon.height;
-            float iw = icon.width;
-            float result = ih / iw;
-            float w = Screen.width;
-            result = result * w;
-            r = GUILayoutUtility.GetRect(ih, result);
-            EditorGUI.DrawTextureTransparent(r, icon);
-        }
+        //Texture2D icon = Resources.Load("2dxfxinspector-anim") as Texture2D;
+        //if (icon)
+        //{
+        //    Rect r;
+        //    float ih = icon.height;
+        //    float iw = icon.width;
+        //    float result = ih / iw;
+        //    float w = Screen.width;
+        //    result = result * w;
+        //    r = GUILayoutUtility.GetRect(ih, result);
+        //    EditorGUI.DrawTextureTransparent(r, icon);
+        //}
 
         EditorGUILayout.PropertyField(m_object.FindProperty("ActiveUpdate"), new GUIContent("Active Update", "Active Update, for animation / Animator only")); EditorGUILayout.PropertyField(m_object.FindProperty("ForceMaterial"), new GUIContent("Shared Material", "Use a unique material, reduce drastically the use of draw call"));
 

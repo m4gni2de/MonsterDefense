@@ -12,7 +12,7 @@ using UnityEditor;
 [ExecuteInEditMode]
 [AddComponentMenu("2DxFX/Standard/ColorRGB")]
 [System.Serializable]
-public class _2dxFX_ColorRGB : MonoBehaviour
+public class ColorRGB : MonoBehaviour
 {
     [HideInInspector] public Material ForceMaterial;
     [HideInInspector] public bool ActiveChange = true;
@@ -227,7 +227,7 @@ void OnEnable()
 
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(_2dxFX_ColorRGB)), CanEditMultipleObjects]
+[CustomEditor(typeof(ColorRGB)), CanEditMultipleObjects]
 public class _2dxFX_ColorRGB_Editor : Editor
 {
     private SerializedObject m_object;
@@ -243,7 +243,7 @@ public class _2dxFX_ColorRGB_Editor : Editor
         m_object.Update();
         DrawDefaultInspector();
 
-        _2dxFX_ColorRGB _2dxScript = (_2dxFX_ColorRGB)target;
+        ColorRGB _2dxScript = (ColorRGB)target;
 
         Texture2D icon = Resources.Load("2dxfxinspector") as Texture2D;
         if (icon)
