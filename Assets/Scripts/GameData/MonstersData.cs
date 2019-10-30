@@ -19,7 +19,7 @@ public enum MonsterClass
 public struct MonsterData
 {
     public GameObject monsterPrefab;
-    public Sprite iconSprite;
+    //public Sprite iconSprite;
     public Sprite frontIcon;
     public int id;
     public string species;

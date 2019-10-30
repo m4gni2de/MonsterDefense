@@ -46,10 +46,10 @@ public class NotificationObject : MonoBehaviour, IPointerDownHandler
                 var equips = GameManager.Instance.items.allEquipsDict;
                 var consumables = GameManager.Instance.items.allConsumablesDict;
                 var inventory = GameManager.Instance.GetComponent<YourItems>().yourInventory;
+                var monsters = GameManager.Instance.monstersData.monstersAllDict;
 
 
-
-                if (equips.ContainsKey(target))
+            if (equips.ContainsKey(target))
                 {
                     notifyImageSp.enabled = false;
                     notifyImage.color = Color.white;
@@ -67,6 +67,7 @@ public class NotificationObject : MonoBehaviour, IPointerDownHandler
             if (Notify.type == NotificationType.MonsterDrop)
             {
                 notifyText.text = "Enemy " +  Notify.gotFrom + " dropped " +  Notify.targetQuantity + " " + target + "!";
+                
             }
 
             if (Notify.type == NotificationType.TileMine)
@@ -77,11 +78,17 @@ public class NotificationObject : MonoBehaviour, IPointerDownHandler
             if (Notify.type == NotificationType.AbilityReady)
             {
                 notifyText.text = Notify.gotFrom + "'s Ability " + target + " is ready!";
+                notifyImageSp.enabled = false;
+                notifyImage.color = Color.white;
+                notifyImage.sprite = monsters[Notify.gotFrom].frontIcon;
             }
 
             if (Notify.type == NotificationType.LevelUp)
             {
                 notifyText.text = Notify.target + " has Leveled Up to Level " + Notify.targetQuantity;
+                notifyImageSp.enabled = false;
+                notifyImage.color = Color.white;
+                notifyImage.sprite = monsters[Notify.target].frontIcon;
             }
         }
     }

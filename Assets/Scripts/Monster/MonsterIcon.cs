@@ -25,7 +25,7 @@ public class MonsterIcon : MonoBehaviour
 
 
 
-    public GameObject outline, background;
+    public GameObject outline, background, levelOutline;
 
     private Monster Monster;
 
@@ -82,6 +82,7 @@ public class MonsterIcon : MonoBehaviour
 
             outline.GetComponent<SpriteRenderer>().color = type1Color;
             background.GetComponent<SpriteRenderer>().color = type1Color;
+            levelOutline.GetComponent<SpriteRenderer>().color = type1Color;
         }
 
         //if (colors.ContainsKey(monster.info.type2))
@@ -170,6 +171,17 @@ public class MonsterIcon : MonoBehaviour
         {
             nameText.text = Mathf.Round(Monster.info.koCount).ToString();
         }
+
+        if (s == SortMode.Stamina)
+        {
+            nameText.text = Mathf.Round(Monster.info.Stamina.Value).ToString();
+        }
+        if (s == SortMode.Critical)
+        {
+            nameText.text = System.Math.Round(Monster.info.critBase, 2) + "%";
+        }
+
+        //foreach(StatModifier mod in Monster.st)
     }
 
 

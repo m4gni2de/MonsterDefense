@@ -68,6 +68,8 @@ public class CameraMotion : MonoBehaviour
         //if there is nothing touching the screen, the camera defaults back to free
         if (Input.touchCount == 0)
         {
+            oldTouchPositions[0] = null;
+            oldTouchPositions[1] = null;
             isFree = true;
 
         }
@@ -169,6 +171,7 @@ public class CameraMotion : MonoBehaviour
         {
             oldTouchPositions[0] = null;
             oldTouchPositions[1] = null;
+            isFree = true;
             
         }
         else if (Input.touchCount == 1)

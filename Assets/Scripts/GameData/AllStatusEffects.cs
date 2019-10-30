@@ -244,6 +244,8 @@ public class StatusEffects
 
             Enemy = enemy;
         }
+
+        monster.MonsterStatMods();
     }
 
 
@@ -270,6 +272,8 @@ public class StatusEffects
             monster.GetComponent<Enemy>().stats.Speed.RemoveAllModifiersFromSource(this);
             monster.GetComponent<Enemy>().stats.Precision.RemoveAllModifiersFromSource(this);
         }
+
+        monster.MonsterStatMods();
     }
 
     

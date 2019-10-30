@@ -460,6 +460,7 @@ public class Enemy : MonoBehaviour
             }
 
             attacker.GainEXP((int)Mathf.Round(expGained));
+            attacker.currentMapKOs += 1;
 
             //give the other active towers EXP as well
             foreach (KeyValuePair<int, Monster> towers in GameManager.Instance.activeTowers)

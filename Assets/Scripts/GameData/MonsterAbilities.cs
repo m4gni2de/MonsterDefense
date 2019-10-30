@@ -243,7 +243,7 @@ public class MonsterAbility
     AbilityDelegate DelegateCreation(object target, string functionName)
     {
         AbilityDelegate ab = (AbilityDelegate)Delegate.CreateDelegate(typeof(AbilityDelegate), target, functionName);
-        GameManager.Instance.SendNotificationToPlayer(Ability.name, 1, NotificationType.AbilityReady, Owner.info.name);
+        GameManager.Instance.SendNotificationToPlayer(Ability.name, 1, NotificationType.AbilityReady, Owner.info.species);
         return ab;
     }
 

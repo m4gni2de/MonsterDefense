@@ -436,6 +436,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
                     //add this tower to the map's list of your active towers
                     Map.GetComponent<MapDetails>().liveTowers.Add(monster);
+                    //every second, update this monster's entry in the active towers list
+                    StartCoroutine(ActiveTower(1f));
 
                     transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
                     gameObject.transform.localScale = new Vector3(1.7f, 1.7f, transform.localScale.z);
@@ -1198,7 +1200,16 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
     }
 
-  
+    //when the monster becomes an active tower, update the active towers dictionary in GameManager every second with this monster's information
+    public IEnumerator ActiveTower(float time)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(time);
+            GameManager.Instance.activeTowers.Remove(monster.activeIndex);
+            GameManager.Instance.activeTowers.Add(monster.activeIndex, monster);
+        }
+    }
 
 }
 

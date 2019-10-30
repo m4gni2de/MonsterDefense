@@ -62,6 +62,8 @@ public struct MonsterInfo
     public float energyCost;
     public MonsterClass Class;
 
+    
+
     [Header("Monster Attacks")]
     public string attack1Name;
     public MonsterAttack attack1;
@@ -113,7 +115,9 @@ public struct MonsterInfo
     //use this when sorting the monsters from your home, and then display them according to this index
     public int sortIndex;
 
-    
+
+
+
 };
 
 //these stats can change during a map without effecting it's permanent stats
@@ -177,18 +181,11 @@ public class Monster : MonoBehaviour
     public int activeIndex;
 
     //checks if the monster being spawned is an enemy or not
-    public bool isEnemy, isTower;
-
-    //public GameObject expCanvas;
-    //public Slider expSlider;
+    public bool isEnemy, isTower, isAttacking;
 
     //all of the values in regards to leveling up this monster
     public Dictionary<int, int> expToLevel = new Dictionary<int, int>();
     public Dictionary<int, int> totalExpForLevel = new Dictionary<int, int>();
-
-    //use these as temporary variables to hold the monster's stats while it's on the field. these stats can be manipulated while on the field, but do not affect the monster's stats permanently.
-    //public float attack, defense, speed, precision, hp, evasion, stamina, energyCost, energyGeneration;
-
 
     public Animator monsterMotion;
 
@@ -200,8 +197,6 @@ public class Monster : MonoBehaviour
     //list to keep track of the tiles that are boosting this monster while it's on the map. this list is added to from the maptile script itself
     public List<MapTile> boostTiles = new List<MapTile>();
 
-    //list to keep track of the monsters statuses afflictions and their timers
-    //public Dictionary<Status, StatusTimer> statuses = new Dictionary<Status, StatusTimer>();
     public List<Status> statuses = new List<Status>();
     //use these icons to display a monster's current statuses
     public GameObject[] statusIcons;
@@ -209,13 +204,32 @@ public class Monster : MonoBehaviour
     //script used to access the meshes that make up the monster
     public MeshBodyParts bodyParts;
 
-    //bool used for attack checks for this monster while it's not a tower
-    public bool isAttacking;
-    
+    //lists to display all of the monster's stat mods
+    public List<Stat> allStats = new List<Stat>();
+    public List<StatModifier> statMods = new List<StatModifier>();
 
+    //variable that contains all of the KOs the monster has gotten during this round
+    public int currentMapKOs;
 
     private void Awake()
     {
+        allStats.Clear();
+
+        allStats.Add(info.HP);
+        allStats.Add(info.HPPotential);
+        allStats.Add(info.Attack);
+        allStats.Add(info.AttackPotential);
+        allStats.Add(info.Defense);
+        allStats.Add(info.DefensePotential);
+        allStats.Add(info.Speed);
+        allStats.Add(info.SpeedPotential);
+        allStats.Add(info.Precision);
+        allStats.Add(info.PrecisionPotential);
+        allStats.Add(info.Stamina);
+        allStats.Add(info.EnergyGeneration);
+        allStats.Add(info.EnergyCost);
+        allStats.Add(info.CoinGeneration);
+
 
 
     }
@@ -397,7 +411,7 @@ public class Monster : MonoBehaviour
             //info.equipment2.GetEquipInfo(this, 2);
         }
 
-
+        MonsterStatMods();
         SaveMonsterToken();
         GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Remove(info.index);
         GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Add(info.index, PlayerPrefs.GetString(info.index.ToString()));
@@ -432,6 +446,7 @@ public class Monster : MonoBehaviour
         int itemCount = PlayerPrefs.GetInt(equip.name);
         PlayerPrefs.SetInt(equip.name, itemCount + 1);
 
+        MonsterStatMods();
         SaveMonsterToken();
         GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Remove(info.index);
         GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Add(info.index, PlayerPrefs.GetString(info.index.ToString()));
@@ -905,7 +920,7 @@ public class Monster : MonoBehaviour
         GetStats(stats);
         GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Remove(info.index);
         GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Add(info.index, PlayerPrefs.GetString(info.index.ToString()));
-        GameManager.Instance.SendNotificationToPlayer(info.name, info.level, NotificationType.LevelUp, "none");
+        GameManager.Instance.SendNotificationToPlayer(info.species, info.level, NotificationType.LevelUp, "none");
         
     }
 
@@ -1172,6 +1187,21 @@ public class Monster : MonoBehaviour
 
     }
 
+    //call this to refresh the monster's list of stat modifiers
+    public void MonsterStatMods()
+    {
+        statMods.Clear();
+
+        foreach(Stat stat in allStats)
+        {
+            foreach(StatModifier mod in stat.StatModifiers)
+            {
+                statMods.Add(mod);
+            }
+        }
+ 
+    }
+
 
     //call this from other scripts to display the icon of the monster instead of its full body
     public void DisplayIcon()
@@ -1185,6 +1215,6 @@ public class Monster : MonoBehaviour
         LoadMonsterToken(saveToken);
 
         monsterIcon.SetActive(true);
-        monsterIcon.GetComponentInChildren<MonsterIcon>().DisplayMonster(this);
+        
     }
 }

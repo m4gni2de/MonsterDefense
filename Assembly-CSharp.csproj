@@ -227,6 +227,8 @@
     <Compile Include="Assets\Scripts\GameData\StatsCalc.cs" />
     <Compile Include="Assets\Scripts\GifAnimation.cs" />
     <Compile Include="Assets\Scripts\Items\ItemPopMenu.cs" />
+    <Compile Include="Assets\Scripts\MapScripts\CurrentGameInfo.cs" />
+    <Compile Include="Assets\Scripts\MapScripts\DisplayMonsterObject.cs" />
     <Compile Include="Assets\Scripts\MapScripts\EnemySpawn.cs" />
     <Compile Include="Assets\Scripts\MapScripts\InGameSettings.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MapDetails.cs" />

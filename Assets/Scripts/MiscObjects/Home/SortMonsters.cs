@@ -21,6 +21,7 @@ public enum SortMode
     EnGen,
     CoinGen,
     KOCount,
+    Critical,
 }
 
 public enum SortOrder
@@ -257,6 +258,30 @@ public class SortMonsters : MonoBehaviour
                     else return x.monster.info.koCount.CompareTo(y.monster.info.koCount);
                 });
             }
+            else if (sortMode == SortMode.Stamina)
+            {
+
+                //compare each monster's level, with x and y being the monster's compared
+                toSort.Sort(delegate (MonsterSort x, MonsterSort y)
+                {
+                    if (x.monster.info.critBase == y.monster.info.critBase) return 0;
+                    else if (x.monster.info.critBase < y.monster.info.critBase) return greaterThanValue;
+                    else if (x.monster.info.critBase > y.monster.info.critBase) return lessThanValue;
+                    else return x.monster.info.critBase.CompareTo(y.monster.info.critBase);
+                });
+            }
+            else if (sortMode == SortMode.Critical)
+            {
+
+                //compare each monster's level, with x and y being the monster's compared
+                toSort.Sort(delegate (MonsterSort x, MonsterSort y)
+                {
+                    if (x.monster.info.Stamina.Value == y.monster.info.Stamina.Value) return 0;
+                    else if (x.monster.info.Stamina.Value < y.monster.info.Stamina.Value) return greaterThanValue;
+                    else if (x.monster.info.Stamina.Value > y.monster.info.Stamina.Value) return lessThanValue;
+                    else return x.monster.info.Stamina.Value.CompareTo(y.monster.info.Stamina.Value);
+                });
+            }
 
 
             toSort[n].monster.info.index = n + 1;
@@ -403,6 +428,28 @@ public class SortMonsters : MonoBehaviour
         {
 
             Sort(SortMode.KOCount);
+        }
+
+        gameObject.SetActive(false);
+    }
+
+    public void StaminaSort()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+
+            Sort(SortMode.Stamina);
+        }
+
+        gameObject.SetActive(false);
+    }
+
+    public void CriticalSort()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+
+            Sort(SortMode.Critical);
         }
 
         gameObject.SetActive(false);

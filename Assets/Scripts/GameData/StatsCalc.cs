@@ -263,13 +263,20 @@ public enum StatModType
     PercentMult = 300,
 }
 
+[Serializable]
 public class StatModifier
 {
-    public readonly float Value;
-    public readonly StatModType Type;
-    public readonly int Order;
-    public readonly object Source; // Added this variable
-    public readonly string ModName;
+    //public readonly float Value;
+    //public readonly StatModType Type;
+    //public readonly int Order;
+    //public readonly object Source; // Added this variable
+    //public readonly string ModName;
+
+    public float Value;
+    public StatModType Type;
+    public int Order;
+    public object Source; // Added this variable
+    public string ModName;
 
     // "Main" constructor. Requires all variables.
     public StatModifier(float value, StatModType type, int order, object source, string name) // Added "source" input parameter
@@ -375,6 +382,8 @@ public class MapTileStatChange
         //    if (tile.atkTimePercentBonus != 0)
         //        monster.info.attack2.AttackTime.AddModifier(new StatModifier(tile.atkTimePercentBonus, StatModType.PercentMult, this));
         //}
+
+        monster.MonsterStatMods();
     }
 
 
@@ -418,5 +427,7 @@ public class MapTileStatChange
         //monster.tempStats.attack2.CritChance.RemoveAllModifiersFromSource(this);
         //monster.tempStats.attack2.CritMod.RemoveAllModifiersFromSource(this);
         //monster.tempStats.attack2.EffectChance.RemoveAllModifiersFromSource(this);
+
+        monster.MonsterStatMods();
     }
 }
