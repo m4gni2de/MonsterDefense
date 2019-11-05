@@ -85,6 +85,8 @@ abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.Tou
 e8f296b9066ea606d29b505515617f32 Assembly-CSharp.dll:.MapTileAnimations
 3288907379b811ec4dbdd9317dd9b45f Assembly-CSharp.dll:.SwipeMovement
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.TouchObject
+71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
+71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 1b0d134de08df7ccc82486dae89b271a Assembly-CSharp.dll:.Distortion
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -163,7 +165,7 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 495b3e07f7bc71d1a1b8e761d3e184c1 Assembly-CSharp.dll:.SlimeFX
 d750c9d9a3566a06fe300e0a74e68c58 Assembly-CSharp.dll:.MonsterEditor
-ca352e033763453d054bfb2bdd81f99f Assembly-CSharp.dll:.DisplayMonsterObject
+1d20eee7f7ae859d6d8bf57e2d20f2f2 Assembly-CSharp.dll:.DisplayMonsterObject
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 1da7d40058045fb84c78e6e08d529525 Assembly-CSharp.dll:.Attacks
 e68d35346737c2a0c2e0b6f33b58a920 Assembly-CSharp.dll:.ItemPopMenu
