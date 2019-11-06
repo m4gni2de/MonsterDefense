@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 013899317669b9e4fa6245e2db65b25a, type: 3}
+  m_Name: SpikedKnuckles
+  m_EditorClassIdentifier: 
+  itemName: Spiked Knuckles
+  id: 6
+  description: Punch Mode attacks gain 20% attack power.
+  sprite: {fileID: 21300000, guid: 8003ed13a3ab0f14680140d12fd2b1db, type: 3}
+  equipClass: 2
+  typeMonsterReq: none
+  typeMoveReq: none
+  forceReq: 0
+  attackModeReq: 0
+  boosts:
+  - Punch Attacks +20 Power
+  cost: 500
+  variance: 0
+  triggerType: 0
+  trigger:
+    triggerType: 4
+    id: 0
+  rarity: 0
+  equipLevelMax: 0
+  hpBonus: 0
+  atkBonus: 0
+  defBonus: 0
+  speedBonus: 0
+  precBonus: 0
+  atkPowerBonus: 0
+  atkTimeBonus: 0
+  atkRangeBonus: 0
+  critModBonus: 0
+  critChanceBonus: 0
+  staminaBonus: 0
+  hpPercentBonus: 0
+  atkPercentBonus: 0
+  defPercentBonus: 0
+  spePercentBonus: 0
+  precPercentBonus: 0
+  atkPowerPercentBonus: 0.2
+  atkTimePercentBonus: 0
+  evasionPercentBonus: 0
+  staminaPercentBonus: 0
+  spriteEffect: 0
+  _Alpha: 0
+  _TimeX: 0
+  _ColorX: {r: 0, g: 0, b: 0, a: 0}
+  Speed: 0
+  Distortion: 0
+  info:
+    equipSlot: 0
+    quantity: 0
+    equipLevel: 0
+    equipExp: 0
+    isEquipped: 0
+    equippedMonster: {fileID: 0}
+    boosts: []
+    triggerCount: 0
+  GameObject: {fileID: 0}

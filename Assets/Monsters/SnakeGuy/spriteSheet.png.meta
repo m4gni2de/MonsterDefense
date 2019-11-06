@@ -1,0 +1,607 @@
+fileFormatVersion: 2
+guid: 3ef172687170ccb40b9d11489b0b3891
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: vypiorHead
+  - first:
+      213: 21300002
+    second: vypiorArmR
+  - first:
+      213: 21300004
+    second: vypiorArmL
+  - first:
+      213: 21300006
+    second: vypiorHandR
+  - first:
+      213: 21300008
+    second: vypiorHandL
+  - first:
+      213: 21300010
+    second: spriteSheet_0
+  - first:
+      213: 21300012
+    second: vypiorBody
+  - first:
+      213: 21300014
+    second: spriteSheet_1
+  - first:
+      213: 21300016
+    second: vypiorSpear
+  - first:
+      213: 21300018
+    second: vypiorFinger
+  - first:
+      213: 21300020
+    second: vypiorThumbL
+  - first:
+      213: 21300022
+    second: vypiorThumbR
+  - first:
+      213: 21300024
+    second: vypior_finger
+  - first:
+      213: 21300026
+    second: vypior_finger2
+  - first:
+      213: 21300028
+    second: vypior_RH_thumb
+  - first:
+      213: 21300030
+    second: vypior_RH_Index
+  - first:
+      213: 21300032
+    second: vypior_RH_Ring
+  - first:
+      213: 21300034
+    second: vypior_RH_pinky
+  - first:
+      213: 21300036
+    second: spriteSheet_2
+  - first:
+      213: -8958467051756003813
+    second: vypior_palm
+  - first:
+      213: -8888014035734707558
+    second: vypior_finger
+  - first:
+      213: -65051785284065697
+    second: vypior_thumb
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: vypiorHead
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 509
+        width: 207
+        height: 148
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd83ea2880be2684c856fe542f4aecc8
+      internalID: 21300000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vypiorArmR
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 653
+        width: 237
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48ed32633b07afc4b9aaeab54af49258
+      internalID: 21300002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vypiorArmL
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 661
+        width: 194
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9097d0ac329af8248bb9d7b618cf0864
+      internalID: 21300004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vypiorHandR
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 550
+        width: 88
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 19, y: -33.5}
+        - {x: 20, y: -28.5}
+        - {x: 23, y: -24.5}
+        - {x: 24, y: -18.5}
+        - {x: 26, y: -14.5}
+        - {x: 28, y: -14.5}
+        - {x: 32, y: -12.5}
+        - {x: 35, y: -12.5}
+        - {x: 36, y: -11.5}
+        - {x: 40, y: -11.5}
+        - {x: 44, y: -8.5}
+        - {x: 44, y: 19.5}
+        - {x: 42, y: 21.5}
+        - {x: 39, y: 22.5}
+        - {x: 35, y: 22.5}
+        - {x: 34, y: 23.5}
+        - {x: 24, y: 24.5}
+        - {x: 23, y: 25.5}
+        - {x: 19, y: 25.5}
+        - {x: 18, y: 26.5}
+        - {x: 14, y: 26.5}
+        - {x: 13, y: 27.5}
+        - {x: 9, y: 27.5}
+        - {x: 8, y: 28.5}
+        - {x: 5, y: 28.5}
+        - {x: 0, y: 31.5}
+        - {x: -3, y: 33.5}
+        - {x: -6, y: 33.5}
+        - {x: -26, y: 42.5}
+        - {x: -33, y: 42.5}
+        - {x: -36, y: 41.5}
+        - {x: -36, y: 38.5}
+        - {x: -31, y: 33.5}
+        - {x: -30, y: 33.5}
+        - {x: -26, y: 29.5}
+        - {x: -25, y: 29.5}
+        - {x: -22, y: 26.5}
+        - {x: -21, y: 26.5}
+        - {x: -18, y: 23.5}
+        - {x: -17, y: 23.5}
+        - {x: -14, y: 20.5}
+        - {x: -13, y: 20.5}
+        - {x: -10, y: 17.5}
+        - {x: -11, y: 16.5}
+        - {x: -13, y: 16.5}
+        - {x: -16, y: 14.5}
+        - {x: -21, y: 14.5}
+        - {x: -22, y: 13.5}
+        - {x: -26, y: 13.5}
+        - {x: -27, y: 12.5}
+        - {x: -31, y: 12.5}
+        - {x: -32, y: 11.5}
+        - {x: -38, y: 10.5}
+        - {x: -43, y: 8.5}
+        - {x: -44, y: 6.5}
+        - {x: -44, y: 1.5}
+        - {x: -43, y: -0.5}
+        - {x: -40, y: -1.5}
+        - {x: -28, y: -1.5}
+        - {x: -27, y: -0.5}
+        - {x: -14, y: -0.5}
+        - {x: -13, y: -1.5}
+        - {x: -11, y: -1.5}
+        - {x: -10, y: -2.5}
+        - {x: -14, y: -5.5}
+        - {x: -14, y: -6.5}
+        - {x: -16, y: -8.5}
+        - {x: -17, y: -8.5}
+        - {x: -21, y: -12.5}
+        - {x: -22, y: -12.5}
+        - {x: -25, y: -15.5}
+        - {x: -26, y: -15.5}
+        - {x: -34, y: -22.5}
+        - {x: -35, y: -25.5}
+        - {x: -35, y: -29.5}
+        - {x: -33, y: -31.5}
+        - {x: -28, y: -31.5}
+        - {x: -25, y: -29.5}
+        - {x: -20, y: -27.5}
+        - {x: -18, y: -25.5}
+        - {x: -7, y: -19.5}
+        - {x: -3, y: -19.5}
+        - {x: 1, y: -16.5}
+        - {x: 4, y: -16.5}
+        - {x: 5, y: -17.5}
+        - {x: 6, y: -25.5}
+        - {x: 5, y: -26.5}
+        - {x: 5, y: -28.5}
+        - {x: 3, y: -32.5}
+        - {x: 3, y: -39.5}
+        - {x: 5, y: -43.5}
+        - {x: 12, y: -43.5}
+        - {x: 13, y: -42.5}
+        - {x: 13, y: -41.5}
+        - {x: 17, y: -38.5}
+      physicsShape: []
+      tessellationDetail: 1
+      bones: []
+      spriteID: 11ca8316c4fa9bd4b95a834c49b32908
+      internalID: 21300006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vypiorHandL
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 557
+        width: 89
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62488963109d68641a12de6337c6e3ca
+      internalID: 21300008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 9
+        width: 136
+        height: 632
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0802e9df091a096469b5a78a06a905d3
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vypiorBody
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 5
+        width: 139
+        height: 638
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b63087bab8a36fc4e8d62fc4023a111c
+      internalID: 21300012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 57
+        width: 86
+        height: 414
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 16, y: 207}
+        - {x: -0.47106934, y: 153.03308}
+        - {x: -43, y: 111.80994}
+        - {x: -37.611694, y: 97.61633}
+        - {x: -9.825562, y: 107.612366}
+        - {x: -16, y: 52}
+        - {x: 15.917358, y: 101.4628}
+        - {x: 16, y: -207}
+        - {x: 33, y: -207}
+        - {x: 32.789185, y: 142.57816}
+        - {x: 43, y: 147.66116}
+        - {x: 43, y: 177}
+        - {x: 28, y: 207}
+      physicsShape: []
+      tessellationDetail: 0.04
+      bones: []
+      spriteID: 47a724e3c8509a74596b04f5ecae5a92
+      internalID: 21300014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vypiorSpear
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 49
+        width: 97
+        height: 428
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0b54eabadeb912479393c47ece8ebc7
+      internalID: 21300016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vypiorThumbR
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 554
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25eeb2738341d944696e1fdad13263d3
+      internalID: 21300022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 488
+        width: 115
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22fd755a19da70d489b6c335663263e7
+      internalID: 21300036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vypior_palm
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 476
+        width: 51
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79475cef747b5bc45a88209098889cdc
+      internalID: -8958467051756003813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vypior_finger
+      rect:
+        serializedVersion: 2
+        x: 661
+        y: 488
+        width: 43
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1134e580ec7bb824cb7c481942ca1fdf
+      internalID: -8888014035734707558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vypior_thumb
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 671
+        width: 44
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a8c0e524e64d2441b860b97c123a3fe
+      internalID: -65051785284065697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: dc7911b805b6e9b4793878c1a33ba14e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
