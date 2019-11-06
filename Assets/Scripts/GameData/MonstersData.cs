@@ -384,8 +384,8 @@ public class MonsterTypeDetails
     {
         name = "Poison",
         id = 9,
-        noChange = new string[9] { "Normal", "Fire", "Water", "Electric", "Ice", "Mechanical", "Shadow", "Nature", "Magic" },
-        resist = new string[0] { },
+        noChange = new string[8] { "Normal", "Water", "Electric", "Ice", "Mechanical", "Shadow", "Nature", "Magic" },
+        resist = new string[1] { "Fire" },
         weakTo = new string[0] { },
         immune = new string[0] { },
     };

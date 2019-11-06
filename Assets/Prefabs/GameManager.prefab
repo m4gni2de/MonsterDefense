@@ -2272,15 +2272,15 @@ MonoBehaviour:
       id: 9
       noChange:
       - Normal
-      - Fire
+      - Magic
       - Water
       - Electric
       - Ice
       - Mechanical
       - Shadow
       - Nature
-      - Magic
-      resist: []
+      resist:
+      - Fire
       weakTo: []
       immune: []
       typeSprite: {fileID: 21300030, guid: 9fe6a498cd8d8284c8786cd5159a7fc5, type: 3}
