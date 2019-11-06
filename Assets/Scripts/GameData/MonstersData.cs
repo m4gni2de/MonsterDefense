@@ -11,6 +11,7 @@ public enum MonsterClass
     Flying,
     Beast,
     Humanoid,
+    Serpentine,
 }
 
 
@@ -159,6 +160,29 @@ public class AllMonsterData
         itemDrops = new string[2] { "Ice Shard", "Ice Rune" },
     };
 
+    public MonsterData Vypior = new MonsterData
+    {
+        id = 5,
+        species = "Vypior",
+        type1 = "Shadow",
+        type2 = "Poison",
+        Class = MonsterClass.Serpentine,
+        hpBase = 86,
+        atkBase = 131,
+        defBase = 72,
+        speBase = 70,
+        precBase = 103,
+        maxLevel = 100,
+        levelConst = 2.1f,
+        staminaBase = 110,
+        coinGenBase = 2.9f,
+        energyGenBase = 84,
+        energyCost = 10.1f,
+        abilities = new string[1] { "Ice Storm" },
+        dropRate = .2f,
+        itemDrops = new string[1] { "Shadow Shard" },
+    };
+
 
 
 
@@ -199,10 +223,14 @@ public class MonstersData : MonoBehaviour
         monstersAllDict.Add(allMonsterData.Armordan.species, allMonsterData.Armordan);
         monstersAllDict.Add(allMonsterData.Fowitzer.species, allMonsterData.Fowitzer);
         monstersAllDict.Add(allMonsterData.Iceros.species, allMonsterData.Iceros);
+        monstersAllDict.Add(allMonsterData.Vypior.species, allMonsterData.Vypior);
+
+
         monstersByIdDict.Add(allMonsterData.Lichenthrope.id, allMonsterData.Lichenthrope.species);
         monstersByIdDict.Add(allMonsterData.Armordan.id, allMonsterData.Armordan.species);
         monstersByIdDict.Add(allMonsterData.Fowitzer.id, allMonsterData.Fowitzer.species);
         monstersByIdDict.Add(allMonsterData.Iceros.id, allMonsterData.Iceros.species);
+        monstersByIdDict.Add(allMonsterData.Vypior.id, allMonsterData.Vypior.species);
     }
 
     public void AllTypes()

@@ -203,7 +203,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
                 monster.GetComponent<Monster>().saveToken = JsonUtility.FromJson<MonsterSaveToken>(monsters[i]);
                 monster.GetComponent<Monster>().DisplayIcon();
                 monster.GetComponent<Monster>().MonsterEquipment();
-
+                 monster.GetComponent<Monster>().monsterIcon.GetComponentInChildren<MonsterIcon>().DisplayMonster(monster.GetComponent<Monster>());
                     monster.GetComponent<Monster>().monsterIcon.GetComponentInChildren<MonsterIcon>().DisplayCorrectText(sorter.sortMode);
 
                     iconsList.Add(monster);

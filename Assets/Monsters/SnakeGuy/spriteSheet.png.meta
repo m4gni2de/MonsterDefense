@@ -1,28 +1,75 @@
 fileFormatVersion: 2
 guid: 3ef172687170ccb40b9d11489b0b3891
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: vypiorHead
-    21300002: vypiorArmR
-    21300004: vypiorArmL
-    21300006: vypiorHandR
-    21300008: vypiorHandL
-    21300010: spriteSheet_0
-    21300012: vypiorBody
-    21300014: spriteSheet_1
-    21300016: vypiorSpear
-    21300018: vypiorFinger
-    21300020: vypiorThumbL
-    21300022: vypiorThumbR
-    21300024: vypior_finger
-    21300026: vypior_finger2
-    21300028: vypior_RH_thumb
-    21300030: vypior_RH_Index
-    21300032: vypior_RH_Ring
-    21300034: vypior_RH_pinky
-    21300036: spriteSheet_2
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: vypiorHead
+  - first:
+      213: 21300002
+    second: vypiorArmR
+  - first:
+      213: 21300004
+    second: vypiorArmL
+  - first:
+      213: 21300006
+    second: vypiorHandR
+  - first:
+      213: 21300008
+    second: vypiorHandL
+  - first:
+      213: 21300010
+    second: spriteSheet_0
+  - first:
+      213: 21300012
+    second: vypiorBody
+  - first:
+      213: 21300014
+    second: spriteSheet_1
+  - first:
+      213: 21300016
+    second: vypiorSpear
+  - first:
+      213: 21300018
+    second: vypiorFinger
+  - first:
+      213: 21300020
+    second: vypiorThumbL
+  - first:
+      213: 21300022
+    second: vypiorThumbR
+  - first:
+      213: 21300024
+    second: vypior_finger
+  - first:
+      213: 21300026
+    second: vypior_finger2
+  - first:
+      213: 21300028
+    second: vypior_RH_thumb
+  - first:
+      213: 21300030
+    second: vypior_RH_Index
+  - first:
+      213: 21300032
+    second: vypior_RH_Ring
+  - first:
+      213: 21300034
+    second: vypior_RH_pinky
+  - first:
+      213: 21300036
+    second: spriteSheet_2
+  - first:
+      213: -8958467051756003813
+    second: vypior_palm
+  - first:
+      213: -8888014035734707558
+    second: vypior_finger
+  - first:
+      213: -65051785284065697
+    second: vypior_thumb
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -77,7 +124,7 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -88,7 +135,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -99,7 +147,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -110,7 +159,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -121,7 +171,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -132,6 +183,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -151,6 +203,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: bd83ea2880be2684c856fe542f4aecc8
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -171,6 +224,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 48ed32633b07afc4b9aaeab54af49258
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -191,6 +245,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 9097d0ac329af8248bb9d7b618cf0864
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -306,6 +361,7 @@ TextureImporter:
       tessellationDetail: 1
       bones: []
       spriteID: 11ca8316c4fa9bd4b95a834c49b32908
+      internalID: 21300006
       vertices: []
       indices: 
       edges: []
@@ -326,6 +382,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 62488963109d68641a12de6337c6e3ca
+      internalID: 21300008
       vertices: []
       indices: 
       edges: []
@@ -346,6 +403,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 0802e9df091a096469b5a78a06a905d3
+      internalID: 21300010
       vertices: []
       indices: 
       edges: []
@@ -366,6 +424,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: b63087bab8a36fc4e8d62fc4023a111c
+      internalID: 21300012
       vertices: []
       indices: 
       edges: []
@@ -399,6 +458,7 @@ TextureImporter:
       tessellationDetail: 0.04
       bones: []
       spriteID: 47a724e3c8509a74596b04f5ecae5a92
+      internalID: 21300014
       vertices: []
       indices: 
       edges: []
@@ -419,6 +479,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a0b54eabadeb912479393c47ece8ebc7
+      internalID: 21300016
       vertices: []
       indices: 
       edges: []
@@ -439,46 +500,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 25eeb2738341d944696e1fdad13263d3
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: vypior_finger
-      rect:
-        serializedVersion: 2
-        x: 655
-        y: 670
-        width: 37
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0b21cf6b91c5b8a40bbe56905e0b565d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: vypior_finger2
-      rect:
-        serializedVersion: 2
-        x: 588
-        y: 647
-        width: 35
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e6d7ece69a130d44fb7845327ba0988a
+      internalID: 21300022
       vertices: []
       indices: 
       edges: []
@@ -499,6 +521,70 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 22fd755a19da70d489b6c335663263e7
+      internalID: 21300036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vypior_palm
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 476
+        width: 51
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79475cef747b5bc45a88209098889cdc
+      internalID: -8958467051756003813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vypior_finger
+      rect:
+        serializedVersion: 2
+        x: 661
+        y: 488
+        width: 43
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1134e580ec7bb824cb7c481942ca1fdf
+      internalID: -8888014035734707558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vypior_thumb
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 671
+        width: 44
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a8c0e524e64d2441b860b97c123a3fe
+      internalID: -65051785284065697
       vertices: []
       indices: 
       edges: []
@@ -507,10 +593,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: dc7911b805b6e9b4793878c1a33ba14e
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
