@@ -1608,6 +1608,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseAttacks: {fileID: 6317396937658932170}
+  blankTile: {fileID: 1211699676676750496, guid: 42051998af0b7324590a2d750fc5b774,
+    type: 3}
   monstersData: {fileID: 6317396937658932165}
   items: {fileID: 3861695980770531831}
   electricAttackColor: {r: 0, g: 0, b: 0, a: 0}

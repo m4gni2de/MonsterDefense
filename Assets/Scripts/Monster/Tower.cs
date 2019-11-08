@@ -247,100 +247,100 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         }
 
 
-        for (var i = 0; i < Input.touchCount; ++i)
-        {
-            if (Input.GetTouch(i).phase == TouchPhase.Began)
-            {
-                touchTime = Time.time;
+        //for (var i = 0; i < Input.touchCount; ++i)
+        //{
+        //    if (Input.GetTouch(i).phase == TouchPhase.Began)
+        //    {
+        //        touchTime = Time.time;
 
-            }
-            float acumTime = Time.time - touchTime;
+        //    }
+        //    float acumTime = Time.time - touchTime;
 
-            if (Input.GetTouch(i).phase == TouchPhase.Ended)
-            {
-                releaseTime = Time.time;
-                acumTime = releaseTime - touchTime;
+        //    if (Input.GetTouch(i).phase == TouchPhase.Ended)
+        //    {
+        //        releaseTime = Time.time;
+        //        acumTime = releaseTime - touchTime;
 
-                //shoot a raycast that does not hit the map tile layer, which is layer 9
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), Vector2.zero, 0f, 1 << 8);
-                //What to do on a tap
-                if (acumTime <= 1f)
-                {
-                    isTapped = true;
-
-
-                    // RaycastHit2D can be either true or null, but has an implicit conversion to bool, so we can use it like this
-                    if (hit)
-                    {
-                        string itemHit = (hit.transform.gameObject.tag);
-
-                        //if you tap a monster on the menu that has all of your towers, it becomes the "active monster" on the screen and it's stats are displayed
-                        if (hit.collider.gameObject.name == gameObject.name)
-                        {
-                            infoMenu.SetActive(true);
-                            Map.GetComponent<MonsterInfoMenus>().activeMonster = hit.collider.gameObject.GetComponent<Monster>();
-                            //GameManager.Instance.overworldMenu.SetActive(true);
-                            //GameManager.Instance.overworldMenu.GetComponentInChildren<OverworldInfoMenu>().activeMonster = hit.collider.gameObject.GetComponent<Monster>();
-                        }
-                    }
-                }
-                //What do to on a long hold
-                //else
-                //{
-                //    isTapped = false;
-                //    if (isBeingPlaced == false)
-                //    {
-                //        if (hit)
-                //        {
-                //            if (hit.collider != null)
-                //            {
-                //                if (hit.collider.gameObject.name == gameObject.name)
-                //                {
-                //                    isBeingPlaced = true;
-                //                    var position = Input.GetTouch(i).position;
-                //                    Debug.Log(position);
-                //                    var x = position.x;
-                //                    var y = position.y;
-                //                    transform.position = new Vector3(x, y, transform.position.z);
-
-                //                }
-                //            }
-                //        }
-                //    }
-
-                //}
-            }
-            //what to do on a long tap
-            else
-            {
-                if (acumTime >= .7f)
-                {
-                    //shoot a raycast that does not hit the map tile layer, which is layer 9
-                    RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), Vector2.zero, 0f, 1 << 8);
+        //        //shoot a raycast that does not hit the map tile layer, which is layer 9
+        //        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), Vector2.zero, 0f, 1 << 8);
+        //        //What to do on a tap
+        //        if (acumTime <= 1f)
+        //        {
+        //            isTapped = true;
 
 
-                    isTapped = false;
-                    if (isBeingPlaced == false)
-                    {
-                        if (hit)
-                        {
-                            if (hit.collider != null)
-                            {
-                                if (hit.collider.gameObject.name == gameObject.name)
-                                {
-                                    isBeingPlaced = true;
-                                    Map.GetComponent<MonsterInfoMenus>().TowerMenuBtn();
-                                    infoMenu.SetActive(true);
-                                    Map.GetComponent<MonsterInfoMenus>().activeMonster = hit.collider.gameObject.GetComponent<Monster>();
-                                }
-                            }
-                        }
-                    }
-                }
+        //            // RaycastHit2D can be either true or null, but has an implicit conversion to bool, so we can use it like this
+        //            if (hit)
+        //            {
+        //                string itemHit = (hit.transform.gameObject.tag);
 
-            }
+        //                //if you tap a monster on the menu that has all of your towers, it becomes the "active monster" on the screen and it's stats are displayed
+        //                if (hit.collider.gameObject.name == gameObject.name)
+        //                {
+        //                    infoMenu.SetActive(true);
+        //                    Map.GetComponent<MonsterInfoMenus>().activeMonster = hit.collider.gameObject.GetComponent<Monster>();
+        //                    //GameManager.Instance.overworldMenu.SetActive(true);
+        //                    //GameManager.Instance.overworldMenu.GetComponentInChildren<OverworldInfoMenu>().activeMonster = hit.collider.gameObject.GetComponent<Monster>();
+        //                }
+        //            }
+        //        }
+        //        //What do to on a long hold
+        //        //else
+        //        //{
+        //        //    isTapped = false;
+        //        //    if (isBeingPlaced == false)
+        //        //    {
+        //        //        if (hit)
+        //        //        {
+        //        //            if (hit.collider != null)
+        //        //            {
+        //        //                if (hit.collider.gameObject.name == gameObject.name)
+        //        //                {
+        //        //                    isBeingPlaced = true;
+        //        //                    var position = Input.GetTouch(i).position;
+        //        //                    Debug.Log(position);
+        //        //                    var x = position.x;
+        //        //                    var y = position.y;
+        //        //                    transform.position = new Vector3(x, y, transform.position.z);
 
-        }
+        //        //                }
+        //        //            }
+        //        //        }
+        //        //    }
+
+        //        //}
+        //    }
+        //    //what to do on a long tap
+        //    else
+        //    {
+        //        if (acumTime >= .7f)
+        //        {
+        //            //shoot a raycast that does not hit the map tile layer, which is layer 9
+        //            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position), Vector2.zero, 0f, 1 << 8);
+
+
+        //            isTapped = false;
+        //            if (isBeingPlaced == false)
+        //            {
+        //                if (hit)
+        //                {
+        //                    if (hit.collider != null)
+        //                    {
+        //                        if (hit.collider.gameObject.name == gameObject.name)
+        //                        {
+        //                            isBeingPlaced = true;
+        //                            Map.GetComponent<MonsterInfoMenus>().TowerMenuBtn();
+        //                            infoMenu.SetActive(true);
+        //                            Map.GetComponent<MonsterInfoMenus>().activeMonster = hit.collider.gameObject.GetComponent<Monster>();
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+
+        //    }
+
+        //}
 
         //if the tower is being placed, it's movement is that of the mouse
         if (isBeingPlaced == true)
@@ -354,20 +354,20 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
                 isCopy = true;
                 var copy = Instantiate(this.gameObject, transform.position, Quaternion.identity);
-                copy.GetComponent<Monster>().frontModel.SetActive(true);
+                //copy.GetComponent<Monster>().frontModel.SetActive(true);
                 var menu = GameObject.Find("Content");
                 copy.transform.SetParent(menu.transform, true);
                 copy.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
                 copy.name = gameObject.name + " Placeholder" + monster.info.index;
                 copy.tag = "TowerAvatar";
                 copy.layer = 12;
-                copy.GetComponent<Tower>().isPlaced = true;
+                //copy.GetComponent<Tower>().isPlaced = true;
                 SpriteRenderer[] bodyparts = copy.GetComponentsInChildren<SpriteRenderer>();
 
 
                 for (int i = 0; i < bodyparts.Length; i++)
                 {
-                    bodyparts[i].color = Color.black;
+                    bodyparts[i].color = new Color(bodyparts[i].color.r, bodyparts[i].color.g, bodyparts[i].color.b, .5f);
                 }
                 //copy.GetComponent<SpriteRenderer>().color = Color.black;
             }
@@ -389,66 +389,66 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 isTileMap = false;
                 if (isCorrectTile)
                 {
-                    //add this monster's energy rate to the energy rate per second being generated by your active monsters
-                    //every second, add the monster's energy to the player's available energy for the map
-                    InvokeRepeating("TowerEnergy", 0, 1);
+                    ////add this monster's energy rate to the energy rate per second being generated by your active monsters
+                    ////every second, add the monster's energy to the player's available energy for the map
+                    //InvokeRepeating("TowerEnergy", 0, 1);
 
 
-                    Map.GetComponent<MapDetails>().MapEnergyRate(monster.tempStats.EnergyGeneration.Value / 60);
-                    Map.GetComponent<MapDetails>().UseMapEnergy(monster.tempStats.EnergyCost.Value);
-                    mapInformation.playerEnergy -= monster.tempStats.EnergyCost.Value;
-
-                    
-
-                    //set the current tile to hold this monster's data as the monster on that tile
-                    mapTileOn.MonsterOnTile(gameObject.GetComponent<Monster>());
-                    //creates local variables for the height of the monster's legs and the relative position to the monster's body the legs are
-
-                    //makes any sprites of the tower set to the monster sorting layer
-                    SpriteRenderer[] sprites = gameObject.GetComponentsInChildren<SpriteRenderer>();
-
-                    for (int s = 0; s < sprites.Length; s++)
-                    {
-                        sprites[s].sortingLayerName = "Monster";
-                    }
-
-                    //changes the tiles back to the correct color and then the tower is ready for attack
-                    for (int m = 0; m < tiles.Length; m++)
-                    {
-                        tiles[m].GetComponent<MapTile>().sp.color = tiles[m].GetComponent<MapTile>().tileColor;
+                    //Map.GetComponent<MapDetails>().MapEnergyRate(monster.tempStats.EnergyGeneration.Value / 60);
+                    //Map.GetComponent<MapDetails>().UseMapEnergy(monster.tempStats.EnergyCost.Value);
+                    //mapInformation.playerEnergy -= monster.tempStats.EnergyCost.Value;
 
 
-                    }
 
-                    //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = true;
-                    mainCamera.GetComponent<CameraMotion>().isFree = true;
-                    gameObject.transform.SetParent(GameObject.FindGameObjectWithTag("Map").transform);
+                    ////set the current tile to hold this monster's data as the monster on that tile
+                    //mapTileOn.MonsterOnTile(gameObject.GetComponent<Monster>());
+                    ////creates local variables for the height of the monster's legs and the relative position to the monster's body the legs are
 
-                    //adds the monster to the active towers dictionary
-                    int towerCount = GameManager.Instance.activeTowers.Count;
-                    GameManager.Instance.activeTowers.Add(towerCount, gameObject.GetComponent<Monster>());
-                    gameObject.GetComponent<Monster>().activeIndex = towerCount;
+                    ////makes any sprites of the tower set to the monster sorting layer
+                    //SpriteRenderer[] sprites = gameObject.GetComponentsInChildren<SpriteRenderer>();
 
-                    isBeingPlaced = false;
-                    isPlaced = true;
-                    isIdle = true;
-                    AttackScan();
+                    //for (int s = 0; s < sprites.Length; s++)
+                    //{
+                    //    sprites[s].sortingLayerName = "Monster";
+                    //}
 
-                    //add this tower to the map's list of your active towers
-                    Map.GetComponent<MapDetails>().liveTowers.Add(monster);
-                    //every second, update this monster's entry in the active towers list
-                    StartCoroutine(ActiveTower(1f));
+                    ////changes the tiles back to the correct color and then the tower is ready for attack
+                    //for (int m = 0; m < tiles.Length; m++)
+                    //{
+                    //    tiles[m].GetComponent<MapTile>().sp.color = tiles[m].GetComponent<MapTile>().tileColor;
 
-                    transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
-                    gameObject.transform.localScale = new Vector3(1.7f, 1.7f, transform.localScale.z);
-                    transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
 
-                    //make the menu of your towers vanish
-                    towerMenu.SetActive(false);
+                    //}
 
-                    //set active this tower's canvas
-                    towerCanvas.SetActive(true);
+                    ////GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = true;
+                    //mainCamera.GetComponent<CameraMotion>().isFree = true;
+                    //gameObject.transform.SetParent(GameObject.FindGameObjectWithTag("Map").transform);
 
+                    ////adds the monster to the active towers dictionary
+                    //int towerCount = GameManager.Instance.activeTowers.Count;
+                    //GameManager.Instance.activeTowers.Add(towerCount, gameObject.GetComponent<Monster>());
+                    //gameObject.GetComponent<Monster>().activeIndex = towerCount;
+
+                    //isBeingPlaced = false;
+                    //isPlaced = true;
+                    //isIdle = true;
+                    //AttackScan();
+
+                    ////add this tower to the map's list of your active towers
+                    //Map.GetComponent<MapDetails>().liveTowers.Add(monster);
+                    ////every second, update this monster's entry in the active towers list
+                    //StartCoroutine(ActiveTower(1f));
+
+                    //transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
+                    //gameObject.transform.localScale = new Vector3(1.7f, 1.7f, transform.localScale.z);
+                    //transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
+
+                    ////make the menu of your towers vanish
+                    //towerMenu.SetActive(false);
+
+                    ////set active this tower's canvas
+                    //towerCanvas.SetActive(true);
+                    PlaceTower();
                 }
                 //if the tower is placed at an ineligible space, revert it back to the manu and destroy the avatar/placeholder
                 else
@@ -509,6 +509,107 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
             }
         }
+    }
+
+    //use this to actually place the tower on the field
+    public void PlaceTower()
+    {
+        if (!isCopy)
+        {
+
+            isCopy = true;
+            var copy = Instantiate(this.gameObject, transform.position, Quaternion.identity);
+            //copy.GetComponent<Monster>().frontModel.SetActive(true);
+            var menu = GameObject.Find("Content");
+            copy.transform.SetParent(menu.transform, true);
+            copy.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            copy.name = gameObject.name + " Placeholder" + monster.info.index;
+            copy.tag = "TowerAvatar";
+            copy.layer = 12;
+            //copy.GetComponent<Tower>().isPlaced = true;
+            SpriteRenderer[] bodyparts = copy.GetComponentsInChildren<SpriteRenderer>();
+
+
+            for (int i = 0; i < bodyparts.Length; i++)
+            {
+                bodyparts[i].color = new Color(bodyparts[i].color.r, bodyparts[i].color.g, bodyparts[i].color.b, .5f);
+            }
+            //copy.GetComponent<SpriteRenderer>().color = Color.black;
+        }
+
+        isTileMap = false;
+        //add this monster's energy rate to the energy rate per second being generated by your active monsters
+        //every second, add the monster's energy to the player's available energy for the map
+        InvokeRepeating("TowerEnergy", 0, 1);
+
+
+            Map.GetComponent<MapDetails>().MapEnergyRate(monster.tempStats.EnergyGeneration.Value / 60);
+            Map.GetComponent<MapDetails>().UseMapEnergy(monster.tempStats.EnergyCost.Value);
+            mapInformation.playerEnergy -= monster.tempStats.EnergyCost.Value;
+
+            ////if the monster is being summoned from the Place Monster button, as opposed to it being dragged, then it will have no mapTileOn, so it needs to have one equal to the activeTile
+            //if (!mapTileOn)
+            //{
+            //    mapTileOn = infoMenu.GetComponent<MonsterInfoMenus>().tileToBePlaced;
+            //}
+
+            //set the current tile to hold this monster's data as the monster on that tile
+            mapTileOn.MonsterOnTile(gameObject.GetComponent<Monster>());
+            tileOn = mapTileOn.tileNumber;
+
+            tilePlacementPosition = new Vector2(mapTileOn.transform.position.x, mapTileOn.transform.position.y);
+            //creates local variables for the height of the monster's legs and the relative position to the monster's body the legs are
+
+
+        //makes any sprites of the tower set to the monster sorting layer
+        SpriteRenderer[] sprites = gameObject.GetComponentsInChildren<SpriteRenderer>();
+
+            for (int s = 0; s < sprites.Length; s++)
+            {
+                sprites[s].sortingLayerName = "Monster";
+
+            }
+
+            //changes the tiles back to the correct color and then the tower is ready for attack
+            for (int m = 0; m < tiles.Length; m++)
+            {
+                tiles[m].GetComponent<MapTile>().sp.color = tiles[m].GetComponent<MapTile>().tileColor;
+
+
+            }
+
+            //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = true;
+            mainCamera.GetComponent<CameraMotion>().isFree = true;
+            gameObject.transform.SetParent(GameObject.FindGameObjectWithTag("Map").transform);
+
+            //adds the monster to the active towers dictionary
+            int towerCount = GameManager.Instance.activeTowers.Count;
+            GameManager.Instance.activeTowers.Add(towerCount, gameObject.GetComponent<Monster>());
+            gameObject.GetComponent<Monster>().activeIndex = towerCount;
+
+            isBeingPlaced = false;
+            isPlaced = true;
+            isIdle = true;
+            AttackScan();
+
+            //add this tower to the map's list of your active towers
+            Map.GetComponent<MapDetails>().liveTowers.Add(monster);
+            //every second, update this monster's entry in the active towers list
+            StartCoroutine(ActiveTower(1f));
+
+            transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
+            gameObject.transform.localScale = new Vector3(1.7f, 1.7f, transform.localScale.z);
+            transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
+
+
+            //make the menu of your towers vanish
+            //towerMenu.SetActive(false);
+            Map.GetComponent<MonsterInfoMenus>().TowerMenuBtn();
+            Map.GetComponent<MonsterInfoMenus>().tileToBePlaced = null;
+            //set active this tower's canvas
+            towerCanvas.SetActive(true);
+
+       
     }
 
     //this is used to add energy to the player's total for the map, as well as check to make sure this monster has enough energy to be summoned
@@ -950,19 +1051,32 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     }
 
 
-    
+
 
 
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (eventData.pointerEnter)
+        {
+            var tag = eventData.pointerEnter.gameObject.tag;
+            var hit = eventData.pointerEnter.gameObject;
+            var name = eventData.pointerEnter.gameObject.name;
 
+
+
+            if (tag == "Tower")
+            {
+                infoMenu.SetActive(true);
+                Map.GetComponent<MonsterInfoMenus>().activeMonster = hit.gameObject.GetComponent<Monster>();
+            }
+
+        }
     }
 
 
-    
 
-    public void AttackCheck()
+        public void AttackCheck()
     {
 
         List<TargetSort> inRange = new List<TargetSort>();

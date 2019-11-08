@@ -125,8 +125,8 @@ public class MapTile : MonoBehaviour
     //bool to tell if the tile's color transition is counting up from 0 or down from 1
     public bool isCountingDown;
 
-    //public string tileType;
-
+    public bool isActiveTile;
+    private MapTile activeTileIndicator;
 
     public Monster monsterOn;
     public bool hasMonster;
@@ -468,8 +468,36 @@ public class MapTile : MonoBehaviour
         }
     }
 
+    //sets the tile's "Active Status" in the MapTileMenu script
+    public void ActiveTile()
+    {
+        isActiveTile = !isActiveTile;
 
+        
 
+        if (isActiveTile)
+        {
+            var range = Instantiate(GameManager.Instance.blankTile, transform.position, Quaternion.identity);
+            range.GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder +1;
+            range.gameObject.tag = "Untagged";
+            range.gameObject.name = "ActiveOverlay";
+            range.transform.SetParent(gameObject.transform, true);
+            range.transform.position = transform.position;
+            range.gameObject.AddComponent<GoldFX>();
+            range.GetComponent<SpriteRenderer>().color = new Color(.54f, .54f, .54f, 1f);
+            range.GetComponent<Image>().raycastTarget = false;
+
+            activeTileIndicator = range;
+        }
+        else
+        {
+           if (activeTileIndicator != null)
+            {
+                Destroy(activeTileIndicator.gameObject);
+                activeTileIndicator = null;
+            }
+        }
+    }
 
 
 
@@ -487,6 +515,7 @@ public class MapTile : MonoBehaviour
     public void CheckEnemyOnTile(Collision2D other)
     {
         var enemy = other.gameObject.GetComponentInParent<Monster>();
+
 
         //if the leg touching this tile is a tower, ignore it. If it's an enemy, invoke an attack from the Tower's 'Attack' method
         if (enemy.isEnemy)

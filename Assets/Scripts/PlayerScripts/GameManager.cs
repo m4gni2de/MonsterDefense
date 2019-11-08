@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     //the script that holds all of the basic attacks for the monsters
     public Attacks baseAttacks;
 
+    public MapTile blankTile;
+
     //the script that holds all of the base stats, level up movepool and everything else for the monster species
     public MonstersData monstersData;
 

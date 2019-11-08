@@ -8,12 +8,11 @@ using UnityEngine.EventSystems;
 public class MapTileMenu : MonoBehaviour, IPointerDownHandler
 {
     public TMP_Text tileNumberText, tileLevelText, levelPercentText, minedTimeText;
-    public SpriteRenderer tileSprite, tileAttSprite;
-    public Image monsterSprite;
+    public SpriteRenderer tileSprite, tileAttSprite, monsterSprite;
     public GameObject monsterInfoMenu, worldMap;
     public MonsterInfoMenus infoMenu;
 
-    public Button miningButton;
+    public Button miningButton, placeMonsterBtn;
 
     public MapTile activeTile;
     private Monster monsterOnTile;
@@ -40,8 +39,11 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
     {
         var types = GameManager.Instance.monstersData.typeChartDict;
 
-
+        
+        
+        
         activeTile = tile;
+
         
 
         tileNumberText.text = tile.tileNumber.ToString();
@@ -61,19 +63,19 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
 
         monsterOnTile = tile.monsterOn;
         
-        //if there is a monster on the tile, display it on the menu
-        if (monsterOnTile)
-        {
-            monsterSprite.GetComponent<Image>().color = Color.white;
-            monsterSprite.GetComponent<Image>().sprite = monsterOnTile.frontModel.GetComponent<SpriteRenderer>().sprite;
-            monsterSprite.tag = "Monster";
-        }
-        else
-        {
-            monsterSprite.GetComponent<Image>().color = Color.clear;
-            monsterSprite.GetComponent<Image>().sprite = null;
-            monsterSprite.tag = "Untagged";
-        }
+        ////if there is a monster on the tile, display it on the menu
+        //if (monsterOnTile)
+        //{
+        //    monsterSprite.GetComponent<Image>().color = Color.white;
+        //    monsterSprite.GetComponent<Image>().sprite = monsterOnTile.frontModel.GetComponent<SpriteRenderer>().sprite;
+        //    monsterSprite.tag = "Monster";
+        //}
+        //else
+        //{
+        //    monsterSprite.GetComponent<Image>().color = Color.clear;
+        //    monsterSprite.GetComponent<Image>().sprite = null;
+        //    monsterSprite.tag = "Untagged";
+        //}
 
         float totalNextLevelNeeded = (float)GameManager.Instance.tileLevelUp[tile.info.level + 1];
         float thisLevelNeeded = (float)GameManager.Instance.tileLevelUp[tile.info.level];
@@ -101,7 +103,9 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
 
         if (activeTile)
         {
+            
             LoadTile(activeTile);
+            
 
             if (activeTile.isMining)
             {
@@ -111,6 +115,19 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
             {
                 miningButton.GetComponentInChildren<TMP_Text>().text = "Start Mining";
             }
+
+            if (activeTile.hasMonster)
+            {
+                placeMonsterBtn.GetComponentInChildren<TMP_Text>().text = "Find Tower";
+                monsterSprite.sprite = GameManager.Instance.monstersData.monstersAllDict[activeTile.monsterOn.info.species].frontIcon;
+            }
+            else
+            {
+                placeMonsterBtn.GetComponentInChildren<TMP_Text>().text = "Place Tower";
+                monsterSprite.sprite = null;
+            }
+
+            
         }
         
 
@@ -119,7 +136,7 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        
+
         if (eventData.pointerEnter)
         {
             var tag = eventData.pointerEnter.gameObject.tag;
@@ -131,7 +148,6 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
                 monsterInfoMenu.SetActive(true);
                 infoMenu.activeMonster = monsterOnTile;
             }
-
         }
     }
 
@@ -141,7 +157,24 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
     //click this to open the monster menu to place a monster on the given tile
     public void PlaceMonsterBtn()
     {
-        worldMap.GetComponent<MonsterInfoMenus>().TowerMenuBtn();
+        //if there is a monster on the tile, then just go to the monster instead of letting one be placed
+        if (activeTile.hasMonster)
+        {
+
+            infoMenu.gameObject.SetActive(true);
+            infoMenu.activeMonster = activeTile.monsterOn;
+            mainCamera.transform.position = new Vector3(activeTile.transform.position.x, activeTile.transform.position.y, -10f);
+            mainCamera.orthographicSize = 35;
+        }
+        else
+        {
+            if (!infoMenu.isClicked)
+            {
+                infoMenu.TowerMenuBtn();
+            }
+            
+            infoMenu.tileToBePlaced = activeTile;
+        }
     }
 
     //click this to start mining the tile with your companion
@@ -157,4 +190,13 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
         }
         
     }
+
+    public void CloseWindow()
+    {
+
+        activeTile.ActiveTile();
+        activeTile = null;
+        gameObject.SetActive(false);
+    }
+
 }

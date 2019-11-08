@@ -30,6 +30,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     public int menuMovements;
     public bool isClicked;
 
+    public Button findMonsterBtn;
 
     public bool isChecking;
 
@@ -50,6 +51,9 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
     //list that holds the sprite effects on the items and monster
     public List<string> effectTypes = new List<string>();
+
+    //use this to preload a tile that a monster can be placed on, if it isn't already. this value is gotten from the MapTileMenu script
+    public MapTile tileToBePlaced;
 
     private void Awake()
     {
@@ -114,16 +118,17 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                         tower.GetComponent<Monster>().LoadMonsterToken(tower.GetComponent<Monster>().saveToken);
                         tower.GetComponent<Monster>().MonsterEquipment();
                         tower.GetComponent<Monster>().monsterIcon.GetComponentInChildren<MonsterIcon>().DisplayMonster(tower.GetComponent<Monster>());
+                        tower.GetComponent<Monster>().monsterIcon.GetComponentInChildren<MonsterIcon>().IconVisibility("GameUI");
 
                         tower.gameObject.tag = "Tower";
                         tower.gameObject.name = tower.GetComponent<Monster>().info.species + " " + tower.GetComponent<Monster>().info.index;
 
-                        SpriteRenderer[] sprites = tower.GetComponentsInChildren<SpriteRenderer>();
+                        //SpriteRenderer[] sprites = tower.GetComponentsInChildren<SpriteRenderer>();
 
-                        for (int s = 0; s < sprites.Length; s++)
-                        {
-                            sprites[s].sortingLayerName = "GameUI";
-                        }
+                        //for (int s = 0; s < sprites.Length; s++)
+                        //{
+                        //    sprites[s].sortingLayerName = "GameUI";
+                        //}
                         //}
                     }
 
@@ -289,6 +294,32 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             targetModeDropdown.value = (int)Enum.ToObject(typeof(TargetMode), activeMonster.GetComponent<Tower>().targetMode);
             staminaBar.BarProgress = activeMonster.GetComponent<Tower>().staminaBar.BarProgress;
 
+
+            //set the status of the find/place monster button
+            if (activeMonster.GetComponent<Tower>().mapTileOn != null)
+            {
+                findMonsterBtn.interactable = true;
+                findMonsterBtn.GetComponentInChildren<TMP_Text>().text = "Find Monster";
+            }
+            else
+            {
+                findMonsterBtn.GetComponentInChildren<TMP_Text>().text = "Summon Monster";
+
+
+                if (tileToBePlaced != null)
+                {
+                    findMonsterBtn.interactable = true;
+                   
+                }
+                else
+                {
+                    findMonsterBtn.interactable = false;
+                }
+            }
+
+            
+
+            //if (activeMonster.GetComponent<Tower>().
             //indicator.transform.position = new Vector2(activeMonster.specs.head.transform.position.x, activeMonster.specs.head.transform.position.y + 40);
         }
     }
@@ -306,7 +337,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
                 RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
 
-
+                
                 if (hit.collider != null)
                 {
                     if (hit.collider.gameObject.tag == "Tower")
@@ -322,7 +353,6 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                             attack2BtnText.text = GameManager.Instance.activeTowers[index].info.attack2Name;
 
                         }
-
 
                     }
                 }
@@ -489,9 +519,22 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     //use this to snap the camera to the active monster
     public void FindMonsterBtn()
     {
+        //if the monster is already placed on the map, move the camera to it. if it's yet to be placed, the button summons the monster to the active tile
+        if (activeMonster.GetComponent<Tower>().isPlaced)
+        {
+            mainCamera.transform.position = new Vector3(activeMonster.transform.position.x, activeMonster.transform.position.y, -10f);
+            mainCamera.orthographicSize = 35;
 
-        mainCamera.transform.position = new Vector3(activeMonster.transform.position.x, activeMonster.transform.position.y, -10f);
-        mainCamera.orthographicSize = 35;
+            return;
+        }
+        
+        //if the active monster is not yet placed, and there is a tile loaded, place the monster on that tile
+        if (!activeMonster.GetComponent<Tower>().isPlaced && tileToBePlaced != null && !tileToBePlaced.isRoad && !tileToBePlaced.hasMonster)
+        {
+            activeMonster.GetComponent<Tower>().mapTileOn = tileToBePlaced;
+            activeMonster.GetComponent<Tower>().PlaceTower();
+            
+        }
 
     }
 

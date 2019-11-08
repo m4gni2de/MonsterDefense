@@ -142,9 +142,12 @@ public class AttackEffects : MonoBehaviour
     {
         var tag = other.gameObject.tag;
 
+        if (other.GetType() != typeof(PolygonCollider2D))
+        {
+            return;
+        }
         
-
-        if (tag == "Enemy")
+        if (tag == "Enemy" && other.GetType() == typeof(PolygonCollider2D))
         {
 
             enemy = other.gameObject.GetComponent<Monster>();

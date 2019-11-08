@@ -18,7 +18,7 @@ public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     //gameobject that is on every map that gives info about any given tile, as well as allowing the player to build a tower on that tile[if possible]
     public GameObject tileInfoMenu;
-    private MapTile activeTile;
+    private MapTile activeTile, tempTile;
 
     public bool isTapping;
     public float acumTime;
@@ -87,21 +87,50 @@ public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        var worldMousePosition =
+                    Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
+        var x = worldMousePosition.x;
+        var y = worldMousePosition.y;
 
-        if (eventData.pointerEnter)
+        if (Input.GetMouseButton(0))
         {
-            var tag = eventData.pointerEnter.gameObject.tag;
-            var hit = eventData.pointerEnter.gameObject;
+                var clickPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f));
+                RaycastHit2D hit = Physics2D.Raycast(clickPosition, Vector2.zero);
 
-
-            //if a map tile is touched, open the information box for the tile
-            if (tag == "MapTile" && !isTapping)
+            if (hit.collider != null)
             {
-                isTapping = true;
-                activeTile = hit.GetComponent<MapTile>();
+                if (hit.collider.gameObject.tag == "MapTile" && !isTapping)
+                {
+                    isTapping = true;
+                    activeTile = hit.collider.gameObject.GetComponent<MapTile>();
+
+                    
+
+                }
+
             }
 
+            
+            
         }
+
+
+        //if (eventData.pointerEnter)
+        //{
+        //    var tag = eventData.pointerEnter.gameObject.tag;
+        //    var hit = eventData.pointerEnter.gameObject;
+        //    var col = eventData.pointerEnter.gameObject.GetComponent<PolygonCollider2D>();
+
+        //    Debug.Log(col);
+
+        //    //if a map tile is touched, open the information box for the tile
+        //    if (tag == "MapTile" && !isTapping)
+        //    {
+        //        isTapping = true;
+        //        activeTile = hit.GetComponent<MapTile>();
+        //    }
+
+        //}
 
     }
 
@@ -112,17 +141,34 @@ public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             if (acumTime >= .6f)
             {
-                tileInfoMenu.SetActive(true);
-                tileInfoMenu.GetComponent<MapTileMenu>().LoadTile(activeTile);
-                isTapping = false;
+                if (tileInfoMenu.GetComponent<MapTileMenu>().activeTile != null)
+                {
+                    tileInfoMenu.SetActive(true);
+                    tileInfoMenu.GetComponent<MapTileMenu>().activeTile.ActiveTile();
+                    tileInfoMenu.GetComponent<MapTileMenu>().LoadTile(activeTile);
+                    tileInfoMenu.GetComponent<MapTileMenu>().activeTile.ActiveTile();
+                    isTapping = false;
+
+                }
+                else
+                {
+                    tileInfoMenu.SetActive(true);
+                    tileInfoMenu.GetComponent<MapTileMenu>().LoadTile(activeTile);
+                    tileInfoMenu.GetComponent<MapTileMenu>().activeTile.ActiveTile();
+                    isTapping = false;
+                }
+              
             }
             else
             {
                 //
                 isTapping = false;
+                //activeTile = null;
                 
             }
         }
+
+        
 
     }
 
