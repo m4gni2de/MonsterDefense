@@ -178,7 +178,7 @@ public class AllMonsterData
         coinGenBase = 2.9f,
         energyGenBase = 84,
         energyCost = 10.1f,
-        abilities = new string[1] { "Ice Storm" },
+        abilities = new string[1] { "Serpentine Venom" },
         dropRate = .2f,
         itemDrops = new string[1] { "Shadow Shard" },
     };

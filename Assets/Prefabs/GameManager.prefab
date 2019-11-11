@@ -1612,15 +1612,16 @@ MonoBehaviour:
     type: 3}
   monstersData: {fileID: 6317396937658932165}
   items: {fileID: 3861695980770531831}
-  electricAttackColor: {r: 0, g: 0, b: 0, a: 0}
-  waterAttackColor: {r: 0, g: 0, b: 0, a: 0}
-  natureAttackColor: {r: 0, g: 0, b: 0, a: 0}
-  shadowAttackColor: {r: 0, g: 0, b: 0, a: 0}
-  fireAttackColor: {r: 0, g: 0, b: 0, a: 0}
+  electricAttackColor: {r: 1, g: 1, b: 0, a: 1}
+  waterAttackColor: {r: 0.22, g: 0.22, b: 1, a: 1}
+  natureAttackColor: {r: 0, g: 0.85, b: 0.21, a: 1}
+  shadowAttackColor: {r: 0.36, g: 0, b: 0.37, a: 1}
+  fireAttackColor: {r: 0.9, g: 0.2, b: 0, a: 1}
   iceAttackColor: {r: 0.10791205, g: 0.9150943, b: 0.87255174, a: 1}
   mechAttackColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
   magicAttackColor: {r: 0.6886792, g: 0, b: 0.34401253, a: 1}
   normalAttackColor: {r: 0, g: 0, b: 0, a: 0}
+  poisonAttackColor: {r: 0, g: 0, b: 0, a: 0}
   tileMaxLevel: 0
   tilesMining: []
   expCurves: 
@@ -1640,6 +1641,8 @@ MonoBehaviour:
   activeScene:
     m_Handle: 0
   popMenu: {fileID: 862134898870441725}
+  summonAnimation: {fileID: 5235118800934107066, guid: 5b77fef32688f204bb86e1e3202c51a3,
+    type: 3}
 --- !u!114 &6317396937658932170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2110,7 +2113,7 @@ MonoBehaviour:
       - Aqua Dart
       - Shadow Blaze Punch
       abilities:
-      - Ice Storm
+      - Serpentine Venom
       dropRate: 0.2
       itemDrops:
       - Shadow Shard

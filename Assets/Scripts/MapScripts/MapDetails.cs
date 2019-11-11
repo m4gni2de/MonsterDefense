@@ -338,7 +338,7 @@ public class MapDetails : MonoBehaviour
                         enemyMonster.GetComponent<Enemy>().SetEnemyStats(randomLevel);
                         enemyMonster.gameObject.tag = "Enemy";
                         enemyMonster.gameObject.name = "Enemy " + enemyMonster.GetComponent<Monster>().info.species;
-                        enemyMonster.transform.localScale = new Vector3(1.8f, 1.8f, 1.0f);
+                        enemyMonster.transform.localScale = new Vector3(1.2f, 1.2f, 1.0f);
                         //liveEnemies.Add(enemyMonster.GetComponent<Enemy>());
                         LiveEnemyList();
                         

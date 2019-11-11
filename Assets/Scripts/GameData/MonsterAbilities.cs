@@ -181,6 +181,17 @@ public class AllAbilities
         scope = AbilityParameterScope.None,
         castingAmmo = 1,
     };
+
+    public Ability SerpentineVenom = new Ability
+    {
+        name = "Serpentine Venom",
+        description = "Inflicts all non-Serpentine enemies with Poison.",
+        target = AbilityTarget.MultiEnemy,
+        type = AbilityType.StatNerf,
+        parameter = AbilityTargetParameter.ByClass,
+        scope = AbilityParameterScope.PerEnemyByClass,
+        castingAmmo = 1,
+    };
 }
 
 public class MonsterAbilities: MonoBehaviour
@@ -205,6 +216,7 @@ public class MonsterAbilities: MonoBehaviour
         allAbilitiesDict.Add(allAbilities.BeastSlayer.name, allAbilities.BeastSlayer);
         allAbilitiesDict.Add(allAbilities.NaturalQuake.name, allAbilities.NaturalQuake);
         allAbilitiesDict.Add(allAbilities.IceStorm.name, allAbilities.IceStorm);
+        allAbilitiesDict.Add(allAbilities.SerpentineVenom.name, allAbilities.SerpentineVenom);
     }
 
 }
@@ -308,6 +320,21 @@ public class MonsterAbility
                 tiles[randomIndex].GetAttribute(7);
             }
 
+        }
+    }
+
+    public void SerpentineVenom()
+    {
+        var enemies = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveEnemies;
+        AllStatuses status = new AllStatuses();
+
+        foreach (Enemy enemy in enemies)
+        {
+            if (enemy.stats.Class != MonsterClass.Serpentine)
+            {
+                Status poison = status.Poison;
+                enemy.GetComponent<Monster>().AddStatus(poison);
+            }
         }
     }
 

@@ -532,7 +532,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
         if (!activeMonster.GetComponent<Tower>().isPlaced && tileToBePlaced != null && !tileToBePlaced.isRoad && !tileToBePlaced.hasMonster)
         {
             activeMonster.GetComponent<Tower>().mapTileOn = tileToBePlaced;
-            activeMonster.GetComponent<Tower>().PlaceTower();
+            activeMonster.GetComponent<Tower>().StartCoroutine("PlaceTower");
             
         }
 

@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     //the script that holds all of the basic attacks for the monsters
     public Attacks baseAttacks;
-
+    //blank tile used to create temporary tiles
     public MapTile blankTile;
 
     //the script that holds all of the base stats, level up movepool and everything else for the monster species
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     public Items items;
 
     //everything to do with the colors
-    public Color electricAttackColor, waterAttackColor, natureAttackColor, shadowAttackColor, fireAttackColor, iceAttackColor, mechAttackColor, magicAttackColor, normalAttackColor;
+    public Color electricAttackColor, waterAttackColor, natureAttackColor, shadowAttackColor, fireAttackColor, iceAttackColor, mechAttackColor, magicAttackColor, normalAttackColor, poisonAttackColor;
     public Dictionary<string, Color> typeColorDictionary = new Dictionary<string, Color>();
 
     //dictionary that holds the values for the amount of EXP a tile needs to reach the next level
@@ -85,9 +85,8 @@ public class GameManager : MonoBehaviour
     //gameobject that acts as a quick popmenu for displaying information to the player
     public GameObject popMenu;
 
-    //list of equipments on your monsters that have trigger events
-    //public Dictionary<int, EventTrigger> eventTriggers = new Dictionary<int, EventTrigger>();
-    //public int eventTriggerCount;
+    //object that exists to preempt a monster summon with an animation
+    public GameObject summonAnimation;
     
 
     
@@ -127,6 +126,7 @@ public class GameManager : MonoBehaviour
         typeColorDictionary.Add("Mechanical", mechAttackColor);
         typeColorDictionary.Add("Magic", magicAttackColor);
         typeColorDictionary.Add("Normal", normalAttackColor);
+        typeColorDictionary.Add("Poison", poisonAttackColor);
 
 
         if (PlayerPrefs.HasKey("MonsterCount"))
@@ -397,6 +397,8 @@ public class GameManager : MonoBehaviour
 
 
     }
+
+    
 }
 
 

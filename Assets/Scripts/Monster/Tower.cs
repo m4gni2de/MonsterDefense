@@ -117,6 +117,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     public GameObject towerCanvas;
     public EnergyBar staminaBar;
 
+    //bool that is changed when the monster's summon animation is complete. changed by the Summon Animation object
+    public bool summonAnimationComplete;
     // Start is called before the first frame update
     void Start()
     {
@@ -512,8 +514,19 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     }
 
     //use this to actually place the tower on the field
-    public void PlaceTower()
+    public IEnumerator PlaceTower()
     {
+        //set the current tile to hold this monster's data as the monster on that tile
+        mapTileOn.MonsterOnTile(gameObject.GetComponent<Monster>());
+        tileOn = mapTileOn.tileNumber;
+
+        tilePlacementPosition = new Vector2(mapTileOn.transform.position.x, mapTileOn.transform.position.y);
+        //creates local variables for the height of the monster's legs and the relative position to the monster's body the legs are
+
+       
+
+        
+
         if (!isCopy)
         {
 
@@ -543,71 +556,82 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         InvokeRepeating("TowerEnergy", 0, 1);
 
 
-            Map.GetComponent<MapDetails>().MapEnergyRate(monster.tempStats.EnergyGeneration.Value / 60);
-            Map.GetComponent<MapDetails>().UseMapEnergy(monster.tempStats.EnergyCost.Value);
-            mapInformation.playerEnergy -= monster.tempStats.EnergyCost.Value;
+        Map.GetComponent<MapDetails>().MapEnergyRate(monster.tempStats.EnergyGeneration.Value / 60);
+        Map.GetComponent<MapDetails>().UseMapEnergy(monster.tempStats.EnergyCost.Value);
+        mapInformation.playerEnergy -= monster.tempStats.EnergyCost.Value;
 
-            ////if the monster is being summoned from the Place Monster button, as opposed to it being dragged, then it will have no mapTileOn, so it needs to have one equal to the activeTile
-            //if (!mapTileOn)
-            //{
-            //    mapTileOn = infoMenu.GetComponent<MonsterInfoMenus>().tileToBePlaced;
-            //}
+        ////if the monster is being summoned from the Place Monster button, as opposed to it being dragged, then it will have no mapTileOn, so it needs to have one equal to the activeTile
+        //if (!mapTileOn)
+        //{
+        //    mapTileOn = infoMenu.GetComponent<MonsterInfoMenus>().tileToBePlaced;
+        //}
 
-            //set the current tile to hold this monster's data as the monster on that tile
-            mapTileOn.MonsterOnTile(gameObject.GetComponent<Monster>());
-            tileOn = mapTileOn.tileNumber;
+        
 
-            tilePlacementPosition = new Vector2(mapTileOn.transform.position.x, mapTileOn.transform.position.y);
-            //creates local variables for the height of the monster's legs and the relative position to the monster's body the legs are
+
+
+
 
 
         //makes any sprites of the tower set to the monster sorting layer
         SpriteRenderer[] sprites = gameObject.GetComponentsInChildren<SpriteRenderer>();
 
-            for (int s = 0; s < sprites.Length; s++)
-            {
-                sprites[s].sortingLayerName = "Monster";
+        for (int s = 0; s < sprites.Length; s++)
+        {
+            sprites[s].sortingLayerName = "Monster";
 
-            }
+        }
 
-            //changes the tiles back to the correct color and then the tower is ready for attack
-            for (int m = 0; m < tiles.Length; m++)
-            {
-                tiles[m].GetComponent<MapTile>().sp.color = tiles[m].GetComponent<MapTile>().tileColor;
-
-
-            }
-
-            //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = true;
-            mainCamera.GetComponent<CameraMotion>().isFree = true;
-            gameObject.transform.SetParent(GameObject.FindGameObjectWithTag("Map").transform);
-
-            //adds the monster to the active towers dictionary
-            int towerCount = GameManager.Instance.activeTowers.Count;
-            GameManager.Instance.activeTowers.Add(towerCount, gameObject.GetComponent<Monster>());
-            gameObject.GetComponent<Monster>().activeIndex = towerCount;
-
-            isBeingPlaced = false;
-            isPlaced = true;
-            isIdle = true;
-            AttackScan();
-
-            //add this tower to the map's list of your active towers
-            Map.GetComponent<MapDetails>().liveTowers.Add(monster);
-            //every second, update this monster's entry in the active towers list
-            StartCoroutine(ActiveTower(1f));
-
-            transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
-            gameObject.transform.localScale = new Vector3(1.7f, 1.7f, transform.localScale.z);
-            transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
+        //changes the tiles back to the correct color and then the tower is ready for attack
+        for (int m = 0; m < tiles.Length; m++)
+        {
+            tiles[m].GetComponent<MapTile>().sp.color = tiles[m].GetComponent<MapTile>().tileColor;
 
 
-            //make the menu of your towers vanish
-            //towerMenu.SetActive(false);
-            Map.GetComponent<MonsterInfoMenus>().TowerMenuBtn();
-            Map.GetComponent<MonsterInfoMenus>().tileToBePlaced = null;
-            //set active this tower's canvas
-            towerCanvas.SetActive(true);
+        }
+
+        //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = true;
+        mainCamera.GetComponent<CameraMotion>().isFree = true;
+        gameObject.transform.SetParent(GameObject.FindGameObjectWithTag("Map").transform);
+
+        //adds the monster to the active towers dictionary
+        int towerCount = GameManager.Instance.activeTowers.Count;
+        GameManager.Instance.activeTowers.Add(towerCount, gameObject.GetComponent<Monster>());
+        gameObject.GetComponent<Monster>().activeIndex = towerCount;
+
+        isBeingPlaced = false;
+        isPlaced = true;
+        isIdle = true;
+        AttackScan();
+
+        //add this tower to the map's list of your active towers
+        Map.GetComponent<MapDetails>().liveTowers.Add(monster);
+        //every second, update this monster's entry in the active towers list
+        StartCoroutine(ActiveTower(1f));
+
+
+
+        var summon = Instantiate(GameManager.Instance.summonAnimation, transform.position, Quaternion.identity);
+        summon.transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
+        summon.GetComponent<SummonAnimation>().StartSummon(monster);
+
+        //waits for the animation to be completed by the animator object before continuting
+        yield return new WaitUntil(() => summonAnimationComplete == true);
+
+        Destroy(summon);
+
+        transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
+        gameObject.transform.localScale = new Vector3(1.2f, 1.2f, transform.localScale.z);
+        transform.position = new Vector3(tilePlacementPosition.x, tilePlacementPosition.y + gameObject.GetComponent<RectTransform>().rect.height, -2f);
+
+        
+
+        //make the menu of your towers vanish
+        //towerMenu.SetActive(false);
+        Map.GetComponent<MonsterInfoMenus>().TowerMenuBtn();
+        Map.GetComponent<MonsterInfoMenus>().tileToBePlaced = null;
+        //set active this tower's canvas
+        towerCanvas.SetActive(true);
 
        
     }
@@ -828,20 +852,21 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
         if (enemy)
         {
-            
-            ////change the direction of the tower if the enemy is on the opposite direction of this tower
-            //if (enemy.transform.position.x <= attackPoint.transform.position.x)
-            //{
-            //    monster.puppet.flip = true;
-
-            //}
-            //else
-            //{
-            //    monster.puppet.flip = false;
-            //}
-
-
             Vector3 position = enemy.transform.position;
+
+            //change the direction of the tower if the enemy is on the opposite direction of this tower
+            if (enemy.transform.position.x <= attackPoint.transform.position.x)
+            {
+                monster.puppet.flip = true;
+
+            }
+            else
+            {
+                monster.puppet.flip = false;
+            }
+
+
+
 
             if (attackNumber == 1)
             {

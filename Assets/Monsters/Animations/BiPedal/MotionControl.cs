@@ -136,6 +136,17 @@ public class MotionControl : MonoBehaviour
         //if the monster is in a game, launch attacks like normal. If not, use the more generalized attack
         if (GameManager.Instance.inGame == true)
         {
+            if (enemy.transform.position.x <= tower.attackPoint.transform.position.x)
+            {
+                monster.puppet.flip = true;
+
+            }
+            else
+            {
+                monster.puppet.flip = false;
+            }
+
+
             tower.LaunchAttack(targetTile, enemy);
         }
         else
