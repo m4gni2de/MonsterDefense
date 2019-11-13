@@ -162,9 +162,26 @@ public class AttackEffects : MonoBehaviour
             //if the attack is NOT a projectile, let the attack animation run it's full course. if it is a projectile, destroy the animation immediately
             if (Attack.attackMode == AttackMode.Projectile)
             {
-                Destroy(gameObject);
+                StartCoroutine(AttackOnHit());
             }
             else
+            {
+                StartCoroutine(AttackOnHit());
+            }
+        }
+    }
+
+    //when an attack lands, start its destroy animating
+    public IEnumerator AttackOnHit()
+    {
+        SpriteRenderer sp = gameObject.GetComponent<SpriteRenderer>();
+        for (int i = 0; i < 30; i++)
+        {
+            sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, sp.color.a - .09f);
+
+            yield return new WaitForSeconds(.03f);
+
+            if (i >= 29)
             {
                 Destroy(gameObject);
             }

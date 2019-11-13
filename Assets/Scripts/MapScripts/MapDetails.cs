@@ -43,6 +43,8 @@ public class MapDetails : MonoBehaviour
     //keep a list of all of the monsters that are acting as your towers
     public List<Monster> liveTowers = new List<Monster>();
 
+    public List<MapTile> allTiles = new List<MapTile>();
+
     //variables related to the enemies that the map can spawn, as well as the map itself
     public List<int> enemies = new List<int>();
     public int enemyMax;
@@ -57,7 +59,10 @@ public class MapDetails : MonoBehaviour
     //use this to weight the chances of higher level tiles appearing
     public float mapConst;
 
-    
+    //the weather system object attached to the map
+    public WeatherSystem weatherSystem;
+    //the weather of the map
+    public MapWeather mapWeather;
 
     public GameObject pathEnd;
     //public GameObject enemy;
@@ -131,7 +136,9 @@ public class MapDetails : MonoBehaviour
             width = allMaps[mapName].width;
             height = allMaps[mapName].height;
             mapLevel = allMaps[mapName].mapLevel;
+            mapWeather = allMaps[mapName].weather;
 
+            
             
 
             columns = int.Parse(width.ToString()) / 50;
@@ -173,8 +180,11 @@ public class MapDetails : MonoBehaviour
                     tile.name = tileNumber.ToString();
                     tile.GetComponent<MapTile>().info.row = c *2;
                     tile.GetComponent<MapTile>().info.column = i *2 - 1;
-                    
-                    
+
+                    tile.GetComponent<MapTile>().mapDetails = this;
+                    tile2.GetComponent<MapTile>().mapDetails = this;
+
+
                     tileNumber += 1;
 
 
@@ -190,16 +200,23 @@ public class MapDetails : MonoBehaviour
                     
                     tileNumber += 1;
 
-              
 
-                //tile.transform.position = new Vector2(((-height / 4) + (c * 50)), (width / 4) - 6.5f - (i * 27));
-                tile.transform.position = new Vector2((-width / 2) + (i * 50), (height / 2) - (c * 25));
-                tile.GetComponent<SpriteRenderer>().sortingOrder = (int)-tile.transform.position.y;
+
+
+                    tile.transform.position = new Vector2((-width / 2) + (i * 50), (height / 2) - (c * 25));
+                    tile2.transform.position = new Vector2((-width / 2) + (i * 50) + 25, (height / 2) - (c * 25) + 12.50f);
+
+
+                    //tile.transform.position = new Vector2((-width / 2) + (i * 75) - 25, (height / 2) - (c * 25));
+                    //tile2.transform.position = new Vector2((-width / 2) + (i * 75) + 25, (height / 2) - (c * 25) + 12.50f);
+
+
+                    tile.GetComponent<SpriteRenderer>().sortingOrder = (int)-tile.transform.position.y;
                     tile.GetComponent<MapTile>().roadSprite.sortingLayerName = "Pathways";
                     tile.GetComponent<MapTile>().roadSprite.sortingOrder = 2 + (int)-tile.transform.position.y;
-                //tile2.transform.position = new Vector2(((-height / 4) + 25 + (c * 50)), (width / 4) + 7f - (i * 27));
+               
                 
-                tile2.transform.position = new Vector2((-width / 2) + (i * 50) + 25, (height / 2) - (c * 25) + 12.50f);
+              
                 
 
                 
@@ -286,6 +303,8 @@ public class MapDetails : MonoBehaviour
 
 
         GetComponent<MonsterInfoMenus>().LoadYourTowers();
+        weatherSystem.intensity = Random.Range(0, 3);
+        weatherSystem.StartWeather(this);
     }
 
     

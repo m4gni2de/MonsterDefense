@@ -13,6 +13,7 @@ public enum TriggerType
     ItemGet,
     LevelUp,
     AbilityUsed,
+    TowerSummon,
 
 }
 
@@ -75,6 +76,11 @@ public class EventTrigger
             {
                 TileChange();
             }
+
+            if (triggerType == TriggerType.TowerSummon)
+            {
+                TowerSummon();
+            }
         }
 
         
@@ -123,5 +129,14 @@ public class EventTrigger
     public void AbilityUsed()
     {
 
+    }
+
+    //trigger for when a monster is summoned as a tower
+    public void TowerSummon()
+    {
+        if (equipment != null)
+        {
+            equipment.TriggerEvent();
+        }
     }
 }

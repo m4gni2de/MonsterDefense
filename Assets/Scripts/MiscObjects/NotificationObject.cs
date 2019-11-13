@@ -90,6 +90,14 @@ public class NotificationObject : MonoBehaviour, IPointerDownHandler
                 notifyImage.color = Color.white;
                 notifyImage.sprite = monsters[Notify.target].frontIcon;
             }
+
+            if (Notify.type == NotificationType.TowerSummon)
+            {
+                notifyText.text = Notify.target + " has been summoned as an ally on Tile " + Notify.gotFrom + "!";
+                notifyImageSp.enabled = false;
+                notifyImage.color = Color.white;
+                notifyImage.sprite = monsters[Notify.target].frontIcon;
+            }
         }
     }
 

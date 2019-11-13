@@ -25,7 +25,8 @@ public struct MapInfo
     public float spawnInterval;
     public int mapLevel;
     public string[] itemDrops;
-   
+    public MapWeather weather;
+    
     
 };
 
@@ -59,7 +60,7 @@ public class AllMaps
         width = 700,
         height = 350,
         maxHP = 25,
-        
+        weather = MapWeather.Sunny,
         
         
         
@@ -84,6 +85,7 @@ public class AllMaps
         height = 350,
         mapLevel = 5,
         maxHP = 25,
+        weather = MapWeather.Sunny,
 
     };
 
@@ -92,7 +94,7 @@ public class AllMaps
         mapName = "Small Map",
         mapCode = "07080904040102020501000504000301000404000006060004040601010400020400050006060005030601020006040603040006000103020100040000000106000605041004",
         pathCode = new string[1] { "040041052039036037048049046033030031042029" },
-        enemies = new int[1] { 4 },
+        enemies = new int[1] { 5 },
         //enemies = new int[3] { 1, 2, 3 },
         //enemyChance = new float[3] { 333, 666, 1000 },
         enemyChance = new float[1] { 1000 },
@@ -108,6 +110,7 @@ public class AllMaps
         mapLevel = 1,
         maxHP = 25,
         itemDrops = new string[2] { "Ice Shard", "Nature Rune" },
+        weather = MapWeather.Snow,
 
     };
 
@@ -129,6 +132,7 @@ public class AllMaps
         height = 175,
         mapLevel = 9,
         maxHP = 25,
+        weather = MapWeather.Sunny,
 
     };
 
@@ -532,3 +536,15 @@ public class MapTileMining
 
 
 }
+
+
+public enum MapWeather
+{
+    Sunny,
+    Fog,
+    Cloudy,
+    Rain,
+    Snow,
+    Windy
+}
+

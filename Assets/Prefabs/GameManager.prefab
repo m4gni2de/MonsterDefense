@@ -1093,6 +1093,57 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &3328431879722377407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9024030294213742890}
+  - component: {fileID: 7627259015978047478}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &9024030294213742890
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3328431879722377407}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3890321496488870181}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7627259015978047478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3328431879722377407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 778a806c5063a884a88f9b5f5fa81fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicAudioMixer: {fileID: 24100000, guid: 56caa5c61687f1442aa54b1fa779f203, type: 2}
+  gameAudioMixer: {fileID: 24100000, guid: e481088f701df8a4b804f7c845452ebf, type: 2}
+  weatherAudioMixer: {fileID: 24100000, guid: b4bbb327eaa3cd44cb87e0a5686e3417, type: 2}
 --- !u!1 &3342596088973281870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1587,6 +1638,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2125318792}
+  - {fileID: 9024030294213742890}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1614,14 +1666,14 @@ MonoBehaviour:
   items: {fileID: 3861695980770531831}
   electricAttackColor: {r: 1, g: 1, b: 0, a: 1}
   waterAttackColor: {r: 0.22, g: 0.22, b: 1, a: 1}
-  natureAttackColor: {r: 0, g: 0.85, b: 0.21, a: 1}
+  natureAttackColor: {r: 0, g: 0.6981132, b: 0.17372404, a: 1}
   shadowAttackColor: {r: 0.36, g: 0, b: 0.37, a: 1}
   fireAttackColor: {r: 0.9, g: 0.2, b: 0, a: 1}
   iceAttackColor: {r: 0.10791205, g: 0.9150943, b: 0.87255174, a: 1}
   mechAttackColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
   magicAttackColor: {r: 0.6886792, g: 0, b: 0.34401253, a: 1}
-  normalAttackColor: {r: 0, g: 0, b: 0, a: 0}
-  poisonAttackColor: {r: 0, g: 0, b: 0, a: 0}
+  normalAttackColor: {r: 0.990566, g: 0.84573925, b: 0.62144, a: 1}
+  poisonAttackColor: {r: 0.3066038, g: 1, b: 0.45118213, a: 1}
   tileMaxLevel: 0
   tilesMining: []
   expCurves: 
@@ -1643,6 +1695,9 @@ MonoBehaviour:
   popMenu: {fileID: 862134898870441725}
   summonAnimation: {fileID: 5235118800934107066, guid: 5b77fef32688f204bb86e1e3202c51a3,
     type: 3}
+  pauseSprite: {fileID: 21300000, guid: b9d3a7fc222cb9a4b874fa098fc50d1f, type: 3}
+  playSprite: {fileID: 21300000, guid: 09227f7f8329a8146b7e266206bdef12, type: 3}
+  AudioManager: {fileID: 7627259015978047478}
 --- !u!114 &6317396937658932170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2415,6 +2470,7 @@ MonoBehaviour:
       mapLevel: 1
       itemDrops:
       - 
+      weather: 0
     DualPath:
       mapName: Dual Path Map
       mapCode: 01000105010304050500040603000604040406060500050306040300040601030205050403010300020300000501060006050202000003020300010106050301050600040603040601010404030606030505030303000503030605020403030306040601020306010300030200010601030202010300050000040303020605040301060605030403060202040003020603030601020500000302060304000003040504060506030300010102000505010605010001010305060406000600060404060604030604040205040605020606040604050204040604000003000301050104060003020605060200030306040103020505010103020506020104050501010204010201010406010104040100030200000606020004020105010501030201030100060304040306010602050501030204030100020602020300060200030406050204020201060403020203000506000205020102020104040604020103000103020402030203010306
@@ -2440,6 +2496,7 @@ MonoBehaviour:
       mapLevel: 5
       itemDrops:
       - 
+      weather: 0
     SmallMap:
       mapName: Small Map
       mapCode: 07080904040102020501000504000301000404000006060004040601010400020400050006060005030601020006040603040006000103020100040000000106000605041004
@@ -2450,7 +2507,7 @@ MonoBehaviour:
       pathCode:
       - 040041052039036037048049046033030031042029
       tileTypeCode: 
-      enemies: 04000000
+      enemies: 05000000
       enemyChance:
       - 1000
       enemyMax: 50
@@ -2463,6 +2520,7 @@ MonoBehaviour:
       itemDrops:
       - Ice Shard
       - Nature Rune
+      weather: 3
     BaseMap:
       mapName: Base Map
       mapCode: 04060500020006040002020403000000030206030601020300010303000203010306040506030004040002000303040005050202050205020100050405030504020004050302
@@ -2487,6 +2545,7 @@ MonoBehaviour:
       mapLevel: 9
       itemDrops:
       - 
+      weather: 4
   tileSprites:
   - {fileID: 21300000, guid: b96d3fcc1ccdb964683f6ad0775ec9ea, type: 3}
   - {fileID: 21300000, guid: 5ed3716f76f1748438f94ab7e4c7deb3, type: 3}

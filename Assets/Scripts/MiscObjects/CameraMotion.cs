@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+
 public class CameraMotion : MonoBehaviour
 {
     private static CameraMotion instance;
@@ -64,15 +65,27 @@ public class CameraMotion : MonoBehaviour
             TouchCamera();
             MouseCamera();
         }
+        //else
+        //{
+        //    oldTouchPositions[0] = null;
+        //    oldTouchPositions[1] = null;
+        //}
 
         //if there is nothing touching the screen, the camera defaults back to free
-        if (Input.touchCount == 0)
+        if (Input.touchCount == 0 || Input.GetTouch(0).phase == TouchPhase.Ended)
         {
             oldTouchPositions[0] = null;
             oldTouchPositions[1] = null;
             isFree = true;
 
         }
+
+
+       
+
+
+        
+
     }
 
     public void MouseCamera()
@@ -234,7 +247,17 @@ public class CameraMotion : MonoBehaviour
             {
                 GetComponent<Camera>().orthographicSize = cameraMinSize;
             }
-        
 
+
+
+        //for (var i = 0; i < Input.touchCount; ++i)
+        //{
+
+        //    Input.GetTouch(0).
+        //}
     }
+
+
+
+    
 }

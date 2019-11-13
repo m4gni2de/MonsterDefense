@@ -1139,7 +1139,11 @@ public class Monster : MonoBehaviour
 
     }
 
+    //call this when a monster is summoned to change its stats based on the weather, if at all
+    public void WeatherCheck()
+    {
 
+    }
 
 
     //use this to get a monster's potential stats without saving them

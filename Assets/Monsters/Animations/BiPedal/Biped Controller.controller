@@ -2014,7 +2014,7 @@ AnimatorStateMachine:
     m_Position: {x: 236.67563, y: 547.2016, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102202720375821050}
-    m_Position: {x: 60, y: -564, z: 0}
+    m_Position: {x: 60, y: -560, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102747631186607250}
     m_Position: {x: 756.0205, y: 390.34363, z: 0}

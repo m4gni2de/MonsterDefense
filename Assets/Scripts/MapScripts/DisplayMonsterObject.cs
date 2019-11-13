@@ -12,6 +12,8 @@ public class DisplayMonsterObject : MonoBehaviour
     public SpriteRenderer[] statusSprites;
     public TMP_Text levelText, attackText, koText, nameText, atk1Text, atk2Text, abilityAmmoText;
 
+    public TMP_Text atkLabel, koLabel;
+
     public Image staminaProgress;
     public ColorFX stamFX;
     
@@ -49,7 +51,7 @@ public class DisplayMonsterObject : MonoBehaviour
         koText.text = m.currentMapKOs.ToString();
         nameText.text = m.info.name;
 
-        monsterIcon.GetComponent<SpriteRenderer>().sprite = data[m.info.species].frontIcon;
+        monsterIcon.GetComponent<SpriteRenderer>().sprite = m.frontModel.GetComponent<SpriteRenderer>().sprite;
 
         //show the equipment if this monster has any
         if (equips.ContainsKey(m.info.equip1Name))
@@ -149,6 +151,88 @@ public class DisplayMonsterObject : MonoBehaviour
 
     }
 
+
+    //when displaying enemies, use this method
+    public void EnemyDisplay(Monster m)
+    {
+        if (m)
+        {
+            Monster = m;
+            Enemy e = m.GetComponent<Enemy>();
+
+            var data = GameManager.Instance.monstersData.monstersAllDict;
+            var equips = GameManager.Instance.items.allEquipsDict;
+            var statuses = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict;
+            var colors = GameManager.Instance.typeColorDictionary;
+
+            Color type1Color = colors[e.stats.type1];
+            Color type2Color = colors[e.stats.type2];
+
+            levelText.text = e.stats.level.ToString();
+
+            atkLabel.text = "Def";
+            attackText.text = Mathf.Round(e.stats.Defense.Value).ToString();
+            koLabel.text = "Spe";
+            koText.text = Mathf.Round(e.stats.Speed.Value).ToString();
+
+            nameText.text = e.stats.species;
+
+            monsterIcon.GetComponent<SpriteRenderer>().sprite = m.frontModel.GetComponent<SpriteRenderer>().sprite;
+
+            GetComponent<SpriteRenderer>().color = type1Color;
+
+
+            //if there are no statuses, don't show anything in the status sprites
+            if (m.statuses.Count == 0)
+            {
+                for (int s = 0; s < statusSprites.Length; s++)
+                {
+                    statusSprites[s].sprite = null;
+                }
+            }
+            else
+            {
+
+                for (int i = 0; i < m.statuses.Count; i++)
+                {
+                    statusSprites[i].sprite = m.statuses[0].statusSprite;
+                }
+            }
+
+            atk1Text.text = "";
+            atk1Bg.GetComponent<SpriteRenderer>().color = Color.clear;
+            atk2Bg.GetComponent<SpriteRenderer>().color = Color.clear;
+            atk2Text.text = "";
+            
+            atk1Outline.GetComponent<GoldFX>().enabled = false;
+            atk2Outline.GetComponent<GoldFX>().enabled = false;
+            atk1Outline.SetActive(false);
+            atk2Outline.SetActive(false);
+
+            abilityAmmoText.text = Mathf.Round(e.stats.currentHp).ToString();
+
+            staminaProgress.fillAmount = .23f + (.63f * (e.stats.currentHp / e.stats.hpMax));
+
+            if (staminaProgress.fillAmount >= .63f)
+            {
+                stamFX._Color = Color.green;
+            }
+            else if (staminaProgress.fillAmount >= .49f)
+            {
+                stamFX._Color = Color.yellow;
+            }
+            else
+            {
+                stamFX._Color = Color.red;
+            }
+           
+            
+
+            equip1.GetComponent<SpriteRenderer>().sprite = null;
+            equip2.GetComponent<SpriteRenderer>().sprite = null;
+        }
+    }
+
     //update this information every second
     public IEnumerator UpdateMonster(float time)
     {
@@ -159,5 +243,14 @@ public class DisplayMonsterObject : MonoBehaviour
         }
     }
 
-    
+    public IEnumerator UpdateEnemy(float time)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(time);
+            EnemyDisplay(Monster);
+        }
+    }
+
+
 }

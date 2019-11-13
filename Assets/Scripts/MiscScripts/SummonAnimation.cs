@@ -60,13 +60,15 @@ public class SummonAnimation : MonoBehaviour
             {
                 teleport.TeleportationColor = c1;
             }
-            
+
+            gameObject.transform.localScale = new Vector2(transform.localScale.x - .17f, transform.localScale.y - .17f);
 
             yield return new WaitForSeconds(.005f);
 
             if (i < 1)
             {
                 m.GetComponent<Tower>().summonAnimationComplete = true;
+                Destroy(gameObject);
                 
             }
 

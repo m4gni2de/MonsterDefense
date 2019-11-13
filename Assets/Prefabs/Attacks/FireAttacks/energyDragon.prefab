@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 5811050810138414331}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 1}
+  m_LocalScale: {x: 30, y: 30, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -61,6 +61,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -161,6 +162,7 @@ MonoBehaviour:
     attackMode: 2
     attackAnimation: {fileID: 0}
     forceType: 0
+    staminaGained: 0
   attackEmission: {fileID: 8854900093834370204, guid: 8419a21e586be52438b21e2c876bce17,
     type: 3}
   attackDemission: {fileID: 8553430605114916879, guid: 06ea7b119f74e8e428f9190d00604510,

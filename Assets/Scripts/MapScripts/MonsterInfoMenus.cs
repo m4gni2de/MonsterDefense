@@ -30,13 +30,15 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     public int menuMovements;
     public bool isClicked;
 
-    public Button findMonsterBtn;
+    public Button findMonsterBtn, showTowersBtn, hideTowersBtn;
 
     public bool isChecking;
 
     public GameObject towerBase;
 
     public TMP_Text monsterName, attack1BtnText, attack2BtnText, levelText, atkText, defText, speText, precText, typeText, toLevelText, evasText, enGenText, enCostText, staminaText;
+    public TMP_Text atk1Power, atk1Range, atk2Power, atk2Range;
+    public SpriteRenderer atk1TypeSp, atk2TypeSp;
     public Slider expSlider;
     public Image type1, type2;
     public GameObject equip1, equip2;
@@ -225,7 +227,15 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
             monsterName.text = activeMonster.info.name;
             attack1BtnText.text = activeMonster.info.attack1Name;
+            atk1Power.text = activeMonster.info.attack1.Power.Value.ToString();
+            atk1Range.text = activeMonster.info.attack1.Range.Value.ToString();
+            atk1TypeSp.sprite = types[activeMonster.info.attack1.type].typeSprite;
+
             attack2BtnText.text = activeMonster.info.attack2Name;
+            atk2Power.text = activeMonster.info.attack2.Power.Value.ToString();
+            atk2Range.text = activeMonster.info.attack2.Range.Value.ToString();
+            atk2TypeSp.sprite = types[activeMonster.info.attack2.type].typeSprite;
+            
 
             //levelText.text = "Level: " + activeMonster.info.level.ToString();
             //atkText.text = "Atk: " + Math.Round(activeMonster.attack, 0).ToString();
@@ -377,72 +387,12 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
         }
     }
 
-    //use this to slide the tower menu back and forth towards its resting place or its open place
-    public void MoveTowerMenu()
-    {
-        if (isClicked)
-        {
-            menuMovements += 1;
-
-            if (menuMovements <= (170 * menuCanvas.transform.localScale.x))
-            {
-                loadTowerBtn.GetComponent<Button>().interactable = false;
-                towerMenu.transform.Translate(Vector3.left, Space.World);
-                loadTowerBtn.transform.Translate(Vector3.left, Space.World);
-                mainCamera.GetComponent<CameraMotion>().isFree = false;
-            }
-            else
-            {
-                CancelInvoke("MoveTowerMenu");
-                menuMovements = 0;
-                loadTowerBtn.GetComponent<Button>().interactable = true;
-                //mainCamera.GetComponent<CameraMotion>().isFree = !mainCamera.GetComponent<CameraMotion>().isFree;
-            }
-        }
-        else
-        {
-            menuMovements += 1;
-
-
-            if (menuMovements <= (170 * menuCanvas.transform.localScale.x))
-            {
-                loadTowerBtn.GetComponent<Button>().interactable = false;
-                towerMenu.transform.Translate(Vector3.right, Space.World);
-                loadTowerBtn.transform.Translate(Vector3.right, Space.World);
-                mainCamera.GetComponent<CameraMotion>().isFree = false;
-            }
-            else
-            {
-                CancelInvoke("MoveTowerMenu");
-                menuMovements = 0;
-                loadTowerBtn.GetComponent<Button>().interactable = true;
-                //mainCamera.GetComponent<CameraMotion>().isFree = !mainCamera.GetComponent<CameraMotion>().isFree;
-            }
-        }
-
-    }
+    
 
 
 
-    //map this to a button to open the tower menu for players in game and load your available towers
-    public void TowerMenuBtn()
-    {
+    
 
-        towerMenu.SetActive(true);
-        isClicked = !isClicked;
-        InvokeRepeating("MoveTowerMenu", 0f, .001f);
-
-
-        //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = false;
-    }
-
-    public void TowerMenuClose()
-    {
-        mainCamera.GetComponent<CameraMotion>().isFree = true;
-        towerMenu.SetActive(false);
-
-        //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = true;
-    }
 
     public void DeleteTower()
     {
@@ -540,7 +490,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-
+        
         if (eventData.pointerEnter)
         {
             var tag = eventData.pointerEnter.gameObject.tag;
@@ -583,19 +533,9 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             }
 
 
-            //if a UI object is tapped, turn the camera off
-            if (hit.layer == 5)
-            {
-                mainCamera.GetComponent<CameraMotion>().isFree = false;
-            }
 
-            ////if a monster's stat box is tapped, pull up the pop menu to show that stat's boosts
-            //if (name == atkText.name)
-            //{
-            //    popMenuObject.SetActive(true);
-            //    popMenuObject.GetComponent<PopMenuObject>().AcceptObject("attack", activeMonster);
-            //}
 
+           
         }
 
 
@@ -606,34 +546,17 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
     public void OnDisable()
     {
-        //GameObject[] e = GameObject.FindGameObjectsWithTag("Item");
-
-        //for (int i = 0; i < e.Length; i++)
-        //{
-        //    Destroy(e[i]);
-        //}
-
-        //for (int i = 0; i < effectTypes.Count; i++)
-        //{
-        //    if (equip1.GetComponent(Type.GetType(effectTypes[i].ToString(), true)))
-        //    {
-        //        Destroy(equip1.GetComponent(effectTypes[i].ToString()));
-        //    }
-
-        //    if (equip2.GetComponent(Type.GetType(effectTypes[i].ToString(), true)))
-        //    {
-        //        Destroy(equip2.GetComponent(effectTypes[i].ToString()));
-        //    }
-        //}
-
-        //effectTypes.Clear();
+       
     }
 
 
     //use this to disable the camera during certain events
     public void DisableCamera()
     {
-        mainCamera.GetComponent<CameraMotion>().isFree = false;
+        //mainCamera.GetComponent<CameraMotion>().oldTouchPositions[0] = null;
+        //mainCamera.GetComponent<CameraMotion>().oldTouchPositions[1] = null;
+        //mainCamera.GetComponent<CameraMotion>().isFree = false;
+
     }
 
     //use this to disable the camera during certain events

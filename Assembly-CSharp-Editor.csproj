@@ -65,25 +65,26 @@
   <ItemGroup>
     <Compile Include="Assets\Editor\EditorGUICurveField.cs" />
     <Compile Include="Assets\Editor\SortingLayerExposedEditor.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_AutoRig.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_BlendShapeEditor.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_BoneCreation.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_CreateBlendShape.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_CreateControls.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_CreatePolygonFromSprite.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_Editor.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_EditSkinWeightsEditor.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_FFD.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_FFDLineDisplayEditor.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_GlobalControlEditor.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_HiddenBoneEditor.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_IKHandleEditor.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_Selection.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_SkinCluster.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_Skinning.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_SortingLayerEditor.cs" />
-    <Compile Include="Assets\Puppet2D\Scripts\Editor\Puppet2D_Spline.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_AutoRig.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_BlendShapeEditor.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_BoneCreation.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_CreateBlendShape.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_CreateControls.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_CreatePolygonFromSprite.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_Editor.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_EditSkinWeightsEditor.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_FFD.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_FFDLineDisplayEditor.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_GlobalControlEditor.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_HiddenBoneEditor.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_IKHandleEditor.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_Selection.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_SkinCluster.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_Skinning.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_SortingLayerEditor.cs" />
+    <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_Spline.cs" />
     <Compile Include="Assets\Scripts\Editor\MinMaxSliderPropertyDrawer.cs" />
+    <Compile Include="Assets\UI\RainMaker\Editor\RainMakerEditor.cs" />
     <Reference Include="UnityEditor.TestRunner">
       <HintPath>C:/Users/Steve/Documents/GitHub/MonsterDefense/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>

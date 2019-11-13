@@ -197,6 +197,11 @@ public class MapTile : MonoBehaviour
     //public Renderer Renderer;
 
     public static int cameraDepth;
+
+    //this is set from the Map Details script when the tile is created
+    public MapDetails mapDetails;
+
+    
     private void Awake()
     {
         sp.GetComponent<SpriteRenderer>();
@@ -412,7 +417,7 @@ public class MapTile : MonoBehaviour
 
         info.atkBonus = 100;
 
-       
+        mapDetails.allTiles.Add(this);
     }
 
     
@@ -565,4 +570,6 @@ public class MapTile : MonoBehaviour
             //
         }
     }
+
+   
 }

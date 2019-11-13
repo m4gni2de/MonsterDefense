@@ -119,7 +119,7 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
             if (activeTile.hasMonster)
             {
                 placeMonsterBtn.GetComponentInChildren<TMP_Text>().text = "Find Tower";
-                monsterSprite.sprite = GameManager.Instance.monstersData.monstersAllDict[activeTile.monsterOn.info.species].frontIcon;
+                monsterSprite.sprite = activeTile.monsterOn.frontModel.GetComponent<SpriteRenderer>().sprite;
             }
             else
             {
@@ -168,9 +168,10 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
         }
         else
         {
-            if (!infoMenu.isClicked)
+            if (infoMenu.towerMenu.activeSelf == false)
             {
-                infoMenu.TowerMenuBtn();
+                infoMenu.showTowersBtn.gameObject.SetActive(false);
+                infoMenu.towerMenu.SetActive(true);
             }
             
             infoMenu.tileToBePlaced = activeTile;

@@ -28,7 +28,7 @@ public class InGameSettings : MonoBehaviour
     //change the look of the options button every time it's pushed
     public void ChangeOptionsBtn()
     {
-        Debug.Log(mainButton.image.sprite);
+        //Debug.Log(mainButton.image.sprite);
 
 
         if (mainButton.image.sprite == plusButton)

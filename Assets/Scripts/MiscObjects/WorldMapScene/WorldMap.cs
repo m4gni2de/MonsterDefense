@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public GameObject mapObject, worldMapObject;
+    public GameObject mapObject, worldMapObject, mapDetailsObject;
     
     public TMP_Dropdown mapSelector;
     public List<string> mapNames = new List<string>();
@@ -70,6 +70,7 @@ public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             loadTowerMenuBtn.interactable = true;
             GameManager.Instance.inGame = true;
             GameManager.Instance.activeMap = mapDetails;
+            mapDetailsObject.SetActive(true);
             worldMapObject.SetActive(false);
         }
         
@@ -104,42 +105,39 @@ public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                     isTapping = true;
                     activeTile = hit.collider.gameObject.GetComponent<MapTile>();
 
-                    
-
                 }
 
             }
 
             
-            
         }
 
 
-        //if (eventData.pointerEnter)
-        //{
-        //    var tag = eventData.pointerEnter.gameObject.tag;
-        //    var hit = eventData.pointerEnter.gameObject;
-        //    var col = eventData.pointerEnter.gameObject.GetComponent<PolygonCollider2D>();
+        if (eventData.pointerEnter)
+        {
+            var tag = eventData.pointerEnter.gameObject.tag;
+            var name = eventData.pointerEnter.gameObject.name;
 
-        //    Debug.Log(col);
 
-        //    //if a map tile is touched, open the information box for the tile
-        //    if (tag == "MapTile" && !isTapping)
-        //    {
-        //        isTapping = true;
-        //        activeTile = hit.GetComponent<MapTile>();
-        //    }
+            //if a UI object is tapped, turn the camera off
+            if (name == "Handle")
+            {
 
-        //}
+                GameManager.Instance.FreezeCameraMotion();
+                Debug.Log(name);
+            }
+
+
+        }
 
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        //if a player holds their finger on an item, open the menu for that held on tile. if they just tap it, do nothing
+        //if a player just taps a tile, open the tile. if they hold, do nothing
         if (isTapping)
         {
-            if (acumTime >= .6f)
+            if (acumTime <= .15f)
             {
                 if (tileInfoMenu.GetComponent<MapTileMenu>().activeTile != null)
                 {

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Reflection;
 
+
 public class GameManager : MonoBehaviour
 {
     // create class as singleton
@@ -87,9 +88,13 @@ public class GameManager : MonoBehaviour
 
     //object that exists to preempt a monster summon with an animation
     public GameObject summonAnimation;
-    
 
-    
+
+    //sprites used for the pause/play button
+    public Sprite pauseSprite, playSprite;
+
+    //the game's audio manager
+    public AudioManager AudioManager;
 
     //create the instance of the GameManager to be used throughout the game
     void Awake()
@@ -107,15 +112,7 @@ public class GameManager : MonoBehaviour
         }
 
 
-        electricAttackColor = new Color(1.0f, 1.0f, 0.0f, 1.0f);
-        waterAttackColor = new Color(0.22f, 0.22f, 1.0f, 1.0f);
-        natureAttackColor = new Color(0f, 0.85f, .21f, 1.0f);
-        shadowAttackColor = new Color(.36f, 0f, .37f, 1.0f);
-        fireAttackColor = new Color(.98f, .20f, 0f, 1.0f);
-        iceAttackColor = new Color(.11f, .91f, .87f, 1.0f);
-        mechAttackColor = new Color(.48f, .48f, .48f, 1.0f);
-        magicAttackColor = new Color(.68f, 0f, .34f, 1.0f);
-        normalAttackColor = new Color(1f, 1f, 1f, 1.0f);
+        
 
         typeColorDictionary.Add("Electric", electricAttackColor);
         typeColorDictionary.Add("Water", waterAttackColor);
@@ -214,15 +211,30 @@ public class GameManager : MonoBehaviour
     public void TouchIndicator()
     {
         //these are the same thing, but I am using GetMouse for Unity/WebGL and the Touch for mobile
-        if (Input.GetMouseButtonDown(0) || Input.touchCount == 1)
+        if (Input.touchCount == 1)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-            var x = Instantiate(touchIndicator, transform, false);
-            x.transform.position = new Vector3(mousePos.x, mousePos.y, -2f);
+                var x = Instantiate(touchIndicator, transform, false);
+                x.transform.position = new Vector3(mousePos.x, mousePos.y, -2f);
+            }
           
         }
+
+        //these are the same thing, but I am using GetMouse for Unity/WebGL and the Touch for mobile
+        //if (Input.GetMouseButtonDown(0))
+        //{  
+        //    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
+        //    var x = Instantiate(touchIndicator, transform, false);
+        //    x.transform.position = new Vector3(mousePos.x, mousePos.y, -2f);
+        //}
+
+
     }
 
     //use this to load a notification for the player
@@ -399,6 +411,24 @@ public class GameManager : MonoBehaviour
     }
 
     
+
+    //control the pause/play of the game
+    public void PausePlayToggle(Image b)
+    {
+        if (Time.timeScale >= 1)
+        {
+            Time.timeScale = 0;
+            b.sprite = playSprite;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            b.sprite = pauseSprite;
+        }
+
+        
+    }
+
 }
 
 
@@ -421,6 +451,7 @@ public enum NotificationType
     MonsterDrop,
     TileMine,
     AbilityReady,
+    TowerSummon,
 
 }
 //a class for all notifications that the player will receieve while in game
@@ -444,11 +475,15 @@ public class Notification
 
         if (n == NotificationType.LevelUp)
         {
-            //EventTrigger trigger = new EventTrigger(TriggerType.LevelUp);
             GameManager.Instance.TriggerEvent(TriggerType.LevelUp);
         }
 
-        
+        if (n == NotificationType.TowerSummon)
+        {
+            GameManager.Instance.TriggerEvent(TriggerType.TowerSummon);
+        }
+
+
     }
 
 }
