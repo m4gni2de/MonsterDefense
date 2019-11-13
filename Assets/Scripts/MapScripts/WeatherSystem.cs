@@ -60,7 +60,7 @@ public class WeatherSystem : MonoBehaviour
     {
         ParticleSystem ps = snow.GetComponent<ParticleSystem>();
         var emission = ps.emission;
-        emission.rateOverTime = (400 + (100 * intensity));
+        emission.rateOverTime = (200 + (100 * intensity));
 
         
 
@@ -70,7 +70,18 @@ public class WeatherSystem : MonoBehaviour
         windClip.clip = windAudioClips[intensity];
         windClip.clip = windAudioClips[0];
 
-        
+        foreach (MapTile tile in mapDetails.allTiles)
+        {
+            if (tile.tileAtt != TileAttribute.Fire)
+            {
+                tile.StartSnow(intensity);
+
+                if (tile.isRoad)
+                {
+                    tile.snowTile.GetComponent<SpriteRenderer>().sortingLayerName = "Pathways";
+                }
+            }
+        }
     }
 
 

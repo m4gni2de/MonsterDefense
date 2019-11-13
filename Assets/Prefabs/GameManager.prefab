@@ -2462,8 +2462,8 @@ MonoBehaviour:
       - 666
       - 1000
       enemyMax: 50
-      pathEndX: 0
-      pathEndY: 0
+      pathEndX: -331.7
+      pathEndY: 43.9
       levelMin: 1
       levelMax: 91
       spawnInterval: 3.8
@@ -2537,8 +2537,8 @@ MonoBehaviour:
       - 666
       - 1000
       enemyMax: 50
-      pathEndX: 0
-      pathEndY: 0
+      pathEndX: 133.3
+      pathEndY: 41.5
       levelMin: 1
       levelMax: 4
       spawnInterval: 3.8

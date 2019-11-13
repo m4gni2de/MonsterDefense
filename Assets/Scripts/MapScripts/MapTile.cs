@@ -200,7 +200,7 @@ public class MapTile : MonoBehaviour
 
     //this is set from the Map Details script when the tile is created
     public MapDetails mapDetails;
-
+    public GameObject snowTile;
     
     private void Awake()
     {
@@ -571,5 +571,32 @@ public class MapTile : MonoBehaviour
         }
     }
 
+
+    //use this to control a snowy tile. Called from the Map Details script
+    public void StartSnow(int intensity)
+    {
+        var snow = snowTile.GetComponent<DesintegrationFX>();
+
+        float rand = UnityEngine.Random.Range(0f, 1f);
+        snow.Desintegration = .8f;
+        snow.Seed = rand;
+        snowTile.SetActive(true);
+        snowTile.GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder + 10;
+        snowTile.GetComponent<SpriteRenderer>().sortingLayerName = "TileTop";
+        StartCoroutine(TileSnow(intensity));
+    }
+
+    public IEnumerator TileSnow(int intensity)
+    {
+        var snow = snowTile.GetComponent<DesintegrationFX>();
+
+        do
+        {
+            snow.Desintegration -= .01f;
+
+            yield return new WaitForSeconds((10f - snow.Seed) / (1 + intensity));
+
+        } while (true);
+    }
    
 }
