@@ -58,6 +58,7 @@ public class MapDetails : MonoBehaviour
     public int enemyCount;
     public int mapLevel;
 
+
     //use this to weight the chances of higher level tiles appearing
     public float mapConst;
 
@@ -78,6 +79,9 @@ public class MapDetails : MonoBehaviour
     public GameObject mapInfoMenu;
 
     public Dictionary<int, Vector3> spawnPoints = new Dictionary<int, Vector3>();
+
+    //since the maps will have different sizes, these numbers represent the minimum and maximum scale of the camera
+    public int cameraMin, cameraMax;
     
     // Start is called before the first frame update
     void Start()
@@ -374,7 +378,7 @@ public class MapDetails : MonoBehaviour
         weatherSystem.intensity = UnityEngine.Random.Range(0, 3);
         weatherSystem.StartWeather(this);
 
-        pathEnd.transform.position = new Vector2(pathEndX, pathEndY);
+        
         InvokeRepeating("SpawnEnemy", 4f, spawnInterval);
     }
     

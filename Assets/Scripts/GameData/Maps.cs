@@ -136,7 +136,29 @@ public class AllMaps
 
     };
 
-    
+    public MapInfo Water1 = new MapInfo
+    {
+        mapName = "Water Map 1",
+        mapCode = "00010001000100000101000100000101000001010101000101000101010101000101010000000001010100010101010100010101000001000101010001010101000101000101",
+        pathCode = new string[1] { "006007018021034037036025038041054055066067064051048049060047044031028017014001" },
+        enemies = new int[3] { 1, 2, 3 },
+        enemyChance = new float[3] { 333, 666, 1000 },
+        enemyMax = 50,
+        pathEndX = 131f,
+        pathEndY = 40.7f,
+        levelMin = 1,
+        levelMax = 4,
+        spawnInterval = 3.8f,
+        mapId = 3,
+        width = 350,
+        height = 175,
+        mapLevel = 9,
+        maxHP = 25,
+        weather = MapWeather.Sunny,
+
+    };
+
+
 }
 
 
@@ -214,6 +236,7 @@ public class Maps : MonoBehaviour
         allMapsDict.Add(allMaps.DualPath.mapName, allMaps.DualPath);
         allMapsDict.Add(allMaps.SmallMap.mapName, allMaps.SmallMap);
         allMapsDict.Add(allMaps.BaseMap.mapName, allMaps.BaseMap);
+        allMapsDict.Add(allMaps.Water1.mapName, allMaps.Water1);
     }
 
 }

@@ -2556,6 +2556,32 @@ MonoBehaviour:
       weather: 4
       mapPrefab: {fileID: 3974735737521713576, guid: 1fe72b847f010dc45b04766de1d31255,
         type: 3}
+    Water1:
+      mapName: Water Map 1
+      mapCode: 00010001000100000101000100000101000001010101000101000101010101000101010000000001010100010101010100010101000001000101010001010101000101000101
+      mapId: 3
+      maxHP: 25
+      width: 350
+      height: 175
+      pathCode:
+      - 006007018021034037036025038041054055066067064051048049060047044031028017014001
+      tileTypeCode: 
+      enemies: 010000000200000003000000
+      enemyChance:
+      - 333
+      - 666
+      - 1000
+      enemyMax: 50
+      pathEndX: 131
+      pathEndY: 40.7
+      levelMin: 1
+      levelMax: 4
+      spawnInterval: 3.8
+      mapLevel: 9
+      itemDrops: []
+      weather: 0
+      mapPrefab: {fileID: 2849558168404400887, guid: aabab04f38fb26f499c29c143627e2fc,
+        type: 3}
   tileSprites:
   - {fileID: 21300000, guid: b96d3fcc1ccdb964683f6ad0775ec9ea, type: 3}
   - {fileID: 21300000, guid: 5ed3716f76f1748438f94ab7e4c7deb3, type: 3}

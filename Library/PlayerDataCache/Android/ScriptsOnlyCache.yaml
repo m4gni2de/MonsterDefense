@@ -1666,7 +1666,7 @@ ScriptsOnlyBuild:
     className: Image
   - hash:
       serializedVersion: 2
-      Hash: b94873ed3516557977acc8a1fb50cc92
+      Hash: 85a24d7f0e0290ab532a9c9db1998a57
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Maps
@@ -1834,7 +1834,7 @@ ScriptsOnlyBuild:
     className: AspectRatioFitter
   - hash:
       serializedVersion: 2
-      Hash: 3bba2f7adc932cff0428b02c92badb4d
+      Hash: cd49d1f586e957dc402842b81a62fce4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MapDetails

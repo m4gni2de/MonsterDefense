@@ -268,7 +268,8 @@ public class MapEditor : MonoBehaviour
 
 
                 
-                int randType = Random.Range(0, TileAttributes.Count);
+                //int randType = Random.Range(0, TileAttributes.Count);
+                int randType = Random.Range(0, 2);
                 string type = "";
 
 
@@ -284,6 +285,8 @@ public class MapEditor : MonoBehaviour
                 var tile = Instantiate(mapTile, transform.position, Quaternion.identity);
                 var tile2 = Instantiate(mapTile, transform.position, Quaternion.identity);
 
+                tile.GetComponent<MapTile>().mapDetails = GetComponent<MapDetails>();
+                tile2.GetComponent<MapTile>().mapDetails = GetComponent<MapDetails>();
 
                 //picks a random tile attribute for the tile to have
                 if (TileAttributes.ContainsKey(type))
@@ -305,7 +308,8 @@ public class MapEditor : MonoBehaviour
                 //*******************************************************************TILE 1 AND 2 SEPARATOR**********************8
 
 
-                int randType2 = Random.Range(0, TileAttributes.Count);
+                //int randType2 = Random.Range(0, TileAttributes.Count);
+                int randType2 = Random.Range(0, 2);
                 string type2 = "";
                 if (randType2 < 10)
                 {
@@ -342,7 +346,7 @@ public class MapEditor : MonoBehaviour
                 tile.transform.SetParent(mapCanvas.transform, false);
                 tile2.transform.SetParent(mapCanvas.transform, false);
 
-
+                
 
 
             }

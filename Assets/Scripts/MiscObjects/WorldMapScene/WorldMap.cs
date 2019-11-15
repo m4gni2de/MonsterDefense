@@ -44,7 +44,8 @@ public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         mapSelector.AddOptions(mapNames);
         mapSelector.value = 0;
     }
-
+#if UNITY_EDITOR
+    //First, generate the map, and then save it as a Prefab. Then, add that prefab to the MapPrefab variable of the map object the Maps script in the Game Manager. 
     public void ChooseMap()
     {
         var allMaps = GameManager.Instance.GetComponent<Maps>().allMapsDict;
@@ -83,7 +84,7 @@ public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         
         //mapObject.GetComponentInChildren<MapDetails>().DisplayMap(mapName);
     }
-
+#endif
     //use this to load the map once it's prefap is made
     public void LoadMap()
     {
