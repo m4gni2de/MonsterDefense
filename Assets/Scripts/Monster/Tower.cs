@@ -61,6 +61,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
     //private gameObject for the induvidual tiles on the map
     private GameObject[] tiles;
+    
 
     //private GameObject for the tower overlay UI menu
     private GameObject towerMenu;
@@ -119,6 +120,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
     //bool that is changed when the monster's summon animation is complete. changed by the Summon Animation object
     public bool summonAnimationComplete;
+
+    public MapDetails mapDetails;
     // Start is called before the first frame update
     void Start()
     {
@@ -129,10 +132,13 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         mainCamera = GameObject.Find("Main Camera");
         //Map = GameObject.FindGameObjectWithTag("Map").GetComponent<Map>();
         Map = GameObject.FindGameObjectWithTag("Map");
-        mapInformation = Map.GetComponent<MapDetails>().mapInformation;
+        mapDetails = Map.GetComponent<WorldMap>().mapDetails;
+        //mapInformation = Map.GetComponent<MapDetails>().mapInformation;
+        mapInformation = mapDetails.mapInformation;
         infoMenu = Map.GetComponent<MonsterInfoMenus>().infoMenu;
         towerMenu = Map.GetComponent<MonsterInfoMenus>().towerMenu;
-        levelTile = Map.GetComponent<MapDetails>().mapTile;
+        levelTile = mapDetails.mapTile;
+        //levelTile = Map.GetComponent<MapDetails>().mapTile;
 
         //load the monster's info as a json string
         string json = JsonUtility.ToJson(GetComponent<Monster>().info);
@@ -510,6 +516,17 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     //use this to actually place the tower on the field
     public IEnumerator PlaceTower()
     {
+
+        //Map = GameObject.FindGameObjectWithTag("Map");
+        //mapDetails = Map.GetComponent<WorldMap>().mapDetails;
+        ////mapInformation = Map.GetComponent<MapDetails>().mapInformation;
+        //mapInformation = mapDetails.mapInformation;
+        //infoMenu = Map.GetComponent<MonsterInfoMenus>().infoMenu;
+        //towerMenu = Map.GetComponent<MonsterInfoMenus>().towerMenu;
+        //levelTile = mapDetails.mapTile;
+
+
+
         //set the current tile to hold this monster's data as the monster on that tile
         mapTileOn.MonsterOnTile(gameObject.GetComponent<Monster>());
         tileOn = mapTileOn.tileNumber;
@@ -570,8 +587,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         InvokeRepeating("TowerEnergy", 0, 1);
 
 
-        Map.GetComponent<MapDetails>().MapEnergyRate(monster.tempStats.EnergyGeneration.Value / 60);
-        Map.GetComponent<MapDetails>().UseMapEnergy(monster.tempStats.EnergyCost.Value);
+        mapDetails.MapEnergyRate(monster.tempStats.EnergyGeneration.Value / 60);
+        mapDetails.UseMapEnergy(monster.tempStats.EnergyCost.Value);
         mapInformation.playerEnergy -= monster.tempStats.EnergyCost.Value;
 
  
@@ -595,7 +612,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
         //GameManager.Instance.GetComponentInChildren<CameraMotion>().isFree = true;
         //mainCamera.GetComponent<CameraMotion>().isFree = true;
-        gameObject.transform.SetParent(GameObject.FindGameObjectWithTag("Map").transform);
+        gameObject.transform.SetParent(mapDetails.transform);
 
         //adds the monster to the active towers dictionary
         int towerCount = GameManager.Instance.activeTowers.Count;
@@ -608,7 +625,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         
 
         //add this tower to the map's list of your active towers
-        Map.GetComponent<MapDetails>().liveTowers.Add(monster);
+        mapDetails.liveTowers.Add(monster);
         //every second, update this monster's entry in the active towers list
         StartCoroutine(ActiveTower(1f));
 
@@ -645,7 +662,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         if (isPlaced)
         {
             //Map.GetComponent<MapDetails>().AddMapEnergy(monster.energyGeneration / 60);
-            Map.GetComponent<MapDetails>().AddMapEnergy(monster.tempStats.EnergyGeneration.Value / 60);
+            mapDetails.AddMapEnergy(monster.tempStats.EnergyGeneration.Value / 60);
         }
 
     }
@@ -917,58 +934,146 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         atkRange1List.Clear();
         atkRange2List.Clear();
 
+        var mapTiles = mapDetails.allTiles;
 
-        var aimAngle = Mathf.Atan2(transform.position.x, transform.position.y);
+
+        var aimAngle = Mathf.Atan2(transform.position.x, transform.position.y); 
         aimAngle = Mathf.PI * 2 + (Time.time * 50);
         var aimDirection = Quaternion.Euler(0, 0, aimAngle * Mathf.Rad2Deg) * Vector2.up;
 
 
-        int range = monster.tempStats.attack1.range;
-        int range2 = monster.tempStats.attack2.range;
+        int range = monster.info.attack1.range;
+        int range2 = monster.info.attack2.range;
 
         //int range = 2;
 
         //for (int i = 0; i <= range; i++)
         //{
 
-        //get the total and difference of your tile's row and column coordinate. filter through them to determine the range of an attack given its range3
-        int total = tiles[tileOn].GetComponent<MapTile>().info.row + tiles[tileOn].GetComponent<MapTile>().info.column;
-        int difference = tiles[tileOn].GetComponent<MapTile>().info.row - tiles[tileOn].GetComponent<MapTile>().info.column;
+        //    //get the total and difference of your tile's row and column coordinate. filter through them to determine the range of an attack given its range3
+        //    int total = tiles[tileOn].GetComponent<MapTile>().info.row + tiles[tileOn].GetComponent<MapTile>().info.column;
+        //    int difference = tiles[tileOn].GetComponent<MapTile>().info.row - tiles[tileOn].GetComponent<MapTile>().info.column;
 
-        for (int a = 0; a < tiles.Length; a++)
-        {
-            int check = tiles[a].GetComponent<MapTile>().info.row + tiles[a].GetComponent<MapTile>().info.column;
-            int check2 = tiles[a].GetComponent<MapTile>().info.row - tiles[a].GetComponent<MapTile>().info.column;
+        //    for (int a = 0; a < mapTiles.Count; a++)
+        //    {
+        //        int check = tiles[a].GetComponent<MapTile>().info.row + tiles[a].GetComponent<MapTile>().info.column;
+        //        int check2 = tiles[a].GetComponent<MapTile>().info.row - tiles[a].GetComponent<MapTile>().info.column;
 
-            if (total <= check + (2 * range) && total >= check - (2 * range) && difference <= check2 + (2 * range) && difference >= check2 - (2 * range))
+        //        if (total <= check + (2 * range) && total >= check - (2 * range) && difference <= check2 + (2 * range) && difference >= check2 - (2 * range))
+        //        {
+
+
+        //            atkRange1List.Add(tiles[a].GetComponent<MapTile>().tileNumber);
+        //            tiles[a].GetComponent<MapTile>().AttackRange(monster);
+        //        }
+
+        //        if (total <= check + (2 * range2) && total >= check - (2 * range2) && difference <= check2 + (2 * range2) && difference >= check2 - (2 * range2))
+        //        {
+
+
+        //            atkRange2List.Add(tiles[a].GetComponent<MapTile>().tileNumber);
+        //            tiles[a].GetComponent<MapTile>().AttackRange(monster);
+        //        }
+
+        //        if (a >= tiles.Length - 1)
+        //        {
+
+        //            isScanning = true;
+        //            attackNumber = 1;
+
+        //            //GameManager.Instance.overworldMenu.GetComponent<OverworldInfoMenu>().activeMonster = monster;
+        //        }
+        //    }
+
+
+        //}
+
+        
+
+            //get the total and difference of your tile's row and column coordinate. filter through them to determine the range of an attack given its range3
+            int total = mapTiles[tileOn].info.row + mapTiles[tileOn].info.column;
+            int difference = mapTiles[tileOn].info.row - mapTiles[tileOn].info.column;
+
+            for (int a = 0; a < mapTiles.Count; a++)
             {
+                int check = mapTiles[a].info.row + mapTiles[a].info.column;
+                int check2 = mapTiles[a].info.row - mapTiles[a].info.column;
+
+                if (total <= check + (2 * range) && total >= check - (2 * range) && difference <= check2 + (2 * range) && difference >= check2 - (2 * range))
+                {
+
+                    
+                    atkRange1List.Add(mapTiles[a].tileNumber);
+                    mapTiles[a].AttackRange(monster);
+                }
+
+                if (total <= check + (2 * range2) && total >= check - (2 * range2) && difference <= check2 + (2 * range2) && difference >= check2 - (2 * range2))
+                {
 
 
-                atkRange1List.Add(tiles[a].GetComponent<MapTile>().tileNumber);
-                tiles[a].GetComponent<MapTile>().AttackRange(monster);
+                    atkRange2List.Add(mapTiles[a].tileNumber);
+                    mapTiles[a].AttackRange(monster);
+                }
+
+                if (a >= tiles.Length - 1)
+                {
+
+                    isScanning = true;
+                    attackNumber = 1;
+
+                    //GameManager.Instance.overworldMenu.GetComponent<OverworldInfoMenu>().activeMonster = monster;
+                }
             }
 
-            if (total <= check + (2 * range2) && total >= check - (2 * range2) && difference <= check2 + (2 * range2) && difference >= check2 - (2 * range2))
-            {
+
+        
+
+        //for (int i = 0; i <= range; i++)
+        //{
+
+        //    //get the total and difference of your tile's row and column coordinate. filter through them to determine the range of an attack given its range3
+        //    int total = mapTiles[tileOn].info.row + mapTiles[tileOn].info.column;
+        //    int difference = mapTiles[tileOn].info.row - mapTiles[tileOn].info.column;
+
+        //    int a = 0;
+
+        //    foreach(MapTile tile in mapTiles)
+        //    {
+        //        int number = tile.tileNumber;
+
+        //        int check = mapTiles[number].info.row + mapTiles[number].info.column;
+        //        int check2 = mapTiles[number].info.row - mapTiles[number].info.column;
+
+        //        if (total <= check + (2 * range) && total >= check - (2 * range) && difference <= check2 + (2 * range) && difference >= check2 - (2 * range))
+        //        {
 
 
-                atkRange2List.Add(tiles[a].GetComponent<MapTile>().tileNumber);
-                tiles[a].GetComponent<MapTile>().AttackRange(monster);
-            }
+        //            atkRange1List.Add(mapTiles[number].tileNumber);
+        //            mapTiles[number].AttackRange(monster);
+        //        }
 
-            if (a >= tiles.Length - 1)
-            {
-
-                isScanning = true;
-                attackNumber = 1;
-                
-                //GameManager.Instance.overworldMenu.GetComponent<OverworldInfoMenu>().activeMonster = monster;
-            }
-        }
+        //        if (total <= check + (2 * range2) && total >= check - (2 * range2) && difference <= check2 + (2 * range2) && difference >= check2 - (2 * range2))
+        //        {
 
 
+        //            atkRange2List.Add(mapTiles[number].tileNumber);
+        //            mapTiles[number].AttackRange(monster);
+        //        }
+
+        //        if (a >= mapTiles.Count - 1)
+        //        {
+
+        //            isScanning = true;
+        //            attackNumber = 1;
+
+        //            //GameManager.Instance.overworldMenu.GetComponent<OverworldInfoMenu>().activeMonster = monster;
+        //        }
+        //    }
+
+
+
+        //}
     }
-
     //creates temporary tiles to act as a visible range for a tower's attack
     public void AttackRangeUI()
     {
@@ -1010,12 +1115,16 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
             foreach (int target in attackList)
             {
-                var range = Instantiate(levelTile, tiles[target].transform.position, Quaternion.identity);
-                range.GetComponent<SpriteRenderer>().sortingOrder = 1000;
-                range.gameObject.tag = "RangeTile";
-                range.gameObject.name = name + "'s Range";
-                range.transform.SetParent(Map.gameObject.transform, false);
-                range.GetComponent<MapTile>().ShowRange(color);
+                //var range = Instantiate(levelTile, transform.position, Quaternion.identity);
+                //range.GetComponent<SpriteRenderer>().sortingOrder = 1000;
+                //range.gameObject.tag = "RangeTile";
+                //range.gameObject.name = name + "'s Range";
+                ////range.transform.SetParent(Map.gameObject.transform, false);
+                //range.transform.SetParent(mapDetails.transform, false);
+                //range.transform.position = mapDetails.allTiles[target].transform.position;
+                //range.GetComponent<MapTile>().ShowRange(color);
+
+                mapDetails.allTiles[target].ShowRange(color);
             }
         }
 
@@ -1061,6 +1170,11 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 //Map.GetComponent<MonsterInfoMenus>().activeMonster = GameManager.Instance.GetComponent<YourMonsters>().yourMonstersComplete[index];
             }
 
+            if (tag == "RangeTile")
+            {
+                RangeUIOff();
+            }
+
         }
     }
 
@@ -1072,7 +1186,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         List<TargetSort> inRange = new List<TargetSort>();
         int n = 0;
         //check the enemies this monster can hit and determine which enemy to attack
-        foreach (Enemy liveEnemy in Map.GetComponent<MapDetails>().liveEnemies)
+        foreach (Enemy liveEnemy in mapDetails.liveEnemies)
         {
             //if the enemy still exists, check to see if it's on a tile that this monster can hit
             if (liveEnemy)

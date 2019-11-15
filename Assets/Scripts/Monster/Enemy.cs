@@ -98,6 +98,7 @@ public class Enemy : MonoBehaviour
     //directions that the enemy is travelling so that the sprite knows to flip or not
     public bool isLeft, isRight;
 
+    public MapDetails mapDetails;
     private void Awake()
     {
         monster = GetComponent<Monster>();
@@ -111,7 +112,7 @@ public class Enemy : MonoBehaviour
         roadsHit.Clear();
         
         map = GameObject.FindGameObjectWithTag("Map");
-
+        mapDetails = map.GetComponent<WorldMap>().mapDetails;
         enemyCanvas.GetComponent<Canvas>().sortingLayerName = "Monster";
 
         monster = GetComponent<Monster>();
@@ -577,7 +578,7 @@ public class Enemy : MonoBehaviour
     {
         if (map)
         {
-            map.GetComponent<MapDetails>().LiveEnemyList();
+            mapDetails.LiveEnemyList();
         }
     }
 
@@ -718,7 +719,7 @@ public class Enemy : MonoBehaviour
         //if the monster is on the final path, make it's last destination the position of the "end path" object
         if (currentPath == null)
         {
-            targetPosition = map.GetComponent<MapDetails>().pathEnd.transform.position;
+            targetPosition = mapDetails.pathEnd.transform.position;
         }
         else
         {
@@ -777,24 +778,26 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            if (currentPath)
+            {
+                // If the waypoint has a pause amount then wait a bit
+                if (currentPath.waitSeconds > 0)
+                {
+                    Pause();
+                    Invoke("Pause", currentPath.waitSeconds);
+                }
 
-            // If the waypoint has a pause amount then wait a bit
-            if (currentPath.waitSeconds > 0)
-            {
-                Pause();
-                Invoke("Pause", currentPath.waitSeconds);
-            }
-
-            // If the current waypoint has a speed change then change to it
-            if (currentPath.speedOut > 0)
-            {
-                speedStorage = speed;
-                speed = currentPath.speedOut;
-            }
-            else if (speedStorage != 0)
-            {
-                speed = speedStorage;
-                speedStorage = 0;
+                // If the current waypoint has a speed change then change to it
+                if (currentPath.speedOut > 0)
+                {
+                    speedStorage = speed;
+                    speed = currentPath.speedOut;
+                }
+                else if (speedStorage != 0)
+                {
+                    speed = speedStorage;
+                    speedStorage = 0;
+                }
             }
 
             NextPath();

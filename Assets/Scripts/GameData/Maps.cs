@@ -26,7 +26,7 @@ public struct MapInfo
     public int mapLevel;
     public string[] itemDrops;
     public MapWeather weather;
-    
+    public GameObject mapPrefab;
     
 };
 
@@ -159,6 +159,7 @@ public class Maps : MonoBehaviour
 
     public Sprite[] roadTiles;
 
+    
 
     //variables and objects related to the water tiles
     public Sprite[] waterTileSprites;
@@ -195,6 +196,8 @@ public class Maps : MonoBehaviour
             allTileSpritesDict.Add(i, tileSprites[i]);
         }
 
+
+       
         //for (int i = 0; i < tileTypeSprites.Length; i++)
         //{
         //    tileTypeSpritesDict.Add(i + 1, tileTypeSprites[i]);

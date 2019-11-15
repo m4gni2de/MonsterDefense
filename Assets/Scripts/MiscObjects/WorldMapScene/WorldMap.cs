@@ -7,13 +7,15 @@ using UnityEngine.EventSystems;
 
 public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public GameObject mapObject, worldMapObject, mapDetailsObject;
+    public GameObject mapObject, worldMapObject, mapDetailsObject, mapCanvas;
     
     public TMP_Dropdown mapSelector;
     public List<string> mapNames = new List<string>();
     public string mapName;
     private int mapCount;
-    private MapDetails mapDetails;
+    //this is the MapDetails of this object
+    public MapDetails mapDetails;
+
     public Button loadTowerMenuBtn;
 
     //gameobject that is on every map that gives info about any given tile, as well as allowing the player to build a tower on that tile[if possible]
@@ -23,11 +25,12 @@ public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public bool isTapping;
     public float acumTime;
 
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        mapDetails = GetComponent<MapDetails>();
+        //mapDetails = GetComponent<MapDetails>();
         var allMaps = GameManager.Instance.GetComponent<Maps>().allMapsDict;
         mapSelector.GetComponent<TMP_Dropdown>();
         
@@ -70,19 +73,50 @@ public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             loadTowerMenuBtn.interactable = true;
             GameManager.Instance.inGame = true;
             GameManager.Instance.activeMap = mapDetails;
-            mapDetailsObject.SetActive(true);
+            //mapDetailsObject.SetActive(true);
             worldMapObject.SetActive(false);
+
+           
+             
+
         }
         
+        //mapObject.GetComponentInChildren<MapDetails>().DisplayMap(mapName);
+    }
 
+    //use this to load the map once it's prefap is made
+    public void LoadMap()
+    {
+        var allMaps = GameManager.Instance.GetComponent<Maps>().allMapsDict;
+        int menuIndex = mapSelector.value;
+        List<TMP_Dropdown.OptionData> menuOptions = mapSelector.options;
+        mapName = menuOptions[menuIndex].text;
+
+        if (allMaps.ContainsKey(mapName))
+        {
+            var map = Instantiate(allMaps[mapName].mapPrefab, transform.position, Quaternion.identity);
+            map.transform.SetParent(mapCanvas.transform);
             
 
-       
+            //clear the active tiles and active towers list
+            GameManager.Instance.activeTiles.Clear();
+            GameManager.Instance.activeTowers.Clear();
 
+            map.transform.position = new Vector2(0f, 0f);
+            loadTowerMenuBtn.interactable = true;
+            GameManager.Instance.inGame = true;
+            GameManager.Instance.activeMap = mapDetails;
+            //THIS IS IMPORTANT. SET THE INSTANTIATED MAP AS THE NEW TARGET FOR THE WORLD MAP'S MAP OBJECT
+            mapObject = map;
+            mapDetails = map.GetComponent<MapDetails>();
+            map.GetComponentInChildren<MapDetails>().SummonMap();
 
-        
-
-        //mapObject.GetComponentInChildren<MapDetails>().DisplayMap(mapName);
+            
+            mapDetailsObject.GetComponent<MapInfoMenu>().mapDetails = map.GetComponent<MapDetails>();
+            mapDetailsObject.SetActive(true);
+            mapDetailsObject.GetComponent<MapInfoMenu>().LoadMap();
+            worldMapObject.SetActive(false);
+        }
     }
 
 
@@ -182,5 +216,6 @@ public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             acumTime = 0;
         }
 
+       
     }
 }

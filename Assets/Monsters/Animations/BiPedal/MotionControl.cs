@@ -201,7 +201,7 @@ public class MotionControl : MonoBehaviour
         //change its tag so it does not appear in any "Enemy" lists that use the "Enemy" tag
         Enemy.gameObject.tag = "Corpse";
 
-        Enemy.map.GetComponent<MapDetails>().LiveEnemyList();
+        Enemy.mapDetails.LiveEnemyList();
 
     }
 

@@ -6,24 +6,18 @@ using TMPro;
 
 public class MapInfoMenu : MonoBehaviour
 {
-    private MapDetails mapDetails;
+    public MapDetails mapDetails;
+    public GameObject worldMap;
     public Slider energySlider, mapHPSlider;
     public TMP_Text energyText, energyGenText, mapHPText;
-
     public SpriteRenderer weatherSprite;
+
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        mapDetails = GetComponentInParent<MapDetails>();
-        
-
-
-        energySlider.maxValue = mapDetails.mapInformation.playerEnergyMax;
-        energySlider.value = mapDetails.mapInformation.playerEnergy;
-
-        mapHPSlider.maxValue = mapDetails.mapInformation.mapHealthMax;
-        mapHPSlider.value = mapDetails.mapInformation.mapHealthCurrent;
+       
 
 
     }
@@ -34,8 +28,23 @@ public class MapInfoMenu : MonoBehaviour
         
     }
 
+    public void LoadMap()
+    {
+        //mapDetails = worldMap.GetComponent<MapDetails>();
+
+
+
+        energySlider.maxValue = mapDetails.mapInformation.playerEnergyMax;
+        energySlider.value = mapDetails.mapInformation.playerEnergy;
+
+        mapHPSlider.maxValue = mapDetails.mapInformation.mapHealthMax;
+        mapHPSlider.value = mapDetails.mapInformation.mapHealthCurrent;
+    }
+
     private void LateUpdate()
     {
+       
+
         energySlider.value = mapDetails.mapInformation.playerEnergy;
         energySlider.maxValue = mapDetails.mapInformation.playerEnergyMax;
 

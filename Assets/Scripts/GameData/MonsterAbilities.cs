@@ -264,7 +264,7 @@ public class MonsterAbility
     //Below is the method for all of the abilities//
     public void OfAFeather()
     {
-        var towers = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveTowers;
+        var towers = Owner.GetComponent<Tower>().mapDetails.liveTowers;
 
         foreach (Monster ally in towers)
         {
@@ -278,7 +278,7 @@ public class MonsterAbility
 
     public void BeastSlayer()
     {
-        var enemies = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveEnemies;
+        var enemies = Owner.GetComponent<Tower>().mapDetails.liveEnemies;
 
         foreach (Enemy enemy in enemies)
         {
@@ -292,7 +292,7 @@ public class MonsterAbility
 
     public void NaturalQuake()
     {
-        var enemies = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveEnemies;
+        var enemies = Owner.GetComponent<Tower>().mapDetails.liveEnemies;
 
 
         foreach (Enemy enemy in enemies)
@@ -325,7 +325,7 @@ public class MonsterAbility
 
     public void SerpentineVenom()
     {
-        var enemies = Owner.GetComponent<Tower>().Map.GetComponent<MapDetails>().liveEnemies;
+        var enemies = Owner.GetComponent<Tower>().mapDetails.liveEnemies;
         AllStatuses status = new AllStatuses();
 
         foreach (Enemy enemy in enemies)

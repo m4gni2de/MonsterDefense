@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,7 +33,8 @@ public class MapDetails : MonoBehaviour
 
     
     
-    public MapTile[] path;
+    //public MapTile[] path;
+    public List<MapTile> path = new List<MapTile>();
     public List<string> pathOrder = new List<string>();
 
     public List<string> pathCodes = new List<string>();
@@ -97,6 +99,7 @@ public class MapDetails : MonoBehaviour
 
     }
 
+    //use this to Load a map to be made in to a prefab
     public void LoadMap(string name)
     {
         var allMaps = GameManager.Instance.GetComponent<Maps>().allMapsDict;
@@ -238,6 +241,8 @@ public class MapDetails : MonoBehaviour
             //set the tile attributes based on their attribute code
             string[] tileChars = new string[mapCode.Length];
             int g = 1;
+
+           
             for (int t = 0; t < mapCode.Length / 2; t++)
             {
                 tileChars[t] = mapCode[g - 1].ToString() + mapCode[g].ToString();
@@ -250,6 +255,9 @@ public class MapDetails : MonoBehaviour
                 GameManager.Instance.activeTiles.Add(t, tile.GetComponent<MapTile>());
                 //set the level and EXP of the tile
                 tile.SetLevel(mapLevel);
+               
+                
+
             }
 
             //make a path code for each possible path, and add them to a Dictionary of PathCodes
@@ -261,7 +269,7 @@ public class MapDetails : MonoBehaviour
                 string code = pathCodes[p];
                 List<string> pathCode = new List<string>();
                 List<MapTile> pathTiles = new List<MapTile>();
-                
+
                 
                 int h = 2;
                 for (int i = 0; i < code.Length / 3; i++)
@@ -269,8 +277,13 @@ public class MapDetails : MonoBehaviour
                     pathChars[i] = code[h - 2].ToString() + code[h - 1].ToString() + code[h].ToString();
                     h += 3;
                     int tileCheck = int.Parse(pathChars[i]);
+
+
+                    //path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
+
                     
-                    path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
+                    //path[i] = allTiles[tileCheck];
+                    path.Add(allTiles[tileCheck]);
                     path[i].Road();
                     pathTiles.Add(path[i]);
 
@@ -293,20 +306,77 @@ public class MapDetails : MonoBehaviour
                
             }
 
-            
 
 
-        pathEnd.transform.position = new Vector2(pathEndX, pathEndY);
-        InvokeRepeating("SpawnEnemy", 4f, spawnInterval);
+
+            pathEnd.transform.position = new Vector2(pathEndX, pathEndY);
+            InvokeRepeating("SpawnEnemy", 4f, spawnInterval);
 
         }
 
 
-        GetComponent<MonsterInfoMenus>().LoadYourTowers();
-        weatherSystem.intensity = Random.Range(0, 3);
+        GetComponentInParent<MonsterInfoMenus>().LoadYourTowers();
+        weatherSystem.intensity = UnityEngine.Random.Range(0, 3);
         weatherSystem.StartWeather(this);
+
+
+
+
     }
 
+
+    //use this to summon a map for play
+    public void SummonMap()
+    {
+        var allMaps = GameManager.Instance.GetComponent<Maps>().allMapsDict;
+        GameManager.Instance.activeTiles.Clear();
+
+
+        //add the IDs for the possible enemies this map can have
+        foreach (int enemy in allMaps[mapName].enemies)
+        {
+
+            enemies.Add(enemy);
+        }
+
+        //add the IDs for the possible enemies and their spawn rates this map can have
+        for (int e = 0; e < allMaps[mapName].enemies.Length; e++)
+        {
+            spawnRates.Add(allMaps[mapName].enemies[e], allMaps[mapName].enemyChance[e]);
+        }
+
+
+        int i = 0;
+        foreach(MapTile tile in allTiles)
+        {
+            
+            if (tile.tileAtt == TileAttribute.Water || tile.tileAtt == TileAttribute.Fire || tile.tileAtt == TileAttribute.Magic)
+            {
+                int tileAtt = tile.tileAttInt;
+                tile.ClearAttribute();
+                tile.GetAttribute(tileAtt);
+            }
+            else
+            {
+                
+            }
+            GameManager.Instance.activeTiles.Add(tile.tileNumber, tile);
+
+            i += 1;
+            if (i >= allTiles.Count)
+            {
+                GetComponentInParent<MonsterInfoMenus>().LoadYourTowers();
+                break;
+            }
+        }
+
+       
+        weatherSystem.intensity = UnityEngine.Random.Range(0, 3);
+        weatherSystem.StartWeather(this);
+
+        pathEnd.transform.position = new Vector2(pathEndX, pathEndY);
+        InvokeRepeating("SpawnEnemy", 4f, spawnInterval);
+    }
     
 
     public void SpawnEnemy()
@@ -314,25 +384,28 @@ public class MapDetails : MonoBehaviour
         
         //var random = Random.Range(1, GameManager.Instance.monstersData.monstersByIdDict.Count + 1);
         //var random = Random.Range(enemies[0], enemies[enemies.Count - 1]);
-        var rand = Random.Range(0, 1001);
+        var rand = UnityEngine.Random.Range(0, 1001);
         int random = new int();
-        int randomLevel = Random.Range(levelMin, levelMax + 1);
+        int randomLevel = UnityEngine.Random.Range(levelMin, levelMax + 1);
         var byId = GameManager.Instance.monstersData.monstersByIdDict;
         var monstersDict = GameManager.Instance.monstersData.monstersAllDict;
 
+
+
         //checks the random number against all of the spawn rates for the map. once the number is less than a spawn rate for one of the enemies, then it's in that enemy's range, and that enemy will spawn. the enemy's and their rates will be 
         //in ascending order in the map object so this method will works
-        foreach(KeyValuePair<int, float> enemy in spawnRates)
+        foreach (KeyValuePair<int, float> enemy in spawnRates)
         {
+
             if (rand > enemy.Value)
             {
-
+                
             }
             else
             {
                 //Debug.Log("Number Chosen: " + rand);
                 random = enemy.Key;
-
+                
                 //picks a random number. then translates that number to the Monsters by Id Dictionary. Then takes that number, and summons a prefab based on the name of the matching key
                 if (byId.ContainsKey(random))
                 {
@@ -340,7 +413,7 @@ public class MapDetails : MonoBehaviour
 
                     if (monstersDict.ContainsKey(species))
                     {
-                        int r = Random.Range(0, pathCodes.Count);
+                        int r = UnityEngine.Random.Range(0, pathCodes.Count);
 
 
                         //break up each path code in to sections of 3, since each tile is a 3 digit number, and store them in a dictionary of path codes that an enemy will choose at random upon their spawn
@@ -370,7 +443,7 @@ public class MapDetails : MonoBehaviour
                                 int tileCheck = int.Parse(pathChars[i]);
                                 //enemyMonster.GetComponent<Enemy>().path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
                                 //enemyMonster.GetComponent<Enemy>().pathTileCount += 1;
-                                enemyMonster.GetComponent<Enemy>().pathList.Add(GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>());
+                                enemyMonster.GetComponent<Enemy>().pathList.Add(allTiles[tileCheck]);
 
                             if (enemyMonster.GetComponent<Enemy>().pathList.Count == 1)
                             {
@@ -382,6 +455,7 @@ public class MapDetails : MonoBehaviour
                             //Map.path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
                             }
                         enemyMonster.transform.position = enemyMonster.GetComponent<Enemy>().pathList[0].transform.position;
+                        //enemyMonster.transform.SetParent(transform, true);
 
 
 

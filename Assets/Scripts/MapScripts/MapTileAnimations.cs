@@ -189,13 +189,14 @@ public class MapTileAnimations : MonoBehaviour
     //the water tile animation
     public IEnumerator FireTile(float time)
     {
+        
         //create a copy of the first first sprite and set it above the fire tile
         var fire = Instantiate(topSprite, transform.position, Quaternion.identity);
         fire.transform.SetParent(GetComponentInParent<MapTile>().transform, true);
         fire.transform.localScale = new Vector3(1f, 1f, 1f);
         fire.sprite = maps.fireTileTopSprites[0];
         attList.Add(fire.gameObject);
-        fire.sortingOrder = topSprite.sortingOrder - 1;
+        fire.sortingOrder = topSprite.sortingOrder + 1;
         fire.sortingLayerName = "MapTiles";
 
         topSprite = fire;
@@ -220,7 +221,7 @@ public class MapTileAnimations : MonoBehaviour
                 i = 0;
                 tileAge += 1;
 
-                if (tileAge > 3)
+                if (tileAge > 12)
                 {
                     for (int d = 0; d < 20; d++)
                     {

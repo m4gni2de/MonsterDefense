@@ -229,26 +229,26 @@ public class MapTile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isShowingRange)
-        {
-            if (isCountingDown)
-            {
-                sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, sp.color.a - .01f);
-            }
-            else
-            {
-                sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, sp.color.a + .01f);
-            }
+        //if (isShowingRange)
+        //{
+        //    if (isCountingDown)
+        //    {
+        //        sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, sp.color.a - .01f);
+        //    }
+        //    else
+        //    {
+        //        sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, sp.color.a + .01f);
+        //    }
 
-            if (sp.color.a >= .85)
-            {
-                isCountingDown = true;
-            }
-            if (sp.color.a <= .35)
-            {
-                isCountingDown = false;
-            }
-        }
+        //    if (sp.color.a >= .85)
+        //    {
+        //        isCountingDown = true;
+        //    }
+        //    if (sp.color.a <= .35)
+        //    {
+        //        isCountingDown = false;
+        //    }
+        //}
 
         //if the tile is mining, allow the MineTile method to activate every frame
         if (isMining)
@@ -403,21 +403,26 @@ public class MapTile : MonoBehaviour
 
         info.attribute = tileAtt.ToString();
 
-       
 
-
-            if (sprites.ContainsKey(tileInt))
-            {
-                sp.sprite = sprites[tileInt];
-                tileAnimations.TileAnimation(tileAtt, isRoad);
-            }
+        if (sprites.ContainsKey(tileInt))
+        {
+            sp.sprite = sprites[tileInt];
+            tileAnimations.TileAnimation(tileAtt, isRoad);
+        }
         
 
         
 
         info.atkBonus = 100;
 
-        mapDetails.allTiles.Add(this);
+        if (!mapDetails.allTiles.Contains(this))
+        {
+            mapDetails.allTiles.Add(this);
+        }
+        else
+        {
+            //
+        }
     }
 
     
@@ -447,13 +452,39 @@ public class MapTile : MonoBehaviour
     //this method is invoked by a Tower if an attack's range is being displayed on the UI
     public void ShowRange(Color color)
     {
+        //if (!isShowingRange)
+        //{
+        //    sp.sprite = blank;
+        //    sp.color = color;
+        //}
+
+        isShowingRange = !isShowingRange;
+
+
+        var range = Instantiate(GameManager.Instance.blankTile, transform.position, Quaternion.identity);
+        range.GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder + 1;
+        range.gameObject.tag = "RangeTile";
+        range.gameObject.name = "ActiveOverlay";
+        range.transform.SetParent(gameObject.transform, true);
+        range.transform.position = transform.position;
+        //range.GetComponent<SpriteRenderer>().sprite 
+        range.GetComponent<SpriteRenderer>().color = color;
+        range.GetComponent<Image>().raycastTarget = false;
+        range.GetComponent<MapTile>().isShowingRange = true;
+
         if (!isShowingRange)
         {
-            sp.sprite = blank;
-            sp.color = color;
+
+            Destroy(range);
+        }
+        else 
+        {
+            
+            //activeTileIndicator = range;
         }
 
-        isShowingRange = true;
+       
+        //GetComponent<PolygonCollider2D>().enabled = false;
     }
 
 
@@ -521,53 +552,55 @@ public class MapTile : MonoBehaviour
     {
         var enemy = other.gameObject.GetComponentInParent<Monster>();
 
-
-        //if the leg touching this tile is a tower, ignore it. If it's an enemy, invoke an attack from the Tower's 'Attack' method
-        if (enemy.isEnemy)
+        if (enemy)
         {
-            
-
-            var tag = other.gameObject.tag;
-
-            if (tag == "Leg")
+            //if the leg touching this tile is a tower, ignore it. If it's an enemy, invoke an attack from the Tower's 'Attack' method
+            if (enemy.isEnemy)
             {
-                //changes the current tile of the enemy to the tile that it enters
-                enemy.gameObject.GetComponent<Enemy>().currentTile = tileNumber;
-                if (isAttackTarget)
+
+
+                var tag = other.gameObject.tag;
+
+                if (tag == "Leg")
                 {
-                    //send over the monster that is on the target tile so the attacking monster knows what enemy to target
-                    foreach (Monster monster in towersInRange)
+                    //changes the current tile of the enemy to the tile that it enters
+                    enemy.gameObject.GetComponent<Enemy>().currentTile = tileNumber;
+                    if (isAttackTarget)
                     {
-                        //monster.GetComponent<Tower>().Attack(enemy, gameObject.GetComponent<MapTile>());
+                        //send over the monster that is on the target tile so the attacking monster knows what enemy to target
+                        foreach (Monster monster in towersInRange)
+                        {
+                            //monster.GetComponent<Tower>().Attack(enemy, gameObject.GetComponent<MapTile>());
 
-                        //if the enemy moving over this tile is already in range of the targeted tower, don't re-add it
-                        //if (!monster.GetComponent<Tower>().enemiesInRange.Contains(enemy.gameObject.GetComponent<Enemy>()))
-                        //{
-                        //    monster.GetComponent<Tower>().enemiesInRange.Add(enemy.gameObject.GetComponent<Enemy>());
-                        //}
+                            //if the enemy moving over this tile is already in range of the targeted tower, don't re-add it
+                            //if (!monster.GetComponent<Tower>().enemiesInRange.Contains(enemy.gameObject.GetComponent<Enemy>()))
+                            //{
+                            //    monster.GetComponent<Tower>().enemiesInRange.Add(enemy.gameObject.GetComponent<Enemy>());
+                            //}
 
+                        }
                     }
+                    //else
+                    //{
+                    //    foreach (Monster monster in towersInRange)
+                    //    {
+                    //        //monster.GetComponent<Tower>().Attack(enemy, gameObject.GetComponent<MapTile>());
+
+                    //        //if the enemy moving over this tile is already in range of the targeted tower, don't re-add it
+                    //        if (monster.GetComponent<Tower>().enemiesInRange.Contains(enemy.gameObject.GetComponent<Enemy>()))
+                    //        {
+                    //            monster.GetComponent<Tower>().enemiesInRange.Remove(enemy.gameObject.GetComponent<Enemy>());
+                    //        }
+
+                    //    }
+
+                    //}
                 }
-                //else
-                //{
-                //    foreach (Monster monster in towersInRange)
-                //    {
-                //        //monster.GetComponent<Tower>().Attack(enemy, gameObject.GetComponent<MapTile>());
-
-                //        //if the enemy moving over this tile is already in range of the targeted tower, don't re-add it
-                //        if (monster.GetComponent<Tower>().enemiesInRange.Contains(enemy.gameObject.GetComponent<Enemy>()))
-                //        {
-                //            monster.GetComponent<Tower>().enemiesInRange.Remove(enemy.gameObject.GetComponent<Enemy>());
-                //        }
-
-                //    }
-
-                //}
             }
-        }
-        else
-        {
-            //
+            else
+            {
+                //
+            }
         }
     }
 

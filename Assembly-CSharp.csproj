@@ -235,6 +235,7 @@
     <Compile Include="Assets\Scripts\MapScripts\DisplayMonsterObject.cs" />
     <Compile Include="Assets\Scripts\MapScripts\EnemySpawn.cs" />
     <Compile Include="Assets\Scripts\MapScripts\InGameSettings.cs" />
+    <Compile Include="Assets\Scripts\MapScripts\Map.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MapDetails.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MapEditor.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MapTile.cs" />
