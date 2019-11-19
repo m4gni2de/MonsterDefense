@@ -3,7 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+//THINGS TO MANUALLY ADD TO MAP AFTER IT HAS BEEN GENERATED:
+//SPAWN POINTS - MAKE SURE SPAWN POINT 1 LINES UP WITH PATH CODE 1, AND SO ON FOR EACH PATH AND SPAWN POINT
+//END POINTS
+//PATH BEGINNINGS
+//CAMERA MIN AND MAX SIZES
 
 
 [System.Serializable]
@@ -50,8 +54,6 @@ public class MapDetails : MonoBehaviour
     //variables related to the enemies that the map can spawn, as well as the map itself
     public List<int> enemies = new List<int>();
     public int enemyMax;
-    public float pathEndX;
-    public float pathEndY;
     public int levelMin;
     public int levelMax;
     public float spawnInterval;
@@ -78,10 +80,12 @@ public class MapDetails : MonoBehaviour
     public MapInformation mapInformation = new MapInformation();
     public GameObject mapInfoMenu;
 
-    public Dictionary<int, Vector3> spawnPoints = new Dictionary<int, Vector3>();
+    //public Dictionary<int, Vector3> spawnPoints = new Dictionary<int, Vector3>();
 
     //since the maps will have different sizes, these numbers represent the minimum and maximum scale of the camera
     public int cameraMin, cameraMax;
+
+    public GameObject[] spawnPoints, pathEndPoints;
     
     // Start is called before the first frame update
     void Start()
@@ -138,8 +142,6 @@ public class MapDetails : MonoBehaviour
             levelMin = allMaps[mapName].levelMin;
             levelMax = allMaps[mapName].levelMax;
             spawnInterval = allMaps[mapName].spawnInterval;
-            pathEndX = allMaps[mapName].pathEndX;
-            pathEndY = allMaps[mapName].pathEndY;
             width = allMaps[mapName].width;
             height = allMaps[mapName].height;
             mapLevel = allMaps[mapName].mapLevel;
@@ -274,6 +276,8 @@ public class MapDetails : MonoBehaviour
                 List<string> pathCode = new List<string>();
                 List<MapTile> pathTiles = new List<MapTile>();
 
+                //make sure to clear this if there is more than 1 path so that the game knows to generate more than just one path
+                path.Clear();
                 
                 int h = 2;
                 for (int i = 0; i < code.Length / 3; i++)
@@ -291,16 +295,17 @@ public class MapDetails : MonoBehaviour
                     path[i].Road();
                     pathTiles.Add(path[i]);
 
-                    //add the first tile in each path to a dictionary, so the spawning monster knows where to spawn
-                    if (i == 0)
-                    {
-                        spawnPoints.Add(p, path[i].transform.position);
-                    }
+                    ////add the first tile in each path to a dictionary, so the spawning monster knows where to spawn
+                    //if (i == 0)
+                    //{
+                    //    spawnPoints.Add(p, path[i].transform.position);
+                    //}
         
                     if (i > 0)
                     {
                         //get the direction of the road sprite from this class
-                        TileSprite tileSprite = new TileSprite(path[i], path[i - 1], "road");
+                        //TileSprite tileSprite = new TileSprite(path[i], path[i - 1], "road");
+                        TileSprite tileSprite = new TileSprite(pathTiles[i], pathTiles[i - 1], "road");
 
                     }
 
@@ -313,7 +318,7 @@ public class MapDetails : MonoBehaviour
 
 
 
-            pathEnd.transform.position = new Vector2(pathEndX, pathEndY);
+            //pathEnd.transform.position = new Vector2(pathEndX, pathEndY);
             InvokeRepeating("SpawnEnemy", 4f, spawnInterval);
 
         }
@@ -335,6 +340,7 @@ public class MapDetails : MonoBehaviour
         var allMaps = GameManager.Instance.GetComponent<Maps>().allMapsDict;
         GameManager.Instance.activeTiles.Clear();
 
+        
 
         //add the IDs for the possible enemies this map can have
         foreach (int enemy in allMaps[mapName].enemies)
@@ -380,6 +386,12 @@ public class MapDetails : MonoBehaviour
 
         
         InvokeRepeating("SpawnEnemy", 4f, spawnInterval);
+
+
+        GameManager.Instance.activeMap = this;
+        Camera.main.GetComponent<CameraMotion>().cameraMinSize = cameraMin;
+        Camera.main.GetComponent<CameraMotion>().cameraMaxSize = cameraMax;
+        Camera.main.orthographicSize = cameraMax;
     }
     
 

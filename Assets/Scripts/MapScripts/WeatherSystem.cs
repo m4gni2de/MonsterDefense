@@ -24,13 +24,16 @@ public class WeatherSystem : MonoBehaviour
     public List<AudioClip> rainAudioClips;
     public List<AudioClip> windAudioClips;
 
-
+    //the interval at which the sun moves in the sky
+    public float sunRotateTime = .0002f;
     
 
     public void StartWeather(MapDetails map)
     {
         mapDetails = map;
         weather = map.mapWeather;
+
+
         
 
         if (weather == MapWeather.Snow)
@@ -45,7 +48,7 @@ public class WeatherSystem : MonoBehaviour
 
         if (weather == MapWeather.Sunny)
         {
-            Sun();
+            StartCoroutine(Sun());
         }
 
         wind.windMain = 1 * (1 +intensity);
@@ -97,10 +100,25 @@ public class WeatherSystem : MonoBehaviour
         StartCoroutine(RainDrops());
     }
 
-    public void Sun()
+    public IEnumerator Sun()
     {
         sun.SetActive(true);
         weatherSprite = sunSprite;
+
+        float i = 0;
+        do
+        {
+            i += 1;
+
+            sun.transform.rotation = Quaternion.Euler(0f, 0f, (0f - (i / 100)));
+            //sun.transform.rotation = Quaternion.Euler(0f, 0f, (0f - (i / 1)));
+
+            yield return new WaitForSeconds(sunRotateTime);
+
+            //Debug.Log(sun.transform.rotation.z * Mathf.Rad2Deg);
+        } while (true);
+       
+        
     }
 
 

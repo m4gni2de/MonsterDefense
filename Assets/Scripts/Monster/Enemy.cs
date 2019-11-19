@@ -376,7 +376,9 @@ public class Enemy : MonoBehaviour
         {
             monster.monsterMotion.SetBool("isHit", true);
             monster.monsterMotion.GetComponent<MotionControl>().IsHit(attack);
+
             
+
             //check and see if the attack is a critical hit, and if so, change the damage output and color of the font to indicate a crit
             if (critRand <= critChance)
             {
@@ -425,6 +427,7 @@ public class Enemy : MonoBehaviour
         else
         {
             monster.monsterMotion.SetBool("isDodge", true);
+            
             //spawn the box to display damage done and change the properties to "DODGE" if the enemy succesfully evades
             var damage = Instantiate(damageText, transform.position, Quaternion.identity);
             damage.transform.SetParent(enemyCanvas.transform, false);
@@ -475,6 +478,7 @@ public class Enemy : MonoBehaviour
 
             MonsterItemDrop itemDrop = new MonsterItemDrop(this);
             GetComponentInChildren<MotionControl>().StartMonsterDie(this);
+            
             GameManager.Instance.TriggerEvent(TriggerType.EnemyKO);
             //Destroy(gameObject);
         }
@@ -744,6 +748,7 @@ public class Enemy : MonoBehaviour
                 isRight = true;
                 isLeft = false;
                 monster.puppet.flip = true;
+                
 
             }
             else
@@ -751,7 +756,8 @@ public class Enemy : MonoBehaviour
                 isRight = false;
                 isLeft = true;
                 monster.puppet.flip = false;
-            }
+               
+        }
         
            
         

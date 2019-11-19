@@ -214,7 +214,7 @@ public class MapTileAnimations : MonoBehaviour
         {
             sp.sprite = maps.fireTileSprites[i];
 
-            yield return new WaitForSecondsRealtime(time);
+            yield return new WaitForSeconds(time);
 
             if (i >= maps.fireTileSprites.Length - 1)
             {

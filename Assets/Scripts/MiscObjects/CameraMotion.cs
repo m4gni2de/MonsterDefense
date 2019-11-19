@@ -17,10 +17,10 @@ public class CameraMotion : MonoBehaviour
     private Vector2 facingDirection;
     private float xDiff, yDiff, acumTime;
 
-    //************8VARIBLES FOR TOUCH CAMERA
-    private float cameraMaxSize = 225;
+    //************VARIBLES FOR TOUCH CAMERA
+    public float cameraMaxSize = 225;
     //private float cameraMaxSize = 160;
-    private float cameraMinSize = 50;
+    public float cameraMinSize = 50;
 
    
 
@@ -60,11 +60,7 @@ public class CameraMotion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isFree)
-        {
-            TouchCamera();
-            MouseCamera();
-        }
+        
         //else
         //{
         //    oldTouchPositions[0] = null;
@@ -80,12 +76,15 @@ public class CameraMotion : MonoBehaviour
 
         }
 
+    }
 
-       
-
-
-        
-
+    private void LateUpdate()
+    {
+        if (isFree)
+        {
+            TouchCamera();
+            MouseCamera();
+        }
     }
 
     public void MouseCamera()
@@ -165,12 +164,12 @@ public class CameraMotion : MonoBehaviour
             mainCamera.orthographicSize -= (1 * cameraMoveSpeed);
         }
 
-        if (mainCamera.orthographicSize > cameraMaxSize)
+        if (mainCamera.orthographicSize >= cameraMaxSize)
         {
             mainCamera.orthographicSize = cameraMaxSize;
         }
 
-        if (mainCamera.orthographicSize < cameraMinSize)
+        if (mainCamera.orthographicSize <= cameraMinSize)
         {
             mainCamera.orthographicSize = cameraMinSize;
         }

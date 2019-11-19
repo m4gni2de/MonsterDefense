@@ -308,8 +308,8 @@ public class MapEditor : MonoBehaviour
                 //*******************************************************************TILE 1 AND 2 SEPARATOR**********************8
 
 
-                //int randType2 = Random.Range(0, TileAttributes.Count);
-                int randType2 = Random.Range(0, 2);
+                int randType2 = Random.Range(0, TileAttributes.Count - 1);
+                //int randType2 = Random.Range(0, 4);
                 string type2 = "";
                 if (randType2 < 10)
                 {

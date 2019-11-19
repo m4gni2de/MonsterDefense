@@ -16,7 +16,7 @@ public class MotionControl : MonoBehaviour
     private int targetTile;
     
 
-    private Animator monsterAnimator;
+    public Animator monsterAnimator;
 
     //bool to check if an enemy was hit with an attack
     public bool isHit;
@@ -28,7 +28,9 @@ public class MotionControl : MonoBehaviour
 
     public GameObject monsterBreath;
 
-   
+
+    
+    
     
     // Start is called before the first frame update
     void Start()
@@ -37,7 +39,7 @@ public class MotionControl : MonoBehaviour
         monster = gameObject.GetComponentInParent<Monster>();
         monsterAnimator = gameObject.GetComponent<Animator>();
         idleTime = monsterAnimator.GetBehaviour<IdleTime>();
-
+        
 
 
         monsterAnimator.speed = 1 * ((float)monster.info.speBase / 75);
@@ -46,11 +48,11 @@ public class MotionControl : MonoBehaviour
         monsterAnimator.SetFloat("attackSpeed", animatorSpeed);
         monsterAnimator.SetInteger("dexID", dexId);
 
-        
-
-        
 
        
+
+
+
     }
 
     // Update is called once per frame
@@ -77,6 +79,11 @@ public class MotionControl : MonoBehaviour
         
     }
 
+    public void LateUpdate()
+    {
+        
+    }
+
     //this controls the Idle animator the monster is in. if it's in idle for too long, it changes what it does while idle
     public void IdleState()
     {
@@ -85,6 +92,7 @@ public class MotionControl : MonoBehaviour
             int rand = Random.Range(1, 3);
             monsterAnimator.SetInteger("idleState", rand);
             monsterAnimator.GetBehaviour<IdleTime>().idleState = monsterAnimator.GetInteger("idleState");
+
 
         }
     }
@@ -109,14 +117,17 @@ public class MotionControl : MonoBehaviour
         if (mode == AttackMode.Projectile)
         {
             monsterAnimator.SetBool("isProjectile", true);
+            
         }
         if (mode == AttackMode.Punch)
         {
             monsterAnimator.SetBool("isPunch", true);
+            
         }
         if (mode == AttackMode.Kick)
         {
             monsterAnimator.SetBool("isKick", true);
+            
         }
     }
     
@@ -142,11 +153,13 @@ public class MotionControl : MonoBehaviour
                 if (enemy.transform.position.x <= tower.attackPoint.transform.position.x)
                 {
                     monster.puppet.flip = true;
+                    
 
                 }
                 else
                 {
                     monster.puppet.flip = false;
+                   
                 }
 
 
@@ -165,12 +178,14 @@ public class MotionControl : MonoBehaviour
     public void EndHit()
     {
         monsterAnimator.SetBool("isHit", false);
+        
        
     }
 
     public void EndDodge()
     {
         monsterAnimator.SetBool("isDodge", false);
+        
     }
 
     public void EndAttack()
@@ -181,11 +196,16 @@ public class MotionControl : MonoBehaviour
         monsterAnimator.SetBool("isPunch", false);
         tower.isAttacking = false;
         monster.isAttacking = false;
+
+
+
+        
     }
 
     public void EndClickedAnimation()
     {
         monsterAnimator.SetBool("isClicked", false);
+        
     }
 
 
@@ -196,6 +216,7 @@ public class MotionControl : MonoBehaviour
         Enemy.enemyHpSlider.gameObject.SetActive(false);
         //set its Animatoion State to dead
         monsterAnimator.SetBool("isDead", true);
+        
         //stop the enemy from moving
         Enemy.speed = 0;
         //change its tag so it does not appear in any "Enemy" lists that use the "Enemy" tag
@@ -212,6 +233,8 @@ public class MotionControl : MonoBehaviour
         
         monsterAnimator.SetBool("isHit", false);
         monsterAnimator.SetBool("isDodge", false);
+
+        
     }
 
     //the actual deal of the monster from the game
@@ -248,6 +271,10 @@ public class MotionControl : MonoBehaviour
         monsterAnimator.SetBool("isKick", false);
         monsterAnimator.SetBool("isPunch", false);
         tower.isAttacking = false;
+
+
+        
     }
 
+    
 }

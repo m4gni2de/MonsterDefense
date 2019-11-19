@@ -192,7 +192,7 @@ public class Monster : MonoBehaviour
     //the puppet controller script that acts as the trigger for a monster's motions in the animator
     public Puppet2D_GlobalControl puppet;
 
-    public GameObject monsterIcon, frontModel;
+    public GameObject monsterIcon, frontModel, shadow;
 
     //list to keep track of the tiles that are boosting this monster while it's on the map. this list is added to from the maptile script itself
     public List<MapTile> boostTiles = new List<MapTile>();
@@ -210,6 +210,8 @@ public class Monster : MonoBehaviour
 
     //variable that contains all of the KOs the monster has gotten during this round
     public int currentMapKOs;
+
+    
 
     private void Awake()
     {
@@ -258,6 +260,8 @@ public class Monster : MonoBehaviour
             //SetMonsterStats();
             monsterMotion.SetBool("isEnemy", true);
 
+            
+
         }
         if (isTower)
         {
@@ -274,7 +278,7 @@ public class Monster : MonoBehaviour
             tower.enabled = false;
         }
 
-        //var allAttacks = GameManager.Instance.baseAttacks.attackDict;
+        
 
 
 
@@ -359,8 +363,15 @@ public class Monster : MonoBehaviour
         ////StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
         ////GetStats(stats);
 
-
+        
+        
     }
+
+
+   
+
+
+
 
     // Update is called once per frame
     void Update()
@@ -374,9 +385,9 @@ public class Monster : MonoBehaviour
             enemy.enemyCanvas.SetActive(false);
         }
 
-    }
+        
 
-   
+    }
 
 
 

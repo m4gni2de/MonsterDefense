@@ -776,18 +776,23 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 {
                     isAttacking = true;
                     monster.monsterMotion.SetBool("isAttacking", true);
+                    
 
                     boneStructure.GetComponent<MotionControl>().AttackModeCheck(monster.info.attack1.attackMode);
                     boneStructure.GetComponent<MotionControl>().AttackDirection(tileTarget, enemy);
 
+                  
+
                     if (enemy.transform.position.x <= attackPoint.transform.position.x)
                     {
                         monster.puppet.flip = true;
+                        
 
                     }
                     else
                     {
                         monster.puppet.flip = false;
+                        
                     }
 
 
@@ -799,6 +804,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                 {
                     isAttacking = true;
                     monster.monsterMotion.SetBool("isAttacking", true);
+                    
 
                     boneStructure.GetComponent<MotionControl>().AttackModeCheck(monster.info.attack2.attackMode);
                     boneStructure.GetComponent<MotionControl>().AttackDirection(tileTarget, enemy);
@@ -806,11 +812,12 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     if (enemy.transform.position.x <= attackPoint.transform.position.x)
                     {
                         monster.puppet.flip = true;
-
+                        
                     }
                     else
                     {
                         monster.puppet.flip = false;
+                       
                     }
 
                 }
@@ -836,11 +843,12 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             if (enemy.transform.position.x <= attackPoint.transform.position.x)
             {
                 monster.puppet.flip = true;
-
+               
             }
             else
             {
                 monster.puppet.flip = false;
+                
             }
 
 

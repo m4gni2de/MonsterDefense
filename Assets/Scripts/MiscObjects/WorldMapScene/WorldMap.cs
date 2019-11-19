@@ -117,6 +117,10 @@ public class WorldMap : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             mapDetailsObject.SetActive(true);
             mapDetailsObject.GetComponent<MapInfoMenu>().LoadMap();
             worldMapObject.SetActive(false);
+
+            
+            
+            
         }
     }
 

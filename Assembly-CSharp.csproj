@@ -229,6 +229,7 @@
     <Compile Include="Assets\Scripts\GameData\MonstersData.cs" />
     <Compile Include="Assets\Scripts\GameData\SpriteMaterials.cs" />
     <Compile Include="Assets\Scripts\GameData\StatsCalc.cs" />
+    <Compile Include="Assets\Scripts\GameData\UnityOnly.cs" />
     <Compile Include="Assets\Scripts\GifAnimation.cs" />
     <Compile Include="Assets\Scripts\Items\ItemPopMenu.cs" />
     <Compile Include="Assets\Scripts\MapScripts\CurrentGameInfo.cs" />
@@ -284,12 +285,14 @@
     <Compile Include="Assets\Scripts\Monster\MonsterIcon.cs" />
     <Compile Include="Assets\Scripts\Monster\MonsterNew.cs" />
     <Compile Include="Assets\Scripts\Monster\Motion.cs" />
+    <Compile Include="Assets\Scripts\Monster\Shadow.cs" />
     <Compile Include="Assets\Scripts\Monster\Tower.cs" />
     <Compile Include="Assets\Scripts\NonDrawingGraphic.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\YourAccount.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\YourItems.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\YourMonsters.cs" />
+    <Compile Include="Assets\ShadowCaster.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -333,6 +336,7 @@
     <None Include="Assets\2DxFX\ExtraShaders\Shader\Outline.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Smoke.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\Shake.shader" />
+    <None Include="Assets\Shader.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\HologramScanLine.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\BreakingGlassFull.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\Vintage.shader" />
@@ -374,6 +378,7 @@
     <None Include="Assets\2DxFX\Resources\_2dxFX_Heat.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Outline.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\NoiseBlur_Vertical.shader" />
+    <None Include="Assets\UI\CustomShaders\Reflect-Diffuse.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Pixel8bitsBW.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Liquid.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\AlphaIntensity.shader" />
@@ -396,6 +401,7 @@
     <None Include="Assets\2DxFX\ExtraShaders\Shader\SymbioseDistortion.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_WoodFX.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\HolographicTintAdditive.shader" />
+    <None Include="Assets\UI\CustomShaders\Sprites-Shadow.shader" />
     <None Include="Assets\Monsters\Puppet2D\Shaders\VertColor.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\Glitch.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Mystic_Distortion.shader" />
@@ -437,6 +443,7 @@
     <None Include="Assets\2DxFX\Resources\_2dxFX_Slim.shader" />
     <None Include="Assets\UI\MapUI\Tiles\TileTextures\ReflectionShader.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\TurnTransparent.shader" />
+    <None Include="Assets\UI\CustomShaders\InvisibleShadow.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Blood.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\LightGlow.shader" />
@@ -452,6 +459,7 @@
     <None Include="Assets\2DxFX\Resources\_2dxFX_WaterAndBackgroundDeluxe.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\DisolveHDR.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Hologram2.shader" />
+    <None Include="Assets\UI\CustomShaders\MatteShadow.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_PlasmaShield.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\RetroCGA2.shader" />
@@ -470,6 +478,7 @@
     <None Include="Assets\2DxFX\Resources\_2dxFX_Clipping.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\Repeat.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Additive.shader" />
+    <None Include="Assets\UI\CustomShaders\ShadowDrawer.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Ice.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\PixelisationXY.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
@@ -531,6 +540,7 @@
     <None Include="Assets\2DxFX\Resources\_2dxFX_Twist.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\Pinch.shader" />
+    <None Include="Assets\UI\CustomShaders\Sprites-ShadowDefault.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\Pixelisation.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_CompressionFX.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\HologramScanLineAdditive.shader" />

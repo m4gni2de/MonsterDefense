@@ -18,8 +18,6 @@ public struct MapInfo
     public int[] enemies;
     public float[] enemyChance;
     public int enemyMax;
-    public float pathEndX;
-    public float pathEndY;
     public int levelMin;
     public int levelMax;
     public float spawnInterval;
@@ -43,51 +41,7 @@ public class AllMaps
 {
     [Header("Separate Maps")]
 
-    public MapInfo TestMap = new MapInfo
-    {
-        mapName = "Test Map",
-        mapCode = "04050104020402000304040405060504000506030403010006010601050400000001020404030604000400060504040404030105060106030401020005010001040402020102040504040006030604000205050300040305040303050202020303030306030000060002040402000206040101050101050302020002020502020001020105060006050305060105060603030100060402030604020101010401040305060103060206020402030405030204000403030300000005000304000503000405020302050502000505000102010000010605010202040101020605020104050105020505050002000405040205030306000101060201030601060602000006050301010001020504010604030106060001050001060601040105000405040001020601050200020004050205030002010105030603060106030501040104010502040604010203000106020602010304020502050006000002020200030502050106030506030305",
-        pathCode = new string[1] { "222195192165162135132105102077074047072073070043040013010" },
-        enemies = new int[3] { 1, 2, 3 },
-        enemyChance = new float[3] { 333, 666, 1000 },
-        enemyMax = 50,
-        pathEndX = -331.7f,
-        pathEndY = 43.9f,
-        levelMin = 1,
-        levelMax = 91,
-        spawnInterval = 3.8f,
-        mapId = 0,
-        width = 700,
-        height = 350,
-        maxHP = 25,
-        weather = MapWeather.Sunny,
-        
-        
-        
-
-    };
-
-    public MapInfo DualPath = new MapInfo
-    {
-        mapName = "Dual Path Map",
-        mapCode = "01000105010304050500040603000604040406060500050306040300040601030205050403010300020300000501060006050202000003020300010106050301050600040603040601010404030606030505030303000503030605020403030306040601020306010300030200010601030202010300050000040303020605040301060605030403060202040003020603030601020500000302060304000003040504060506030300010102000505010605010001010305060406000600060404060604030604040205040605020606040604050204040604000003000301050104060003020605060200030306040103020505010103020506020104050501010204010201010406010104040100030200000606020004020105010501030201030100060304040306010602050501030204030100020602020300060200030406050204020201060403020203000506000205020102020104040604020103000103020402030203010306",
-        pathCode = new string[2] { "022023048049076079104105130131156157184187214217244247274277304307334", "138139164165162135132105102075100101126127152153178181208211238241268271298301300275274249248223250" },
-        enemies = new int[3] { 1, 2, 3 },
-        enemyChance = new float[3] { 333, 666, 1000 },
-        enemyMax = 50,
-        pathEndX = 185.6f,
-        pathEndY = -213.3f,
-        levelMin = 1,
-        levelMax = 99,
-        spawnInterval = 3.8f,
-        mapId = 1,
-        width = 700,
-        height = 350,
-        mapLevel = 5,
-        maxHP = 25,
-        weather = MapWeather.Sunny,
-
-    };
+   
 
     public MapInfo SmallMap = new MapInfo
     {
@@ -95,16 +49,12 @@ public class AllMaps
         mapCode = "07080904040102020501000504000301000404000006060004040601010400020400050006060005030601020006040603040006000103020100040000000106000605041004",
         pathCode = new string[1] { "040041052039036037048049046033030031042029" },
         enemies = new int[1] { 5 },
-        //enemies = new int[3] { 1, 2, 3 },
-        //enemyChance = new float[3] { 333, 666, 1000 },
         enemyChance = new float[1] { 1000 },
         enemyMax = 50,
-        pathEndX = -33.8f,
-        pathEndY = 103f,
         levelMin = 1,
         levelMax = 4,
         spawnInterval = 3.8f,
-        mapId = 2,
+        mapId = 1,
         width = 350,
         height = 175,
         mapLevel = 1,
@@ -122,12 +72,10 @@ public class AllMaps
         enemies = new int[3] { 1, 2, 3 },
         enemyChance = new float[3] { 333, 666, 1000 },
         enemyMax = 50,
-        pathEndX = 131f,
-        pathEndY = 40.7f,
         levelMin = 1,
         levelMax = 4,
         spawnInterval = 3.8f,
-        mapId = 3,
+        mapId = 2,
         width = 350,
         height = 175,
         mapLevel = 9,
@@ -144,8 +92,6 @@ public class AllMaps
         enemies = new int[3] { 1, 2, 3 },
         enemyChance = new float[3] { 333, 666, 1000 },
         enemyMax = 50,
-        pathEndX = 131f,
-        pathEndY = 40.7f,
         levelMin = 1,
         levelMax = 4,
         spawnInterval = 3.8f,
@@ -154,6 +100,26 @@ public class AllMaps
         height = 175,
         mapLevel = 9,
         maxHP = 25,
+        weather = MapWeather.Sunny,
+
+    };
+
+    public MapInfo DualPaths = new MapInfo
+    {
+        mapName = "Dual Paths Map",
+        mapCode = "00020109010200010102010901000105010101020106000700070103010400060108000801040100000601030002010400030100010301090005000800080000000401060009000101050009000501040101010801070005010600050003000400010007000601080001000800090101",
+        pathCode = new string[2] { "006007022025040041054055068053050035048049", "046031028029042043056059074077090093106107" },
+        enemies = new int[5] { 1, 2, 3, 4, 5 },
+        enemyChance = new float[5] { 200, 400, 600, 800, 1000 },
+        enemyMax = 50,
+        levelMin = 1,
+        levelMax = 10,
+        spawnInterval = 2.8f,
+        mapId = 4,
+        width = 400,
+        height = 200,
+        mapLevel = 9,
+        maxHP = 40,
         weather = MapWeather.Sunny,
 
     };
@@ -232,11 +198,12 @@ public class Maps : MonoBehaviour
 
     public void AddAllMaps()
     {
-        allMapsDict.Add(allMaps.TestMap.mapName, allMaps.TestMap);
-        allMapsDict.Add(allMaps.DualPath.mapName, allMaps.DualPath);
+
+        
         allMapsDict.Add(allMaps.SmallMap.mapName, allMaps.SmallMap);
         allMapsDict.Add(allMaps.BaseMap.mapName, allMaps.BaseMap);
         allMapsDict.Add(allMaps.Water1.mapName, allMaps.Water1);
+        allMapsDict.Add(allMaps.DualPaths.mapName, allMaps.DualPaths);
     }
 
 }

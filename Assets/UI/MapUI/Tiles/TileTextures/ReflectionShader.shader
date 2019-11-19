@@ -18,8 +18,10 @@
 			Pass
 			{
 				CGPROGRAM
-				#pragma vertex vert
+				#pragma vertex vert 
 				#pragma fragment frag
+				
+				
 
 				// Properties
 				sampler2D _MainTex;
