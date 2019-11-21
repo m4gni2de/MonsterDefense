@@ -1615,7 +1615,9 @@ GameObject:
   - component: {fileID: 1493070373400153326}
   - component: {fileID: 7763244925051536580}
   - component: {fileID: 3507662898205109202}
+  - component: {fileID: 8171244573895021739}
   - component: {fileID: 537237450657558712}
+  - component: {fileID: 614435290183712262}
   - component: {fileID: 612560646496986312}
   - component: {fileID: 3890321496488870182}
   - component: {fileID: 3890321496488870183}
@@ -2044,6 +2046,8 @@ MonoBehaviour:
       - Shadow Blaze Punch
       abilities:
       - Natural Quake
+      skills:
+      - Item Finder
       dropRate: 0.2
       itemDrops:
       - Nature Rune
@@ -2078,6 +2082,8 @@ MonoBehaviour:
       - Darkness Pike
       abilities:
       - Beast Slayer
+      skills:
+      - Item Finder
       dropRate: 0.2
       itemDrops:
       - Mechanical Rune
@@ -2109,6 +2115,8 @@ MonoBehaviour:
       - Energy Dragon
       abilities:
       - Of A Feather
+      skills:
+      - Item Finder
       dropRate: 0.2
       itemDrops:
       - Mechanical Rune
@@ -2140,6 +2148,8 @@ MonoBehaviour:
       - Thunder
       abilities:
       - Ice Storm
+      skills:
+      - Item Finder
       dropRate: 0.2
       itemDrops:
       - Ice Shard
@@ -2171,6 +2181,8 @@ MonoBehaviour:
       - Shadow Blaze Punch
       abilities:
       - Serpentine Venom
+      skills:
+      - Terrifying Gaze
       dropRate: 0.2
       itemDrops:
       - Shadow Shard
@@ -2462,8 +2474,6 @@ MonoBehaviour:
       enemyChance:
       - 1000
       enemyMax: 50
-      pathEndX: -28.3
-      pathEndY: 96.9
       levelMin: 1
       levelMax: 4
       spawnInterval: 3.8
@@ -2490,8 +2500,6 @@ MonoBehaviour:
       - 666
       - 1000
       enemyMax: 50
-      pathEndX: 133.3
-      pathEndY: 41.5
       levelMin: 1
       levelMax: 4
       spawnInterval: 3.8
@@ -2517,8 +2525,6 @@ MonoBehaviour:
       - 666
       - 1000
       enemyMax: 50
-      pathEndX: 131
-      pathEndY: 40.7
       levelMin: 1
       levelMax: 4
       spawnInterval: 3.8
@@ -2546,8 +2552,6 @@ MonoBehaviour:
       - 800
       - 1000
       enemyMax: 50
-      pathEndX: 131
-      pathEndY: 40.7
       levelMin: 1
       levelMax: 10
       spawnInterval: 2.8
@@ -2772,6 +2776,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 0}
+--- !u!114 &8171244573895021739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317396937658932167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34052c4b1df8df24385f17fa21e19100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &537237450657558712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2784,6 +2800,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f5db1faf9c015d4fbe5fc16647c688b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &614435290183712262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317396937658932167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d5a1a9ce0de1b4b8d8dadc69043d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allWeather:
+    Snow:
+      MapWeather: 4
+      sprite: {fileID: 21300000, guid: 7003476339e11a1488bfad41527600dd, type: 3}
+      name: Snow
+    Rain:
+      MapWeather: 3
+      sprite: {fileID: 21300000, guid: f2fc288f1b047f043af299cbe61aae44, type: 3}
+      name: Rain
+    Sun:
+      MapWeather: 0
+      sprite: {fileID: 21300000, guid: 808821f94f5d92d48b4d61c36ac22d63, type: 3}
+      name: Sun
 --- !u!114 &612560646496986312
 MonoBehaviour:
   m_ObjectHideFlags: 0

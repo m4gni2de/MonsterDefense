@@ -30,6 +30,7 @@ public struct MonsterSaveToken
     public int koCount;
     public int maxLevel;
     public string specialAbility;
+    public string passiveSkill;
 
 }
 
@@ -74,6 +75,10 @@ public struct MonsterInfo
     public string abilityName;
     public Ability specialAbility;
 
+    [Header("Monster Skill")]
+    public string skillName;
+    public PassiveSkill passiveSkill;
+
     [Header("Monster Equips")]
     public string equip1Name;
     public string equip2Name;
@@ -99,7 +104,7 @@ public struct MonsterInfo
     public Stat PrecisionPotential;
     
 
-    //new stats that need to be worked on
+    
     
     public Stat Stamina;
     public Stat EnergyGeneration;
@@ -116,7 +121,13 @@ public struct MonsterInfo
     public int sortIndex;
 
 
-
+    //new stats that need to be worked on
+    
+    public Stat EnergyDamageMod;
+    public Stat PhysicalDamageMod;
+    public Stat ExplodeDamageMod;
+    public Stat PierceDamageMod;
+    public Stat DropRateMod;
 
 };
 
@@ -146,12 +157,19 @@ public struct TempStats
     public MonsterAttack attack1;
     public MonsterAttack attack2;
 
+    //temporary monster stat modifiers
+    public Stat EnergyDamageMod;
+    public Stat PhysicalDamageMod;
+    public Stat ExplodeDamageMod;
+    public Stat PierceDamageMod;
+    public Stat DropRateMod;
+
     public float energyDamageMod;
     public float physicalDamageMod;
     public float explodeDamageMod;
     public float pierceDamageMod;
+    public float dropRateMod;
 
-    
 }
 
 [System.Serializable]
@@ -211,7 +229,10 @@ public class Monster : MonoBehaviour
     //variable that contains all of the KOs the monster has gotten during this round
     public int currentMapKOs;
 
-    
+    //a list of global stats that this monster owns
+    public List<GlobalStat> ownedGlobalStats = new List<GlobalStat>();
+    //the global stats currently affecting this monster, to prevent duplicates of the same stat from being added
+    public List<GlobalStat> activeGlobalStats = new List<GlobalStat>();
 
     private void Awake()
     {
@@ -231,6 +252,7 @@ public class Monster : MonoBehaviour
         allStats.Add(info.EnergyGeneration);
         allStats.Add(info.EnergyCost);
         allStats.Add(info.CoinGeneration);
+        allStats.Add(info.DropRateMod);
 
 
 
@@ -840,6 +862,7 @@ public class Monster : MonoBehaviour
 
         //tempStats = effect.Monster.tempStats;
         info = effect.Monster.info;
+        tempStats = effect.Monster.tempStats;
  
     }
 
@@ -992,6 +1015,16 @@ public class Monster : MonoBehaviour
                     info.abilityName = monsters[name].abilities[0];
                 }
 
+                //set the monster's skill
+                if (monsters[name].skills.Length > 1)
+                {
+                    int sk = Random.Range(0, monsters[name].skills.Length - 1);
+                    info.skillName = monsters[name].skills[sk];
+                }
+                else
+                {
+                    info.skillName = monsters[name].skills[0];
+                }
 
                 info.equip1Name = "none";
                 info.equip2Name = "none";
@@ -1050,6 +1083,7 @@ public class Monster : MonoBehaviour
         var monsters = GameManager.Instance.monstersData.monstersAllDict;
         var attacks = GameManager.Instance.baseAttacks.attackDict;
         var abilities = GameManager.Instance.GetComponent<MonsterAbilities>().allAbilitiesDict;
+        var skills = GameManager.Instance.GetComponent<AllSkills>().allSkillsDict;
         var allEquips = GameManager.Instance.items.allEquipsDict;
 
         info.type1 = monsters[info.species].type1;
@@ -1087,6 +1121,7 @@ public class Monster : MonoBehaviour
         info.equip2Name = saveToken.equip2;
         info.maxLevel = saveToken.maxLevel;
         
+        
 
         if (allEquips.ContainsKey(info.equip1Name))
         {
@@ -1108,6 +1143,8 @@ public class Monster : MonoBehaviour
 
         info.abilityName = saveToken.specialAbility;
         info.specialAbility = abilities[info.abilityName];
+        info.skillName = saveToken.passiveSkill;
+        info.passiveSkill = skills[info.skillName];
         //info.equippable1 = new EquippableItem();
         //info.equippable2 = new EquippableItem();
 
@@ -1231,5 +1268,41 @@ public class Monster : MonoBehaviour
 
         monsterIcon.SetActive(true);
         
+    }
+
+    //use this to call the monster's passive skill
+    public void PassiveSkill()
+    {
+        SkillEffects effects = new SkillEffects(info.passiveSkill, this);
+        
+        
+    }
+
+    //use this to check the global stat mods in play and apply them to this monster
+    public void GlobalStatMod(MapDetails map)
+    {
+        //checks all of the global stats and adds their effects to this monster if it hasn't been added yet
+        foreach (GlobalStat g in map.activeGlobalStats)
+        {
+            
+            if (!activeGlobalStats.Contains(g))
+            {
+
+                activeGlobalStats.Add(g);
+                if (g.type == GlobalStatModType.Enemies)
+                {
+                    g.AddStat(this, true);
+                }
+                else
+                {
+                    g.AddStat(this, false);
+                }
+                
+            }
+            
+        }
+
+        MonsterStatMods();
+
     }
 }

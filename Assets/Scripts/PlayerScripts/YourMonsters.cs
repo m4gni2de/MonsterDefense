@@ -148,6 +148,7 @@ public class MonsterToken
         newToken.koCount = monster.info.koCount;
         newToken.maxLevel = monster.info.maxLevel;
         newToken.specialAbility = monster.info.abilityName;
+        newToken.passiveSkill = monster.info.skillName;
     }
 
 }

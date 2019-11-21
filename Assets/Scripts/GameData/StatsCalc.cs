@@ -49,10 +49,14 @@ public class StatsCalc
         monster.info.Stamina.BaseValue = (int)monster.info.staminaBase;
         monster.info.EnergyCost.BaseValue = (int)monster.info.energyCost;
         monster.info.EnergyGeneration.BaseValue = (monster.info.energyGenBase);
-        
-        
 
-       
+
+        monster.info.DropRateMod.BaseValue = 0;
+        monster.info.EnergyDamageMod.BaseValue = 0;
+        monster.info.ExplodeDamageMod.BaseValue = 0;
+        monster.info.PhysicalDamageMod.BaseValue = 0;
+        monster.info.PierceDamageMod.BaseValue = 0;
+
 
 
         monster.info.attack1Name = attack1.name;
@@ -116,6 +120,11 @@ public class StatsCalc
         monster.tempStats.attack2.AttackSlow.BaseValue = monster.info.attack2.hitSlowTime;
 
 
+        monster.tempStats.DropRateMod.BaseValue = monster.info.DropRateMod.Value;
+        monster.tempStats.EnergyDamageMod.BaseValue = monster.info.EnergyDamageMod.Value;
+        monster.tempStats.ExplodeDamageMod.BaseValue = monster.info.ExplodeDamageMod.Value;
+        monster.tempStats.PhysicalDamageMod.BaseValue = monster.info.PhysicalDamageMod.Value;
+        monster.tempStats.PierceDamageMod.BaseValue = monster.info.PierceDamageMod.Value;
 
         Monster = monster;
 

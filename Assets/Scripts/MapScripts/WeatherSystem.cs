@@ -55,9 +55,15 @@ public class WeatherSystem : MonoBehaviour
         wind.windPulseMagnitude = 3 * (1 + intensity);
         weatherClip.Play();
         windClip.Play();
+
+
+        
     }
 
-
+    public void WeatherNotification(string weatherName, string description)
+    {
+        GameManager.Instance.SendNotificationToPlayer(weatherName, 1, NotificationType.WeatherChange, description);
+    }
 
     public void Snow()
     {
@@ -85,6 +91,44 @@ public class WeatherSystem : MonoBehaviour
                 }
             }
         }
+
+        WeatherNotification("Snow", "has appeared on the field!");
+        
+
+
+    }
+
+
+   
+
+    public IEnumerator Sun()
+    {
+        sun.SetActive(true);
+        weatherSprite = sunSprite;
+
+        WeatherNotification("Sun", " and clear skies are overhead!");
+
+        float i = 0;
+        do
+        {
+            i += 1;
+
+            sun.transform.rotation = Quaternion.Euler(0f, 0f, (0f - (i / 500)));
+            //sun.transform.rotation = Quaternion.Euler(0f, 0f, (0f - (i / 1)));
+
+            yield return new WaitForSeconds(sunRotateTime);
+
+            //Debug.Log(sun.transform.rotation.z * Mathf.Rad2Deg);
+        } while (true);
+
+
+        
+    }
+
+
+    private void Update()
+    {
+        
     }
 
 
@@ -98,35 +142,9 @@ public class WeatherSystem : MonoBehaviour
         weatherSprite = rainSprite;
 
         StartCoroutine(RainDrops());
+
+        WeatherNotification("Rain", " is falling from the sky!");
     }
-
-    public IEnumerator Sun()
-    {
-        sun.SetActive(true);
-        weatherSprite = sunSprite;
-
-        float i = 0;
-        do
-        {
-            i += 1;
-
-            sun.transform.rotation = Quaternion.Euler(0f, 0f, (0f - (i / 100)));
-            //sun.transform.rotation = Quaternion.Euler(0f, 0f, (0f - (i / 1)));
-
-            yield return new WaitForSeconds(sunRotateTime);
-
-            //Debug.Log(sun.transform.rotation.z * Mathf.Rad2Deg);
-        } while (true);
-       
-        
-    }
-
-
-    private void Update()
-    {
-        
-    }
-
 
     public IEnumerator RainDrops()
     {
@@ -157,19 +175,4 @@ public class WeatherSystem : MonoBehaviour
 }
 
 
-//class to house different variables for different weather effects
-public class Weather
-{
-    public MapWeather MapWeather;
-    public int intensity;
-    public Sprite sprite;
-    public string direction;
 
-}
-
-
-//class that changes stats of some monsters based on the weather
-public class WeatherBoosts
-{
-
-}

@@ -100,7 +100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4261770060951335139
 Transform:
   m_ObjectHideFlags: 0
@@ -393,7 +393,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259364160966492}
-  m_LocalRotation: {x: 0.00038376448, y: 0.000024735924, z: 0.024965258, w: 0.99968827}
+  m_LocalRotation: {x: 0.0003837747, y: 0.00002455711, z: 0.024716306, w: 0.99969447}
   m_LocalPosition: {x: -0.00000002667607, y: 1, z: 0.00000002940061}
   m_LocalScale: {x: 0.90765315, y: 0.90765315, z: 0.9076537}
   m_Children:
@@ -532,7 +532,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259364425970703}
-  m_LocalRotation: {x: 0.000012322256, y: -0.00096549734, z: -0.99991715, w: -0.012839199}
+  m_LocalRotation: {x: 0.000012321754, y: -0.00096551527, z: -0.99991876, w: -0.012708604}
   m_LocalPosition: {x: -0.0000000500939, y: 0.99999994, z: -1.049169e-14}
   m_LocalScale: {x: 0.6658111, y: 0.6658111, z: 0.6658089}
   m_Children:
@@ -1394,7 +1394,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259365276351886}
-  m_LocalRotation: {x: 0.000028520823, y: -0.6695843, z: 0.017893063, w: -0.74252063}
+  m_LocalRotation: {x: -0.00005078315, y: -0.66958433, z: 0.017805137, w: -0.7425227}
   m_LocalPosition: {x: 0.00000005143135, y: 1, z: 0.00000006028282}
   m_LocalScale: {x: 4.10425, y: 4.10425, z: 4.104247}
   m_Children:
@@ -3878,7 +3878,7 @@ RectTransform:
   m_AnchorMin: {x: 0.499, y: 0.5}
   m_AnchorMax: {x: 0.499, y: 0.5}
   m_AnchoredPosition: {x: 0.52922535, y: -8.812994}
-  m_SizeDelta: {x: 17, y: 19}
+  m_SizeDelta: {x: 17, y: 17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7523239313160665275
 MonoBehaviour:
@@ -4046,6 +4046,10 @@ MonoBehaviour:
       attackSpeed: 0
       hitSlowTime: 0
       attackMode: 0
+    skillName: 
+    passiveSkill:
+      name: 
+      description: 
     equip1Name: 
     equip2Name: 
     equipment1: {fileID: 0}
@@ -4193,6 +4197,7 @@ MonoBehaviour:
     physicalDamageMod: 0
     explodeDamageMod: 0
     pierceDamageMod: 0
+    dropRateMod: 0
   saveToken:
     index: 0
     species: 
@@ -4212,6 +4217,7 @@ MonoBehaviour:
     koCount: 0
     maxLevel: 0
     specialAbility: 
+    passiveSkill: 
   activeIndex: 0
   isEnemy: 0
   isTower: 0

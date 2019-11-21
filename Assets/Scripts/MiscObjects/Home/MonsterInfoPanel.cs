@@ -19,6 +19,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     public TMP_Text attack1, attack2;
     public TMP_Text atk1Attack, atk1Range, atk1Cool, atk1Slow, atk1Effect, atk1Stamina;
     public TMP_Text atk2Attack, atk2Range, atk2Cool, atk2Slow, atk2Effect, atk2Stamina;
+    public TMP_Text skillName, skillDescription;
     public Slider expSlider;
 
     //images to represent the attack modes and damage forces of the monster's attacks
@@ -511,6 +512,9 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
                 rankSprites[i].gameObject.SetActive(false);
             }
         }
+
+        skillName.text = thisMonster.info.passiveSkill.name;
+        skillDescription.text = thisMonster.info.passiveSkill.description;
     }
 
 

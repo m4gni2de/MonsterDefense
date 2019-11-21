@@ -243,6 +243,7 @@
     <Compile Include="Assets\Scripts\MapScripts\MapTileAnimations.cs" />
     <Compile Include="Assets\Scripts\MapScripts\MonsterInfoMenus.cs" />
     <Compile Include="Assets\Scripts\MapScripts\PathEnd.cs" />
+    <Compile Include="Assets\Scripts\MapScripts\Weather.cs" />
     <Compile Include="Assets\Scripts\MapScripts\WeatherSystem.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\AccountScene\AccountManagement.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\CameraMotion.cs" />
@@ -277,6 +278,7 @@
     <Compile Include="Assets\Scripts\MiscScripts\SortingLayerExposed.cs" />
     <Compile Include="Assets\Scripts\MiscScripts\SummonAnimation.cs" />
     <Compile Include="Assets\Scripts\MiscScripts\SwipeMovement.cs" />
+    <Compile Include="Assets\Scripts\Monster\AllSkills.cs" />
     <Compile Include="Assets\Scripts\Monster\Enemy.cs" />
     <Compile Include="Assets\Scripts\Monster\FaceMotion.cs" />
     <Compile Include="Assets\Scripts\Monster\MeshBodyParts.cs" />

@@ -47,6 +47,7 @@ public struct MonsterData
 
     //which abilities the most can have when it's summoned
     public string[] abilities;
+    public string[] skills;
 
     //rate at which an item will even drop in the first place
     public float dropRate;
@@ -84,6 +85,7 @@ public class AllMonsterData
         coinGenBase = 4.3f,
         energyCost = 7f,
         abilities = new string[1] { "Natural Quake" },
+        skills = new string[1] { "Natural Armor"},
         dropRate = .2f,
         itemDrops = new string[2] { "Nature Rune", "Nature Shard" },
 
@@ -109,6 +111,7 @@ public class AllMonsterData
         coinGenBase = 3.4f,
         energyCost = 5.5f,
         abilities = new string[1] { "Beast Slayer" },
+        skills = new string[1] { "Item Finder" },
         dropRate = .2f,
         itemDrops = new string[2] { "Nature Rune", "Nature Shard" },
 
@@ -134,7 +137,7 @@ public class AllMonsterData
         energyCost = 6.5f,
         dropRate = .2f,
         abilities = new string[1] { "Of A Feather" },
-
+        skills = new string[1] { "Item Finder" },
     };
 
     public MonsterData Iceros = new MonsterData
@@ -156,6 +159,7 @@ public class AllMonsterData
         energyGenBase = 64,
         energyCost = 8.5f,
         abilities = new string[1] { "Ice Storm" },
+        skills = new string[1] { "Terrifying Gaze" },
         dropRate = .2f,
         itemDrops = new string[2] { "Ice Shard", "Ice Rune" },
     };
@@ -179,6 +183,7 @@ public class AllMonsterData
         energyGenBase = 84,
         energyCost = 10.1f,
         abilities = new string[1] { "Serpentine Venom" },
+        skills = new string[1] { "Item Finder" },
         dropRate = .2f,
         itemDrops = new string[1] { "Shadow Shard" },
     };
@@ -457,12 +462,12 @@ public class MonsterItemDrop
 {
     public List<string> droppableItems = new List<string>();
 
-    public MonsterItemDrop(Enemy enemy)
+    public MonsterItemDrop(Enemy enemy, Monster attacker)
     {
         var allMonsters = GameManager.Instance.monstersData.monstersAllDict;
 
         Monster thisMonster = enemy.GetComponent<Monster>();
-        float dropRate = allMonsters[enemy.stats.species].dropRate;
+        float dropRate = allMonsters[enemy.stats.species].dropRate + attacker.tempStats.DropRateMod.Value;
 
         float rand = UnityEngine.Random.Range(0f, 1f);
 

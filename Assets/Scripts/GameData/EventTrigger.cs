@@ -14,7 +14,8 @@ public enum TriggerType
     LevelUp,
     AbilityUsed,
     TowerSummon,
-
+    WeatherChange,
+    GlobalStatMod,
 }
 
 public enum TriggerObject
@@ -35,6 +36,8 @@ public class EventTrigger
 
     //all of the possible objects that can have a trigger on them
     [HideInInspector] public EquipmentScript equipment;
+    [HideInInspector] public Monster monster;
+    [HideInInspector] public SkillEffects passiveSkill;
 
 
     //use this to set the EventTrigger's trigger type
@@ -81,6 +84,16 @@ public class EventTrigger
             {
                 TowerSummon();
             }
+
+            if (triggerType == TriggerType.WeatherChange)
+            {
+                WeatherChange();
+            }
+
+            if (triggerType == TriggerType.GlobalStatMod)
+            {
+                GlobalStatMod();
+            }
         }
 
         
@@ -104,6 +117,11 @@ public class EventTrigger
         if (equipment != null)
         {
             equipment.TriggerEvent();
+        }
+
+        if (passiveSkill != null)
+        {
+            passiveSkill.TriggerEvent();
         }
     }
 
@@ -131,6 +149,12 @@ public class EventTrigger
 
     }
 
+    //trigger for when the weather is changed
+    public void WeatherChange()
+    {
+
+    }
+
     //trigger for when a monster is summoned as a tower
     public void TowerSummon()
     {
@@ -138,5 +162,11 @@ public class EventTrigger
         {
             equipment.TriggerEvent();
         }
+    }
+
+    //trigger for when a global stat mod because active or inactive
+    public void GlobalStatMod()
+    {
+        
     }
 }

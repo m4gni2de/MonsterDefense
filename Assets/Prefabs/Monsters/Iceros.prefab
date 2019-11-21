@@ -8241,6 +8241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxIdleTime: 50
+  monsterAnimator: {fileID: 0}
   isHit: 0
   hitAcumTime: 0
   hitTime: 0
@@ -8378,6 +8379,56 @@ Transform:
   m_Father: {fileID: 6076560620293254837}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6390852743886364796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2891356319361669551}
+  - component: {fileID: 52127537843113811}
+  m_Layer: 0
+  m_Name: Shadow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2891356319361669551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390852743886364796}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.069, y: -14, z: -2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3223592255764017577}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &52127537843113811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390852743886364796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f5ad4d2cb043524c86007c7af391c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyParts: {fileID: 6076560620293254728}
+  shadowParts: []
+  bones: {fileID: 6076560620293254731}
+  shadowAnimator: {fileID: 0}
+  shadowMotion: {fileID: 0}
+  shadowMaterial: {fileID: 2100000, guid: 39320915d05f9b942950cb87c19ac63a, type: 2}
+  yTilt: 0
 --- !u!1 &6409879638423811391
 GameObject:
   m_ObjectHideFlags: 0
@@ -8583,6 +8634,7 @@ RectTransform:
   - {fileID: 6551252251832088377}
   - {fileID: 3065816737881774554}
   - {fileID: 5686571064041779332}
+  - {fileID: 2891356319361669551}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8757,6 +8809,10 @@ MonoBehaviour:
       attackSpeed: 0
       hitSlowTime: 0
       attackMode: 0
+    skillName: 
+    passiveSkill:
+      name: 
+      description: 
     equip1Name: 
     equip2Name: 
     equipment1: {fileID: 0}
@@ -8904,6 +8960,7 @@ MonoBehaviour:
     physicalDamageMod: 0
     explodeDamageMod: 0
     pierceDamageMod: 0
+    dropRateMod: 0
   saveToken:
     index: 0
     species: 
@@ -8923,6 +8980,7 @@ MonoBehaviour:
     koCount: 0
     maxLevel: 0
     specialAbility: 
+    passiveSkill: 
   activeIndex: 0
   isEnemy: 0
   isTower: 0
@@ -8931,6 +8989,7 @@ MonoBehaviour:
   puppet: {fileID: 6076560620293254730}
   monsterIcon: {fileID: 3065816737881774557}
   frontModel: {fileID: 7520959208067174278}
+  shadow: {fileID: 6390852743886364796}
   boostTiles: []
   statuses: []
   statusIcons:
@@ -8983,6 +9042,7 @@ MonoBehaviour:
   towerCanvas: {fileID: 1877781479933587083}
   staminaBar: {fileID: 873220075376139333}
   summonAnimationComplete: 0
+  mapDetails: {fileID: 0}
 --- !u!114 &4435302694005780131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9059,6 +9119,7 @@ MonoBehaviour:
   isActiveEnemy: 0
   isLeft: 0
   isRight: 0
+  mapDetails: {fileID: 0}
 --- !u!61 &5708218792967985791
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9557,6 +9618,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3229dabfcd93ed8499bd87395f2bbe20, type: 3}
+--- !u!1 &1877781479933587083 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9087746528796977405, guid: 3229dabfcd93ed8499bd87395f2bbe20,
+    type: 3}
+  m_PrefabInstance: {fileID: 7210563304119600758}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5686571064041779332 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3097301570279028466, guid: 3229dabfcd93ed8499bd87395f2bbe20,
@@ -9575,12 +9642,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa27d82fe09f21148a8a51d442e9f99b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1877781479933587083 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9087746528796977405, guid: 3229dabfcd93ed8499bd87395f2bbe20,
-    type: 3}
-  m_PrefabInstance: {fileID: 7210563304119600758}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8712206036778045829
 PrefabInstance:
   m_ObjectHideFlags: 0

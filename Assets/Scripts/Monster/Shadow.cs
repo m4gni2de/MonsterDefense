@@ -38,6 +38,8 @@ public class Shadow : MonoBehaviour
             shadowParts.Add(part);
             part.GetComponent<Renderer>().material = shadowMaterial;
             part.GetComponent<Renderer>().sortingOrder -= 5;
+
+           
         }
 
 
@@ -87,18 +89,18 @@ public class Shadow : MonoBehaviour
             if (bones.GetComponent<Puppet2D_GlobalControl>().flip)
             {
                 yTilt = 1;
-                body.transform.localEulerAngles = new Vector3(body.transform.rotation.eulerAngles.x, body.transform.rotation.eulerAngles.y, -(GameManager.Instance.activeMap.weatherSystem.sun.transform.rotation.eulerAngles.z - 110));
+                body.transform.localEulerAngles = new Vector3(body.transform.rotation.eulerAngles.x, body.transform.rotation.eulerAngles.y, -(GameManager.Instance.activeMap.weatherSystem.sun.transform.rotation.eulerAngles.z - 130));
             }
             else
             {
                 yTilt = -1;
-                body.transform.localEulerAngles = new Vector3(body.transform.rotation.eulerAngles.x, body.transform.rotation.eulerAngles.y, GameManager.Instance.activeMap.weatherSystem.sun.transform.rotation.eulerAngles.z + 110);
+                body.transform.localEulerAngles = new Vector3(body.transform.rotation.eulerAngles.x, body.transform.rotation.eulerAngles.y, GameManager.Instance.activeMap.weatherSystem.sun.transform.rotation.eulerAngles.z + 130);
             }
-            transform.localEulerAngles = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, GameManager.Instance.activeMap.weatherSystem.sun.transform.rotation.eulerAngles.z + 65 * yTilt);
-
-            //transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, transform.localEulerAngles.z + GameManager.Instance.activeMap.weatherSystem.sun.transform.rotation.eulerAngles.z + 65);
-
+            transform.localEulerAngles = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, GameManager.Instance.activeMap.weatherSystem.sun.transform.rotation.eulerAngles.z + 45 * yTilt);
             
+            ///transform.position = new Vector2(transform.position.x + )
+
+
 
             //Debug.Log(Vector3.Angle(transform.position, transform.position - GameManager.Instance.activeMap.weatherSystem.sun.transform.position));
 
@@ -113,7 +115,7 @@ public class Shadow : MonoBehaviour
 
             //Debug.Log("Sun Angle: " + aimAngle + " Shadow Angle: " + (transform.rotation.z * Mathf.Rad2Deg) + " Bones Angle: " + (body.transform.rotation.z * Mathf.Rad2Deg));
 
-            
+
 
             yield return new WaitForSeconds(GameManager.Instance.activeMap.weatherSystem.sunRotateTime);
 

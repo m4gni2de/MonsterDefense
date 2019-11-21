@@ -653,6 +653,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         //set active this tower's canvas
         towerCanvas.SetActive(true);
 
+        //active the monster's passive skill
+        monster.PassiveSkill();
        
     }
 

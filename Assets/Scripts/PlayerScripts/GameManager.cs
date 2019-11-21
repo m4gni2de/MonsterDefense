@@ -351,6 +351,12 @@ public class GameManager : MonoBehaviour
                 m.equipment2.trigger.equipment = m.equipment2;
                 m.equipment2.trigger.ActivateTrigger(m.equipment2.triggerType);
             }
+
+            if (m.passiveSkill != null && m.passiveSkill.triggerType == type)
+            {
+                m.passiveSkill.trigger.passiveSkill = m.passiveSkill.effects;
+                m.passiveSkill.trigger.ActivateTrigger(m.passiveSkill.triggerType);
+            }
         }
 
     }
@@ -452,6 +458,7 @@ public enum NotificationType
     TileMine,
     AbilityReady,
     TowerSummon,
+    WeatherChange,
 
 }
 //a class for all notifications that the player will receieve while in game
@@ -479,6 +486,11 @@ public class Notification
         }
 
         if (n == NotificationType.TowerSummon)
+        {
+            GameManager.Instance.TriggerEvent(TriggerType.TowerSummon);
+        }
+
+        if (n == NotificationType.WeatherChange)
         {
             GameManager.Instance.TriggerEvent(TriggerType.TowerSummon);
         }

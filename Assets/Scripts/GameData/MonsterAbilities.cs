@@ -418,6 +418,7 @@ public class MonsterAbility
         monster.info.Defense.RemoveAllModifiersFromSource(this);
         monster.info.Speed.RemoveAllModifiersFromSource(this);
         monster.info.Precision.RemoveAllModifiersFromSource(this);
+        monster.info.CoinGeneration.RemoveAllModifiersFromSource(this);
 
 
         monster.info.attack1.Power.RemoveAllModifiersFromSource(this);

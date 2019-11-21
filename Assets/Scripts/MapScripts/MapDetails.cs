@@ -19,6 +19,9 @@ public struct MapInformation
     public int mapHealthMax;
     public float mapHealthCurrent;
 
+    //toggle auto play on and off, which means monsters choose their own attacks and activate their own abilities
+    public bool autoPlay;
+
 };
 
 public class MapDetails : MonoBehaviour
@@ -35,8 +38,10 @@ public class MapDetails : MonoBehaviour
     public int tileNumber;
     public GameObject mapTile, mapCanvas;
 
-    
-    
+
+    //list to keep all of the global stats, which can be added by monster effects or items
+    public List<GlobalStat> activeGlobalStats = new List<GlobalStat>();
+
     //public MapTile[] path;
     public List<MapTile> path = new List<MapTile>();
     public List<string> pathOrder = new List<string>();
@@ -392,6 +397,8 @@ public class MapDetails : MonoBehaviour
         Camera.main.GetComponent<CameraMotion>().cameraMinSize = cameraMin;
         Camera.main.GetComponent<CameraMotion>().cameraMaxSize = cameraMax;
         Camera.main.orthographicSize = cameraMax;
+
+        StartCoroutine(GlobalStatsCheck());
     }
     
 
@@ -471,7 +478,7 @@ public class MapDetails : MonoBehaviour
                             //Map.path[i] = GameObject.Find(tileCheck.ToString()).GetComponent<MapTile>();
                             }
                         enemyMonster.transform.position = enemyMonster.GetComponent<Enemy>().pathList[0].transform.position;
-                        //enemyMonster.transform.SetParent(transform, true);
+                        enemyMonster.GetComponent<Monster>().PassiveSkill();
 
 
 
@@ -496,6 +503,18 @@ public class MapDetails : MonoBehaviour
     void Update()
     {
        
+    }
+
+    public IEnumerator GlobalStatsCheck()
+    {
+        do
+        {
+            foreach(GlobalStat stat in activeGlobalStats)
+            {
+                AddGlobalStat(stat);
+            }
+            yield return new WaitForSeconds(1f);
+        } while (true);
     }
 
     //this is invokved by the PathEnd object, when it is hit by an enemy
@@ -567,8 +586,124 @@ public class MapDetails : MonoBehaviour
 
 
 
+    public void AddGlobalStat(GlobalStat globalStat)
+    {
+        if (!activeGlobalStats.Contains(globalStat))
+        {
+            activeGlobalStats.Add(globalStat);
+        }
+
+        if (globalStat.type == GlobalStatModType.Enemies)
+        {
+            foreach (Enemy enemy in liveEnemies)
+            {
+
+                enemy.GetComponent<Monster>().GlobalStatMod(this);
+                
+            }
+
+        }
+        else
+        {
+            foreach (Monster monster in liveTowers)
+            {
+                monster.GlobalStatMod(this);
+                    
+            }
+        }
+    }
+
+
+
+
+}
+
+public enum GlobalStatModType
+{
+    AllMonsters,
+    Towers,
+    Enemies,
+
+}
+
+[System.Serializable]
+public class GlobalStat
+{
+    
+    public StatModifier mod;
+    public string stat;
+    public Monster Owner;
+    public Enemy enemy;
+    public bool isEnemy;
+    public bool isAdding;
+    public GlobalStatModType type;
+    public string origin;
+
+    
+
+    public GlobalStat(StatModifier Mod, string Stat, Monster Monster, bool IsEnemy, string Origin, GlobalStatModType Type)
+    {
+        mod = Mod;
+        stat = Stat;
+        Owner = Monster;
+        isEnemy = IsEnemy;
+        type = Type;
+        origin = Origin;
+
+
+        if (isEnemy)
+        {
+            enemy = Monster.GetComponent<Enemy>();
+        }
+
+
+    }
+
+    public void AddStat(Monster monster, bool isEnemy)
+    {
+        Enemy enemy = monster.GetComponent<Enemy>();
+
+
+        if (isEnemy)
+        {
+           
+
+            if (stat == "Speed")
+            {
+                enemy.stats.Speed.AddModifier(mod);
+
+            }
+        }
+        else
+        {
+            if (stat == "Speed")
+            {
+                monster.info.Speed.AddModifier(mod);
+            }
+        }
+    }
+
+    public void RemoveStat(Monster monster, bool isEnemy)
+    {
+        Enemy enemy = monster.GetComponent<Enemy>();
+
+        if (isEnemy)
+        {
+
+            if (stat == "Speed")
+            {
+                enemy.stats.Speed.RemoveAllModifiersFromSource(mod);
+            }
+        }
+        else
+        {
+            if (stat == "Speed")
+            {
+                monster.info.Speed.RemoveAllModifiersFromSource(mod);
+            }
+        }
+
+    }
 
    
-
-
 }

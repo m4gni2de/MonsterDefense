@@ -47,6 +47,7 @@ public class NotificationObject : MonoBehaviour, IPointerDownHandler
                 var consumables = GameManager.Instance.items.allConsumablesDict;
                 var inventory = GameManager.Instance.GetComponent<YourItems>().yourInventory;
                 var monsters = GameManager.Instance.monstersData.monstersAllDict;
+                var weather = GameManager.Instance.GetComponent<Weather>().allWeatherDict;
 
 
             if (equips.ContainsKey(target))
@@ -97,6 +98,16 @@ public class NotificationObject : MonoBehaviour, IPointerDownHandler
                 notifyImageSp.enabled = false;
                 notifyImage.color = Color.white;
                 notifyImage.sprite = monsters[Notify.target].frontIcon;
+            }
+
+            if (Notify.type == NotificationType.WeatherChange)
+            {
+
+                notifyText.text = Notify.target + Notify.gotFrom;
+                notifyImageSp.enabled = false;
+                notifyImage.color = Color.white;
+                notifyImage.sprite = weather[Notify.target].sprite;
+
             }
         }
     }

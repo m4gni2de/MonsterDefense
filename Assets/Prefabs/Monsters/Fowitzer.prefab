@@ -330,6 +330,10 @@ MonoBehaviour:
       attackSpeed: 0
       hitSlowTime: 0
       attackMode: 0
+    skillName: 
+    passiveSkill:
+      name: 
+      description: 
     equip1Name: 
     equip2Name: 
     equipment1: {fileID: 0}
@@ -477,6 +481,7 @@ MonoBehaviour:
     physicalDamageMod: 0
     explodeDamageMod: 0
     pierceDamageMod: 0
+    dropRateMod: 0
   saveToken:
     index: 0
     species: 
@@ -496,6 +501,7 @@ MonoBehaviour:
     koCount: 0
     maxLevel: 0
     specialAbility: 
+    passiveSkill: 
   activeIndex: 0
   isEnemy: 0
   isTower: 0
@@ -5570,7 +5576,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &543074485227652639
 Transform:
   m_ObjectHideFlags: 0
