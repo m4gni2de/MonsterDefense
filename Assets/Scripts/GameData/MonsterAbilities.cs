@@ -282,9 +282,9 @@ public class MonsterAbility
 
         foreach (Enemy enemy in enemies)
         {
-            if (enemy.stats.Class == MonsterClass.Beast)
+            if (enemy.monster.info.Class == MonsterClass.Beast)
             {
-                ChangeEnemyStats(enemy);
+                ChangeStats(enemy.GetComponent<Monster>());
             }
         }
     }
@@ -297,7 +297,7 @@ public class MonsterAbility
 
         foreach (Enemy enemy in enemies)
         {
-            if (enemy.stats.type1 == "Nature" || enemy.stats.type2 == "Nature")
+            if (enemy.monster.info.type1 == "Nature" || enemy.monster.info.type2 == "Nature")
             {
                 ChangeStats(Owner);
             }
@@ -330,7 +330,7 @@ public class MonsterAbility
 
         foreach (Enemy enemy in enemies)
         {
-            if (enemy.stats.Class != MonsterClass.Serpentine)
+            if (enemy.monster.info.Class != MonsterClass.Serpentine)
             {
                 Status poison = status.Poison;
                 enemy.GetComponent<Monster>().AddStatus(poison);
@@ -364,51 +364,7 @@ public class MonsterAbility
 
 
 
-        ////if the Abilityment item is Type protected, check and make sure the types match. If they do, apply bonuses
-        //if (Ability.typeMoveReq == monster.info.attack1.type || Ability.typeMoveReq == "none")
-        //{
-
-
-        //    if (Ability.atkPowerBonus != 0)
-        //        monster.info.attack1.Power.AddModifier(new StatModifier(Ability.atkPowerBonus, StatModType.Flat, this, Ability.name));
-        //    if (Ability.atkRangeBonus != 0)
-        //        monster.info.attack1.Range.AddModifier(new StatModifier(Ability.atkRangeBonus, StatModType.Flat, this, Ability.name));
-        //    if (Ability.atkTimeBonus != 0)
-        //        monster.info.attack1.AttackTime.AddModifier(new StatModifier(Ability.atkTimeBonus, StatModType.Flat, this, Ability.name));
-        //    if (Ability.critChanceBonus != 0)
-        //        monster.info.attack1.CritChance.AddModifier(new StatModifier(Ability.critChanceBonus, StatModType.Flat, this, Ability.name));
-        //    if (Ability.critModBonus != 0)
-        //        monster.info.attack1.CritMod.AddModifier(new StatModifier(Ability.critModBonus, StatModType.Flat, this, Ability.name));
-
-        //    if (Ability.atkPowerPercentBonus != 0)
-        //        monster.info.attack1.Power.AddModifier(new StatModifier(Ability.atkPowerPercentBonus, StatModType.PercentMult, this, Ability.name));
-        //    if (Ability.atkTimePercentBonus != 0)
-        //        monster.info.attack1.AttackTime.AddModifier(new StatModifier(Ability.atkTimePercentBonus, StatModType.PercentMult, this, Ability.name));
-
-
-
-        //}
-
-
-        //if (Ability.typeMoveReq == monster.info.attack2.type || Ability.typeMoveReq == "none")
-        //{
-        //    if (Ability.atkPowerBonus != 0)
-        //        monster.info.attack2.Power.AddModifier(new StatModifier(Ability.atkPowerBonus, StatModType.Flat, this, Ability.name));
-        //    if (Ability.atkRangeBonus != 0)
-        //        monster.info.attack2.Range.AddModifier(new StatModifier(Ability.atkRangeBonus, StatModType.Flat, this, Ability.name));
-        //    if (Ability.atkTimeBonus != 0)
-        //        monster.info.attack2.AttackTime.AddModifier(new StatModifier(Ability.atkTimeBonus, StatModType.Flat, this, Ability.name));
-        //    if (Ability.critChanceBonus != 0)
-        //        monster.info.attack2.CritChance.AddModifier(new StatModifier(Ability.critChanceBonus, StatModType.Flat, this, Ability.name));
-        //    if (Ability.critModBonus != 0)
-        //        monster.info.attack2.CritMod.AddModifier(new StatModifier(Ability.critModBonus, StatModType.Flat, this, Ability.name));
-
-        //    if (Ability.atkPowerPercentBonus != 0)
-        //        monster.info.attack2.Power.AddModifier(new StatModifier(Ability.atkPowerPercentBonus, StatModType.PercentMult, this, Ability.name));
-        //    if (Ability.atkTimePercentBonus != 0)
-        //        monster.info.attack2.AttackTime.AddModifier(new StatModifier(Ability.atkTimePercentBonus, StatModType.PercentMult, this, Ability.name));
-
-        //}
+       
     }
 
     public void RemoveStatChanges(Monster monster)
@@ -439,38 +395,6 @@ public class MonsterAbility
     }
 
 
-    public void ChangeEnemyStats(Enemy enemy)
-    {
-        if (Ability.hpBonus != 0)
-            enemy.stats.HP.AddModifier(new StatModifier(Ability.hpBonus, StatModType.Flat, this, Ability.name));
-        if (Ability.atkBonus != 0)
-            enemy.stats.Attack.AddModifier(new StatModifier(Ability.atkBonus, StatModType.Flat, this, Ability.name));
-        if (Ability.defBonus != 0)
-            enemy.stats.Defense.AddModifier(new StatModifier(Ability.defBonus, StatModType.Flat, this, Ability.name));
-        if (Ability.speedBonus != 0)
-            enemy.stats.Speed.AddModifier(new StatModifier(Ability.speedBonus, StatModType.Flat, this, Ability.name));
-
-        if (Ability.hpPercentBonus != 0)
-            enemy.stats.HP.AddModifier(new StatModifier(Ability.hpPercentBonus, StatModType.PercentMult, this, Ability.name));
-        if (Ability.atkPercentBonus != 0)
-            enemy.stats.Attack.AddModifier(new StatModifier(Ability.atkPercentBonus, StatModType.PercentMult, this, Ability.name));
-        if (Ability.defPercentBonus != 0)
-            enemy.stats.Defense.AddModifier(new StatModifier(Ability.defPercentBonus, StatModType.PercentMult, this, Ability.name));
-        if (Ability.spePercentBonus != 0)
-            enemy.stats.Speed.AddModifier(new StatModifier(Ability.spePercentBonus, StatModType.PercentMult, this, Ability.name));
-    }
-
-
-
-    public void RemoveEnemyStatChanges(Enemy enemy)
-    {
-        enemy.stats.HP.RemoveAllModifiersFromSource(this);
-        enemy.stats.Attack.RemoveAllModifiersFromSource(this);
-        enemy.stats.Defense.RemoveAllModifiersFromSource(this);
-        enemy.stats.Speed.RemoveAllModifiersFromSource(this);
-        enemy.stats.Precision.RemoveAllModifiersFromSource(this);
-
-    }
 }
 
 

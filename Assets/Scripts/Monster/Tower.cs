@@ -1253,20 +1253,20 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
                 inRange.Sort(delegate (TargetSort x, TargetSort y)
                 {
-                    if (x.enemy.stats.currentHp == y.enemy.stats.currentHp) return 0;
-                    else if (x.enemy.stats.currentHp < y.enemy.stats.currentHp) return 1;
-                    else if (x.enemy.stats.currentHp > y.enemy.stats.currentHp) return -1;
-                    else return x.enemy.stats.currentHp.CompareTo(y.enemy.stats.currentHp);
+                    if (x.enemy.monster.info.currentHP == y.enemy.monster.info.currentHP) return 0;
+                    else if (x.enemy.monster.info.currentHP < y.enemy.monster.info.currentHP) return 1;
+                    else if (x.enemy.monster.info.currentHP > y.enemy.monster.info.currentHP) return -1;
+                    else return x.enemy.monster.info.currentHP.CompareTo(y.enemy.monster.info.currentHP);
                 });
             }
             else if (targetMode == TargetMode.LeastHP)
             {
                 inRange.Sort(delegate (TargetSort x, TargetSort y)
                 {
-                    if (x.enemy.stats.currentHp == y.enemy.stats.currentHp) return 0;
-                    else if (x.enemy.stats.currentHp > y.enemy.stats.currentHp) return 1;
-                    else if (x.enemy.stats.currentHp < y.enemy.stats.currentHp) return -1;
-                    else return x.enemy.stats.currentHp.CompareTo(y.enemy.stats.currentHp);
+                    if (x.enemy.monster.info.currentHP == y.enemy.monster.info.currentHP) return 0;
+                    else if (x.enemy.monster.info.currentHP > y.enemy.monster.info.currentHP) return 1;
+                    else if (x.enemy.monster.info.currentHP < y.enemy.monster.info.currentHP) return -1;
+                    else return x.enemy.monster.info.currentHP.CompareTo(y.enemy.monster.info.currentHP);
                 });
             }
 
@@ -1274,10 +1274,10 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             {
                 inRange.Sort(delegate (TargetSort x, TargetSort y)
                 {
-                    if (x.enemy.stats.level == y.enemy.stats.level) return 0;
-                    else if (x.enemy.stats.level < y.enemy.stats.level) return 1;
-                    else if (x.enemy.stats.level > y.enemy.stats.level) return -1;
-                    else return x.enemy.stats.level.CompareTo(y.enemy.stats.level);
+                    if (x.enemy.monster.info.level == y.enemy.monster.info.level) return 0;
+                    else if (x.enemy.monster.info.level < y.enemy.monster.info.level) return 1;
+                    else if (x.enemy.monster.info.level > y.enemy.monster.info.level) return -1;
+                    else return x.enemy.monster.info.level.CompareTo(y.enemy.monster.info.level);
                 });
             }
 
@@ -1285,10 +1285,10 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             {
                 inRange.Sort(delegate (TargetSort x, TargetSort y)
                 {
-                    if (x.enemy.stats.level == y.enemy.stats.level) return 0;
-                    else if (x.enemy.stats.level > y.enemy.stats.level) return 1;
-                    else if (x.enemy.stats.level < y.enemy.stats.level) return -1;
-                    else return x.enemy.stats.level.CompareTo(y.enemy.stats.level);
+                    if (x.enemy.monster.info.level == y.enemy.monster.info.level) return 0;
+                    else if (x.enemy.monster.info.level > y.enemy.monster.info.level) return 1;
+                    else if (x.enemy.monster.info.level < y.enemy.monster.info.level) return -1;
+                    else return x.enemy.monster.info.level.CompareTo(y.enemy.monster.info.level);
                 });
             }
 
@@ -1325,7 +1325,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     if (x.enemy.currentIndex == y.enemy.currentIndex) return 0;
                     else if (x.enemy.currentIndex > y.enemy.currentIndex) return 1;
                     else if (x.enemy.currentIndex < y.enemy.currentIndex) return -1;
-                    else return x.enemy.stats.level.CompareTo(y.enemy.stats.level);
+                    else return x.enemy.monster.info.level.CompareTo(y.enemy.monster.info.level);
                 });
             }
 
@@ -1336,7 +1336,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     if (x.enemy.currentIndex == y.enemy.currentIndex) return 0;
                     else if (x.enemy.currentIndex < y.enemy.currentIndex) return 1;
                     else if (x.enemy.currentIndex > y.enemy.currentIndex) return -1;
-                    else return x.enemy.stats.level.CompareTo(y.enemy.stats.level);
+                    else return x.enemy.monster.info.level.CompareTo(y.enemy.monster.info.level);
                 });
             }
 
@@ -1470,7 +1470,7 @@ public class TargetSort : IEquatable<TargetSort>, IComparable<TargetSort>
             return 1;
 
         else
-            //return this.enemy.stats.currentHp.CompareTo(comparePart.enemy.stats.currentHp);
+            //return this.enemy.monster.info.currentHP.CompareTo(comparePart.enemy.monster.info.currentHP);
             //return CompareTo(comparePart);
             return 0;
     }

@@ -513,8 +513,8 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             }
         }
 
-        skillName.text = thisMonster.info.passiveSkill.name;
-        skillDescription.text = thisMonster.info.passiveSkill.description;
+        skillName.text = thisMonster.info.skillName;
+        skillDescription.text = thisMonster.info.passiveSkill.skill.description;
     }
 
 

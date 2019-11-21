@@ -158,24 +158,24 @@ public class DisplayMonsterObject : MonoBehaviour
         if (m)
         {
             Monster = m;
-            Enemy e = m.GetComponent<Enemy>();
+            Enemy enemy = m.GetComponent<Enemy>();
 
             var data = GameManager.Instance.monstersData.monstersAllDict;
             var equips = GameManager.Instance.items.allEquipsDict;
             var statuses = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict;
             var colors = GameManager.Instance.typeColorDictionary;
 
-            Color type1Color = colors[e.stats.type1];
-            Color type2Color = colors[e.stats.type2];
+            Color type1Color = colors[enemy.monster.info.type1];
+            Color type2Color = colors[enemy.monster.info.type2];
 
-            levelText.text = e.stats.level.ToString();
+            levelText.text = enemy.monster.info.level.ToString();
 
             atkLabel.text = "Def";
-            attackText.text = Mathf.Round(e.stats.Defense.Value).ToString();
+            attackText.text = Mathf.Round(enemy.monster.info.Defense.Value).ToString();
             koLabel.text = "Spe";
-            koText.text = Mathf.Round(e.stats.Speed.Value).ToString();
+            koText.text = Mathf.Round(enemy.monster.info.Speed.Value).ToString();
 
-            nameText.text = e.stats.species;
+            nameText.text = enemy.monster.info.species;
 
             monsterIcon.GetComponent<SpriteRenderer>().sprite = m.frontModel.GetComponent<SpriteRenderer>().sprite;
 
@@ -209,9 +209,9 @@ public class DisplayMonsterObject : MonoBehaviour
             atk1Outline.SetActive(false);
             atk2Outline.SetActive(false);
 
-            abilityAmmoText.text = Mathf.Round(e.stats.currentHp).ToString();
+            abilityAmmoText.text = Mathf.Round(enemy.monster.info.currentHP).ToString();
 
-            staminaProgress.fillAmount = .23f + (.63f * (e.stats.currentHp / e.stats.hpMax));
+            staminaProgress.fillAmount = .23f + (.63f * (enemy.monster.info.currentHP / enemy.monster.info.maxHP));
 
             if (staminaProgress.fillAmount >= .63f)
             {

@@ -80,8 +80,8 @@ public class StatsCalc
         monster.info.attack2.AttackTime.BaseValue = attack2.attackTime;
         monster.info.attack2.AttackSpeed.BaseValue = attack2.attackSpeed;
         monster.info.attack2.AttackSlow.BaseValue = attack2.hitSlowTime;
-        
 
+        monster.info.maxHP = monster.info.HP.Value;
 
 
 
@@ -146,9 +146,11 @@ public class Stat
 
     // Add these variables
     protected bool isDirty = true;
-    protected float _value;
+    //protected float _value;
+    public float _value;
     public readonly ReadOnlyCollection<StatModifier> StatModifiers; // Add this variable
-    protected float lastBaseValue = float.MinValue;
+    //protected float lastBaseValue = float.MinValue;
+    public float lastBaseValue = float.MinValue;
 
     public Stat()
     {

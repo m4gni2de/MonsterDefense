@@ -62,7 +62,8 @@ public struct MonsterInfo
     public float energyGenBase;
     public float energyCost;
     public MonsterClass Class;
-
+    public float maxHP;
+    public float currentHP;
     
 
     [Header("Monster Attacks")]
@@ -824,7 +825,7 @@ public class Monster : MonoBehaviour
             {
                 if (statuses.Contains(status))
                 {
-                    effect.HealStatus(this, status, true);
+                    effect.HealStatus(this, status);
                 }
             }
         }
@@ -848,7 +849,7 @@ public class Monster : MonoBehaviour
             {
                 if (statuses.Contains(status))
                 {
-                    effect.HealStatus(this, status, false);
+                    effect.HealStatus(this, status);
                 }
             }
         }
@@ -1144,7 +1145,7 @@ public class Monster : MonoBehaviour
         info.abilityName = saveToken.specialAbility;
         info.specialAbility = abilities[info.abilityName];
         info.skillName = saveToken.passiveSkill;
-        info.passiveSkill = skills[info.skillName];
+        info.passiveSkill = new PassiveSkill(this, skills[info.skillName]);
         //info.equippable1 = new EquippableItem();
         //info.equippable2 = new EquippableItem();
 
@@ -1273,7 +1274,8 @@ public class Monster : MonoBehaviour
     //use this to call the monster's passive skill
     public void PassiveSkill()
     {
-        SkillEffects effects = new SkillEffects(info.passiveSkill, this);
+
+        info.passiveSkill.ActivateSkill();
         
         
     }
@@ -1282,27 +1284,24 @@ public class Monster : MonoBehaviour
     public void GlobalStatMod(MapDetails map)
     {
         //checks all of the global stats and adds their effects to this monster if it hasn't been added yet
-        foreach (GlobalStat g in map.activeGlobalStats)
+        for (int i = 0; i < map.activeGlobalStats.Count; i++)
         {
-            
-            if (!activeGlobalStats.Contains(g))
+            if (!activeGlobalStats.Contains(map.activeGlobalStats[i]))
             {
 
-                activeGlobalStats.Add(g);
-                if (g.type == GlobalStatModType.Enemies)
-                {
-                    g.AddStat(this, true);
-                }
-                else
-                {
-                    g.AddStat(this, false);
-                }
-                
+                activeGlobalStats.Add(map.activeGlobalStats[i]);
+                map.activeGlobalStats[i].AddStat(this);
+
             }
-            
         }
 
         MonsterStatMods();
+        
 
+    }
+
+    public void OnDestroy()
+    {
+        
     }
 }

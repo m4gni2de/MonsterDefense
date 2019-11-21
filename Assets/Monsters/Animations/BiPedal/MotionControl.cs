@@ -72,7 +72,7 @@ public class MotionControl : MonoBehaviour
             {
                 isHit = false;
                 hitTime = 0;
-                monster.GetComponent<Enemy>().speed = 50 * ((float)monster.GetComponent<Enemy>().stats.speBase / 100);
+                monster.GetComponent<Enemy>().speed = 50 * ((float)monster.info.speBase / 100);
             }
 
         }

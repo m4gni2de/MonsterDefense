@@ -79,9 +79,11 @@ public class Enemy : MonoBehaviour
     public Dictionary<MapTile, float> roadTiles = new Dictionary<MapTile, float>();
 
 
-    private Monster monster;
-    
-    public EnemyStats stats = new EnemyStats();
+    public Monster monster;
+
+    //public EnemyStats stats = new EnemyStats();
+
+    //public MonsterInfo info;
     
     //the enemy's canvas for HP and effects
     public GameObject enemyCanvas;
@@ -102,6 +104,7 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         monster = GetComponent<Monster>();
+        //info = monster.info;
         //enemyCanvas = monster.enemyCanvas;
         enemyHpSlider = enemyCanvas.GetComponentInChildren<Slider>();
     }
@@ -115,7 +118,7 @@ public class Enemy : MonoBehaviour
         mapDetails = map.GetComponent<WorldMap>().mapDetails;
         enemyCanvas.GetComponent<Canvas>().sortingLayerName = "Monster";
 
-        monster = GetComponent<Monster>();
+        //monster = GetComponent<Monster>();
         //for (int i = 0; i < map.GetComponent<Map>().path.Length; i++)
         //{
         //    path[i] = map.GetComponent<Map>().path[i];
@@ -135,11 +138,10 @@ public class Enemy : MonoBehaviour
         var abilities = GameManager.Instance.GetComponent<MonsterAbilities>().allAbilitiesDict;
         var skills = GameManager.Instance.GetComponent<AllSkills>().allSkillsDict;
         var allEquips = GameManager.Instance.items.allEquipsDict;
-        
 
 
-        monster.info.type1 = monsters[monster.info.species].type1;
-        monster.info.type2 = monsters[monster.info.species].type2;
+
+        monster.info.name = monster.info.species;
         monster.info.maxLevel = monsters[monster.info.species].maxLevel;
         monster.info.levelConst = monsters[monster.info.species].levelConst;
         monster.info.energyCost = monsters[monster.info.species].energyCost;
@@ -155,7 +157,7 @@ public class Enemy : MonoBehaviour
         monster.info.staminaBase = monsters[monster.info.species].staminaBase;
         monster.info.Class = monsters[monster.info.species].Class;
         monster.info.coinGenBase = monsters[monster.info.species].coinGenBase;
-        
+        monster.info.level = level;
 
 
         if (allEquips.ContainsKey(monster.info.equip1Name))
@@ -205,7 +207,8 @@ public class Enemy : MonoBehaviour
         monster.info.attack2Name = monsters[monster.info.species].baseAttacks[rand2];
 
         monster.info.specialAbility = abilities[monster.info.abilityName];
-        monster.info.passiveSkill = skills[monster.info.skillName];
+        monster.info.passiveSkill = new PassiveSkill(monster, skills[monster.info.skillName]);
+        //monster.PassiveSkill();
 
 
         int hpRand = Random.Range(0, 26);
@@ -213,45 +216,24 @@ public class Enemy : MonoBehaviour
         int speRand = Random.Range(0, 26);
         
 
-        stats.id = monster.info.dexId;
-        monster.info.dexId = stats.id;
-        stats.species = monster.info.species;
-        stats.name = monster.info.name;
-        stats.type1 = monster.info.type1;
-        stats.type2 = monster.info.type2;
-        stats.hpPot = hpRand;
-        stats.hpBase = monster.info.hpBase;
-        stats.defPot = defRand;
-        stats.defBase = monster.info.defBase;
-        stats.level = level;
-        stats.speBase = monster.info.speBase;
-        stats.spePot = speRand;
-        monster.info.level = stats.level;
-
-        
 
 
-
-        StatsCalc StatsCalc = new StatsCalc(gameObject.GetComponent<Monster>());
+        StatsCalc StatsCalc = new StatsCalc(monster);
         GetEnemyStats(StatsCalc);
 
-        speed = 40 * ((float)stats.speBase / 100);
+        
+        monster.info.currentHP = monster.info.maxHP;
+        enemyHpSlider.maxValue = monster.info.maxHP;
+        enemyHpSlider.value = monster.info.currentHP;
+        speed = 40 * ((float)monster.info.speBase / 100);
     }
 
    
 
-    public void GetEnemyStats(StatsCalc StatsCalc)
+    public void GetEnemyStats(StatsCalc stats)
     {
-        stats.Defense.BaseValue = (int)StatsCalc.Monster.info.Defense.Value;
-        stats.hpMax = (int)StatsCalc.Monster.info.HP.Value;
-        stats.HP.BaseValue = stats.hpMax;
-        stats.currentHp = stats.hpMax;
-        stats.Speed.BaseValue = (int)StatsCalc.Monster.info.Speed.Value;
-        stats.evasion = StatsCalc.Monster.info.evasionBase;
-        enemyHpSlider.maxValue = stats.hpMax;
-        enemyHpSlider.value = stats.hpMax;
-        stats.Class = monster.info.Class;
-
+        monster.info = stats.Monster.info;
+        monster.tempStats = stats.Monster.tempStats;
 
     }
 
@@ -259,16 +241,14 @@ public class Enemy : MonoBehaviour
     public void CalculateStatus(StatusEffects effect)
     {
 
-        
-        stats = effect.Enemy.stats;
-        //stats.currentHp = effect.Enemy.stats.currentHp - effect.Enemy.stats.HP.Value;
-        
+        monster.info = effect.Monster.info;
+        monster.tempStats = effect.Monster.tempStats;
 
-        enemyHpSlider.value = stats.currentHp;
+        enemyHpSlider.value = monster.info.currentHP;
 
-        if (stats.currentHp <= 0)
+        if (monster.info.currentHP <= 0)
         {
-            stats.currentHp = 1;
+            monster.info.currentHP = 1;
         };
     }
 
@@ -279,17 +259,17 @@ public class Enemy : MonoBehaviour
     //gets the attacker information from the attack sprite that hits the enemy, and then calculate the damage. method invoked from the Attack Effects script
     public void OutputDamage(string atkName, string atkType, int atkPower, float atkStat, int attackerLevel, float critChance, float criMod, Monster attacker, MonsterAttack monsterAttack)
     {
-        if (stats.type2 == "none" || stats.type2 == null || stats.type2 == "")
+        if (monster.info.type2 == "none" || monster.info.type2 == null || monster.info.type2 == "")
         {
-            if (GameManager.Instance.monstersData.typeChartDict.ContainsKey(atkType) && GameManager.Instance.monstersData.typeChartDict.ContainsKey(stats.type1))
+            if (GameManager.Instance.monstersData.typeChartDict.ContainsKey(atkType) && GameManager.Instance.monstersData.typeChartDict.ContainsKey(monster.info.type1))
             {
-                float force = (((attackerLevel * 2) / 2) + 2) * atkPower * (atkStat / stats.Defense.Value);
+                float force = (((attackerLevel * 2) / 2) + 2) * atkPower * (atkStat / monster.info.Defense.Value);
                 //float force = (((attackerLevel * 2) / 5) + 2) * atkPower * (atkStat / stats.def);
                 //float resistance = 38 * (stats.def / atkStat);
-                float resistance = 38 * (stats.Defense.Value / atkStat);
+                float resistance = 38 * (monster.info.Defense.Value / atkStat);
 
                 TypeInfo attacking = GameManager.Instance.monstersData.typeChartDict[atkType];
-                TypeInfo defending = GameManager.Instance.monstersData.typeChartDict[stats.type1];
+                TypeInfo defending = GameManager.Instance.monstersData.typeChartDict[monster.info.type1];
                 TypeChart attack = new TypeChart(attacking, defending, force, resistance);
 
                 DealDamage(attack, attack.typeModifier, attacker, critChance, criMod, monsterAttack);
@@ -298,12 +278,12 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            if (GameManager.Instance.monstersData.typeChartDict.ContainsKey(atkType) && GameManager.Instance.monstersData.typeChartDict.ContainsKey(stats.type1) && GameManager.Instance.monstersData.typeChartDict.ContainsKey(stats.type2))
+            if (GameManager.Instance.monstersData.typeChartDict.ContainsKey(atkType) && GameManager.Instance.monstersData.typeChartDict.ContainsKey(monster.info.type1) && GameManager.Instance.monstersData.typeChartDict.ContainsKey(monster.info.type2))
             {
-                float force = (((attackerLevel * 2) / 2) + 2) * atkPower * (atkStat / stats.Defense.Value);
+                float force = (((attackerLevel * 2) / 2) + 2) * atkPower * (atkStat / monster.info.Defense.Value);
                 //float force = (((attackerLevel * 2) / 5) + 2) * atkPower * (atkStat / stats.def);
                 //float resistance = 38 * (stats.def / atkStat);
-                float resistance = 38 * (stats.Defense.Value / atkStat);
+                float resistance = 38 * (monster.info.Defense.Value / atkStat);
                 float damageMod = new float();
 
 
@@ -312,14 +292,14 @@ public class Enemy : MonoBehaviour
                     if (i == 0)
                     {
                         TypeInfo attacking = GameManager.Instance.monstersData.typeChartDict[atkType];
-                        TypeInfo defending = GameManager.Instance.monstersData.typeChartDict[stats.type1];
+                        TypeInfo defending = GameManager.Instance.monstersData.typeChartDict[monster.info.type1];
                         TypeChart attack = new TypeChart(attacking, defending, force, resistance);
                         damageMod = attack.typeModifier;
                     }
                     else
                     {
                         TypeInfo attacking = GameManager.Instance.monstersData.typeChartDict[atkType];
-                        TypeInfo defending = GameManager.Instance.monstersData.typeChartDict[stats.type2];
+                        TypeInfo defending = GameManager.Instance.monstersData.typeChartDict[monster.info.type2];
                         TypeChart attack = new TypeChart(attacking, defending, force, resistance);
                         damageMod *= attack.typeModifier;
                         DealDamage(attack, damageMod, attacker, critChance, criMod, monsterAttack);
@@ -356,7 +336,7 @@ public class Enemy : MonoBehaviour
 
         
         //check to see if the attack misses by comparing the enemies' dodge stat with a number from 1-100. if the enemy dodges, deal 0 damage and spawn the word DODGE instead of a damage value
-        if (rand >= stats.evasion)
+        if (rand >= monster.info.evasionBase)
         {
             monster.monsterMotion.SetBool("isHit", true);
             monster.monsterMotion.GetComponent<MotionControl>().IsHit(attack);
@@ -421,20 +401,20 @@ public class Enemy : MonoBehaviour
             damageTaken = 0;
         }
 
-        //Debug.Log("Attacker Base: " + attacker.info.Attack.BaseValue);
-        //Debug.Log("Attacker New: " + attacker.info.Attack.Value);
+        //Debug.Log("Attacker Base: " + attacker.monster.info.Attack.BaseValue);
+        //Debug.Log("Attacker New: " + attacker.monster.info.Attack.Value);
 
-        stats.currentHp -= damageTaken;
-        enemyHpSlider.value = stats.currentHp;
+        monster.info.currentHP -= damageTaken;
+        enemyHpSlider.value = monster.info.currentHP;
 
         //if the enemy's HP falls below 0, it is destroyed and the monster that destroyed it gains EXP, and all other towers on the field gain 10% of that EXP.
-        if (stats.currentHp <= 0)
+        if (monster.info.currentHP <= 0)
         {
             if (isActiveEnemy)
             {
                 map.GetComponentInChildren<EnemyInfoPanel>().enemyInfoMenu.SetActive(false);
             }
-            float expGained = (stats.level + 1 * monster.info.levelConst) / (attacker.info.level + (1 /monster.info.levelConst) - stats.level);
+            float expGained = (monster.info.level + 1 * monster.info.levelConst) / (attacker.info.level + (1 /monster.info.levelConst) - monster.info.level);
             float expShared = expGained / 10;
 
             if (expGained < 1)

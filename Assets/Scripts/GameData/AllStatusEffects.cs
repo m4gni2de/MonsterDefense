@@ -134,7 +134,6 @@ public class StatusTimer
     public Status Status;
     public float acumTime;
     public StatusEffects statusEffects;
-    public bool isEnemy;
 
 
     public StatusTimer(Monster monster, Status status)
@@ -145,14 +144,7 @@ public class StatusTimer
         Monster = monster;
         Status = status;
 
-        if (Monster.isEnemy)
-        {
-            isEnemy = true;
-        }
-        else
-        {
-            isEnemy = false;
-        }
+       
             
         StatusEffects StatusEffects = new StatusEffects();
         statusEffects = StatusEffects;
@@ -191,11 +183,8 @@ public class StatusEffects
         Monster monster = timer.Monster;
         //Enemy Enemy = timer.Enemy;
         Status status = timer.Status;
-        bool isEnemy = timer.isEnemy;
 
-        //if it's an enemy being inflicted with the status, change the enemy.stats instead of the monster.info, since an enemy derives its stats from the enemy.stats struct
-        if (!isEnemy)
-        {
+
             //monster.attack -= monster.attack * status.atkDrop;
             //monster.defense -= monster.defense * status.defDrop;
             //monster.evasion -= monster.evasion * status.evasionDrop;
@@ -206,6 +195,7 @@ public class StatusEffects
 
             if (status.hpDrop != 0)
                 monster.info.HP.AddModifier(new StatModifier(status.hpDrop, StatModType.PercentMult, this, timer.Status.name));
+                monster.info.currentHP = monster.info.currentHP - (monster.info.maxHP * -status.hpDrop);
             if (status.atkDrop != 0)
                 monster.info.Attack.AddModifier(new StatModifier(status.atkDrop, StatModType.PercentMult, this, timer.Status.name));
             if (status.defDrop != 0)
@@ -218,60 +208,25 @@ public class StatusEffects
                 monster.info.Precision.AddModifier(new StatModifier(status.precDrop, StatModType.PercentMult, this, timer.Status.name));
 
             Monster = monster;
-        }
-        else
-        {
-            Enemy enemy = monster.GetComponent<Enemy>();
-
-            //enemy.stats.def -= (enemy.stats.def * status.defDrop);
-            //enemy.stats.evasion -= (enemy.stats.evasion * status.evasionDrop);
-            //enemy.stats.currentHp -= enemy.stats.currentHp * status.hpDrop;
-            //enemy.stats.speed -= enemy.stats.speed * status.speDrop;
-
-            if (status.hpDrop != 0)
-                enemy.stats.HP.AddModifier(new StatModifier(status.hpDrop, StatModType.PercentMult, this, timer.Status.name));
-                enemy.stats.currentHp =  enemy.stats.currentHp - (enemy.stats.hpMax * -status.hpDrop);
-            if (status.atkDrop != 0)
-                enemy.stats.Attack.AddModifier(new StatModifier(status.atkDrop, StatModType.PercentMult, this, timer.Status.name));
-            if (status.defDrop != 0)
-                enemy.stats.Defense.AddModifier(new StatModifier(status.defDrop, StatModType.PercentMult, this, timer.Status.name));
-            if (status.speedDrop != 0)
-                enemy.stats.Speed.AddModifier(new StatModifier(status.speedDrop, StatModType.PercentMult, this, timer.Status.name));
-            if (status.enGenDrop != 0)
-                enemy.stats.EnergyGeneration.AddModifier(new StatModifier(status.enGenDrop, StatModType.PercentMult, this, timer.Status.name));
-            if (status.precDrop != 0)
-                enemy.stats.Precision.AddModifier(new StatModifier(status.precDrop, StatModType.PercentMult, this, timer.Status.name));
-
-            Enemy = enemy;
-        }
+       
 
         monster.MonsterStatMods();
     }
 
 
-    public void HealStatus(Monster monster, Status status, bool isEnemy)
+    public void HealStatus(Monster monster, Status status)
     {
         Monster = monster;
 
         
         Monster.GetComponent<Monster>().RemoveStatus(status);
 
-        if (!isEnemy)
-        {
             monster.info.HP.RemoveAllModifiersFromSource(this);
             monster.info.Attack.RemoveAllModifiersFromSource(this);
             monster.info.Defense.RemoveAllModifiersFromSource(this);
             monster.info.Speed.RemoveAllModifiersFromSource(this);
             monster.info.Precision.RemoveAllModifiersFromSource(this);
-        }
-        else
-        {
-            monster.GetComponent<Enemy>().stats.HP.RemoveAllModifiersFromSource(this);
-            monster.GetComponent<Enemy>().stats.Attack.RemoveAllModifiersFromSource(this);
-            monster.GetComponent<Enemy>().stats.Defense.RemoveAllModifiersFromSource(this);
-            monster.GetComponent<Enemy>().stats.Speed.RemoveAllModifiersFromSource(this);
-            monster.GetComponent<Enemy>().stats.Precision.RemoveAllModifiersFromSource(this);
-        }
+       
 
         monster.MonsterStatMods();
     }

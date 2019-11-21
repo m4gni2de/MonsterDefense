@@ -342,20 +342,22 @@ public class GameManager : MonoBehaviour
 
             if (m.equipment1 != null && m.equipment1.triggerType == type)
             {
-                m.equipment1.trigger.equipment = m.equipment1;
-                m.equipment1.trigger.ActivateTrigger(m.equipment1.triggerType);
+                //m.equipment1.trigger.equipment = m.equipment1;
+                //m.equipment1.trigger.ActivateTrigger(m.equipment1.triggerType);
+                m.equipment1.TriggerEvent();
             }
 
             if (m.equipment2 != null && m.equipment2.triggerType == type)
             {
-                m.equipment2.trigger.equipment = m.equipment2;
-                m.equipment2.trigger.ActivateTrigger(m.equipment2.triggerType);
+                //m.equipment2.trigger.equipment = m.equipment2;
+                //m.equipment2.trigger.ActivateTrigger(m.equipment2.triggerType);
+                m.equipment2.TriggerEvent();
             }
 
-            if (m.passiveSkill != null && m.passiveSkill.triggerType == type)
+            if (m.passiveSkill != null && m.passiveSkill.skill.triggerType == type)
             {
-                m.passiveSkill.trigger.passiveSkill = m.passiveSkill.effects;
-                m.passiveSkill.trigger.ActivateTrigger(m.passiveSkill.triggerType);
+                //m.passiveSkill.trigger.ActivateTrigger(m.passiveSkill.triggerType);
+                m.passiveSkill.TriggerEvent();
             }
         }
 
@@ -376,6 +378,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Test:" + arg0.name + " -> " + arg1.name);
 
         activeTiles.Clear();
+        activeMap = null;
 
         GameObject camera = GameObject.Find("Main Camera");
 

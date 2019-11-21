@@ -2047,7 +2047,7 @@ MonoBehaviour:
       abilities:
       - Natural Quake
       skills:
-      - Item Finder
+      - Natural Armor
       dropRate: 0.2
       itemDrops:
       - Nature Rune

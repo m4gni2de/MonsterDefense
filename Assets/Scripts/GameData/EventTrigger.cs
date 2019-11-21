@@ -35,9 +35,9 @@ public class EventTrigger
     public int id;
 
     //all of the possible objects that can have a trigger on them
-    [HideInInspector] public EquipmentScript equipment;
-    [HideInInspector] public Monster monster;
-    [HideInInspector] public SkillEffects passiveSkill;
+    //[HideInInspector] public EquipmentScript equipment;
+    //[HideInInspector] public Monster monster;
+    //[HideInInspector] public PassiveSkill passiveSkill;
 
 
     //use this to set the EventTrigger's trigger type
@@ -46,6 +46,7 @@ public class EventTrigger
         triggerType = type;
         triggerObject = obj;
 
+
         //Debug.Log(obj);
         
     }
@@ -53,7 +54,7 @@ public class EventTrigger
     //activate the trigger
     public void ActivateTrigger(TriggerType type)
     {
-
+        
 
 
         if (triggerType == type)
@@ -63,6 +64,7 @@ public class EventTrigger
             if (triggerType == TriggerType.ItemGet)
             {
                 ItemGet();
+
             }
 
             if (triggerType == TriggerType.LevelUp)
@@ -103,10 +105,10 @@ public class EventTrigger
     //trigger for when an enemy is KOd
     public void EnemyKO()
     {
-       if (equipment != null)
-        {
-            equipment.TriggerEvent();
-        }
+       //if (equipment != null)
+       // {
+       //     equipment.TriggerEvent();
+       // }
 
         
     }
@@ -114,15 +116,17 @@ public class EventTrigger
     //trigger for when a tile or tiles change on the map
     public void TileChange()
     {
-        if (equipment != null)
-        {
-            equipment.TriggerEvent();
-        }
+        //if (equipment != null)
+        //{
+        //    equipment.TriggerEvent();
+        //}
 
-        if (passiveSkill != null)
-        {
-            passiveSkill.TriggerEvent();
-        }
+        //if (passiveSkill != null)
+        //{
+        //    passiveSkill.TriggerEvent();
+        //}
+
+        
     }
 
     //trigger for when a tile on the map increases level
@@ -158,10 +162,10 @@ public class EventTrigger
     //trigger for when a monster is summoned as a tower
     public void TowerSummon()
     {
-        if (equipment != null)
-        {
-            equipment.TriggerEvent();
-        }
+        //if (equipment != null)
+        //{
+        //    equipment.TriggerEvent();
+        //}
     }
 
     //trigger for when a global stat mod because active or inactive

@@ -5,32 +5,74 @@ using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
-public class PassiveSkill 
+public class SkillData 
 {
     public string name;
     public string description;
     public TriggerType triggerType;
     public EventTrigger trigger;
-    public SkillEffects effects;
+    
+
+   
+
+    //public void ActivateSkill(Monster monster)
+    //{
+    //    Owner = monster;
+    //    skillManager.ActivateSkill(monster, this);
+        
+
+    //}
+
+
+    //public void TriggerEvent()
+    //{
+    //    skillManager.RemoveSkill();
+    //    skillManager.ActivateSkill(Owner, this);
+       
+    //}
+    
 }
+
+
+//public class SkillManager
+//{
+//    public Monster monster;
+//    public PassiveSkill passiveSkill;
+
+//    public void ActivateSkill(Monster Monster, PassiveSkill skill)
+//    {
+//        monster = Monster;
+//        passiveSkill = skill;
+
+//        SkillEffects effect = new SkillEffects(monster, skill);
+//    }
+
+//    public void RemoveSkill()
+//    {
+//        foreach (Stat stat in monster.allStats)
+//        {
+//            stat.RemoveAllModifiersFromSource(passiveSkill);
+//        }
+//    }
+//}
 
 
 public class Skills
 {
-    public PassiveSkill ItemFinder = new PassiveSkill
+    public SkillData ItemFinder = new SkillData
     {
         name = "Item Finder",
         description = "Increases the chances of an item being dropped by an Enemy that this monster destroys by 20%."
         
     };
 
-    public PassiveSkill TerrifyingGaze = new PassiveSkill
+    public SkillData TerrifyingGaze = new SkillData
     {
         name = "Terrifying Gaze",
         description = "Cuts all monsters' Speed by 25%."
     };
 
-    public PassiveSkill NaturalArmor = new PassiveSkill
+    public SkillData NaturalArmor = new SkillData
     {
         name = "Natural Armor",
         description = "Raises this monster's defense by 3% for each Nature Tile on the field.",
@@ -38,9 +80,10 @@ public class Skills
     };
 }
 
+
 public class AllSkills: MonoBehaviour
 {
-    public Dictionary<string, PassiveSkill> allSkillsDict = new Dictionary<string, PassiveSkill>();
+    public Dictionary<string, SkillData> allSkillsDict = new Dictionary<string, SkillData>();
     public Skills allSkills = new Skills();
 
 
@@ -59,99 +102,98 @@ public class AllSkills: MonoBehaviour
     }
 }
 
-public class SkillEffects
+//the class that the monster has for the skill. it combines the data for the skill, plus a trigger to make this new skill object
+[System.Serializable]
+public class PassiveSkill
 {
-    public PassiveSkill Skill;
     public Monster Owner;
-
+    public SkillData skill;
     //this variable is used to delegate which ability method to use, given the name of the ability
     public delegate void SkillDelegate();
     public SkillDelegate skillMethod;
-
-    public AllSkills allSkills;
-
-    
     public int triggerCount;
     
 
     //keep track of the stat modifiers, if any, that a skill gives
     public List<StatModifier> mod = new List<StatModifier>();
 
-
-    public SkillEffects(PassiveSkill skill, Monster owner)
+    public PassiveSkill(Monster monster, SkillData data)
     {
-        Skill = skill;
-        Owner = owner;
-        Skill.effects = this;
+        Owner = monster;
+        skill = data;
 
-        ActivateSkill();
-    }
-
-   
-    public void ActivateSkill()
-    {
-        //get string of the name of the ability
-        string name = string.Concat(Skill.name.Where(c => !char.IsWhiteSpace(c)));
+        //get string of the name of the item
+        string name = string.Concat(skill.name.Where(c => !char.IsWhiteSpace(c)));
 
         //convert string to a delegate to call the method of the name of the ability
         skillMethod = DelegateCreation(this, name);
+        
+    }
+
+    SkillDelegate DelegateCreation(object target, string functionName)
+    {
+        SkillDelegate eq = (SkillDelegate)Delegate.CreateDelegate(typeof(SkillDelegate), target, functionName);
+        return eq;
+    }
+
+
+    public void ActivateSkill()
+    {
         skillMethod.Invoke();
     }
 
-    //create the method delegate for each ability
-    SkillDelegate DelegateCreation(object target, string functionName)
-    {
-        SkillDelegate ab = (SkillDelegate)Delegate.CreateDelegate(typeof(SkillDelegate), target, functionName);
-        //GameManager.Instance.SendNotificationToPlayer(Skill.name, 1, NotificationType.AbilityReady, Owner.info.species);
-        return ab;
-    }
-
+    //if this skill is called from a trigger, do this
     public void TriggerEvent()
     {
-        RemovePassive();
-        ActivateSkill();
-    }
-
-
-    public void RemovePassive()
-    {
-        foreach(StatModifier statMod in mod)
+        foreach (StatModifier m in mod)
         {
-            foreach(Stat stat in Owner.allStats)
+            foreach (Stat stat in Owner.allStats)
             {
                 stat.RemoveAllModifiersFromSource(this);
             }
         }
 
         mod.Clear();
+        skillMethod.Invoke();
     }
+
 
     //Below is the method for all of the abilities//
     public void ItemFinder()
     {
-        Owner.info.DropRateMod.AddModifier(new StatModifier(.2f, StatModType.Flat, this, Skill.name));
+        Owner.info.DropRateMod.AddModifier(new StatModifier(.2f, StatModType.Flat, this, skill.name));
         
     }
 
     public void TerrifyingGaze()
     {
-        mod.Add(new StatModifier(-.5f, StatModType.PercentMult, this, Skill.name));
-        GlobalStat terrifyingGaze = new GlobalStat(mod[0], "Speed", Owner, false, Skill.name, GlobalStatModType.Enemies);
-        GameManager.Instance.activeMap.AddGlobalStat(terrifyingGaze);
-        Owner.ownedGlobalStats.Add(terrifyingGaze);
+        mod.Add(new StatModifier(-.5f, StatModType.PercentMult, this, skill.name));
+        if (Owner.isEnemy)
+        {
+            GlobalStat terrifyingGaze = new GlobalStat(mod[0], "Speed", Owner, skill.name, GlobalStatModType.Towers);
+            GameManager.Instance.activeMap.AddGlobalStat(terrifyingGaze);
+            Owner.ownedGlobalStats.Add(terrifyingGaze);
+        }
+        else
+        {
+            GlobalStat terrifyingGaze = new GlobalStat(mod[0], "Speed", Owner, skill.name, GlobalStatModType.Enemies);
+            GameManager.Instance.activeMap.AddGlobalStat(terrifyingGaze);
+            Owner.ownedGlobalStats.Add(terrifyingGaze);
+        }
+       
 
     }
 
     public void NaturalArmor()
     {
 
-        var tiles = GameManager.Instance.activeTiles;
+        var tiles = GameManager.Instance.activeMap.allTiles;
         int total = 0;
         int tileCount = 0;
 
-        foreach (KeyValuePair<int, MapTile> tile in tiles)
+        foreach (MapTile tile in tiles)
         {
-            if (tile.Value.tileAtt == TileAttribute.Water)
+            if (tile.tileAtt == TileAttribute.Nature)
             {
                 total += 1;
             }
@@ -161,16 +203,9 @@ public class SkillEffects
             if (tileCount >= tiles.Count)
             {
                 float totalBoost = total * .03f;
-                mod.Add(new StatModifier(totalBoost, StatModType.PercentAdd, this, Skill.name));
-                if (Owner.isEnemy)
-                {
-                    Owner.GetComponent<Enemy>().stats.Defense.AddModifier(mod[0]);
-                }
-                else
-                {
-                    Owner.info.Defense.AddModifier(mod[0]);
-                }
-                
+                mod.Add(new StatModifier(totalBoost, StatModType.PercentMult, this, skill.name));
+
+                Owner.info.Defense.AddModifier(mod[0]);
                 break;
             }
 

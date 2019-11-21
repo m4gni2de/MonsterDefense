@@ -505,15 +505,24 @@ public class MapDetails : MonoBehaviour
        
     }
 
+    //keeps a running check on the current global stats
     public IEnumerator GlobalStatsCheck()
     {
         do
         {
-            foreach(GlobalStat stat in activeGlobalStats)
+            for (int i = 0; i < activeGlobalStats.Count; i++)
             {
-                AddGlobalStat(stat);
-            }
-            yield return new WaitForSeconds(1f);
+                if (activeGlobalStats[i].Owner != null)
+                {
+                    AddGlobalStat(activeGlobalStats[i]);
+                }
+                else
+                {
+                    StopCoroutine(GlobalStatsCheck());
+                    RemoveGlobalStat(activeGlobalStats[i]);
+                }
+            }   
+            yield return new WaitForSeconds(.05f);
         } while (true);
     }
 
@@ -522,6 +531,7 @@ public class MapDetails : MonoBehaviour
     {
         mapInformation.mapHealthCurrent -= 1;
 
+        
         Destroy(enemy.gameObject);
     }
 
@@ -613,6 +623,33 @@ public class MapDetails : MonoBehaviour
         }
     }
 
+    
+    public void RemoveGlobalStat(GlobalStat globalStat)
+    {
+        if (globalStat.type == GlobalStatModType.Enemies)
+        {
+            foreach (Enemy enemy in liveEnemies)
+            {
+
+                globalStat.RemoveStat(enemy.GetComponent<Monster>());
+                
+
+            }
+
+        }
+        else
+        {
+            foreach (Monster monster in liveTowers)
+            {
+                globalStat.RemoveStat(monster);
+               
+
+            }
+        }
+
+        activeGlobalStats.Remove(globalStat);
+        StartCoroutine(GlobalStatsCheck());
+    }
 
 
 
@@ -633,76 +670,47 @@ public class GlobalStat
     public StatModifier mod;
     public string stat;
     public Monster Owner;
-    public Enemy enemy;
-    public bool isEnemy;
     public bool isAdding;
     public GlobalStatModType type;
     public string origin;
 
     
 
-    public GlobalStat(StatModifier Mod, string Stat, Monster Monster, bool IsEnemy, string Origin, GlobalStatModType Type)
+    public GlobalStat(StatModifier Mod, string Stat, Monster Monster, string Origin, GlobalStatModType Type)
     {
         mod = Mod;
         stat = Stat;
         Owner = Monster;
-        isEnemy = IsEnemy;
         type = Type;
         origin = Origin;
 
 
-        if (isEnemy)
-        {
-            enemy = Monster.GetComponent<Enemy>();
-        }
+        
 
 
     }
 
-    public void AddStat(Monster monster, bool isEnemy)
+    public void AddStat(Monster monster)
     {
-        Enemy enemy = monster.GetComponent<Enemy>();
-
-
-        if (isEnemy)
+        if (stat == "Speed")
         {
-           
-
-            if (stat == "Speed")
-            {
-                enemy.stats.Speed.AddModifier(mod);
-
-            }
+            monster.info.Speed.AddModifier(mod);
         }
-        else
-        {
-            if (stat == "Speed")
-            {
-                monster.info.Speed.AddModifier(mod);
-            }
-        }
+
+        
+        
     }
 
-    public void RemoveStat(Monster monster, bool isEnemy)
+    public void RemoveStat(Monster monster)
     {
-        Enemy enemy = monster.GetComponent<Enemy>();
-
-        if (isEnemy)
+        if (stat == "Speed")
         {
-
-            if (stat == "Speed")
-            {
-                enemy.stats.Speed.RemoveAllModifiersFromSource(mod);
-            }
-        }
-        else
-        {
-            if (stat == "Speed")
-            {
-                monster.info.Speed.RemoveAllModifiersFromSource(mod);
-            }
+            //monster.info.Speed.RemoveAllModifiersFromSource(mod.Source);
+            monster.info.Speed.RemoveModifier(mod);
         }
 
+        monster.activeGlobalStats.Remove(this);
+        
     }
 
    

@@ -79,17 +79,17 @@ public class EnemyInfoPanel : MonoBehaviour
         if (activeEnemy)
         {
             
-            hpSlider.maxValue = activeEnemy.stats.hpMax;
-            hpSlider.value = activeEnemy.stats.currentHp;
-            nameText.text = activeEnemy.stats.name;
-            typeText.text = activeEnemy.stats.type1 + "/" + activeEnemy.stats.type2;
-            levelText.text = "Level: " + activeEnemy.stats.level;
-            hpText.text = System.Math.Round(activeEnemy.stats.currentHp, 0) + "/" + activeEnemy.stats.hpMax;
-            defText.text = "Defense: " + System.Math.Round(activeEnemy.stats.Defense.Value, 0);
-            //defText.text = "Defense: " + System.Math.Round(activeEnemy.stats.def, 0);
-            //speText.text = "Speed: " + System.Math.Round(activeEnemy.stats.speed, 0);
-            speText.text = "Speed: " + System.Math.Round(activeEnemy.stats.Speed.Value, 0);
-            evaText.text = "Evasion: " + System.Math.Round(activeEnemy.stats.evasion, 2) + "%";
+            hpSlider.maxValue = activeEnemy.monster.info.maxHP;
+            hpSlider.value = activeEnemy.monster.info.currentHP;
+            nameText.text = activeEnemy.monster.info.name;
+            typeText.text = activeEnemy.monster.info.type1 + "/" + activeEnemy.monster.info.type2;
+            levelText.text = "Level: " + activeEnemy.monster.info.level;
+            hpText.text = System.Math.Round(activeEnemy.monster.info.currentHP, 0) + "/" + activeEnemy.monster.info.maxHP;
+            defText.text = "Defense: " + System.Math.Round(activeEnemy.monster.info.Defense.Value, 0);
+            //defText.text = "Defense: " + System.Math.Round(activeEnemy.monster.info.def, 0);
+            //speText.text = "Speed: " + System.Math.Round(activeEnemy.monster.info.speed, 0);
+            speText.text = "Speed: " + System.Math.Round(activeEnemy.monster.info.Speed.Value, 0);
+            evaText.text = "Evasion: " + System.Math.Round(activeEnemy.monster.info.evasionBase, 2) + "%";
 
 
                 //for (int i = 0; i < activeEnemy.GetComponent<Monster>().statuses.Count; i++)
