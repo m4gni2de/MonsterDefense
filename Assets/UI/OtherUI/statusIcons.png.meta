@@ -28,7 +28,7 @@ TextureImporter:
     second: statusIcons_7
   - first:
       213: 21300016
-    second: statusIcons_8
+    second: status_Glitch
   - first:
       213: 21300018
     second: statusIcons_9
@@ -338,7 +338,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: statusIcons_8
+      name: status_Glitch
       rect:
         serializedVersion: 2
         x: 287

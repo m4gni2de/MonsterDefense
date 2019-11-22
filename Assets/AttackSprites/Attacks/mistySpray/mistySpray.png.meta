@@ -1,0 +1,427 @@
+fileFormatVersion: 2
+guid: 5bfe8198c060cfc42a31ce2d50a93ddd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: mistySpray_00
+  - first:
+      213: 21300002
+    second: mistySpray_01
+  - first:
+      213: 21300004
+    second: mistySpray_01
+  - first:
+      213: 21300006
+    second: mistySpray_3
+  - first:
+      213: 21300008
+    second: mistySpray_4
+  - first:
+      213: 21300010
+    second: mistySpray_5
+  - first:
+      213: 21300012
+    second: mistySpray_6
+  - first:
+      213: 21300014
+    second: mistySpray_7
+  - first:
+      213: 21300016
+    second: mistySpray_8
+  - first:
+      213: 21300018
+    second: mistySpray_9
+  - first:
+      213: 21300020
+    second: mistySpray_10
+  - first:
+      213: 21300022
+    second: mistySpray_11
+  - first:
+      213: 21300024
+    second: mistySpray_12
+  - first:
+      213: 21300026
+    second: mistySpray_13
+  - first:
+      213: 21300028
+    second: mistySpray_14
+  - first:
+      213: 21300030
+    second: mistySpray_15
+  - first:
+      213: 21300032
+    second: mistySpray_16
+  - first:
+      213: 21300034
+    second: mistySpray_17
+  - first:
+      213: 21300036
+    second: mistySpray_18
+  - first:
+      213: 21300038
+    second: mistySpray_19
+  - first:
+      213: 21300040
+    second: mistySpray_20
+  - first:
+      213: 21300042
+    second: mistySpray_21
+  - first:
+      213: 21300044
+    second: mistySpray_22
+  - first:
+      213: 21300046
+    second: mistySpray_23
+  - first:
+      213: 21300048
+    second: mistySpray_24
+  - first:
+      213: 21300050
+    second: mistySpray_25
+  - first:
+      213: 21300052
+    second: mistySpray_26
+  - first:
+      213: 21300054
+    second: mistySpray_27
+  - first:
+      213: 21300056
+    second: mistySpray_28
+  - first:
+      213: 21300058
+    second: mistySpray_29
+  - first:
+      213: 21300060
+    second: mistySpray_30
+  - first:
+      213: 21300062
+    second: mistySpray_31
+  - first:
+      213: 21300064
+    second: mistySpray_32
+  - first:
+      213: 21300066
+    second: mistySpray_33
+  - first:
+      213: 21300068
+    second: mistySpray_34
+  - first:
+      213: 21300070
+    second: mistySpray_35
+  - first:
+      213: 21300072
+    second: mistySpray_36
+  - first:
+      213: 21300074
+    second: mistySpray_0
+  - first:
+      213: 21300076
+    second: mistySpray_1
+  - first:
+      213: 21300078
+    second: mistySpray_2
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 17, y: 0, z: 417, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: mistySpray_0
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 7
+        width: 116
+        height: 109
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c73e4994b26fd5f4f94f710d5d4f27e7
+      internalID: 21300074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mistySpray_1
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 2
+        width: 140
+        height: 113
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5518beb4e508ef43ad48b01b378f619
+      internalID: 21300076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mistySpray_2
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 2
+        width: 135
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2422efb9f80124f43ac93e836b318b86
+      internalID: 21300078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mistySpray_3
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 0
+        width: 136
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 095785ca3203a6f42b39e0b3ce4220f6
+      internalID: 21300006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mistySpray_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 52
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac3b92b35ff4ed141bec47af6a340134
+      internalID: 21300008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mistySpray_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 52
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bce59daa5813fb4eb6cc41883aa43a2
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mistySpray_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 52
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c71ca9c0e98911847814ee36fa4b1149
+      internalID: 21300012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mistySpray_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 52
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04f5471a19e4a734a95243bb0fe8c564
+      internalID: 21300014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: f079ac5ed50d403459e505f0d2372e26
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

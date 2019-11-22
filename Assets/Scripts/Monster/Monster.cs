@@ -331,63 +331,7 @@ public class Monster : MonoBehaviour
         }
 
 
-        info.sortIndex = info.index;
-
-        //info.equip1 = new Equipment();
-        //info.equip2 = new Equipment();
-
-
-        ////gives the monster temporary stats that can be changed in game, without affecting the monster's saved stats. these values are changed during a game, not anything in monster.info
-        //tempStats.HP.BaseValue = info.HP.Value;
-        //tempStats.Defense.BaseValue = info.Defense.Value;
-        //tempStats.Attack.BaseValue = info.Attack.Value;
-        //tempStats.Speed.BaseValue = info.Speed.Value;
-        //tempStats.Precision.BaseValue = info.Precision.Value;
-        //tempStats.Stamina.BaseValue = info.Stamina.Value;
-        //tempStats.EnergyCost.BaseValue = info.EnergyCost.Value;
-        //tempStats.EnergyGeneration.BaseValue = info.EnergyGeneration.Value;
-        //tempStats.evasionBase = info.evasionBase;
-        //tempStats.critBase = info.critBase;
-
-        //tempStats.attack1 = info.attack1;
-        //tempStats.attack2 = info.attack2;
-
-
-
-        /////***************************
-
-        //tempStats.attack1 = attack1;
-
-        //tempStats.attack2 = attack2;
-        //tempStats.attack2.Power.BaseValue = attack2.Power.Value;
-        //tempStats.attack2.Range.BaseValue = attack2.Range.Value;
-        //tempStats.attack2.CritChance.BaseValue = attack2.CritChance.Value;
-        //tempStats.attack2.CritMod.BaseValue = attack2.CritMod.Value;
-        //tempStats.attack2.EffectChance.BaseValue = attack2.EffectChance.Value;
-        //tempStats.attack2.AttackTime.BaseValue = attack2.AttackTime.Value;
-        //tempStats.attack2.AttackSpeed.BaseValue = attack2.AttackSpeed.Value;
-        //tempStats.attack2.AttackSlow.BaseValue = attack2.hitSlowTime;
-
-        //AllStatuses status = new AllStatuses();
-        //Status status2 = status.Burn;
-        //Status status3 = status.Poison;
-
-        //AddStatus(status2);
-        //AddStatus(status3);
-
-
-
-        ////changes the monster's animation speed to match his own speed stat
-        //monsterMotion.speed = 1 * ((float)info.speBase / 100);
-
-        ////the attackSpeed float will determine which animations to use. faster enemies will have differing attack animations
-        //monsterMotion.SetFloat("attackSpeed", monsterMotion.speed);
-        //monsterMotion.SetInteger("dexID", info.dexId);
-        ////StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
-        ////GetStats(stats);
-
-        
-        
+        info.sortIndex = info.index; 
     }
 
 
@@ -412,17 +356,7 @@ public class Monster : MonoBehaviour
 
     }
 
-
-
-
-    //Get the increased stats from the monster's equipment
-    public void EquipmentBoosts()
-    {
-        //info.equippable1.Equip(gameObject.GetComponent<Monster>(), 1);
-        //info.equippable2.Equip(gameObject.GetComponent<Monster>(), 2);
-
-    }
-
+   
     //Equip a new item to this monster
     public void EquipItem(EquipmentScript equip, int slot)
     {
@@ -441,22 +375,14 @@ public class Monster : MonoBehaviour
             info.equip2Name = equip.itemName;
             info.equipment2 = equip;
 
-            //info.equipment2.trigger = new EventTrigger(info.equipment2.triggerType, info.equipment2);
-            //info.equipment2.GetEquipInfo(this, 2);
+          
         }
 
         MonsterStatMods();
         SaveMonsterToken();
         GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Remove(info.index);
         GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Add(info.index, PlayerPrefs.GetString(info.index.ToString()));
-        //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
 
-
-
-
-
-        //StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
-        //GetStats(stats);
     }
 
     //unequip an item from this monster
@@ -484,13 +410,7 @@ public class Monster : MonoBehaviour
         SaveMonsterToken();
         GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Remove(info.index);
         GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Add(info.index, PlayerPrefs.GetString(info.index.ToString()));
-        //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
-
-
-
-
-        //StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
-        //GetStats(stats);
+        
 
 
     }
@@ -1189,9 +1109,20 @@ public class Monster : MonoBehaviour
     }
 
     //call this when a monster is summoned to change its stats based on the weather, if at all
-    public void WeatherCheck()
+    public IEnumerator WeatherCheck()
     {
-
+        do
+        {
+            if (GameManager.Instance.activeMap.mapWeather == MapWeather.Sunny)
+            {
+                shadow.gameObject.SetActive(true);
+            }
+            else
+            {
+                shadow.gameObject.SetActive(false);
+            }
+            yield return new WaitForSeconds(.05f);
+        } while (true);
     }
 
 
@@ -1229,7 +1160,7 @@ public class Monster : MonoBehaviour
 
 
 
-        var attackSprite = Instantiate(GameManager.Instance.baseAttacks.attackDict[attack.name].attackAnimation, tower.attackPoint.transform.position, Quaternion.identity);
+        var attackSprite = Instantiate(GameManager.Instance.baseAttacks.attackDict[attack.name].attackAnimation, tower.attackPoint.transform.position, Quaternion.Euler(transform.eulerAngles));
         attackSprite.gameObject.name = attack.name;
         attackSprite.transform.localScale = attackSprite.transform.localScale * 2;
         attackSprite.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
@@ -1294,6 +1225,8 @@ public class Monster : MonoBehaviour
 
             }
         }
+
+        
 
         MonsterStatMods();
         

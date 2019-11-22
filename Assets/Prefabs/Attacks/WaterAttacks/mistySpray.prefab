@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5534219836665935089}
   - component: {fileID: 5534219836665935088}
-  - component: {fileID: 5534219836665935087}
   - component: {fileID: 7036716800564448957}
   - component: {fileID: 425855069514044314}
   - component: {fileID: 3708395814776550200}
@@ -53,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,25 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &5534219836665935087
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5534219836665935086}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: af085a362bd9556499eb0785b273ab87, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!60 &7036716800564448957
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -205,10 +185,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -226,7 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce4499fb3d7fdc4cbd3d24e8f0f49bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 0
+  hasAnimation: 0
+  hasRotation: 1
+  rotationRate: 50
+  delay: 1
   enemy: {fileID: 0}
   force: 0
   AtkStat: 0
@@ -240,20 +223,36 @@ MonoBehaviour:
   Attack:
     Range:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Power:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     CritChance:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     CritMod:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     EffectChance:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackTime:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackSpeed:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackSlow:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     name: 
     id: 0
     description: 
@@ -275,6 +274,15 @@ MonoBehaviour:
     type: 3}
   attackDemission: {fileID: 288764924364765949, guid: 3552b1d94b0ef33469caf77f46752c34,
     type: 3}
+  attackSprites:
+  - {fileID: 21300076, guid: 5bfe8198c060cfc42a31ce2d50a93ddd, type: 3}
+  - {fileID: 21300078, guid: 5bfe8198c060cfc42a31ce2d50a93ddd, type: 3}
+  - {fileID: 21300078, guid: 5bfe8198c060cfc42a31ce2d50a93ddd, type: 3}
+  - {fileID: 21300076, guid: 5bfe8198c060cfc42a31ce2d50a93ddd, type: 3}
+  - {fileID: 21300078, guid: 5bfe8198c060cfc42a31ce2d50a93ddd, type: 3}
+  - {fileID: 21300076, guid: 5bfe8198c060cfc42a31ce2d50a93ddd, type: 3}
+  - {fileID: 21300078, guid: 5bfe8198c060cfc42a31ce2d50a93ddd, type: 3}
+  - {fileID: 21300006, guid: 5bfe8198c060cfc42a31ce2d50a93ddd, type: 3}
 --- !u!114 &363065047159454327
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -109,7 +109,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         }
         
         //monster.GetComponent<Image>().raycastTarget = false;
-        monster.transform.localScale = new Vector3(monster.transform.localScale.x * 3.5f, monster.transform.localScale.y * 3.5f, 1f);
+        monster.transform.localScale = new Vector3(monster.transform.localScale.x * 2.8f, monster.transform.localScale.y * 2.8f, 1f);
 
 
         //monster.GetComponent<Monster>().frontModel.transform.localScale = new Vector3(18f, 18f, 1f);

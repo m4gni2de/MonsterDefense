@@ -208,7 +208,7 @@ public class Enemy : MonoBehaviour
 
         monster.info.specialAbility = abilities[monster.info.abilityName];
         monster.info.passiveSkill = new PassiveSkill(monster, skills[monster.info.skillName]);
-        //monster.PassiveSkill();
+        StartCoroutine(monster.WeatherCheck());
 
 
         int hpRand = Random.Range(0, 26);

@@ -1718,20 +1718,36 @@ MonoBehaviour:
     thunder:
       Range:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       Power:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritMod:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       EffectChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackTime:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSpeed:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSlow:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       name: Thunder
       id: 0
       description: A quick jolt of electricity
@@ -1753,20 +1769,36 @@ MonoBehaviour:
     voltStrike:
       Range:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       Power:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritMod:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       EffectChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackTime:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSpeed:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSlow:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       name: Volt Strike
       id: 1
       description: A powerful blast of electricity
@@ -1788,20 +1820,36 @@ MonoBehaviour:
     mistySpray:
       Range:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       Power:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritMod:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       EffectChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackTime:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSpeed:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSlow:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       name: Misty Spray
       id: 2
       description: A soft spray of mist.
@@ -1823,20 +1871,36 @@ MonoBehaviour:
     aquaDart:
       Range:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       Power:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritMod:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       EffectChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackTime:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSpeed:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSlow:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       name: Aqua Dart
       id: 3
       description: A soft spray of mist.
@@ -1858,20 +1922,36 @@ MonoBehaviour:
     shadowBP:
       Range:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       Power:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritMod:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       EffectChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackTime:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSpeed:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSlow:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       name: Shadow Blaze Punch
       id: 4
       description: A punch that calls upon power from the Underworld.
@@ -1893,20 +1973,36 @@ MonoBehaviour:
     windCyclone:
       Range:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       Power:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritMod:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       EffectChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackTime:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSpeed:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSlow:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       name: Wind Cyclone
       id: 5
       description: A swirling storm of wind and destruction.
@@ -1928,20 +2024,36 @@ MonoBehaviour:
     energyDragon:
       Range:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       Power:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritMod:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       EffectChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackTime:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSpeed:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSlow:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       name: Energy Dragon
       id: 6
       description: A blazing dragon of fire and fury.
@@ -1963,20 +2075,36 @@ MonoBehaviour:
     darknessPike:
       Range:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       Power:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritMod:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       EffectChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackTime:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSpeed:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSlow:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       name: Darkness Pike
       id: 7
       description: Spirits from departed souls pierce the living veil.
@@ -1995,6 +2123,159 @@ MonoBehaviour:
         type: 3}
       forceType: 0
       staminaGained: 0.06
+    Fireball:
+      Range:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      Power:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      CritChance:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      CritMod:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      EffectChance:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackTime:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackSpeed:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackSlow:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      name: Fireball
+      id: 8
+      description: An orb of fire.
+      type: Fire
+      effectName: Burn
+      range: 2
+      power: 105
+      critChance: 1
+      critMod: 1
+      effectChance: 0.15
+      attackTime: 0.8
+      attackSpeed: 7
+      hitSlowTime: 0.41
+      attackMode: 2
+      attackAnimation: {fileID: 7626052688776182344, guid: 5dd8cd58c89813f4d9e8ce5232c1a215,
+        type: 3}
+      forceType: 0
+      staminaGained: 0.06
+    FrostShot:
+      Range:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      Power:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      CritChance:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      CritMod:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      EffectChance:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackTime:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackSpeed:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackSlow:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      name: Frost Shot
+      id: 9
+      description: A frigid blast of sub-arctic energy.
+      type: Ice
+      effectName: none
+      range: 3
+      power: 85
+      critChance: 1
+      critMod: 1
+      effectChance: 0.15
+      attackTime: 0.7
+      attackSpeed: 5
+      hitSlowTime: 0.84
+      attackMode: 2
+      attackAnimation: {fileID: 5904289268059823325, guid: c5704dcdf0732814c82e1eaf9591f673,
+        type: 3}
+      forceType: 0
+      staminaGained: 0.08
+    VirusBlaster:
+      Range:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      Power:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      CritChance:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      CritMod:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      EffectChance:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackTime:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackSpeed:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackSlow:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      name: Virus Blaster
+      id: 10
+      description: An orb of energy from the digital plane.
+      type: Mechanical
+      effectName: none
+      range: 3
+      power: 85
+      critChance: 1
+      critMod: 1
+      effectChance: 0.15
+      attackTime: 0.7
+      attackSpeed: 5
+      hitSlowTime: 0.84
+      attackMode: 2
+      attackAnimation: {fileID: 6077075069628503213, guid: 26f0c75203d106c44a9546618a7a3f6e,
+        type: 3}
+      forceType: 0
+      staminaGained: 0.08
   attackModeSprites:
   - {fileID: 21300000, guid: c1c43d0874389e2439a9652eab1d951b, type: 3}
   - {fileID: 21300002, guid: c1c43d0874389e2439a9652eab1d951b, type: 3}
@@ -2113,6 +2394,7 @@ MonoBehaviour:
       - Aqua Dart
       - Wind Cyclone
       - Energy Dragon
+      - Virus Blaster
       abilities:
       - Of A Feather
       skills:
@@ -2146,6 +2428,7 @@ MonoBehaviour:
       - Energy Dragon
       - Aqua Dart
       - Thunder
+      - Frost Shot
       abilities:
       - Ice Storm
       skills:
@@ -2179,6 +2462,7 @@ MonoBehaviour:
       - Darkness Pike
       - Aqua Dart
       - Shadow Blaze Punch
+      - Fireball
       abilities:
       - Serpentine Venom
       skills:
@@ -2763,6 +3047,24 @@ MonoBehaviour:
       duration: 30
       interval: 30
       statusSprite: {fileID: 21300012, guid: 3e8e14b5d54af9f49b0a081c43084a40, type: 3}
+    Glitched:
+      name: Glitched
+      effectType: Mechanical
+      description: Lowers Defense by 5% and Speed by 8% every 5 seconds, for 30 seconds
+        total.
+      hpDrop: 0
+      atkDrop: 0
+      defDrop: -0.05
+      speDrop: -0.08
+      precDrop: 0
+      atkPowerDrop: 0
+      atkTimeDrop: 0
+      evasionDrop: 0
+      enGenDrop: 0
+      speedDrop: 0
+      duration: 30
+      interval: 5
+      statusSprite: {fileID: 21300016, guid: 3e8e14b5d54af9f49b0a081c43084a40, type: 3}
 --- !u!114 &3507662898205109202
 MonoBehaviour:
   m_ObjectHideFlags: 0

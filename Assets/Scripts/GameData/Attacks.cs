@@ -239,6 +239,69 @@ public class AllAttacks
 
     };
 
+    public MonsterAttack Fireball = new MonsterAttack
+    {
+        name = "Fireball",
+        id = 8,
+        description = "An orb of fire.",
+        type = "Fire",
+        effectName = "Burn",
+        range = 2,
+        power = 105,
+        critChance = 1f,
+        critMod = 1f,
+        attackTime = 0.8f,
+        effectChance = .15f,
+        attackSpeed = 7f,
+        hitSlowTime = .41f,
+        attackMode = AttackMode.Projectile,
+        staminaGained = .06f,
+
+
+    };
+
+    public MonsterAttack FrostShot = new MonsterAttack
+    {
+        name = "Frost Shot",
+        id = 9,
+        description = "A frigid blast of sub-arctic energy.",
+        type = "Ice",
+        effectName = "none",
+        range = 3,
+        power = 85,
+        critChance = 1f,
+        critMod = 1f,
+        attackTime = 0.7f,
+        effectChance = .15f,
+        attackSpeed = 5f,
+        hitSlowTime = .84f,
+        attackMode = AttackMode.Projectile,
+        staminaGained = .08f,
+
+
+    };
+
+    public MonsterAttack VirusBlaster = new MonsterAttack
+    {
+        name = "Virus Blaster",
+        id = 10,
+        description = "An orb of energy from the digital plane.",
+        type = "Mechanical",
+        effectName = "Glitched",
+        range = 2,
+        power = 115,
+        critChance = 1f,
+        critMod = 1f,
+        attackTime = 0.7f,
+        effectChance = .15f,
+        attackSpeed = 6.5f,
+        hitSlowTime = .77f,
+        attackMode = AttackMode.Projectile,
+        staminaGained = .08f,
+
+
+    };
+
 
 }
 
@@ -282,6 +345,9 @@ public class Attacks : MonoBehaviour
         attackDict.Add(allAttacks.windCyclone.name, allAttacks.windCyclone);
         attackDict.Add(allAttacks.energyDragon.name, allAttacks.energyDragon);
         attackDict.Add(allAttacks.darknessPike.name, allAttacks.darknessPike);
+        attackDict.Add(allAttacks.Fireball.name, allAttacks.Fireball);
+        attackDict.Add(allAttacks.FrostShot.name, allAttacks.FrostShot);
+        attackDict.Add(allAttacks.VirusBlaster.name, allAttacks.VirusBlaster);
 
 
         //loops through all of the attacks and separates them in to lists based on their type

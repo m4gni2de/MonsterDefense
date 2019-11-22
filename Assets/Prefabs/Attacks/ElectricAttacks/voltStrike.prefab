@@ -60,6 +60,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -114,6 +115,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce4499fb3d7fdc4cbd3d24e8f0f49bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  motion:
+    hasAnimation: 1
+    hasRotation: 1
+    angularVelocity: 50
   delay: 0
   enemy: {fileID: 0}
   force: 0
@@ -128,20 +133,36 @@ MonoBehaviour:
   Attack:
     Range:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Power:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     CritChance:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     CritMod:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     EffectChance:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackTime:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackSpeed:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackSlow:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     name: 
     id: 0
     description: 
@@ -158,10 +179,12 @@ MonoBehaviour:
     attackMode: 1
     attackAnimation: {fileID: 0}
     forceType: 0
+    staminaGained: 0
   attackEmission: {fileID: 195635215571573003, guid: 790503c4a12ca6e4eb140bd0cc1d9cbc,
     type: 3}
   attackDemission: {fileID: 752517181121586637, guid: ca78dc033cd38df4bb5e20d0fb27a5c8,
     type: 3}
+  attackSprites: []
 --- !u!60 &1948935412602976179
 PolygonCollider2D:
   m_ObjectHideFlags: 0

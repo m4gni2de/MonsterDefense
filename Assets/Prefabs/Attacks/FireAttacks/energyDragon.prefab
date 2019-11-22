@@ -118,7 +118,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce4499fb3d7fdc4cbd3d24e8f0f49bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 0
+  motion:
+    hasAnimation: 1
+    hasRotation: 0
+    angularVelocity: 0
+  delay: 1
   enemy: {fileID: 0}
   force: 0
   AtkStat: 0
@@ -132,20 +136,36 @@ MonoBehaviour:
   Attack:
     Range:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Power:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     CritChance:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     CritMod:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     EffectChance:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackTime:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackSpeed:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackSlow:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     name: 
     id: 0
     description: 
@@ -167,6 +187,7 @@ MonoBehaviour:
     type: 3}
   attackDemission: {fileID: 8553430605114916879, guid: 06ea7b119f74e8e428f9190d00604510,
     type: 3}
+  attackSprites: []
 --- !u!114 &5811050810138414328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,7 +222,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5811050810138414331}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a1d65c27877f9cb44a58f1b3492bcc9c, type: 2}
   m_CullingMode: 0

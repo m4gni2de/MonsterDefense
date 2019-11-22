@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5517362757902793457}
   - component: {fileID: 5984104552445695618}
-  - component: {fileID: 7197524982129808425}
   - component: {fileID: 9011916428772318293}
   - component: {fileID: 7538218527804863934}
   - component: {fileID: 783222936716231165}
@@ -53,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,25 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &7197524982129808425
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8854931403561263675}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 88868b8e224371241bbfc3f1183caf9b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &9011916428772318293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce4499fb3d7fdc4cbd3d24e8f0f49bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 0
+  motion:
+    hasAnimation: 0
+    hasRotation: 0
+    angularVelocity: 0
+  delay: 0.5
   enemy: {fileID: 0}
   force: 0
   AtkStat: 0
@@ -130,20 +114,36 @@ MonoBehaviour:
   Attack:
     Range:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Power:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     CritChance:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     CritMod:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     EffectChance:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackTime:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackSpeed:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackSlow:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     name: 
     id: 0
     description: 
@@ -165,6 +165,11 @@ MonoBehaviour:
     type: 3}
   attackDemission: {fileID: 288764924364765949, guid: 3552b1d94b0ef33469caf77f46752c34,
     type: 3}
+  attackSprites:
+  - {fileID: 21300000, guid: 7e322bbdac5e2a34a809b724a950f9c6, type: 3}
+  - {fileID: 21300000, guid: 2becc8ffa4918804a88b51bdc332d5db, type: 3}
+  - {fileID: 21300000, guid: 72d068b3ade13d247942e114028b33a1, type: 3}
+  - {fileID: 21300000, guid: 2becc8ffa4918804a88b51bdc332d5db, type: 3}
 --- !u!50 &7538218527804863934
 Rigidbody2D:
   serializedVersion: 4
@@ -179,8 +184,8 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1

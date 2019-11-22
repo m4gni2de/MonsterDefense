@@ -655,7 +655,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
         //active the monster's passive skill
         monster.PassiveSkill();
-       
+        StartCoroutine(monster.WeatherCheck());
+
     }
 
     //this is used to add energy to the player's total for the map, as well as check to make sure this monster has enough energy to be summoned

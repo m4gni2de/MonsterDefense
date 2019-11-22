@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,6 +116,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce4499fb3d7fdc4cbd3d24e8f0f49bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  motion:
+    hasAnimation: 1
+    hasRotation: 0
+    angularVelocity: 0
   delay: 0
   enemy: {fileID: 0}
   force: 0
@@ -130,20 +134,36 @@ MonoBehaviour:
   Attack:
     Range:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Power:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     CritChance:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     CritMod:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     EffectChance:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackTime:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackSpeed:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackSlow:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     name: 
     id: 0
     description: 
@@ -165,6 +185,7 @@ MonoBehaviour:
     type: 3}
   attackDemission: {fileID: 5303309661482110647, guid: 76f730a7d5304a846b369d55ee79b8ac,
     type: 3}
+  attackSprites: []
 --- !u!50 &1709067432520742190
 Rigidbody2D:
   serializedVersion: 4

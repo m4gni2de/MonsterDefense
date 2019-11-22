@@ -100,6 +100,17 @@ public class AllStatuses
         duration = 30f,
         interval = 30f,
     };
+
+    public Status Glitched = new Status
+    {
+        name = "Glitched",
+        effectType = "Mechanical",
+        description = "Lowers Defense by 5% and Speed by 8% every 5 seconds, for 30 seconds total.",
+        defDrop = -.05f,
+        speDrop = -.08f,
+        duration = 30f,
+        interval = 5f,
+    };
 }
 
 public class AllStatusEffects : MonoBehaviour
@@ -120,6 +131,7 @@ public class AllStatusEffects : MonoBehaviour
         allStatusDict.Add(allStatuses.Poison.name, allStatuses.Poison);
         allStatusDict.Add(allStatuses.Deafen.name, allStatuses.Deafen);
         allStatusDict.Add(allStatuses.Confusion.name, allStatuses.Confusion);
+        allStatusDict.Add(allStatuses.Glitched.name, allStatuses.Glitched);
     }
 }
 

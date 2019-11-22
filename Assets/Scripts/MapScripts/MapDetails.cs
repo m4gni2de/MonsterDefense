@@ -590,6 +590,9 @@ public class MapDetails : MonoBehaviour
         for (int i = 0; i < enemies.Length; i++)
         {
             liveEnemies.Add(enemies[i].GetComponent<Enemy>());
+
+            
+            
         }
     }
 
@@ -609,7 +612,6 @@ public class MapDetails : MonoBehaviour
             {
 
                 enemy.GetComponent<Monster>().GlobalStatMod(this);
-                
             }
 
         }
@@ -618,7 +620,7 @@ public class MapDetails : MonoBehaviour
             foreach (Monster monster in liveTowers)
             {
                 monster.GlobalStatMod(this);
-                    
+
             }
         }
     }

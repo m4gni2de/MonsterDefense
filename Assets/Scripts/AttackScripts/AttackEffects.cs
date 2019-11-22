@@ -3,8 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class AttackEffects : MonoBehaviour
 {
+
+    public bool hasAnimation;
+    public bool hasRotation;
+    public float rotationRate;
+
+
     private Vector2 direction;
     private bool isMoving;
     public float delay;
@@ -25,9 +32,18 @@ public class AttackEffects : MonoBehaviour
 
     private Animator animator;
 
+    //fill this with the sprites of this attack that are to be animated. this is to prevent using animations for everything
+    public Sprite[] attackSprites;
+
+    
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        
+        if (hasAnimation)
+        {
+            animator = GetComponent<Animator>();
+        }
+        
     }
 
     // Start is called before the first frame update
@@ -41,7 +57,21 @@ public class AttackEffects : MonoBehaviour
             var x = Instantiate(attackEmission, transform.position, Quaternion.identity);
             x.GetComponent<ParticleSystem>().GetComponent<Renderer>().sortingLayerName = gameObject.GetComponent<Renderer>().sortingLayerName;
         }
-        Destroy(gameObject, this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length + delay);
+
+
+        //if an attack doesn't need an animation and only uses a sprite loop, don't attach an animation to it
+        if (hasAnimation)
+        {
+            Destroy(gameObject, this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length + delay);
+        }
+        else
+        {
+            Destroy(gameObject, delay);
+            StartCoroutine(SpriteAnimation());
+        }
+
+       
+        
     }
 
     // Update is called once per frame
@@ -49,14 +79,35 @@ public class AttackEffects : MonoBehaviour
     {
         if (isMoving)
         {
-            
             transform.Translate(direction / (150 /Attack.attackSpeed), Space.World);
-            
-            
+        }
+
+        if (hasRotation)
+        {
+            transform.Rotate(transform.rotation.x, transform.rotation.y, transform.rotation.z + rotationRate);
         }
     }
 
-   
+   public IEnumerator SpriteAnimation()
+    {
+        int i = 0;
+
+        if (attackSprites.Length > 0)
+        {
+            do
+            {
+                GetComponent<SpriteRenderer>().sprite = attackSprites[i];
+                yield return new WaitForSeconds(.05f);
+
+                i += 1;
+
+                if (i >= attackSprites.Length)
+                {
+                    i = 0;
+                }
+            } while (true);
+        }
+    }
 
     //recieve attacker information from the Tower Template script. holds data about the attack and attacker
     public void FromAttacker(MonsterAttack attack, string atkName, string atkType, float atkStat, int attackPower, int attackerLevel, float critChance, float critMod, Monster attackingMonster)
@@ -72,7 +123,7 @@ public class AttackEffects : MonoBehaviour
         attacker = attackingMonster;
         Attack = attack;
 
-        animator.speed = animator.speed + (animator.speed / Attack.attackTime);
+        //animator.speed = animator.speed + (animator.speed / Attack.attackTime);
 
     }
 
@@ -100,9 +151,10 @@ public class AttackEffects : MonoBehaviour
                 aimAngle = Mathf.PI * 2 + aimAngle;
             }
 
-           
 
-            transform.rotation = Quaternion.Euler(0f, 0f, aimAngle);
+            
+            transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + aimAngle);
+            //transform.localEulerAngles = new Vector3(transform.rotation.x, transform.rotation.y, transform.localEulerAngles.z + aimAngle);
 
             
         }
