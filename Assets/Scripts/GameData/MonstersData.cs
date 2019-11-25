@@ -12,6 +12,7 @@ public enum MonsterClass
     Beast,
     Humanoid,
     Serpentine,
+    Dragon,
 }
 
 
@@ -54,6 +55,7 @@ public struct MonsterData
     //what items this monster can drop on defeat
     public string[] itemDrops;
 
+    public List<MonsterAttack> attacks;
 };
 
 
@@ -68,124 +70,34 @@ public class AllMonsterData
 {
     public MonsterData Lichenthrope = new MonsterData
     {
-        id = 1,
-        species = "Lichenthrope",
-        type1 = "Nature",
-        type2 = "none",
-        Class = MonsterClass.Beast,
-        hpBase = 131,
-        atkBase = 120,
-        defBase = 118,
-        speBase = 24,
-        precBase = 86,
-        maxLevel = 100,
-        levelConst = 1.9f,
-        staminaBase = 70,
-        energyGenBase = 77,
-        coinGenBase = 4.3f,
-        energyCost = 7f,
-        abilities = new string[1] { "Natural Quake" },
-        skills = new string[1] { "Natural Armor"},
-        dropRate = .2f,
-        itemDrops = new string[2] { "Nature Rune", "Nature Shard" },
+        
 
     };
 
 
     public MonsterData Armordan = new MonsterData
     {
-        id = 2,
-        species = "Armordan",
-        type1 = "Normal",
-        type2 = "Mechanical",
-        Class = MonsterClass.Humanoid,
-        hpBase = 98,
-        atkBase = 96,
-        defBase = 130,
-        speBase = 39,
-        precBase = 140,
-        maxLevel = 100,
-        levelConst = 1.9f,
-        staminaBase = 90,
-        energyGenBase = 95,
-        coinGenBase = 3.4f,
-        energyCost = 5.5f,
-        abilities = new string[1] { "Beast Slayer" },
-        skills = new string[1] { "Item Finder" },
-        dropRate = .2f,
-        itemDrops = new string[2] { "Nature Rune", "Nature Shard" },
-
+       
     };
 
     public MonsterData Fowitzer = new MonsterData
     {
-        id = 3,
-        species = "Fowitzer",
-        type1 = "Mechanical",
-        type2 = "none",
-        Class = MonsterClass.Flying,
-        hpBase = 85,
-        atkBase = 114,
-        defBase = 76,
-        speBase = 115,
-        precBase = 140,
-        maxLevel = 100,
-        levelConst = 1.9f,
-        staminaBase = 90,
-        coinGenBase = 2.6f,
-        energyGenBase = 86,
-        energyCost = 6.5f,
-        dropRate = .2f,
-        abilities = new string[1] { "Of A Feather" },
-        skills = new string[1] { "Item Finder" },
+        
     };
 
     public MonsterData Iceros = new MonsterData
     {
-        id = 4,
-        species = "Iceros",
-        type1 = "Ice",
-        type2 = "none",
-        Class = MonsterClass.Beast,
-        hpBase = 112,
-        atkBase = 114,
-        defBase = 132,
-        speBase = 35,
-        precBase = 96,
-        maxLevel = 100,
-        levelConst = 1.9f,
-        staminaBase = 90,
-        coinGenBase = 2.9f,
-        energyGenBase = 64,
-        energyCost = 8.5f,
-        abilities = new string[1] { "Ice Storm" },
-        skills = new string[1] { "Terrifying Gaze" },
-        dropRate = .2f,
-        itemDrops = new string[2] { "Ice Shard", "Ice Rune" },
+        
     };
 
     public MonsterData Vypior = new MonsterData
     {
-        id = 5,
-        species = "Vypior",
-        type1 = "Shadow",
-        type2 = "Poison",
-        Class = MonsterClass.Serpentine,
-        hpBase = 86,
-        atkBase = 131,
-        defBase = 72,
-        speBase = 70,
-        precBase = 103,
-        maxLevel = 100,
-        levelConst = 2.1f,
-        staminaBase = 110,
-        coinGenBase = 2.9f,
-        energyGenBase = 84,
-        energyCost = 10.1f,
-        abilities = new string[1] { "Serpentine Venom" },
-        skills = new string[1] { "Item Finder" },
-        dropRate = .2f,
-        itemDrops = new string[1] { "Shadow Shard" },
+        
+    };
+
+    public MonsterData Skaeren = new MonsterData
+    {
+        
     };
 
 
@@ -200,6 +112,8 @@ public class MonstersData : MonoBehaviour
 
     public AllMonsterData allMonsterData = new AllMonsterData();
     public MonsterTypeDetails allTypes = new MonsterTypeDetails();
+    
+    
     public Dictionary<string, MonsterData> monstersAllDict = new Dictionary<string, MonsterData>();
     public Dictionary<int, string> monstersByIdDict = new Dictionary<int, string>();
 
@@ -223,12 +137,14 @@ public class MonstersData : MonoBehaviour
 
     public void AllMonsters()
     {
+        
        
         monstersAllDict.Add(allMonsterData.Lichenthrope.species, allMonsterData.Lichenthrope);
         monstersAllDict.Add(allMonsterData.Armordan.species, allMonsterData.Armordan);
         monstersAllDict.Add(allMonsterData.Fowitzer.species, allMonsterData.Fowitzer);
         monstersAllDict.Add(allMonsterData.Iceros.species, allMonsterData.Iceros);
         monstersAllDict.Add(allMonsterData.Vypior.species, allMonsterData.Vypior);
+        monstersAllDict.Add(allMonsterData.Skaeren.species, allMonsterData.Skaeren);
 
 
         monstersByIdDict.Add(allMonsterData.Lichenthrope.id, allMonsterData.Lichenthrope.species);
@@ -236,6 +152,7 @@ public class MonstersData : MonoBehaviour
         monstersByIdDict.Add(allMonsterData.Fowitzer.id, allMonsterData.Fowitzer.species);
         monstersByIdDict.Add(allMonsterData.Iceros.id, allMonsterData.Iceros.species);
         monstersByIdDict.Add(allMonsterData.Vypior.id, allMonsterData.Vypior.species);
+        monstersByIdDict.Add(allMonsterData.Skaeren.id, allMonsterData.Skaeren.species);
     }
 
     public void AllTypes()

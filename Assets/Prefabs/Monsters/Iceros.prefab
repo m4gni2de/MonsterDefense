@@ -8125,7 +8125,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6076560620293254731}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_Children:
@@ -8679,24 +8679,42 @@ MonoBehaviour:
     energyGenBase: 0
     energyCost: 0
     Class: 1
+    maxHP: 0
+    currentHP: 0
     attack1Name: 
     attack1:
       Range:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       Power:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritMod:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       EffectChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackTime:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSpeed:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSlow:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       name: 
       id: 0
       description: 
@@ -8718,20 +8736,36 @@ MonoBehaviour:
     attack2:
       Range:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       Power:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritMod:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       EffectChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackTime:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSpeed:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSlow:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       name: 
       id: 0
       description: 
@@ -8786,20 +8820,36 @@ MonoBehaviour:
       targetNumber: 0
       Range:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       Power:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritMod:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       EffectChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackTime:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSpeed:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSlow:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       range: 0
       power: 0
       critChance: 0
@@ -8811,44 +8861,100 @@ MonoBehaviour:
       attackMode: 0
     skillName: 
     passiveSkill:
-      name: 
-      description: 
+      Owner: {fileID: 0}
+      skill:
+        name: 
+        description: 
+        triggerType: 0
+        trigger:
+          triggerType: 0
+          id: 0
+      triggerCount: 0
+      mod: []
     equip1Name: 
     equip2Name: 
     equipment1: {fileID: 0}
     equipment2: {fileID: 0}
     HP:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     HPPotential:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Attack:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackPotential:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Defense:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     DefensePotential:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Speed:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     SpeedPotential:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Precision:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     PrecisionPotential:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Stamina:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     EnergyGeneration:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     EnergyCost:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     CoinGeneration:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     koCount: 0
     isEquipped: 0
     monsterRank: 0
     sortIndex: 0
+    EnergyDamageMod:
+      BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
+    PhysicalDamageMod:
+      BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
+    ExplodeDamageMod:
+      BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
+    PierceDamageMod:
+      BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
+    DropRateMod:
+      BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
   specs:
     legs:
     - {fileID: 6409879638423811391}
@@ -8860,51 +8966,95 @@ MonoBehaviour:
   tempStats:
     HP:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     HPPotential:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Attack:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     AttackPotential:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Defense:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     DefensePotential:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Speed:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     SpeedPotential:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Precision:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     PrecisionPotential:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     Stamina:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     EnergyGeneration:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     CoinGeneration:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     EnergyCost:
       BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     evasionBase: 0
     critBase: 0
     attack1:
       Range:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       Power:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritMod:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       EffectChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackTime:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSpeed:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSlow:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       name: 
       id: 0
       description: 
@@ -8925,20 +9075,36 @@ MonoBehaviour:
     attack2:
       Range:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       Power:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       CritMod:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       EffectChance:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackTime:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSpeed:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       AttackSlow:
         BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
       name: 
       id: 0
       description: 
@@ -8956,6 +9122,26 @@ MonoBehaviour:
       attackAnimation: {fileID: 0}
       forceType: 0
       staminaGained: 0
+    EnergyDamageMod:
+      BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
+    PhysicalDamageMod:
+      BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
+    ExplodeDamageMod:
+      BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
+    PierceDamageMod:
+      BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
+    DropRateMod:
+      BaseValue: 0
+      _value: 0
+      lastBaseValue: -3.4028235e+38
     energyDamageMod: 0
     physicalDamageMod: 0
     explodeDamageMod: 0
@@ -8999,6 +9185,8 @@ MonoBehaviour:
   allStats: []
   statMods: []
   currentMapKOs: 0
+  ownedGlobalStats: []
+  activeGlobalStats: []
 --- !u!114 &8671056499914141586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9065,52 +9253,7 @@ MonoBehaviour:
   currentPath: {fileID: 0}
   currentTile: 0
   currentIndex: 0
-  stats:
-    species: 
-    name: 
-    type1: 
-    type2: 
-    id: 0
-    hpPot: 0
-    hpBase: 0
-    hpMax: 0
-    currentHp: 0
-    defPot: 0
-    defBase: 0
-    speBase: 0
-    spePot: 0
-    level: 0
-    expGiven: 0
-    evasion: 0
-    HP:
-      BaseValue: 0
-    HPPotential:
-      BaseValue: 0
-    Attack:
-      BaseValue: 0
-    AttackPotential:
-      BaseValue: 0
-    Defense:
-      BaseValue: 0
-    DefensePotential:
-      BaseValue: 0
-    Speed:
-      BaseValue: 0
-    SpeedPotential:
-      BaseValue: 0
-    Precision:
-      BaseValue: 0
-    PrecisionPotential:
-      BaseValue: 0
-    Stamina:
-      BaseValue: 0
-    EnergyGeneration:
-      BaseValue: 0
-    EnergyCost:
-      BaseValue: 0
-    evasionBase: 0
-    critBase: 0
-    Class: 1
+  monster: {fileID: 0}
   enemyCanvas: {fileID: 1013102353599686966}
   enemyHpSlider: {fileID: 1053769358778557177}
   damageText: {fileID: 865395030920622845, guid: 33e9bf084464ef646b8774eff963dc42,
@@ -9501,11 +9644,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7498313158567451187, guid: 3229dabfcd93ed8499bd87395f2bbe20,
-        type: 3}
-      propertyPath: BarProgress
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3097301570279028466, guid: 3229dabfcd93ed8499bd87395f2bbe20,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9610,6 +9748,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498313158567451187, guid: 3229dabfcd93ed8499bd87395f2bbe20,
+        type: 3}
+      propertyPath: BarProgress
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7044437945718067163, guid: 3229dabfcd93ed8499bd87395f2bbe20,
         type: 3}
@@ -9779,13 +9922,33 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2772485228241849735, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5939123310183928353, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 4a82757bcbcd5e04ca4b0506682fe567,
         type: 3}
-    - target: {fileID: 2772485228241849735, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+    - target: {fileID: 3928943154953569328, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051794378144148041, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2509045036938193218, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6898900094927576474, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
         type: 3}
       propertyPath: m_Layer
       value: 5
@@ -9801,26 +9964,6 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5020150163970001141, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
-        type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6898900094927576474, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
-        type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2509045036938193218, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
-        type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4051794378144148041, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
-        type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3928943154953569328, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
         type: 3}
       propertyPath: m_Layer
       value: 5

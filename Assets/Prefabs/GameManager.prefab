@@ -2287,6 +2287,11 @@ MonoBehaviour:
   shadowAttacks: []
   natureAttacks: []
   fireAttacks: []
+  iceAttacks: []
+  poisonAttacks: []
+  magicAttacks: []
+  mechAttacks: []
+  normalAttacks: []
 --- !u!114 &6317396937658932165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2333,6 +2338,7 @@ MonoBehaviour:
       itemDrops:
       - Nature Rune
       - Nature Shard
+      attacks: []
     Armordan:
       monsterPrefab: {fileID: 8546301644363537172, guid: ed1aaac6a03f6e44cb3aa9f6338f85d8,
         type: 3}
@@ -2369,6 +2375,7 @@ MonoBehaviour:
       itemDrops:
       - Mechanical Rune
       - Mechanical Shard
+      attacks: []
     Fowitzer:
       monsterPrefab: {fileID: 1557278105191115862, guid: 684c16b28784dfc46830d4417162e3df,
         type: 3}
@@ -2403,6 +2410,7 @@ MonoBehaviour:
       itemDrops:
       - Mechanical Rune
       - Spiked Knuckles
+      attacks: []
     Iceros:
       monsterPrefab: {fileID: 7742632022644978468, guid: 7373b0563b529b44886d926dba691deb,
         type: 3}
@@ -2437,6 +2445,7 @@ MonoBehaviour:
       itemDrops:
       - Ice Shard
       - Ice Rune
+      attacks: []
     Vypior:
       monsterPrefab: {fileID: 7745724050459182641, guid: 1ea93981b702dc0428bcfa3e5beae5c3,
         type: 3}
@@ -2470,6 +2479,88 @@ MonoBehaviour:
       dropRate: 0.2
       itemDrops:
       - Shadow Shard
+      attacks: []
+    Skaeren:
+      monsterPrefab: {fileID: 8861124303440786022, guid: ab1bd6c3337fd1e40a93e2687644338a,
+        type: 3}
+      frontIcon: {fileID: 21300000, guid: 45626beae37921d46ac3ebc9ea7e4d58, type: 3}
+      id: 6
+      species: Skaeren
+      type1: Fire
+      type2: none
+      Class: 4
+      hpBase: 76
+      atkBase: 104
+      defBase: 93
+      speBase: 79
+      precBase: 88
+      staminaBase: 110
+      energyGenBase: 77
+      energyCost: 9.6
+      coinGenBase: 2.7
+      maxLevel: 100
+      levelConst: 1.9
+      baseAttacks:
+      - Fireball
+      - Virus Blaster
+      - Energy Dragon
+      abilities:
+      - Serpentine Venom
+      skills:
+      - Item Finder
+      dropRate: 0.2
+      itemDrops:
+      - Fire Shard
+      attacks:
+      - Range:
+          BaseValue: 0
+          _value: 0
+          lastBaseValue: 0
+        Power:
+          BaseValue: 0
+          _value: 0
+          lastBaseValue: 0
+        CritChance:
+          BaseValue: 0
+          _value: 0
+          lastBaseValue: 0
+        CritMod:
+          BaseValue: 0
+          _value: 0
+          lastBaseValue: 0
+        EffectChance:
+          BaseValue: 0
+          _value: 0
+          lastBaseValue: 0
+        AttackTime:
+          BaseValue: 0
+          _value: 0
+          lastBaseValue: 0
+        AttackSpeed:
+          BaseValue: 0
+          _value: 0
+          lastBaseValue: 0
+        AttackSlow:
+          BaseValue: 0
+          _value: 0
+          lastBaseValue: 0
+        name: 
+        id: 0
+        description: 
+        type: 
+        effectName: 
+        range: 0
+        power: 0
+        critChance: 0
+        critMod: 0
+        effectChance: 0
+        attackTime: 0
+        attackSpeed: 0
+        hitSlowTime: 0
+        attackMode: 0
+        attackAnimation: {fileID: 0}
+        forceType: 0
+        staminaGained: 0
   allTypes:
     Normal:
       name: Normal
@@ -2803,10 +2894,9 @@ MonoBehaviour:
       pathCode:
       - 006007018021034037036025038041054055066067064051048049060047044031028017014001
       tileTypeCode: 
-      enemies: 010000000200000003000000
+      enemies: 0500000006000000
       enemyChance:
-      - 333
-      - 666
+      - 500
       - 1000
       enemyMax: 50
       levelMin: 1

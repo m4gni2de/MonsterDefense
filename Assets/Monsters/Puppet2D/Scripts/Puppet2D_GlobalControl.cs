@@ -194,6 +194,7 @@ namespace Puppet2D
 
 						transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, -transform.localScale.z);
 						transform.localEulerAngles = new Vector3(transform.rotation.eulerAngles.x, startRotationY + 180, transform.rotation.eulerAngles.z);
+                        
 
 					}
 					else
@@ -214,6 +215,7 @@ namespace Puppet2D
 		}
 		void LateUpdate()
 		{
+           
 			if (lateUpdate)
 			{
 
@@ -255,14 +257,18 @@ namespace Puppet2D
                         //transform.position = new Vector3(transform.position.x * -1, transform.position.y, transform.position.z);
 						transform.localEulerAngles = new Vector3(transform.rotation.eulerAngles.x, startRotationY + 180, transform.rotation.eulerAngles.z);
 
-					}
+                        Debug.Log(transform.localEulerAngles.y);
+
+                    }
 					else
 					{
 
 						transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y), Mathf.Abs(transform.localScale.z));
                         //transform.position = new Vector3(transform.position.x * -1, transform.position.y, transform.position.z);
                         transform.localEulerAngles = new Vector3(transform.rotation.eulerAngles.x, startRotationY, transform.rotation.eulerAngles.z);
-					}
+
+                        Debug.Log(transform.localEulerAngles.y);
+                    }
 					internalFlip = flip;
 					Run();
 				}

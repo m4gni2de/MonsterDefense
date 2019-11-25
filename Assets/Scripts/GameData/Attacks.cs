@@ -324,6 +324,11 @@ public class Attacks : MonoBehaviour
     public List<string> shadowAttacks = new List<string>();
     public List<string> natureAttacks = new List<string>();
     public List<string> fireAttacks = new List<string>();
+    public List<string> iceAttacks = new List<string>();
+    public List<string> poisonAttacks = new List<string>();
+    public List<string> magicAttacks = new List<string>();
+    public List<string> mechAttacks = new List<string>();
+    public List<string> normalAttacks = new List<string>();
 
 
 
@@ -381,6 +386,36 @@ public class Attacks : MonoBehaviour
             if (attack.Value.type == "Fire")
             {
                 fireAttacks.Add(attack.Key);
+
+            }
+
+            if (attack.Value.type == "Poison")
+            {
+                poisonAttacks.Add(attack.Key);
+
+            }
+
+            if (attack.Value.type == "Magic")
+            {
+                magicAttacks.Add(attack.Key);
+
+            }
+
+            if (attack.Value.type == "Ice")
+            {
+                iceAttacks.Add(attack.Key);
+
+            }
+
+            if (attack.Value.type == "Mechanical")
+            {
+                mechAttacks.Add(attack.Key);
+
+            }
+
+            if (attack.Value.type == "Normal")
+            {
+                normalAttacks.Add(attack.Key);
 
             }
         }

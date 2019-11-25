@@ -22465,6 +22465,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f9826f595784348498b57bcf6b2c8b1f, type: 3}
   - {fileID: 8300000, guid: 54af0c8b7775806418e183c82289e4d0, type: 3}
   - {fileID: 8300000, guid: 5102b4bf97aafbe4f89b6500ea2f4738, type: 3}
+  sunRotateTime: 0.0002
 --- !u!82 &1146193634
 AudioSource:
   m_ObjectHideFlags: 0
@@ -24075,6 +24076,7 @@ MonoBehaviour:
   tileNumber: 0
   mapTile: {fileID: 504203571771387818, guid: 42051998af0b7324590a2d750fc5b774, type: 3}
   mapCanvas: {fileID: 1263612298}
+  activeGlobalStats: []
   path: []
   pathOrder: []
   pathCodes: []
@@ -24099,6 +24101,7 @@ MonoBehaviour:
     energyRate: 0
     mapHealthMax: 0
     mapHealthCurrent: 0
+    autoPlay: 0
   mapInfoMenu: {fileID: 0}
   cameraMin: 0
   cameraMax: 0

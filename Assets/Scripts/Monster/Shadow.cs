@@ -22,8 +22,11 @@ public class Shadow : MonoBehaviour
     {
         //create a copy of the monster's moving body parts and set them as a parents of the monster's shadow
         body = Instantiate(bones, transform.position, Quaternion.identity);
-        //body.transform.SetParent(transform, false);
-        body.transform.SetParent(transform, true);
+        body.transform.SetParent(transform, false);
+        body.transform.localPosition = new Vector3(0f, 0f, 0f);
+        //body.transform.SetParent(transform, true);
+        //body.transform.localPosition = new Vector3(0f, 0f, 0f);
+        //body.transform.position = new Vector3(0f, 0f, 0f);
         //body.transform.rotation = new Quaternion(0f, 0f, 180f, 0f);
         //body.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
         //body.transform.position = new Vector2(body.transform.position.x, GetComponentInParent<Monster>().specs.legs[0].transform.position.y - gameObject.GetComponentInParent<Monster>().GetComponent<RectTransform>().rect.height);
