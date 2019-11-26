@@ -142,7 +142,7 @@ public class Stat
 
     public float BaseValue;
 
-    private readonly List<StatModifier> statModifiers;
+    public readonly List<StatModifier> statModifiers;
 
     // Add these variables
     protected bool isDirty = true;

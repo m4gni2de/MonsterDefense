@@ -87,6 +87,8 @@ public class CurrentGameInfo : MonoBehaviour
         
         TowerDisplay();
 
+        mapDetails = GameManager.Instance.activeMap;
+
     }
 
     //when this menu becomes enables, create the objects

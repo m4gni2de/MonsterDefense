@@ -300,6 +300,10 @@ public class EquipManager
         monster.info.Defense.RemoveAllModifiersFromSource(equipment);
         monster.info.Speed.RemoveAllModifiersFromSource(equipment);
         monster.info.Precision.RemoveAllModifiersFromSource(equipment);
+        monster.info.Stamina.RemoveAllModifiersFromSource(equipment);
+        monster.info.EnergyGeneration.RemoveAllModifiersFromSource(equipment);
+        monster.info.EnergyCost.RemoveAllModifiersFromSource(equipment);
+        monster.info.CoinGeneration.RemoveAllModifiersFromSource(equipment);
 
 
         monster.info.attack1.Power.RemoveAllModifiersFromSource(equipment);
@@ -318,7 +322,9 @@ public class EquipManager
         monster.info.attack2.CritMod.RemoveAllModifiersFromSource(equipment);
         monster.info.attack2.EffectChance.RemoveAllModifiersFromSource(equipment);
 
-        //monster.UnEquipItem(equip, slot);
+
+
+        monster.MonsterStatMods();
     }
 }
 

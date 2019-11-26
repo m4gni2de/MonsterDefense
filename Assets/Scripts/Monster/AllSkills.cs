@@ -12,49 +12,9 @@ public class SkillData
     public TriggerType triggerType;
     public EventTrigger trigger;
     
-
-   
-
-    //public void ActivateSkill(Monster monster)
-    //{
-    //    Owner = monster;
-    //    skillManager.ActivateSkill(monster, this);
-        
-
-    //}
-
-
-    //public void TriggerEvent()
-    //{
-    //    skillManager.RemoveSkill();
-    //    skillManager.ActivateSkill(Owner, this);
-       
-    //}
-    
 }
 
 
-//public class SkillManager
-//{
-//    public Monster monster;
-//    public PassiveSkill passiveSkill;
-
-//    public void ActivateSkill(Monster Monster, PassiveSkill skill)
-//    {
-//        monster = Monster;
-//        passiveSkill = skill;
-
-//        SkillEffects effect = new SkillEffects(monster, skill);
-//    }
-
-//    public void RemoveSkill()
-//    {
-//        foreach (Stat stat in monster.allStats)
-//        {
-//            stat.RemoveAllModifiersFromSource(passiveSkill);
-//        }
-//    }
-//}
 
 
 public class Skills
@@ -78,6 +38,13 @@ public class Skills
         description = "Raises this monster's defense by 3% for each Nature Tile on the field.",
         triggerType = TriggerType.TileChange,
     };
+
+    public SkillData IgnitionTrigger = new SkillData
+    {
+        name = "Ignition Trigger",
+        description = "Raises this monster's fire type attacks by 7% for each Fire Type Tower you control.",
+        triggerType = TriggerType.TowerSummon,
+    };
 }
 
 
@@ -99,6 +66,7 @@ public class AllSkills: MonoBehaviour
         allSkillsDict.Add(allSkills.ItemFinder.name, allSkills.ItemFinder);
         allSkillsDict.Add(allSkills.TerrifyingGaze.name, allSkills.TerrifyingGaze);
         allSkillsDict.Add(allSkills.NaturalArmor.name, allSkills.NaturalArmor);
+        allSkillsDict.Add(allSkills.IgnitionTrigger.name, allSkills.IgnitionTrigger);
     }
 }
 
@@ -139,29 +107,24 @@ public class PassiveSkill
 
     public void ActivateSkill()
     {
+        mod.Clear();
         skillMethod.Invoke();
+        Owner.MonsterStatMods();
     }
 
     //if this skill is called from a trigger, do this
     public void TriggerEvent()
     {
-        foreach (StatModifier m in mod)
-        {
-            foreach (Stat stat in Owner.allStats)
-            {
-                stat.RemoveAllModifiersFromSource(this);
-            }
-        }
-
-        mod.Clear();
-        skillMethod.Invoke();
+        
+        RemoveSkillBoosts(Owner);
+        ActivateSkill();
     }
 
 
     //Below is the method for all of the abilities//
     public void ItemFinder()
     {
-        Owner.info.DropRateMod.AddModifier(new StatModifier(.2f, StatModType.Flat, this, skill.name));
+        Owner.info.DropRateMod.AddModifier(new StatModifier(.2f, StatModType.Flat, skill, skill.name));
         
     }
 
@@ -203,12 +166,53 @@ public class PassiveSkill
             if (tileCount >= tiles.Count)
             {
                 float totalBoost = total * .03f;
-                mod.Add(new StatModifier(totalBoost, StatModType.PercentMult, this, skill.name));
+                mod.Add(new StatModifier(totalBoost, StatModType.PercentMult, skill, skill.name));
 
                 Owner.info.Defense.AddModifier(mod[0]);
                 break;
             }
 
+        }
+    }
+
+    public void IgnitionTrigger()
+    {
+        var towers = GameManager.Instance.activeMap.liveTowers;
+        int total = 0;
+        int towerCount = 0;
+
+
+        foreach (Monster monster in towers)
+        {
+            if (monster.info.type1 == "Fire" || monster.info.type2 == "Fire")
+            {
+                towerCount += 1;
+            }
+
+            total += 1;
+
+            if (total == towers.Count)
+            {
+                //float totalBoost = towerCount * .07f;
+                float totalBoost = towerCount + 7;
+                Debug.Log(totalBoost);
+                mod.Add(new StatModifier(totalBoost, StatModType.Flat, skill, skill.name));
+
+                if (Owner.info.attack1.type == "Fire")
+                {
+                    Owner.info.attack1.Power.AddModifier(mod[0]);
+                }
+
+                if (Owner.info.attack2.type == "Fire")
+                {
+                    Owner.info.attack2.Power.AddModifier(mod[0]);
+                }
+
+                Debug.Log(Owner.info.attack2.Power.Value);
+                break;
+            }
+
+            
         }
     }
 
@@ -218,8 +222,37 @@ public class PassiveSkill
 
 
 
-    public void CancelSkill()
+    public void RemoveSkillBoosts(Monster monster)
     {
+        monster.info.HP.RemoveAllModifiersFromSource(skill);
+        monster.info.Attack.RemoveAllModifiersFromSource(skill);
+        monster.info.Defense.RemoveAllModifiersFromSource(skill);
+        monster.info.Speed.RemoveAllModifiersFromSource(skill);
+        monster.info.Precision.RemoveAllModifiersFromSource(skill);
+        monster.info.Stamina.RemoveAllModifiersFromSource(skill);
+        monster.info.EnergyGeneration.RemoveAllModifiersFromSource(skill);
+        monster.info.EnergyCost.RemoveAllModifiersFromSource(skill);
+        monster.info.CoinGeneration.RemoveAllModifiersFromSource(skill);
+       
 
+        monster.info.attack1.Power.RemoveAllModifiersFromSource(skill);
+        monster.info.attack1.Range.RemoveAllModifiersFromSource(skill);
+        monster.info.attack1.AttackSpeed.RemoveAllModifiersFromSource(skill);
+        monster.info.attack1.AttackTime.RemoveAllModifiersFromSource(skill);
+        monster.info.attack1.CritChance.RemoveAllModifiersFromSource(skill);
+        monster.info.attack1.CritMod.RemoveAllModifiersFromSource(skill);
+        monster.info.attack1.EffectChance.RemoveAllModifiersFromSource(skill);
+
+        monster.info.attack2.Power.RemoveAllModifiersFromSource(skill);
+        monster.info.attack2.Range.RemoveAllModifiersFromSource(skill);
+        monster.info.attack2.AttackSpeed.RemoveAllModifiersFromSource(skill);
+        monster.info.attack2.AttackTime.RemoveAllModifiersFromSource(skill);
+        monster.info.attack2.CritChance.RemoveAllModifiersFromSource(skill);
+        monster.info.attack2.CritMod.RemoveAllModifiersFromSource(skill);
+        monster.info.attack2.EffectChance.RemoveAllModifiersFromSource(skill);
+
+
+       
+        monster.MonsterStatMods();
     }
 }

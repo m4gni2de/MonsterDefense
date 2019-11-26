@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -156,10 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce4499fb3d7fdc4cbd3d24e8f0f49bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motion:
-    hasAnimation: 0
-    hasRotation: 0
-    angularVelocity: 0
+  hasAnimation: 0
+  hasRotation: 0
+  rotationRate: 0
   delay: 1
   enemy: {fileID: 0}
   force: 0
@@ -221,8 +220,10 @@ MonoBehaviour:
     attackAnimation: {fileID: 0}
     forceType: 0
     staminaGained: 0
-  attackEmission: {fileID: 0}
-  attackDemission: {fileID: 0}
+  attackEmission: {fileID: 8854900093834370204, guid: 8419a21e586be52438b21e2c876bce17,
+    type: 3}
+  attackDemission: {fileID: 8553430605114916879, guid: 06ea7b119f74e8e428f9190d00604510,
+    type: 3}
   attackSprites:
   - {fileID: 1015945724670661389, guid: 6d64ad8445e5e9748930d7deda0d13c2, type: 3}
   - {fileID: -1984978554770581910, guid: 6d64ad8445e5e9748930d7deda0d13c2, type: 3}

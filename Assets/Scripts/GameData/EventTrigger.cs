@@ -16,6 +16,7 @@ public enum TriggerType
     TowerSummon,
     WeatherChange,
     GlobalStatMod,
+    EnemySpawned,
 }
 
 public enum TriggerObject
@@ -96,6 +97,11 @@ public class EventTrigger
             {
                 GlobalStatMod();
             }
+
+            if (triggerType == TriggerType.EnemySpawned)
+            {
+                EnemySpawned();
+            }
         }
 
         
@@ -172,5 +178,10 @@ public class EventTrigger
     public void GlobalStatMod()
     {
         
+    }
+
+    public void EnemySpawned()
+    {
+
     }
 }

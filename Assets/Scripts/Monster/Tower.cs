@@ -627,7 +627,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         //add this tower to the map's list of your active towers
         mapDetails.liveTowers.Add(monster);
         //every second, update this monster's entry in the active towers list
-        StartCoroutine(ActiveTower(1f));
+        //StartCoroutine(ActiveTower(1f));
 
 
 
@@ -653,9 +653,13 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         //set active this tower's canvas
         towerCanvas.SetActive(true);
 
-        //active the monster's passive skill
-        monster.PassiveSkill();
+        //active the monster's passive skill, unless the skill is activated upon a Tower Summon, because it will have activated already
+        if (monster.info.passiveSkill.skill.triggerType != TriggerType.TowerSummon)
+        {
+            monster.PassiveSkill();
+        }
         StartCoroutine(monster.WeatherCheck());
+       
 
     }
 
@@ -1430,15 +1434,15 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     }
 
     //when the monster becomes an active tower, update the active towers dictionary in GameManager every second with this monster's information
-    public IEnumerator ActiveTower(float time)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(time);
-            GameManager.Instance.activeTowers.Remove(monster.activeIndex);
-            GameManager.Instance.activeTowers.Add(monster.activeIndex, monster);
-        }
-    }
+    //public IEnumerator ActiveTower(float time)
+    //{
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(time);
+    //        GameManager.Instance.activeTowers.Remove(monster.activeIndex);
+    //        GameManager.Instance.activeTowers.Add(monster.activeIndex, monster);
+    //    }
+    //}
 
 }
 

@@ -192,6 +192,17 @@ public class AllAbilities
         scope = AbilityParameterScope.PerEnemyByClass,
         castingAmmo = 1,
     };
+
+    public Ability DraconicBoom = new Ability
+    {
+        name = "Draconic Boom",
+        description = "All enemies take 6% damage for each Dragon Class Tower you control.",
+        target = AbilityTarget.AllEnemy,
+        type = AbilityType.MonsterAttack,
+        parameter = AbilityTargetParameter.None,
+        scope = AbilityParameterScope.None,
+        castingAmmo = 1,
+    };
 }
 
 public class MonsterAbilities: MonoBehaviour
@@ -217,6 +228,7 @@ public class MonsterAbilities: MonoBehaviour
         allAbilitiesDict.Add(allAbilities.NaturalQuake.name, allAbilities.NaturalQuake);
         allAbilitiesDict.Add(allAbilities.IceStorm.name, allAbilities.IceStorm);
         allAbilitiesDict.Add(allAbilities.SerpentineVenom.name, allAbilities.SerpentineVenom);
+        allAbilitiesDict.Add(allAbilities.DraconicBoom.name, allAbilities.DraconicBoom);
     }
 
 }
@@ -336,6 +348,40 @@ public class MonsterAbility
                 enemy.GetComponent<Monster>().AddStatus(poison);
             }
         }
+    }
+
+    public void DraconicBoom()
+    {
+        var enemies = Owner.GetComponent<Tower>().mapDetails.liveEnemies;
+        var towers = Owner.GetComponent<Tower>().mapDetails.liveTowers;
+        int count = 0;
+        int dragons = 0;
+
+        
+
+        foreach (Monster tower in towers)
+        {
+            if (tower.info.Class == MonsterClass.Dragon)
+            {
+                dragons += 1;
+            }
+
+            count += 1;
+
+            if (count >= towers.Count - 1)
+            {
+                float damageDealt = dragons * .06f;
+                foreach (Enemy enemy in enemies)
+                {
+                    float enemyHP = enemy.GetComponent<Monster>().info.maxHP;
+                    float totalDamage = damageDealt * enemyHP;
+
+                    enemy.TakeDamage(totalDamage, Owner);
+                }
+            }
+            
+        }
+        
     }
 
 

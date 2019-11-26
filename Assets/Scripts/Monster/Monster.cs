@@ -254,6 +254,10 @@ public class Monster : MonoBehaviour
         allStats.Add(info.EnergyCost);
         allStats.Add(info.CoinGeneration);
         allStats.Add(info.DropRateMod);
+        allStats.Add(info.attack1.Power);
+        allStats.Add(info.attack2.Power);
+
+
 
 
 
@@ -670,7 +674,7 @@ public class Monster : MonoBehaviour
         tempStats = stats.Monster.tempStats;
         SaveMonsterToken();
 
-
+        
         //MonsterTokenSet();
         //PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
         //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
@@ -1181,6 +1185,7 @@ public class Monster : MonoBehaviour
             foreach(StatModifier mod in stat.StatModifiers)
             {
                 statMods.Add(mod);
+                
             }
         }
  
@@ -1205,7 +1210,10 @@ public class Monster : MonoBehaviour
     //use this to call the monster's passive skill
     public void PassiveSkill()
     {
+       
 
+
+        
         info.passiveSkill.ActivateSkill();
         
         

@@ -2262,7 +2262,7 @@ MonoBehaviour:
       id: 10
       description: An orb of energy from the digital plane.
       type: Mechanical
-      effectName: none
+      effectName: Glitched
       range: 3
       power: 85
       critChance: 1
@@ -2505,9 +2505,9 @@ MonoBehaviour:
       - Virus Blaster
       - Energy Dragon
       abilities:
-      - Serpentine Venom
+      - Draconic Boom
       skills:
-      - Item Finder
+      - Ignition Trigger
       dropRate: 0.2
       itemDrops:
       - Fire Shard

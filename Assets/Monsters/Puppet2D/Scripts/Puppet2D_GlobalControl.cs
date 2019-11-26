@@ -257,7 +257,7 @@ namespace Puppet2D
                         //transform.position = new Vector3(transform.position.x * -1, transform.position.y, transform.position.z);
 						transform.localEulerAngles = new Vector3(transform.rotation.eulerAngles.x, startRotationY + 180, transform.rotation.eulerAngles.z);
 
-                        Debug.Log(transform.localEulerAngles.y);
+                       
 
                     }
 					else
@@ -267,7 +267,7 @@ namespace Puppet2D
                         //transform.position = new Vector3(transform.position.x * -1, transform.position.y, transform.position.z);
                         transform.localEulerAngles = new Vector3(transform.rotation.eulerAngles.x, startRotationY, transform.rotation.eulerAngles.z);
 
-                        Debug.Log(transform.localEulerAngles.y);
+
                     }
 					internalFlip = flip;
 					Run();

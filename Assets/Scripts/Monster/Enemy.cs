@@ -401,9 +401,18 @@ public class Enemy : MonoBehaviour
             damageTaken = 0;
         }
 
-        //Debug.Log("Attacker Base: " + attacker.monster.info.Attack.BaseValue);
-        //Debug.Log("Attacker New: " + attacker.monster.info.Attack.Value);
+        
 
+        //call this to actually deal the damage afer its been calculated
+        TakeDamage(damageTaken, attacker);
+        
+
+       
+    }
+
+    //use this to actually deal the damage after it's been calculated
+    public void TakeDamage(float damageTaken, Monster attacker)
+    {
         monster.info.currentHP -= damageTaken;
         enemyHpSlider.value = monster.info.currentHP;
 
@@ -414,7 +423,7 @@ public class Enemy : MonoBehaviour
             {
                 map.GetComponentInChildren<EnemyInfoPanel>().enemyInfoMenu.SetActive(false);
             }
-            float expGained = (monster.info.level + 1 * monster.info.levelConst) / (attacker.info.level + (1 /monster.info.levelConst) - monster.info.level);
+            float expGained = (monster.info.level + 1 * monster.info.levelConst) / (attacker.info.level + (1 / monster.info.levelConst) - monster.info.level);
             float expShared = expGained / 10;
 
             if (expGained < 1)
@@ -442,14 +451,10 @@ public class Enemy : MonoBehaviour
 
             MonsterItemDrop itemDrop = new MonsterItemDrop(this, attacker);
             GetComponentInChildren<MotionControl>().StartMonsterDie(this);
-            
+
             GameManager.Instance.TriggerEvent(TriggerType.EnemyKO);
             //Destroy(gameObject);
         }
-
-        //Debug.Log("Current HP: " + stats.currentHp + "  & Damage Taken: " + damageTaken);
-
-       
     }
 
     //called from the EnemyInfoPanel script

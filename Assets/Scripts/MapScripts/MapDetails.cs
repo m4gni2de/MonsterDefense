@@ -479,7 +479,7 @@ public class MapDetails : MonoBehaviour
                             }
                         enemyMonster.transform.position = enemyMonster.GetComponent<Enemy>().pathList[0].transform.position;
                         enemyMonster.GetComponent<Monster>().PassiveSkill();
-
+                        GameManager.Instance.TriggerEvent(TriggerType.EnemySpawned);
 
 
                     }

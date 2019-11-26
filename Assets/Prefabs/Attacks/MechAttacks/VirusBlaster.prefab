@@ -240,8 +240,10 @@ MonoBehaviour:
     attackAnimation: {fileID: 0}
     forceType: 0
     staminaGained: 0
-  attackEmission: {fileID: 0}
-  attackDemission: {fileID: 0}
+  attackEmission: {fileID: 443635808757948738, guid: e5ec1d2a2acfcba439861a39ec594e15,
+    type: 3}
+  attackDemission: {fileID: 2793124155273568929, guid: 55d475d2440bd1f46bdea8e5759ef95e,
+    type: 3}
   attackSprites: []
 --- !u!114 &6077075069628503214
 MonoBehaviour:

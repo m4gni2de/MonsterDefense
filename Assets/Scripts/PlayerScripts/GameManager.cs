@@ -336,28 +336,36 @@ public class GameManager : MonoBehaviour
     public void TriggerEvent(TriggerType type)
     {
 
-        foreach (KeyValuePair<int, Monster> monster in GetComponent<YourMonsters>().yourMonstersComplete)
+        //foreach (KeyValuePair<int, Monster> monster in GetComponent<YourMonsters>().yourMonstersComplete)
+
+        if (activeMap)
         {
-            MonsterInfo m = monster.Value.info;
-
-            if (m.equipment1 != null && m.equipment1.triggerType == type)
+            foreach (Monster monster in activeMap.liveTowers)
             {
-                //m.equipment1.trigger.equipment = m.equipment1;
-                //m.equipment1.trigger.ActivateTrigger(m.equipment1.triggerType);
-                m.equipment1.TriggerEvent();
-            }
 
-            if (m.equipment2 != null && m.equipment2.triggerType == type)
-            {
-                //m.equipment2.trigger.equipment = m.equipment2;
-                //m.equipment2.trigger.ActivateTrigger(m.equipment2.triggerType);
-                m.equipment2.TriggerEvent();
-            }
 
-            if (m.passiveSkill != null && m.passiveSkill.skill.triggerType == type)
-            {
-                //m.passiveSkill.trigger.ActivateTrigger(m.passiveSkill.triggerType);
-                m.passiveSkill.TriggerEvent();
+                MonsterInfo m = monster.info;
+
+                if (m.equipment1 != null && m.equipment1.triggerType == type)
+                {
+                    //m.equipment1.trigger.equipment = m.equipment1;
+                    //m.equipment1.trigger.ActivateTrigger(m.equipment1.triggerType);
+                    m.equipment1.TriggerEvent();
+                }
+
+                if (m.equipment2 != null && m.equipment2.triggerType == type)
+                {
+                    //m.equipment2.trigger.equipment = m.equipment2;
+                    //m.equipment2.trigger.ActivateTrigger(m.equipment2.triggerType);
+                    m.equipment2.TriggerEvent();
+                }
+
+                if (m.passiveSkill != null && m.passiveSkill.skill.triggerType == type)
+                {
+                    //m.passiveSkill.trigger.ActivateTrigger(m.passiveSkill.triggerType);
+                    m.passiveSkill.TriggerEvent();
+                    Debug.Log(type);
+                }
             }
         }
 
@@ -495,7 +503,7 @@ public class Notification
 
         if (n == NotificationType.WeatherChange)
         {
-            GameManager.Instance.TriggerEvent(TriggerType.TowerSummon);
+            GameManager.Instance.TriggerEvent(TriggerType.WeatherChange);
         }
 
 
