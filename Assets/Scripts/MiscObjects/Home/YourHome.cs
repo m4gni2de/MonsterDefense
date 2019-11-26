@@ -296,7 +296,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     //THIS SUMMONS A NEW MONSTER TO BE USED AS A TOWER AND CREATES A PLAYERPREF FOR IT
     public void SummonTower()
     {
-        var map = GameObject.FindGameObjectWithTag("Map");
+        //var map = GameObject.FindGameObjectWithTag("Map");
 
 
         var random = Random.Range(1, GameManager.Instance.monstersData.monstersByIdDict.Count + 1);

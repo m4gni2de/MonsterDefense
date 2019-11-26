@@ -116,10 +116,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce4499fb3d7fdc4cbd3d24e8f0f49bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motion:
-    hasAnimation: 1
-    hasRotation: 0
-    angularVelocity: 0
+  hasAnimation: 1
+  hasRotation: 0
+  rotationRate: 0
   delay: 0
   enemy: {fileID: 0}
   force: 0

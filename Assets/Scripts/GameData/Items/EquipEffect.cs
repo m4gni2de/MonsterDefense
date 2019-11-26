@@ -122,20 +122,20 @@ public class EquipEffect
 
     public void WoodAxe()
     {
-        monster.info.attack1.Power.AddModifier(new StatModifier(equipment.atkPowerBonus, StatModType.Flat, equipment, equipment.itemName));
-        monster.info.attack2.Power.AddModifier(new StatModifier(equipment.atkPowerBonus, StatModType.Flat, equipment, equipment.itemName));
+        monster.info.baseAttack1.attack.Power.AddModifier(new StatModifier(equipment.atkPowerBonus, StatModType.Flat, equipment, equipment.itemName));
+        monster.info.baseAttack2.attack.Power.AddModifier(new StatModifier(equipment.atkPowerBonus, StatModType.Flat, equipment, equipment.itemName));
     }
 
     public void SpikedKnuckles()
     {
         if (monster.info.attack1.attackMode == AttackMode.Punch)
         {
-            monster.info.attack1.Power.AddModifier(new StatModifier(equipment.atkPowerPercentBonus, StatModType.PercentMult, equipment, equipment.itemName));
+            monster.info.baseAttack1.attack.Power.AddModifier(new StatModifier(equipment.atkPowerPercentBonus, StatModType.PercentMult, equipment, equipment.itemName));
         }
 
-        if (monster.info.attack2.attackMode == AttackMode.Punch)
+        if (monster.info.baseAttack2.attack.attackMode == AttackMode.Punch)
         {
-            monster.info.attack2.Power.AddModifier(new StatModifier(equipment.atkPowerPercentBonus, StatModType.PercentMult, equipment, equipment.itemName));
+            monster.info.baseAttack2.attack.Power.AddModifier(new StatModifier(equipment.atkPowerPercentBonus, StatModType.PercentMult, equipment, equipment.itemName));
         }
     }
 
@@ -163,7 +163,6 @@ public class EquipEffect
             if (tileCount >= tiles.Count)
             {
                 monster.info.Attack.AddModifier(new StatModifier(total, StatModType.Flat, equipment, equipment.itemName));
-                Debug.Log(monster.info.Attack.StatModifiers.Count());
                 break;
             }
             

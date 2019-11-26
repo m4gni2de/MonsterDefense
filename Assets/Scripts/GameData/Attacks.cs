@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 [System.Serializable]
-public struct MonsterAttack
+public class MonsterAttack
 {
     //Stats are filled in when the monster using it becomes active, to account for stat buffs and drops
     public Stat Range;
@@ -44,6 +44,9 @@ public struct MonsterAttack
     //every time this attack is used, the monster using it gains this amount of stamina
     public float staminaGained;
 
+    
+    
+
 };
 
 [System.Serializable]
@@ -67,6 +70,21 @@ public enum DamageForce
     Physical, 
     Pierce, 
     Explode,
+}
+
+[System.Serializable]
+//use this for the object of the attack, so that each monster can have their own instances of the attacks
+public class BaseAttack
+{
+    public MonsterAttack attack;
+    public Monster owner;
+
+    public BaseAttack(MonsterAttack Attack, Monster Owner)
+    {
+        attack = Attack;
+        owner = Owner;
+
+    }
 }
 
 [System.Serializable]

@@ -785,7 +785,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     monster.monsterMotion.SetBool("isAttacking", true);
                     
 
-                    boneStructure.GetComponent<MotionControl>().AttackModeCheck(monster.info.attack1.attackMode);
+                    boneStructure.GetComponent<MotionControl>().AttackModeCheck(monster.info.baseAttack1.attack.attackMode);
                     boneStructure.GetComponent<MotionControl>().AttackDirection(tileTarget, enemy);
 
                   
@@ -813,7 +813,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     monster.monsterMotion.SetBool("isAttacking", true);
                     
 
-                    boneStructure.GetComponent<MotionControl>().AttackModeCheck(monster.info.attack2.attackMode);
+                    boneStructure.GetComponent<MotionControl>().AttackModeCheck(monster.info.baseAttack2.attack.attackMode);
                     boneStructure.GetComponent<MotionControl>().AttackDirection(tileTarget, enemy);
 
                     if (enemy.transform.position.x <= attackPoint.transform.position.x)
@@ -957,8 +957,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         var aimDirection = Quaternion.Euler(0, 0, aimAngle * Mathf.Rad2Deg) * Vector2.up;
 
 
-        int range = monster.info.attack1.range;
-        int range2 = monster.info.attack2.range;
+        int range = monster.info.baseAttack1.attack.range;
+        int range2 = monster.info.baseAttack2.attack.range;
 
         //int range = 2;
 
@@ -1111,14 +1111,14 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         if (attackNumber == 1)
         {
             attackList = atkRange1List;
-            type = monster.info.attack1.type;
-            name = monster.info.attack1.name;
+            type = monster.info.baseAttack1.attack.type;
+            name = monster.info.baseAttack1.attack.name;
         }
         if (attackNumber == 2)
         {
             attackList = atkRange2List;
-            type = monster.info.attack2.type;
-            name = monster.info.attack2.name;
+            type = monster.info.baseAttack2.attack.type;
+            name = monster.info.baseAttack2.attack.name;
         }
 
 

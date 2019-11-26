@@ -198,17 +198,17 @@ public class PassiveSkill
                 Debug.Log(totalBoost);
                 mod.Add(new StatModifier(totalBoost, StatModType.Flat, skill, skill.name));
 
-                if (Owner.info.attack1.type == "Fire")
+                if (Owner.info.baseAttack1.attack.type == "Fire")
                 {
-                    Owner.info.attack1.Power.AddModifier(mod[0]);
+                    Owner.info.baseAttack1.attack.Power.AddModifier(mod[0]);
                 }
 
-                if (Owner.info.attack2.type == "Fire")
+                if (Owner.info.baseAttack2.attack.type == "Fire")
                 {
-                    Owner.info.attack2.Power.AddModifier(mod[0]);
+                    Owner.info.baseAttack2.attack.Power.AddModifier(mod[0]);
                 }
 
-                Debug.Log(Owner.info.attack2.Power.Value);
+                
                 break;
             }
 
@@ -235,21 +235,21 @@ public class PassiveSkill
         monster.info.CoinGeneration.RemoveAllModifiersFromSource(skill);
        
 
-        monster.info.attack1.Power.RemoveAllModifiersFromSource(skill);
-        monster.info.attack1.Range.RemoveAllModifiersFromSource(skill);
-        monster.info.attack1.AttackSpeed.RemoveAllModifiersFromSource(skill);
-        monster.info.attack1.AttackTime.RemoveAllModifiersFromSource(skill);
-        monster.info.attack1.CritChance.RemoveAllModifiersFromSource(skill);
-        monster.info.attack1.CritMod.RemoveAllModifiersFromSource(skill);
-        monster.info.attack1.EffectChance.RemoveAllModifiersFromSource(skill);
+        monster.info.baseAttack1.attack.Power.RemoveAllModifiersFromSource(skill);
+        monster.info.baseAttack1.attack.Range.RemoveAllModifiersFromSource(skill);
+        monster.info.baseAttack1.attack.AttackSpeed.RemoveAllModifiersFromSource(skill);
+        monster.info.baseAttack1.attack.AttackTime.RemoveAllModifiersFromSource(skill);
+        monster.info.baseAttack1.attack.CritChance.RemoveAllModifiersFromSource(skill);
+        monster.info.baseAttack1.attack.CritMod.RemoveAllModifiersFromSource(skill);
+        monster.info.baseAttack1.attack.EffectChance.RemoveAllModifiersFromSource(skill);
 
-        monster.info.attack2.Power.RemoveAllModifiersFromSource(skill);
-        monster.info.attack2.Range.RemoveAllModifiersFromSource(skill);
-        monster.info.attack2.AttackSpeed.RemoveAllModifiersFromSource(skill);
-        monster.info.attack2.AttackTime.RemoveAllModifiersFromSource(skill);
-        monster.info.attack2.CritChance.RemoveAllModifiersFromSource(skill);
-        monster.info.attack2.CritMod.RemoveAllModifiersFromSource(skill);
-        monster.info.attack2.EffectChance.RemoveAllModifiersFromSource(skill);
+        monster.info.baseAttack2.attack.Power.RemoveAllModifiersFromSource(skill);
+        monster.info.baseAttack2.attack.Range.RemoveAllModifiersFromSource(skill);
+        monster.info.baseAttack2.attack.AttackSpeed.RemoveAllModifiersFromSource(skill);
+        monster.info.baseAttack2.attack.AttackTime.RemoveAllModifiersFromSource(skill);
+        monster.info.baseAttack2.attack.CritChance.RemoveAllModifiersFromSource(skill);
+        monster.info.baseAttack2.attack.CritMod.RemoveAllModifiersFromSource(skill);
+        monster.info.baseAttack2.attack.EffectChance.RemoveAllModifiersFromSource(skill);
 
 
        

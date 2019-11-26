@@ -226,6 +226,7 @@
     <Compile Include="Assets\Scripts\GameData\Items\Items.cs" />
     <Compile Include="Assets\Scripts\GameData\Maps.cs" />
     <Compile Include="Assets\Scripts\GameData\MonsterAbilities.cs" />
+    <Compile Include="Assets\Scripts\GameData\MonsterDataObject.cs" />
     <Compile Include="Assets\Scripts\GameData\MonstersData.cs" />
     <Compile Include="Assets\Scripts\GameData\SpriteMaterials.cs" />
     <Compile Include="Assets\Scripts\GameData\StatsCalc.cs" />

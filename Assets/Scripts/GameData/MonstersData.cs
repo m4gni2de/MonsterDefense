@@ -16,7 +16,8 @@ public enum MonsterClass
 }
 
 
-
+//use this as the basis for monster's data objects. these are contained within a "Monster Data Object" scriptable object. 
+//when a new monster is made, add it's Monster Data Object to the list of MDO's in this script's list of them
 [System.Serializable]
 public struct MonsterData
 {
@@ -55,15 +56,7 @@ public struct MonsterData
     //what items this monster can drop on defeat
     public string[] itemDrops;
 
-    public List<MonsterAttack> attacks;
 };
-
-
-[System.Serializable]
-public class MonsterDataRoot
-{
-    public MonsterData MonsterData;
-}
 
 [System.Serializable]
 public class AllMonsterData
@@ -77,12 +70,14 @@ public class AllMonsterData
 
     public MonsterData Armordan = new MonsterData
     {
-       
+        
+
     };
 
     public MonsterData Fowitzer = new MonsterData
     {
         
+
     };
 
     public MonsterData Iceros = new MonsterData
@@ -98,12 +93,14 @@ public class AllMonsterData
     public MonsterData Skaeren = new MonsterData
     {
         
+
     };
 
 
 
 
 }
+
 
 public class MonstersData : MonoBehaviour
 {
@@ -112,8 +109,9 @@ public class MonstersData : MonoBehaviour
 
     public AllMonsterData allMonsterData = new AllMonsterData();
     public MonsterTypeDetails allTypes = new MonsterTypeDetails();
-    
-    
+
+    public List<MonsterDataObject> allMonsters = new List<MonsterDataObject>();
+    public Dictionary<string, MonsterDataObject> monsterDataObjectsDict = new Dictionary<string, MonsterDataObject>();
     public Dictionary<string, MonsterData> monstersAllDict = new Dictionary<string, MonsterData>();
     public Dictionary<int, string> monstersByIdDict = new Dictionary<int, string>();
 
@@ -121,7 +119,7 @@ public class MonstersData : MonoBehaviour
 
     public GameObject monsterAvatar;
 
-   
+    
 
     private void Awake()
     {
@@ -137,14 +135,26 @@ public class MonstersData : MonoBehaviour
 
     public void AllMonsters()
     {
-        
-       
+        foreach (MonsterDataObject data in allMonsters)
+        {
+
+            //monstersAllDict.Add(data.monsterData.species, data.monsterData);
+            //monstersByIdDict.Add(data.monsterData.id, data.monsterData.species);
+
+
+            monsterDataObjectsDict.Add(data.monsterData.species, data);
+
+            
+        }
+
         monstersAllDict.Add(allMonsterData.Lichenthrope.species, allMonsterData.Lichenthrope);
         monstersAllDict.Add(allMonsterData.Armordan.species, allMonsterData.Armordan);
         monstersAllDict.Add(allMonsterData.Fowitzer.species, allMonsterData.Fowitzer);
         monstersAllDict.Add(allMonsterData.Iceros.species, allMonsterData.Iceros);
         monstersAllDict.Add(allMonsterData.Vypior.species, allMonsterData.Vypior);
         monstersAllDict.Add(allMonsterData.Skaeren.species, allMonsterData.Skaeren);
+
+        
 
 
         monstersByIdDict.Add(allMonsterData.Lichenthrope.id, allMonsterData.Lichenthrope.species);
@@ -153,6 +163,16 @@ public class MonstersData : MonoBehaviour
         monstersByIdDict.Add(allMonsterData.Iceros.id, allMonsterData.Iceros.species);
         monstersByIdDict.Add(allMonsterData.Vypior.id, allMonsterData.Vypior.species);
         monstersByIdDict.Add(allMonsterData.Skaeren.id, allMonsterData.Skaeren.species);
+
+        
+        //foreach (KeyValuePair<string, MonsterData> monster in monstersAllDict)
+        //{
+        //    if (monsterDataObjectsDict.ContainsKey(monster.Key))
+        //    {
+        //        monstersAllDict.Remove(monster.Key);
+        //        monstersAllDict.Add(monster.Key, monsterDataObjectsDict[monster.Key].monsterData);
+        //    }
+        //}
     }
 
     public void AllTypes()
@@ -420,6 +440,7 @@ public class MonsterItemDrop
     }
 
 }
+
 
 
 

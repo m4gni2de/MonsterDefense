@@ -138,6 +138,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     com.unity.multiplayer-hlapi.Runtime.dll:
+    - UnityEngine.Networking.NetworkCallbacks
     - UnityEngine.Networking.NetworkIdentity
   sceneClasses:
     Assets/Scenes/AccountScreen.unity:
@@ -2931,7 +2932,7 @@ ScriptsOnlyBuild:
     className: VertexShakeA
   - hash:
       serializedVersion: 2
-      Hash: 8ddb17bf772b9442a4f5efac75106dd0
+      Hash: 75b5b11806bf71e54a541ef92c6fe2e6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MonstersData

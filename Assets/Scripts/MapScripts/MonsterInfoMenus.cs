@@ -225,17 +225,28 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             var types = GameManager.Instance.monstersData.typeChartDict;
             var equips = GameManager.Instance.items.allEquipsDict;
 
+            //monsterName.text = activeMonster.info.name;
+            //attack1BtnText.text = activeMonster.info.attack1Name;
+            //atk1Power.text = activeMonster.info.attack1.Power.Value.ToString();
+            //atk1Range.text = activeMonster.info.attack1.Range.Value.ToString();
+            //atk1TypeSp.sprite = types[activeMonster.info.attack1.type].typeSprite;
+
+            //attack2BtnText.text = activeMonster.info.attack2Name;
+            //atk2Power.text = activeMonster.info.attack2.Power.Value.ToString();
+            //atk2Range.text = activeMonster.info.attack2.Range.Value.ToString();
+            //atk2TypeSp.sprite = types[activeMonster.info.attack2.type].typeSprite;
+
             monsterName.text = activeMonster.info.name;
             attack1BtnText.text = activeMonster.info.attack1Name;
-            atk1Power.text = activeMonster.info.attack1.Power.Value.ToString();
-            atk1Range.text = activeMonster.info.attack1.Range.Value.ToString();
-            atk1TypeSp.sprite = types[activeMonster.info.attack1.type].typeSprite;
+            atk1Power.text = activeMonster.info.baseAttack1.attack.Power.Value.ToString();
+            atk1Range.text = activeMonster.info.baseAttack1.attack.Range.Value.ToString();
+            atk1TypeSp.sprite = types[activeMonster.info.baseAttack1.attack.type].typeSprite;
 
             attack2BtnText.text = activeMonster.info.attack2Name;
-            atk2Power.text = activeMonster.info.attack2.Power.Value.ToString();
-            atk2Range.text = activeMonster.info.attack2.Range.Value.ToString();
-            atk2TypeSp.sprite = types[activeMonster.info.attack2.type].typeSprite;
-            
+            atk2Power.text = activeMonster.info.baseAttack2.attack.Power.Value.ToString();
+            atk2Range.text = activeMonster.info.baseAttack2.attack.Range.Value.ToString();
+            atk2TypeSp.sprite = types[activeMonster.info.baseAttack2.attack.type].typeSprite;
+
 
             //levelText.text = "Level: " + activeMonster.info.level.ToString();
             //atkText.text = "Atk: " + Math.Round(activeMonster.attack, 0).ToString();

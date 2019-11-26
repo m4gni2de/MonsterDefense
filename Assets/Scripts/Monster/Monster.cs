@@ -69,8 +69,10 @@ public struct MonsterInfo
     [Header("Monster Attacks")]
     public string attack1Name;
     public MonsterAttack attack1;
+    public BaseAttack baseAttack1;
     public string attack2Name;
     public MonsterAttack attack2;
+    public BaseAttack baseAttack2;
 
     [Header("Monster Ability")]
     public string abilityName;
@@ -258,7 +260,7 @@ public class Monster : MonoBehaviour
         allStats.Add(info.attack2.Power);
 
 
-
+        
 
 
     }
@@ -311,6 +313,7 @@ public class Monster : MonoBehaviour
 
         //EquipmentBoosts();
         var equipment = GameManager.Instance.GetComponent<Items>().allEquipsDict;
+        var attacks = GameManager.Instance.baseAttacks.attackDict;
 
         if (equipment.ContainsKey(info.equip1Name))
         {
@@ -335,7 +338,28 @@ public class Monster : MonoBehaviour
         }
 
 
-        info.sortIndex = info.index; 
+        info.sortIndex = info.index;
+
+
+        if (attacks.ContainsKey(info.attack1Name))
+        {
+            info.baseAttack1 = new BaseAttack(attacks[info.attack1Name], this);
+        }
+        else
+        {
+            info.baseAttack1 = null;
+        }
+
+        if (attacks.ContainsKey(info.attack2Name))
+        {
+            info.baseAttack2 = new BaseAttack(attacks[info.attack2Name], this);
+        }
+        else
+        {
+            info.baseAttack2 = null;
+        }
+        //info.baseAttack1 = new BaseAttack(null, this);
+        //info.baseAttack2 = new BaseAttack(null, this);
     }
 
 
@@ -1072,6 +1096,26 @@ public class Monster : MonoBehaviour
         info.passiveSkill = new PassiveSkill(this, skills[info.skillName]);
         //info.equippable1 = new EquippableItem();
         //info.equippable2 = new EquippableItem();
+        //info.baseAttack1.attack = attacks[info.attack1Name];
+        //info.baseAttack2.attack = attacks[info.attack2Name];
+
+        if (attacks.ContainsKey(info.attack1Name))
+        {
+            info.baseAttack1 = new BaseAttack(attacks[info.attack1Name], this);
+        }
+        else
+        {
+            info.baseAttack1 = null;
+        }
+
+        if (attacks.ContainsKey(info.attack2Name))
+        {
+            info.baseAttack2 = new BaseAttack(attacks[info.attack2Name], this);
+        }
+        else
+        {
+            info.baseAttack2 = null;
+        }
 
         SetExp();
 
@@ -1152,24 +1196,27 @@ public class Monster : MonoBehaviour
     public void TestAttack()
     {
         MonsterAttack attack = new MonsterAttack();
+        BaseAttack baseAttack = new BaseAttack(null, this);
 
         if (tower.attackNumber == 1)
         {
             attack = info.attack1;
+            baseAttack = info.baseAttack1;
         }
         else
         {
             attack = info.attack2;
+            baseAttack = info.baseAttack2;
         }
 
 
 
-        var attackSprite = Instantiate(GameManager.Instance.baseAttacks.attackDict[attack.name].attackAnimation, tower.attackPoint.transform.position, Quaternion.Euler(transform.eulerAngles));
-        attackSprite.gameObject.name = attack.name;
+        var attackSprite = Instantiate(GameManager.Instance.baseAttacks.attackDict[baseAttack.attack.name].attackAnimation, tower.attackPoint.transform.position, Quaternion.Euler(transform.eulerAngles));
+        attackSprite.gameObject.name = baseAttack.attack.name;
         attackSprite.transform.localScale = attackSprite.transform.localScale * 2;
         attackSprite.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
         //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-        attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, tempStats.Attack.Value, (int)attack.Power.Value, info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+        attackSprite.GetComponent<AttackEffects>().FromAttacker(baseAttack.attack, baseAttack.attack.name, baseAttack.attack.type, tempStats.Attack.Value, (int)baseAttack.attack.Power.Value, info.level, baseAttack.attack.CritChance.Value, baseAttack.attack.CritMod.Value, gameObject.GetComponent<Monster>());
         attackSprite.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
 
 
