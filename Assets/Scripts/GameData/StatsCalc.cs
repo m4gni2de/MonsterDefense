@@ -378,47 +378,7 @@ public class MapTileStatChange
             //monster.speed *= 1 + tile.spePercentBonus;
             monster.info.Speed.AddModifier(new StatModifier(tile.speedBonus, StatModType.PercentMult, this, mapTile.tileNumber.ToString()));
 
-        ////if the equipment item is Type protected, check and make sure the types match. If they do, apply bonuses
-        //if (tile.typeMoveReq == monster.info.attack1.type)
-        //{
-
-        //    if (tile.atkPowerBonus != 0)
-        //        monster.info.attack1.Power.AddModifier(new StatModifier(tile.atkPowerBonus, StatModType.Flat, this));
-        //    if (tile.atkRangeBonus != 0)
-        //        monster.info.attack1.Range.AddModifier(new StatModifier(tile.atkRangeBonus, StatModType.Flat, this));
-        //    if (tile.atkTimeBonus != 0)
-        //        monster.info.attack1.AttackTime.AddModifier(new StatModifier(tile.atkTimeBonus, StatModType.Flat, this));
-        //    if (tile.critChanceBonus != 0)
-        //        monster.info.attack1.CritChance.AddModifier(new StatModifier(tile.critChanceBonus, StatModType.Flat, this));
-        //    if (tile.critModBonus != 0)
-        //        monster.info.attack1.CritMod.AddModifier(new StatModifier(tile.critModBonus, StatModType.Flat, this));
-
-        //    if (tile.atkPowerPercentBonus != 0)
-        //        monster.info.attack1.Power.AddModifier(new StatModifier(tile.atkPowerPercentBonus, StatModType.PercentMult, this));
-        //    if (tile.atkTimePercentBonus != 0)
-        //        monster.info.attack1.AttackTime.AddModifier(new StatModifier(tile.atkTimePercentBonus, StatModType.PercentMult, this));
-
-
-        //}
-
-        //if (tile.typeMoveReq == monster.info.attack2.type)
-        //{
-        //    if (tile.atkPowerBonus != 0)
-        //        monster.info.attack2.Power.AddModifier(new StatModifier(tile.atkPowerBonus, StatModType.Flat, this));
-        //    if (tile.atkRangeBonus != 0)
-        //        monster.info.attack2.Range.AddModifier(new StatModifier(tile.atkRangeBonus, StatModType.Flat, this));
-        //    if (tile.atkTimeBonus != 0)
-        //        monster.info.attack2.AttackTime.AddModifier(new StatModifier(tile.atkTimeBonus, StatModType.Flat, this));
-        //    if (tile.critChanceBonus != 0)
-        //        monster.info.attack2.CritChance.AddModifier(new StatModifier(tile.critChanceBonus, StatModType.Flat, this));
-        //    if (tile.critModBonus != 0)
-        //        monster.info.attack2.CritMod.AddModifier(new StatModifier(tile.critModBonus, StatModType.Flat, this));
-
-        //    if (tile.atkPowerPercentBonus != 0)
-        //        monster.info.attack2.Power.AddModifier(new StatModifier(tile.atkPowerPercentBonus, StatModType.PercentMult, this));
-        //    if (tile.atkTimePercentBonus != 0)
-        //        monster.info.attack2.AttackTime.AddModifier(new StatModifier(tile.atkTimePercentBonus, StatModType.PercentMult, this));
-        //}
+        
 
         monster.MonsterStatMods();
     }
@@ -432,21 +392,21 @@ public class MapTileStatChange
         monster.info.Speed.RemoveAllModifiersFromSource(this);
         monster.info.Precision.RemoveAllModifiersFromSource(this);
 
-        monster.info.baseAttack1.attack.Power.RemoveAllModifiersFromSource(this);
-        monster.info.baseAttack1.attack.Range.RemoveAllModifiersFromSource(this);
-        monster.info.baseAttack1.attack.AttackSpeed.RemoveAllModifiersFromSource(this);
-        monster.info.baseAttack1.attack.AttackTime.RemoveAllModifiersFromSource(this);
-        monster.info.baseAttack1.attack.CritChance.RemoveAllModifiersFromSource(this);
-        monster.info.baseAttack1.attack.CritMod.RemoveAllModifiersFromSource(this);
-        monster.info.baseAttack1.attack.EffectChance.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack1.Power.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack1.Range.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack1.AttackSpeed.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack1.AttackTime.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack1.CritChance.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack1.CritMod.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack1.EffectChance.RemoveAllModifiersFromSource(this);
 
-        monster.info.baseAttack2.attack.Power.RemoveAllModifiersFromSource(this);
-        monster.info.baseAttack2.attack.Range.RemoveAllModifiersFromSource(this);
-        monster.info.baseAttack2.attack.AttackSpeed.RemoveAllModifiersFromSource(this);
-        monster.info.baseAttack2.attack.AttackTime.RemoveAllModifiersFromSource(this);
-        monster.info.baseAttack2.attack.CritChance.RemoveAllModifiersFromSource(this);
-        monster.info.baseAttack2.attack.CritMod.RemoveAllModifiersFromSource(this);
-        monster.info.baseAttack2.attack.EffectChance.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack2.Power.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack2.Range.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack2.AttackSpeed.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack2.AttackTime.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack2.CritChance.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack2.CritMod.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack2.EffectChance.RemoveAllModifiersFromSource(this);
 
 
         //monster.tempStats.attack1.Power.RemoveAllModifiersFromSource(this);

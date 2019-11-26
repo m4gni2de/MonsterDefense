@@ -341,23 +341,23 @@ public class Monster : MonoBehaviour
         info.sortIndex = info.index;
 
 
-        if (attacks.ContainsKey(info.attack1Name))
-        {
-            info.baseAttack1 = new BaseAttack(attacks[info.attack1Name], this);
-        }
-        else
-        {
-            info.baseAttack1 = null;
-        }
+        //if (attacks.ContainsKey(info.attack1Name))
+        //{
+        //    info.baseAttack1 = new BaseAttack(attacks[info.attack1Name], this);
+        //}
+        //else
+        //{
+        //    info.baseAttack1 = null;
+        //}
 
-        if (attacks.ContainsKey(info.attack2Name))
-        {
-            info.baseAttack2 = new BaseAttack(attacks[info.attack2Name], this);
-        }
-        else
-        {
-            info.baseAttack2 = null;
-        }
+        //if (attacks.ContainsKey(info.attack2Name))
+        //{
+        //    info.baseAttack2 = new BaseAttack(attacks[info.attack2Name], this);
+        //}
+        //else
+        //{
+        //    info.baseAttack2 = null;
+        //}
         //info.baseAttack1 = new BaseAttack(null, this);
         //info.baseAttack2 = new BaseAttack(null, this);
     }
@@ -1102,6 +1102,7 @@ public class Monster : MonoBehaviour
         if (attacks.ContainsKey(info.attack1Name))
         {
             info.baseAttack1 = new BaseAttack(attacks[info.attack1Name], this);
+            
         }
         else
         {
@@ -1111,6 +1112,7 @@ public class Monster : MonoBehaviour
         if (attacks.ContainsKey(info.attack2Name))
         {
             info.baseAttack2 = new BaseAttack(attacks[info.attack2Name], this);
+           
         }
         else
         {
@@ -1195,29 +1197,33 @@ public class Monster : MonoBehaviour
     //use this to launch an attack from a menu screen
     public void TestAttack()
     {
-        MonsterAttack attack = new MonsterAttack();
-        BaseAttack baseAttack = new BaseAttack(null, this);
+        
+        
 
         if (tower.attackNumber == 1)
         {
-            attack = info.attack1;
-            baseAttack = info.baseAttack1;
+            var attackSprite = Instantiate(GameManager.Instance.baseAttacks.attackDict[info.baseAttack1.attack.name].attackAnimation, tower.attackPoint.transform.position, Quaternion.Euler(transform.eulerAngles));
+            attackSprite.gameObject.name = info.baseAttack1.attack.name;
+            attackSprite.transform.localScale = attackSprite.transform.localScale * 2;
+            attackSprite.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
+            //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+            attackSprite.GetComponent<AttackEffects>().FromAttacker(info.baseAttack1.attack, info.baseAttack1.attack.name, info.baseAttack1.type, tempStats.Attack.Value, (int)info.baseAttack1.Power.Value, info.level, info.baseAttack1.CritChance.Value, info.baseAttack1.CritMod.Value, gameObject.GetComponent<Monster>());
+            attackSprite.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
         }
         else
         {
-            attack = info.attack2;
-            baseAttack = info.baseAttack2;
+            var attackSprite = Instantiate(GameManager.Instance.baseAttacks.attackDict[info.baseAttack2.attack.name].attackAnimation, tower.attackPoint.transform.position, Quaternion.Euler(transform.eulerAngles));
+            attackSprite.gameObject.name = info.baseAttack2.attack.name;
+            attackSprite.transform.localScale = attackSprite.transform.localScale * 2;
+            attackSprite.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
+            //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
+            attackSprite.GetComponent<AttackEffects>().FromAttacker(info.baseAttack2.attack, info.baseAttack2.attack.name, info.baseAttack2.type, tempStats.Attack.Value, (int)info.baseAttack2.Power.Value, info.level, info.baseAttack2.CritChance.Value, info.baseAttack2.CritMod.Value, gameObject.GetComponent<Monster>());
+            attackSprite.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
         }
 
 
 
-        var attackSprite = Instantiate(GameManager.Instance.baseAttacks.attackDict[baseAttack.attack.name].attackAnimation, tower.attackPoint.transform.position, Quaternion.Euler(transform.eulerAngles));
-        attackSprite.gameObject.name = baseAttack.attack.name;
-        attackSprite.transform.localScale = attackSprite.transform.localScale * 2;
-        attackSprite.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "PopMenu";
-        //attackSprite.GetComponent<AttackEffects>().FromAttacker(attack, attack.name, attack.type, monster.attack, (int)attack.Power.Value, monster.info.level, attack.CritChance.Value, attack.CritMod.Value, gameObject.GetComponent<Monster>());
-        attackSprite.GetComponent<AttackEffects>().FromAttacker(baseAttack.attack, baseAttack.attack.name, baseAttack.attack.type, tempStats.Attack.Value, (int)baseAttack.attack.Power.Value, info.level, baseAttack.attack.CritChance.Value, baseAttack.attack.CritMod.Value, gameObject.GetComponent<Monster>());
-        attackSprite.GetComponent<AttackEffects>().AttackMotion(Vector2.right * 25);
+        
 
 
     }

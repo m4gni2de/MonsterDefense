@@ -122,20 +122,20 @@ public class EquipEffect
 
     public void WoodAxe()
     {
-        monster.info.baseAttack1.attack.Power.AddModifier(new StatModifier(equipment.atkPowerBonus, StatModType.Flat, equipment, equipment.itemName));
-        monster.info.baseAttack2.attack.Power.AddModifier(new StatModifier(equipment.atkPowerBonus, StatModType.Flat, equipment, equipment.itemName));
+        monster.info.baseAttack1.Power.AddModifier(new StatModifier(equipment.atkPowerBonus, StatModType.Flat, equipment, equipment.itemName));
+        monster.info.baseAttack2.Power.AddModifier(new StatModifier(equipment.atkPowerBonus, StatModType.Flat, equipment, equipment.itemName));
     }
 
     public void SpikedKnuckles()
     {
-        if (monster.info.attack1.attackMode == AttackMode.Punch)
+        if (monster.info.baseAttack1.attack.attackMode == AttackMode.Punch)
         {
-            monster.info.baseAttack1.attack.Power.AddModifier(new StatModifier(equipment.atkPowerPercentBonus, StatModType.PercentMult, equipment, equipment.itemName));
+            monster.info.baseAttack1.Power.AddModifier(new StatModifier(equipment.atkPowerPercentBonus, StatModType.PercentMult, equipment, equipment.itemName));
         }
 
         if (monster.info.baseAttack2.attack.attackMode == AttackMode.Punch)
         {
-            monster.info.baseAttack2.attack.Power.AddModifier(new StatModifier(equipment.atkPowerPercentBonus, StatModType.PercentMult, equipment, equipment.itemName));
+            monster.info.baseAttack2.Power.AddModifier(new StatModifier(equipment.atkPowerPercentBonus, StatModType.PercentMult, equipment, equipment.itemName));
         }
     }
 

@@ -306,37 +306,22 @@ public class EquipManager
         monster.info.CoinGeneration.RemoveAllModifiersFromSource(equipment);
 
 
-        //monster.info.attack1.Power.RemoveAllModifiersFromSource(equipment);
-        //monster.info.attack1.Range.RemoveAllModifiersFromSource(equipment);
-        //monster.info.attack1.AttackSpeed.RemoveAllModifiersFromSource(equipment);
-        //monster.info.attack1.AttackTime.RemoveAllModifiersFromSource(equipment);
-        //monster.info.attack1.CritChance.RemoveAllModifiersFromSource(equipment);
-        //monster.info.attack1.CritMod.RemoveAllModifiersFromSource(equipment);
-        //monster.info.attack1.EffectChance.RemoveAllModifiersFromSource(equipment);
+        
+        monster.info.baseAttack1.Power.RemoveAllModifiersFromSource(equipment);
+        monster.info.baseAttack1.Range.RemoveAllModifiersFromSource(equipment);
+        monster.info.baseAttack1.AttackSpeed.RemoveAllModifiersFromSource(equipment);
+        monster.info.baseAttack1.AttackTime.RemoveAllModifiersFromSource(equipment);
+        monster.info.baseAttack1.CritChance.RemoveAllModifiersFromSource(equipment);
+        monster.info.baseAttack1.CritMod.RemoveAllModifiersFromSource(equipment);
+        monster.info.baseAttack1.EffectChance.RemoveAllModifiersFromSource(equipment);
 
-        //monster.info.attack2.Power.RemoveAllModifiersFromSource(equipment);
-        //monster.info.attack2.Range.RemoveAllModifiersFromSource(equipment);
-        //monster.info.attack2.AttackSpeed.RemoveAllModifiersFromSource(equipment);
-        //monster.info.attack2.AttackTime.RemoveAllModifiersFromSource(equipment);
-        //monster.info.attack2.CritChance.RemoveAllModifiersFromSource(equipment);
-        //monster.info.attack2.CritMod.RemoveAllModifiersFromSource(equipment);
-        //monster.info.attack2.EffectChance.RemoveAllModifiersFromSource(equipment);
-
-        monster.info.baseAttack1.attack.Power.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack1.attack.Range.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack1.attack.AttackSpeed.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack1.attack.AttackTime.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack1.attack.CritChance.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack1.attack.CritMod.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack1.attack.EffectChance.RemoveAllModifiersFromSource(equipment);
-
-        monster.info.baseAttack2.attack.Power.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack2.attack.Range.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack2.attack.AttackSpeed.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack2.attack.AttackTime.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack2.attack.CritChance.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack2.attack.CritMod.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack2.attack.EffectChance.RemoveAllModifiersFromSource(equipment);
+        monster.info.baseAttack2.Power.RemoveAllModifiersFromSource(equipment);
+        monster.info.baseAttack2.Range.RemoveAllModifiersFromSource(equipment);
+        monster.info.baseAttack2.AttackSpeed.RemoveAllModifiersFromSource(equipment);
+        monster.info.baseAttack2.AttackTime.RemoveAllModifiersFromSource(equipment);
+        monster.info.baseAttack2.CritChance.RemoveAllModifiersFromSource(equipment);
+        monster.info.baseAttack2.CritMod.RemoveAllModifiersFromSource(equipment);
+        monster.info.baseAttack2.EffectChance.RemoveAllModifiersFromSource(equipment);
 
 
 

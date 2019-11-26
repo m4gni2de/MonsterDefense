@@ -354,30 +354,30 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         evasionText.color = Color.white;
 
         attack1.text = thisMonster.info.attack1Name;
-        atk1Attack.text = thisMonster.info.baseAttack1.attack.Power.Value.ToString();
-        atk1Range.text = thisMonster.info.baseAttack1.attack.range.ToString();
-        atk1Cool.text = thisMonster.info.baseAttack1.attack.attackTime.ToString();
-        atk1Slow.text = thisMonster.info.baseAttack1.attack.hitSlowTime.ToString();
+        atk1Attack.text = thisMonster.info.baseAttack1.Power.Value.ToString();
+        atk1Range.text = thisMonster.info.baseAttack1.Range.Value.ToString();
+        atk1Cool.text = thisMonster.info.baseAttack1.AttackTime.Value.ToString();
+        atk1Slow.text = thisMonster.info.baseAttack1.AttackSlow.Value.ToString();
         
         atk1Mode.sprite = GameManager.Instance.baseAttacks.atkModeDict[thisMonster.info.baseAttack1.attack.attackMode.ToString()];
         atk1Mode.name = thisMonster.info.baseAttack1.attack.attackMode.ToString();
-        atk1Stamina.text = thisMonster.info.baseAttack1.attack.staminaGained.ToString();
-        attack1Border.GetComponent<SpriteRenderer>().color = GameManager.Instance.typeColorDictionary[thisMonster.info.baseAttack1.attack.type];
+        atk1Stamina.text = thisMonster.info.baseAttack1.StaminaGained.ToString();
+        attack1Border.GetComponent<SpriteRenderer>().color = GameManager.Instance.typeColorDictionary[thisMonster.info.baseAttack1.type];
 
         ColorBlock cb = new ColorBlock();
-        cb.normalColor = GameManager.Instance.typeColorDictionary[thisMonster.info.baseAttack1.attack.type];
-        cb.highlightedColor = GameManager.Instance.typeColorDictionary[thisMonster.info.baseAttack1.attack.type];
+        cb.normalColor = GameManager.Instance.typeColorDictionary[thisMonster.info.baseAttack1.type];
+        cb.highlightedColor = GameManager.Instance.typeColorDictionary[thisMonster.info.baseAttack1.type];
         cb.pressedColor = new Color(.78f, .78f, .78f, 1f);
         cb.disabledColor = new Color(.78f, .78f, .78f, .5f);
         cb.colorMultiplier = 1f;
         attack1Btn.colors = cb;
 
-        if (thisMonster.info.baseAttack1.attack.effectName != "none")
+        if (thisMonster.info.baseAttack1.effectName != "none")
         {
-            atk1Effect.text = "+ " + thisMonster.info.baseAttack1.attack.effectChance * 100 + "%";
+            atk1Effect.text = "+ " + thisMonster.info.baseAttack1.EffectChance.Value * 100 + "%";
             atk1Status.color = Color.white;
-            atk1Status.sprite = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict[thisMonster.info.baseAttack1.attack.effectName].statusSprite;
-            atk1Status.name = thisMonster.info.baseAttack1.attack.effectName;
+            atk1Status.sprite = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict[thisMonster.info.baseAttack1.effectName].statusSprite;
+            atk1Status.name = thisMonster.info.baseAttack1.effectName;
             
         }
         else
@@ -388,7 +388,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             atk1Status.name = "none";
         }
 
-        if (thisMonster.info.baseAttack1.attack.Power.BaseValue != thisMonster.info.baseAttack1.attack.Power.Value)
+        if (thisMonster.info.baseAttack1.Power.BaseValue != thisMonster.info.baseAttack1.Power.Value)
         {
             atk1Attack.color = Color.yellow;
         }
@@ -397,7 +397,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             atk1Attack.color = Color.white;
         }
 
-        if (thisMonster.info.baseAttack1.attack.Range.BaseValue != thisMonster.info.baseAttack1.attack.Range.Value)
+        if (thisMonster.info.baseAttack1.Range.BaseValue != thisMonster.info.baseAttack1.Range.Value)
         {
             atk1Range.color = Color.yellow;
         }
@@ -417,16 +417,16 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
 
 
-        Color color2 = GameManager.Instance.typeColorDictionary[thisMonster.info.baseAttack2.attack.type];
+        Color color2 = GameManager.Instance.typeColorDictionary[thisMonster.info.baseAttack2.type];
 
         attack2.text = thisMonster.info.attack2Name;
-        atk2Attack.text = thisMonster.info.baseAttack2.attack.Power.Value.ToString();
-        atk2Range.text = thisMonster.info.baseAttack2.attack.range.ToString();
-        atk2Cool.text = thisMonster.info.baseAttack2.attack.attackTime.ToString();
-        atk2Slow.text = thisMonster.info.baseAttack2.attack.hitSlowTime.ToString();
+        atk2Attack.text = thisMonster.info.baseAttack2.Power.Value.ToString();
+        atk2Range.text = thisMonster.info.baseAttack2.Range.Value.ToString();
+        atk2Cool.text = thisMonster.info.baseAttack2.AttackTime.Value.ToString();
+        atk2Slow.text = thisMonster.info.baseAttack2.AttackSlow.Value.ToString();
         atk2Stamina.text = thisMonster.info.baseAttack2.attack.staminaGained.ToString();
         attack2Border.GetComponent<SpriteRenderer>().color = color2;
-        //attack2Panel.GetComponent<SpriteRenderer>().color = GameManager.Instance.typeColorDictionary[thisMonster.info.baseAttack2.attack.type];
+        //attack2Panel.GetComponent<SpriteRenderer>().color = GameManager.Instance.typeColorDictionary[thisMonster.info.baseAttack2.type];
 
         ColorBlock cb2 = new ColorBlock();
 
@@ -437,12 +437,12 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         cb2.colorMultiplier = 1f;
         attack2Btn.colors = cb2;
 
-        if (thisMonster.info.baseAttack2.attack.effectName != "none")
+        if (thisMonster.info.baseAttack2.effectName != "none")
         {
-            atk2Effect.text = "+ " + thisMonster.info.baseAttack2.attack.effectChance * 100 + "%";
+            atk2Effect.text = "+ " + thisMonster.info.baseAttack2.EffectChance.Value * 100 + "%";
             atk2Status.color = Color.white;
-            atk2Status.sprite = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict[thisMonster.info.baseAttack2.attack.effectName].statusSprite;
-            atk2Status.name = thisMonster.info.baseAttack2.attack.effectName;
+            atk2Status.sprite = GameManager.Instance.GetComponent<AllStatusEffects>().allStatusDict[thisMonster.info.baseAttack2.effectName].statusSprite;
+            atk2Status.name = thisMonster.info.baseAttack2.effectName;
         }
         else
         {
@@ -456,7 +456,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         atk2Mode.sprite = GameManager.Instance.baseAttacks.atkModeDict[thisMonster.info.baseAttack2.attack.attackMode.ToString()];
         atk2Mode.name = thisMonster.info.baseAttack2.attack.attackMode.ToString();
 
-        if (thisMonster.info.baseAttack2.attack.Power.BaseValue != thisMonster.info.baseAttack2.attack.Power.Value)
+        if (thisMonster.info.baseAttack2.Power.BaseValue != thisMonster.info.baseAttack2.Power.Value)
         {
             atk2Attack.color = Color.yellow;
         }
@@ -465,7 +465,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             atk2Attack.color = Color.white;
         }
 
-        if (thisMonster.info.baseAttack2.attack.Range.BaseValue != thisMonster.info.baseAttack2.attack.Range.Value)
+        if (thisMonster.info.baseAttack2.Range.BaseValue != thisMonster.info.baseAttack2.Range.Value)
         {
             atk2Range.color = Color.yellow;
         }
@@ -474,7 +474,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             atk2Range.color = Color.white;
         }
 
-        //if (thisMonster.tempStats.baseAttack2.attack.AttackTime.BaseValue != thisMonster.tempStats.baseAttack2.attack.AttackTime.Value)
+        //if (thisMonster.tempStats.baseAttack2.AttackTime.BaseValue != thisMonster.tempStats.baseAttack2.AttackTime.Value)
         //{
         //    atk2Cool.color = Color.yellow;
         //}
@@ -680,7 +680,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     //when the attack 1 button is pushed, have the monster shoot a sample of the attack
     public void Attack1Btn()
     {
-        MonsterAttack attack = monster.tempStats.attack1;
+        MonsterAttack attack = monster.info.baseAttack1.attack;
 
         monster.GetComponent<Tower>().attackNumber = 1;
         monster.monsterMotion.SetBool("isAttacking", true);
@@ -723,7 +723,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     //when the attack 2 button is pushed, have the monster shoot a sample of the attack
     public void Attack2Btn()
     {
-        MonsterAttack attack = monster.info.attack2;
+        MonsterAttack attack = monster.info.baseAttack2.attack;
         monster.GetComponent<Tower>().attackNumber = 2;
         monster.monsterMotion.SetBool("isAttacking", true);
         monster.GetComponent<Tower>().isAttacking = true;

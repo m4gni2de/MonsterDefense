@@ -785,7 +785,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     monster.monsterMotion.SetBool("isAttacking", true);
                     
 
-                    boneStructure.GetComponent<MotionControl>().AttackModeCheck(monster.info.baseAttack1.attack.attackMode);
+                    boneStructure.GetComponent<MotionControl>().AttackModeCheck(monster.info.baseAttack1.attackMode);
                     boneStructure.GetComponent<MotionControl>().AttackDirection(tileTarget, enemy);
 
                   
@@ -813,7 +813,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
                     monster.monsterMotion.SetBool("isAttacking", true);
                     
 
-                    boneStructure.GetComponent<MotionControl>().AttackModeCheck(monster.info.baseAttack2.attack.attackMode);
+                    boneStructure.GetComponent<MotionControl>().AttackModeCheck(monster.info.baseAttack2.attackMode);
                     boneStructure.GetComponent<MotionControl>().AttackDirection(tileTarget, enemy);
 
                     if (enemy.transform.position.x <= attackPoint.transform.position.x)
@@ -1111,13 +1111,13 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         if (attackNumber == 1)
         {
             attackList = atkRange1List;
-            type = monster.info.baseAttack1.attack.type;
+            type = monster.info.baseAttack1.type;
             name = monster.info.baseAttack1.attack.name;
         }
         if (attackNumber == 2)
         {
             attackList = atkRange2List;
-            type = monster.info.baseAttack2.attack.type;
+            type = monster.info.baseAttack2.type;
             name = monster.info.baseAttack2.attack.name;
         }
 

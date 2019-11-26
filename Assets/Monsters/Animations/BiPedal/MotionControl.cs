@@ -114,6 +114,12 @@ public class MotionControl : MonoBehaviour
     //get the type of attack from the attacker here so that the monster knows what type of attack animation to do
     public void AttackModeCheck(AttackMode mode)
     {
+        monsterAnimator.SetBool("isProjectile", false);
+        monsterAnimator.SetBool("isPunch", false);
+        monsterAnimator.SetBool("isKick", false);
+
+        //Debug.Log(mode);
+
         if (mode == AttackMode.Projectile)
         {
             monsterAnimator.SetBool("isProjectile", true);

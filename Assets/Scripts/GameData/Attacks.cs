@@ -72,18 +72,74 @@ public enum DamageForce
     Explode,
 }
 
+
+public struct AttackStats
+{
+    public Stat Range;
+    public Stat Power;
+    public Stat CritChance;
+    public Stat CritMod;
+    public Stat EffectChance;
+    public Stat AttackTime;
+    public Stat AttackSpeed;
+    public Stat AttackSlow;
+    public Stat StaminaGained;
+}
 [System.Serializable]
 //use this for the object of the attack, so that each monster can have their own instances of the attacks
 public class BaseAttack
 {
     public MonsterAttack attack;
     public Monster owner;
+    public AttackStats stats;
+   
+
+    public string type;
+    public DamageForce forceType;
+    public string effectName;
+    public AttackMode attackMode;
+
+
+    public Stat Range = new Stat();
+    public Stat Power = new Stat();
+    public Stat CritChance = new Stat();
+    public Stat CritMod = new Stat();
+    public Stat EffectChance = new Stat();
+    public Stat AttackTime = new Stat();
+    public Stat AttackSpeed = new Stat();
+    public Stat AttackSlow = new Stat();
+    public Stat StaminaGained = new Stat();
 
     public BaseAttack(MonsterAttack Attack, Monster Owner)
     {
         attack = Attack;
         owner = Owner;
 
+        //var attacks = GameManager.Instance.baseAttacks.attackDict;
+
+        //attack = attacks[Attack.name];
+
+        //Debug.Log(attack.range);
+
+        SetAttack();
+       
+    }
+
+    public void SetAttack()
+    {
+        Range.BaseValue = attack.range;
+        Power.BaseValue = attack.power;
+        CritChance.BaseValue = attack.critChance;
+        CritMod.BaseValue = attack.critMod;
+        EffectChance.BaseValue = attack.effectChance;
+        AttackTime.BaseValue = attack.attackTime;
+        AttackSpeed.BaseValue = attack.attackSpeed;
+        AttackSlow.BaseValue = attack.hitSlowTime;
+        StaminaGained.BaseValue = attack.staminaGained;
+        type = attack.type;
+        forceType = attack.forceType;
+        effectName = attack.effectName;
+        attackMode = attack.attackMode;
     }
 }
 
