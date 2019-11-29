@@ -376,6 +376,48 @@ public class AllAttacks
 
     };
 
+    public MonsterAttack ArcaneCutter = new MonsterAttack
+    {
+        name = "Arcane Cutter",
+        id = 11,
+        description = "A magical blast of arcane energy.",
+        type = "Magic",
+        effectName = "none",
+        range = 3,
+        power = 90,
+        critChance = 1f,
+        critMod = 1f,
+        attackTime = 0.6f,
+        effectChance = .15f,
+        attackSpeed = 9.1f,
+        hitSlowTime = .57f,
+        attackMode = AttackMode.Projectile,
+        staminaGained = .05f,
+
+
+    };
+
+    public MonsterAttack NoxiousTwister = new MonsterAttack
+    {
+        name = "Noxious Twister",
+        id = 12,
+        description = "Tainted gases form together with wicked intensity.",
+        type = "Poison",
+        effectName = "Poison",
+        range = 3,
+        power = 75,
+        critChance = 1f,
+        critMod = 1f,
+        attackTime = 1.1f,
+        effectChance = .45f,
+        attackSpeed = 10.2f,
+        hitSlowTime = 1.2f,
+        attackMode = AttackMode.Projectile,
+        staminaGained = .11f,
+
+
+    };
+
 
 }
 
@@ -427,6 +469,8 @@ public class Attacks : MonoBehaviour
         attackDict.Add(allAttacks.Fireball.name, allAttacks.Fireball);
         attackDict.Add(allAttacks.FrostShot.name, allAttacks.FrostShot);
         attackDict.Add(allAttacks.VirusBlaster.name, allAttacks.VirusBlaster);
+        attackDict.Add(allAttacks.ArcaneCutter.name, allAttacks.ArcaneCutter);
+        attackDict.Add(allAttacks.NoxiousTwister.name, allAttacks.NoxiousTwister);
 
 
         //loops through all of the attacks and separates them in to lists based on their type

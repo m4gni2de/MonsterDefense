@@ -120,6 +120,9 @@ public class Tower : MonoBehaviour, IPointerDownHandler
 
     //bool that is changed when the monster's summon animation is complete. changed by the Summon Animation object
     public bool summonAnimationComplete;
+    //when a monster's stamina is full, it can use it's ability. this bool checks that
+    public bool abilityReady, abilityAuraActive;
+    public GameObject abilityAura;
 
     public MapDetails mapDetails;
     // Start is called before the first frame update
@@ -896,10 +899,11 @@ public class Tower : MonoBehaviour, IPointerDownHandler
         }
 
 
-
-        if (staminaBar.BarProgress >= 1)
+        
+        if (staminaBar.BarProgress >= 1 && (monster.info.specialAbility.castingAmmo - monster.info.specialAbility.castingCount) > 0)
         {
-            SpecialAbility();
+            abilityReady = true;
+            monster.abilityAura.SetActive(true);
         }
         
     }
@@ -910,6 +914,8 @@ public class Tower : MonoBehaviour, IPointerDownHandler
     //DO SOMETHING HERE WHEN A MONSTER'S STAMINA GETS TO FULL
     public void SpecialAbility()
     {
+        monster.abilityAura.SetActive(false);
+        abilityReady = false;
         //if the monster's ability can still be used, use it
         if (monster.info.specialAbility.castingCount < monster.info.specialAbility.castingAmmo)
         {
@@ -922,6 +928,7 @@ public class Tower : MonoBehaviour, IPointerDownHandler
             if (monster.info.specialAbility.castingCount < monster.info.specialAbility.castingAmmo)
             {
                 staminaBar.BarProgress = 0;
+                
             }
             else
             {

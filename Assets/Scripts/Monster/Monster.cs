@@ -237,6 +237,8 @@ public class Monster : MonoBehaviour
     //the global stats currently affecting this monster, to prevent duplicates of the same stat from being added
     public List<GlobalStat> activeGlobalStats = new List<GlobalStat>();
 
+    public GameObject abilityAura;
+
     private void Awake()
     {
         allStats.Clear();

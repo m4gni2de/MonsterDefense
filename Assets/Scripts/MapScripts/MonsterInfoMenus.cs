@@ -12,12 +12,12 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     private GameObject map;
 
     //variable for the window that pops up to show your list of unused towers, ready to place them
-    public GameObject towerMenu, infoMenu, enemyInfoMenu;
+    public GameObject towerMenu, infoMenu, enemyInfoMenu, abilityObject;
     public GameObject menuContentView;
     public GameObject menuCanvas;
     public GameObject popMenuCanvas;
     public GameObject towerButton;
-
+    
 
 
     //objects related to the active monster's target moe
@@ -30,7 +30,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     public int menuMovements;
     public bool isClicked;
 
-    public Button findMonsterBtn, showTowersBtn, hideTowersBtn;
+    public Button findMonsterBtn, showTowersBtn, hideTowersBtn, activateAbilityBtn, showAbilityBtn;
 
     public bool isChecking;
 
@@ -38,6 +38,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
     public TMP_Text monsterName, attack1BtnText, attack2BtnText, levelText, atkText, defText, speText, precText, typeText, toLevelText, evasText, enGenText, enCostText, staminaText;
     public TMP_Text atk1Power, atk1Range, atk2Power, atk2Range;
+    public TMP_Text abiNameText, abiDescriptionText, ammoText;
     public SpriteRenderer atk1TypeSp, atk2TypeSp;
     public Slider expSlider;
     public Image type1, type2;
@@ -314,6 +315,19 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
 
             targetModeDropdown.value = (int)Enum.ToObject(typeof(TargetMode), activeMonster.GetComponent<Tower>().targetMode);
             staminaBar.BarProgress = activeMonster.GetComponent<Tower>().staminaBar.BarProgress;
+            
+
+            if (activeMonster.GetComponent<Tower>().staminaBar.BarProgress >= 1 && (activeMonster.info.specialAbility.castingAmmo - activeMonster.info.specialAbility.castingCount) > 0)
+            {
+                activateAbilityBtn.interactable = true;
+                activateAbilityBtn.gameObject.GetComponent<GoldFX>().enabled = true;
+
+            }
+            else
+            {
+                activateAbilityBtn.interactable = false;
+                activateAbilityBtn.gameObject.GetComponent<GoldFX>().enabled = false;
+            }
 
 
             //set the status of the find/place monster button
@@ -338,8 +352,10 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                 }
             }
 
-            
 
+            abiNameText.text = activeMonster.info.specialAbility.name;
+            abiDescriptionText.text = activeMonster.info.specialAbility.description;
+            ammoText.text = "Ammo: " + (activeMonster.info.specialAbility.castingAmmo - activeMonster.info.specialAbility.castingCount).ToString();
             //if (activeMonster.GetComponent<Tower>().
             //indicator.transform.position = new Vector2(activeMonster.specs.head.transform.position.x, activeMonster.specs.head.transform.position.y + 40);
         }
@@ -372,6 +388,15 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                             monsterName.text = GameManager.Instance.activeTowers[index].info.name;
                             attack1BtnText.text = GameManager.Instance.activeTowers[index].info.attack1Name;
                             attack2BtnText.text = GameManager.Instance.activeTowers[index].info.attack2Name;
+
+                            //if the monster that's clicked has an ability ready, open the menu to let the player activate their ability
+                            if (activeMonster.GetComponent<Tower>().abilityReady)
+                            {
+                                showAbilityBtn.gameObject.SetActive(false);
+                                abilityObject.SetActive(true);
+                                activateAbilityBtn.gameObject.GetComponent<GoldFX>().enabled = true;
+                                
+                            }
 
                         }
 
@@ -576,6 +601,11 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
         mainCamera.GetComponent<CameraMotion>().isFree = true;
     }
 
-
+    //this is called by the Ability Button to activate the active monster's ability
+    public void ActivateAbilityBtn()
+    {
+        activeMonster.GetComponent<Tower>().SpecialAbility();
+        activateAbilityBtn.interactable = false;
+    }
 
 }

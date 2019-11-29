@@ -84,6 +84,11 @@
     <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_SortingLayerEditor.cs" />
     <Compile Include="Assets\Monsters\Puppet2D\Scripts\Editor\Puppet2D_Spline.cs" />
     <Compile Include="Assets\Scripts\Editor\MinMaxSliderPropertyDrawer.cs" />
+    <Compile Include="Assets\UI\Particlecollection\Plugins\Effect\Editor\EffectControllerInspector.cs" />
+    <Compile Include="Assets\UI\Particlecollection\Plugins\Effect\Editor\EffectToolBar.cs" />
+    <Compile Include="Assets\UI\Particlecollection\Plugins\Effect\Editor\RenderEffectInspector.cs" />
+    <Compile Include="Assets\UI\Particlecollection\Plugins\Effect\Editor\ShaderCustomEditor\ShaderMaterialsEditor.cs" />
+    <Compile Include="Assets\UI\Particlecollection\Plugins\Effect\Editor\XUIUtils.cs" />
     <Compile Include="Assets\UI\RainMaker\Editor\RainMakerEditor.cs" />
     <Reference Include="UnityEditor.TestRunner">
       <HintPath>C:/Users/Steve/Documents/GitHub/MonsterDefense/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>

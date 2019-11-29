@@ -225,7 +225,7 @@ public class Stat
     {
         if (statModifiers.Remove(mod))
         {
-            Debug.Log(mod.Value);
+            //Debug.Log(mod.Value);
             isDirty = true;
             return true;
         }

@@ -57,6 +57,7 @@ public class Enemy : MonoBehaviour
     //a list of the tiles in the pathway
     public List<MapTile> pathList = new List<MapTile>();
     public float speed;
+    public float zeroSpeed = 0;
 
     public bool isCircular;
     // Always true at the beginning because the moving object will always move towards the first waypoint
@@ -70,7 +71,7 @@ public class Enemy : MonoBehaviour
     public int currentIndex = 0;
     private bool isWaiting = false;
     private float speedStorage = 0;
-    
+    private bool isPaused = false;
 
     private int count;
 
@@ -531,7 +532,14 @@ public class Enemy : MonoBehaviour
             MoveTowardsPath();
         }
 
-
+        //if (isPaused)
+        //{
+        //    speed = 0;
+        //}
+        //else
+        //{
+        //    speed = 40 * ((float)monster.info.speBase / 100);
+        //}
         //if (currentIndex == 0)
         //{
         //    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, gameObject.transform.localScale.y, -1);
@@ -656,7 +664,10 @@ public class Enemy : MonoBehaviour
 
     public void Pause()
     {
-        isWaiting = !isWaiting;
+        //isWaiting = !isWaiting;
+
+        isPaused = !isPaused;
+        Debug.Log(isPaused);
     }
 
     private void MoveTowardsPath()
@@ -727,55 +738,57 @@ public class Enemy : MonoBehaviour
                 monster.puppet.flip = false;
                
         }
-        
-           
-        
 
-        
 
-        //This code rotates the 'mover' based on how close it is to the waypoint
-        // If the moving object isn't that close to the waypoint
-        if (Vector3.Distance(currentPosition, targetPosition) > 2f)
+
+
+        if (!isPaused)
         {
 
-            // Get the direction and normalize
-            Vector3 directionOfTravel = targetPosition - currentPosition;
-            directionOfTravel.Normalize();
-
-            //scale the movement on each axis by the directionOfTravel vector components
-            this.transform.Translate(
-                directionOfTravel.x * speed * Time.deltaTime,
-                directionOfTravel.y * speed * Time.deltaTime,
-                directionOfTravel.z * speed * Time.deltaTime,
-                Space.World
-
-            );
-        }
-        else
-        {
-            if (currentPath)
+            //This code rotates the 'mover' based on how close it is to the waypoint
+            // If the moving object isn't that close to the waypoint
+            if (Vector3.Distance(currentPosition, targetPosition) > 2f)
             {
-                // If the waypoint has a pause amount then wait a bit
-                if (currentPath.waitSeconds > 0)
-                {
-                    Pause();
-                    Invoke("Pause", currentPath.waitSeconds);
-                }
 
-                // If the current waypoint has a speed change then change to it
-                if (currentPath.speedOut > 0)
-                {
-                    speedStorage = speed;
-                    speed = currentPath.speedOut;
-                }
-                else if (speedStorage != 0)
-                {
-                    speed = speedStorage;
-                    speedStorage = 0;
-                }
+                // Get the direction and normalize
+                Vector3 directionOfTravel = targetPosition - currentPosition;
+                directionOfTravel.Normalize();
+
+                //scale the movement on each axis by the directionOfTravel vector components
+                this.transform.Translate(
+                    directionOfTravel.x * speed * Time.deltaTime,
+                    directionOfTravel.y * speed * Time.deltaTime,
+                    directionOfTravel.z * speed * Time.deltaTime,
+                    Space.World
+
+                );
             }
+            else
+            {
+                if (currentPath)
+                {
+                    // If the waypoint has a pause amount then wait a bit
+                    if (currentPath.waitSeconds > 0)
+                    {
+                        Pause();
+                        Invoke("Pause", currentPath.waitSeconds);
+                    }
 
-            NextPath();
+                    // If the current waypoint has a speed change then change to it
+                    if (currentPath.speedOut > 0)
+                    {
+                        speedStorage = speed;
+                        speed = currentPath.speedOut;
+                    }
+                    else if (speedStorage != 0)
+                    {
+                        speed = speedStorage;
+                        speedStorage = 0;
+                    }
+                }
+
+                NextPath();
+            }
         }
     }
 

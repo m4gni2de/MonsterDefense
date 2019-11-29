@@ -228,6 +228,7 @@
     <Compile Include="Assets\Scripts\GameData\MonsterAbilities.cs" />
     <Compile Include="Assets\Scripts\GameData\MonsterDataObject.cs" />
     <Compile Include="Assets\Scripts\GameData\MonstersData.cs" />
+    <Compile Include="Assets\Scripts\GameData\ParticleEffects.cs" />
     <Compile Include="Assets\Scripts\GameData\SpriteMaterials.cs" />
     <Compile Include="Assets\Scripts\GameData\StatsCalc.cs" />
     <Compile Include="Assets\Scripts\GameData\UnityOnly.cs" />
@@ -329,6 +330,12 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\UI\Particlecollection\Plugins\Effect\Script\CameraTarget.cs" />
+    <Compile Include="Assets\UI\Particlecollection\Plugins\Effect\Script\EffectController.cs" />
+    <Compile Include="Assets\UI\Particlecollection\Plugins\Effect\Script\EffectDemo.cs" />
+    <Compile Include="Assets\UI\Particlecollection\Plugins\Effect\Script\EffectShaderPropertyStr.cs" />
+    <Compile Include="Assets\UI\Particlecollection\Plugins\Effect\Script\RenderEffect.cs" />
+    <Compile Include="Assets\UI\Particlecollection\Plugins\Effect\Script\TransformExtension.cs" />
     <Compile Include="Assets\UI\RainMaker\Prefab\BaseRainScript.cs" />
     <Compile Include="Assets\UI\RainMaker\Prefab\RainCollision.cs" />
     <Compile Include="Assets\UI\RainMaker\Prefab\RainScript.cs" />
@@ -423,6 +430,7 @@
     <None Include="Assets\2DxFX\ExtraShaders\Shader\OutlineEmpty.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_PatternAdditive.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_CircleFade.shader" />
+    <None Include="Assets\UI\Particlecollection\Plugins\Effect\Shader\effect_distortion_mask.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_NewTeleportation2.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Blur.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\Perspective3D.shader" />
@@ -446,6 +454,7 @@
     <None Include="Assets\2DxFX\Resources\_2dxFX_Slim.shader" />
     <None Include="Assets\UI\MapUI\Tiles\TileTextures\ReflectionShader.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\TurnTransparent.shader" />
+    <None Include="Assets\UI\Particlecollection\Plugins\Effect\Shader\ParticleAddSoftEffect.shader" />
     <None Include="Assets\UI\CustomShaders\InvisibleShadow.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Blood.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
@@ -466,7 +475,9 @@
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_PlasmaShield.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\RetroCGA2.shader" />
+    <None Include="Assets\UI\Particlecollection\Plugins\Effect\Shader\Toon Blended Premmultiply.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_FireAdditive.shader" />
+    <None Include="Assets\UI\Particlecollection\Plugins\Effect\Shader\ParticlePremultiplyBlend.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_NoiseAnimated.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\Tilt_Right.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\Animated_Offset.shader" />
@@ -477,6 +488,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Fire.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\TurnMetal.shader" />
+    <None Include="Assets\UI\Particlecollection\READ ME.txt" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\NoiseBlur_Horizontal.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Clipping.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\Repeat.shader" />
@@ -518,6 +530,7 @@
     <None Include="Assets\2DxFX\Resources\_2dxFX_Noise.shader" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Frozen.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\RetroCGA.shader" />
+    <None Include="Assets\UI\Particlecollection\Plugins\Effect\Shader\ParticleAddEffect.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Distortion_Additive.shader" />
@@ -533,6 +546,7 @@
     <None Include="Assets\2DxFX\Resources\_2dxFX_Lightning.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Material\txt.txt" />
     <None Include="Assets\2DxFX\Resources\_2dxFX_Sepia.shader" />
+    <None Include="Assets\UI\Particlecollection\Plugins\Effect\Shader\Toon Additive.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\BreakingMirror.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\Fusion2SpritesAdditive.shader" />
@@ -548,6 +562,7 @@
     <None Include="Assets\2DxFX\Resources\_2dxFX_CompressionFX.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\HologramScanLineAdditive.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\HologramParasiteAdditive.shader" />
+    <None Include="Assets\UI\Particlecollection\Plugins\Effect\Shader\ParticleBlendEffect.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\Animated_Zoom.shader" />
     <None Include="Assets\2DxFX\ExtraShaders\Shader\BreakingGlass.shader" />

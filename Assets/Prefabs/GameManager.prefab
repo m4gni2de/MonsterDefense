@@ -2014,7 +2014,7 @@ MonoBehaviour:
       critMod: 1
       effectChance: 0
       attackTime: 1
-      attackSpeed: 7
+      attackSpeed: 6.5
       hitSlowTime: 0.75
       attackMode: 0
       attackAnimation: {fileID: 8128435365625536934, guid: 5f6c43aace898a44e96220d47b3d149d,
@@ -2276,6 +2276,108 @@ MonoBehaviour:
         type: 3}
       forceType: 0
       staminaGained: 0.08
+    ArcaneCutter:
+      Range:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      Power:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      CritChance:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      CritMod:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      EffectChance:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackTime:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackSpeed:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackSlow:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      name: Arcane Cutter
+      id: 11
+      description: A magical blast of arcane energy.
+      type: Magic
+      effectName: none
+      range: 3
+      power: 90
+      critChance: 1
+      critMod: 1
+      effectChance: 0.15
+      attackTime: 0.6
+      attackSpeed: 9.1
+      hitSlowTime: 0.57
+      attackMode: 2
+      attackAnimation: {fileID: 5155001587368312967, guid: 3cbd3dd7bf9c3b448837df2f65eedce6,
+        type: 3}
+      forceType: 0
+      staminaGained: 0.05
+    NoxiousTwister:
+      Range:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      Power:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      CritChance:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      CritMod:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      EffectChance:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackTime:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackSpeed:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      AttackSlow:
+        BaseValue: 0
+        _value: 0
+        lastBaseValue: -3.4028235e+38
+      name: Noxious Twister
+      id: 12
+      description: Tainted gases form together with wicked intensity.
+      type: Poison
+      effectName: Poison
+      range: 3
+      power: 75
+      critChance: 1
+      critMod: 1
+      effectChance: 0.45
+      attackTime: 0.8
+      attackSpeed: 7.2
+      hitSlowTime: 1.2
+      attackMode: 2
+      attackAnimation: {fileID: 6471197979057811769, guid: be3813465de021544b3e72709b8e9a41,
+        type: 3}
+      forceType: 0
+      staminaGained: 0.11
   attackModeSprites:
   - {fileID: 21300000, guid: c1c43d0874389e2439a9652eab1d951b, type: 3}
   - {fileID: 21300002, guid: c1c43d0874389e2439a9652eab1d951b, type: 3}
@@ -2306,7 +2408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allMonsterData:
     Lichenthrope:
-      monsterPrefab: {fileID: 3756733178258105696, guid: b9e802c2ecb6b8f46baaa297d60de0d9,
+      monsterPrefab: {fileID: 5149978236182369661, guid: 676455e240e62ab4289aacd772801a88,
         type: 3}
       frontIcon: {fileID: 21300000, guid: 32a396424b1b09d4695de7afc10b2bcf, type: 3}
       id: 1
@@ -2330,6 +2432,7 @@ MonoBehaviour:
       - Aqua Dart
       - Wind Cyclone
       - Darkness Pike
+      - Noxious Twister
       abilities:
       - Natural Quake
       skills:
@@ -2460,6 +2563,7 @@ MonoBehaviour:
       - Shadow Blaze Punch
       - Energy Dragon
       - Frost Shot
+      - Arcane Cutter
       abilities:
       - Serpentine Venom
       skills:
@@ -2785,7 +2889,7 @@ MonoBehaviour:
       pathCode:
       - 040041052039036037048049046033030031042029
       tileTypeCode: 
-      enemies: 05000000
+      enemies: 01000000
       enemyChance:
       - 1000
       enemyMax: 50
