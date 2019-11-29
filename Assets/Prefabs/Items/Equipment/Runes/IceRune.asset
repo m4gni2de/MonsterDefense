@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IceRune
   m_EditorClassIdentifier: 
   itemName: Ice Rune
-  id: 3
+  id: 2
   description: A Rune that boosts an Ice Type monster's attack stat by 10%
   sprite: {fileID: 21300000, guid: 811cf7b5f3e30304d942624b600a3c65, type: 3}
   equipClass: 0
@@ -29,7 +29,6 @@ MonoBehaviour:
   trigger:
     triggerType: 0
     id: 0
-    equipment: {fileID: 0}
   rarity: 0
   equipLevelMax: 0
   hpBonus: 0

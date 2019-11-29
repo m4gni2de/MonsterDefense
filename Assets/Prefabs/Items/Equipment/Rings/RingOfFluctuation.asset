@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RingOfFluctuation
   m_EditorClassIdentifier: 
   itemName: Ring Of Fluctuation
-  id: 8
+  id: 9
   description: A magic ring that boosts the wearer's Speed by 20%
   sprite: {fileID: 21300000, guid: 8f34273ebdd657440bc8356f26bc5977, type: 3}
   equipClass: 3

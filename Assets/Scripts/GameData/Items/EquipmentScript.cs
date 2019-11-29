@@ -12,6 +12,7 @@ public enum EquipmentClass
     Axe, 
     Glove, 
     Ring,
+    Tome,
 }
 
 //to tell if the equipment's boost values can change
@@ -46,8 +47,11 @@ public struct EquipmentInformation
 
     //used to determine if the equipment item is in your inventory or equipped to a monster;
     public bool isEquipped;
+    //used to determine is this item has been upgraded. if it has, it is considered a different item rather than a copy of an original
+    public bool isUpgraded;
     public Monster equippedMonster;
     public List<string> boosts;
+    public PocketItem inventorySlot;
 
     public int triggerCount;
     
@@ -224,6 +228,24 @@ public class EquipmentScript : ScriptableObject
         UnEquip();
         info.triggerCount += 1;
         EquipItem();
+    }
+
+    public void AddToInventory(int quantity)
+    {
+        PocketItem item = new PocketItem();
+        item.itemExp = info.equipExp;
+        item.itemLevel = info.equipLevel;
+        item.itemName = this.itemName;
+        item.pocketName = "Equipment";
+
+        info.inventorySlot = item;
+
+        GameManager.Instance.Inventory.AddEquipment(item, quantity);
+    }
+
+    public void RemoveFromInventory()
+    {
+        GameManager.Instance.Inventory.RemoveEquipment(info.inventorySlot);
     }
 }
 

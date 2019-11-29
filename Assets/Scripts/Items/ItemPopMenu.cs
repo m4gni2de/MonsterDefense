@@ -45,6 +45,16 @@ public class ItemPopMenu : MonoBehaviour
         }
 
 
+        int itemQuantity = 0;
+
+        for (int i = 0; i < GameManager.Instance.Inventory.EquipmentPocket.items.Count; i++)
+        {
+            PocketItem p = GameManager.Instance.Inventory.EquipmentPocket.items[i];
+            if (p.itemName == equip.itemName)
+            {
+                itemQuantity += 1;
+            }
+        }
         //GameObject item = Instantiate(equip.equip.equipPrefab, transform.position, Quaternion.identity);
         GameObject item = Instantiate(obj, transform.position, Quaternion.identity);
         item.transform.SetParent(transform);
@@ -69,7 +79,8 @@ public class ItemPopMenu : MonoBehaviour
         }
 
         boostsText.text = equip.description;
-        yourQuantityText.text = "On hand: " + PlayerPrefs.GetInt(equip.itemName).ToString();
+        //yourQuantityText.text = "On hand: " + PlayerPrefs.GetInt(equip.itemName).ToString();
+        yourQuantityText.text = "On hand: " + itemQuantity;
         buyCostText.text = "Buy For: " + equip.cost.ToString();
 
         float sellValue = equip.cost * .8f;
@@ -97,6 +108,18 @@ public class ItemPopMenu : MonoBehaviour
 
         if (displayMode == DisplayMode.Consumable)
         {
+            int itemQuantity = 0;
+
+            for (int i = 0; i < GameManager.Instance.Inventory.ConsumablePocket.items.Count; i++)
+            {
+                PocketItem p = GameManager.Instance.Inventory.ConsumablePocket.items[i];
+                if (p.itemName == name)
+                {
+                    itemQuantity += 1;
+                }
+            }
+
+
             GameObject item = Instantiate(Item, transform.position, Quaternion.identity);
             item.transform.SetParent(transform);
             item.transform.position = new Vector3(itemSprite.transform.position.x, itemSprite.transform.position.y, -2f);
@@ -107,14 +130,15 @@ public class ItemPopMenu : MonoBehaviour
             typeText.text = "Consumable Item";
             typeReqText.text = "";
             boostsText.text = item.GetComponent<ConsumableObject>().consumableItem.description;
-            yourQuantityText.text = "On hand: " + PlayerPrefs.GetInt(name).ToString();
+            //yourQuantityText.text = "On hand: " + PlayerPrefs.GetInt(name).ToString();
+            yourQuantityText.text = "On hand: " + itemQuantity;
             buyCostText.text = "Buy For: " + item.GetComponent<ConsumableObject>().consumableItem.cost.ToString();
 
 
             float sellValue = item.GetComponent<ConsumableObject>().consumableItem.cost * .8f;
             sellCostText.text = "Sell For: " + sellValue;
 
-            activeItemName = Item.name;
+            activeItemName = item.GetComponent<ConsumableObject>().consumableItem.itemName;
             activeItem = Item;
 
             itemBuyValue = (int)item.GetComponent<ConsumableObject>().consumableItem.cost;
@@ -129,11 +153,21 @@ public class ItemPopMenu : MonoBehaviour
 
         if (GameManager.Instance.GetComponent<YourAccount>().account.coins >= itemBuyValue)
         {
-            int itemCount = PlayerPrefs.GetInt(activeItemName, 0);
-            PlayerPrefs.SetInt(activeItemName, itemCount + 1);
+            //int itemCount = PlayerPrefs.GetInt(activeItemName, 0);
+            //PlayerPrefs.SetInt(activeItemName, itemCount + 1);
 
             GameManager.Instance.GetComponent<YourItems>().GetYourItems();
 
+
+            if (GameManager.Instance.items.allEquipsDict.ContainsKey(activeItemName))
+            {
+                GameManager.Instance.items.allEquipsDict[activeItemName].AddToInventory(1);
+            }
+
+            if (GameManager.Instance.items.allConsumablesDict.ContainsKey(activeItemName))
+            {
+                GameManager.Instance.items.allConsumablesDict[activeItemName].AddToInventory(1);
+            }
 
             GameManager.Instance.GetComponent<YourAccount>().account.coins -= itemBuyValue;
             GetComponentInParent<ItemShop>().UpdateItem();
@@ -149,8 +183,17 @@ public class ItemPopMenu : MonoBehaviour
 
     public void SellItemBtn()
     {
-        int itemCount = PlayerPrefs.GetInt(activeItemName, 0);
-        PlayerPrefs.SetInt(activeItemName, itemCount - 1);
+        //int itemCount = PlayerPrefs.GetInt(activeItemName, 0);
+        //PlayerPrefs.SetInt(activeItemName, itemCount - 1);
+
+        if (GameManager.Instance.items.allEquipsDict.ContainsKey(activeItemName))
+        {
+            activeItem.GetComponent<EquipmentObject>().equipment.RemoveFromInventory();
+        }
+        if (GameManager.Instance.items.allConsumablesDict.ContainsKey(activeItemName))
+        {
+            activeItem.GetComponent<ConsumableObject>().consumableItem.RemoveFromInventory();
+        }
 
         GameManager.Instance.GetComponent<YourItems>().GetYourItems();
 

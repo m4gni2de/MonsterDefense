@@ -21,6 +21,7 @@ using System;
 //    public List<string> boosts;
 //}
 
+
 public class EquipmentObject : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public EquipmentScript equipment;

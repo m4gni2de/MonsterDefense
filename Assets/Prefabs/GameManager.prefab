@@ -1610,6 +1610,7 @@ GameObject:
   - component: {fileID: 3861695980770531831}
   - component: {fileID: 4431932798214555854}
   - component: {fileID: 6317396937658932168}
+  - component: {fileID: 5905079508183670717}
   - component: {fileID: 9114463754745283373}
   - component: {fileID: 3307614182744774667}
   - component: {fileID: 1493070373400153326}
@@ -1665,6 +1666,7 @@ MonoBehaviour:
   blankTile: {fileID: 1211699676676750496, guid: 42051998af0b7324590a2d750fc5b774,
     type: 3}
   monstersData: {fileID: 606995314857134239}
+  Inventory: {fileID: 5905079508183670717}
   items: {fileID: 3861695980770531831}
   electricAttackColor: {r: 1, g: 1, b: 0, a: 1}
   waterAttackColor: {r: 0.22, g: 0.22, b: 1, a: 1}
@@ -2815,6 +2817,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ceddea69dfcaade4bb953ee76cd5380e, type: 2}
   - {fileID: 11400000, guid: 8510698aa5b7f9f40b36c4fe2bc11faf, type: 2}
   - {fileID: 11400000, guid: 32950477e8c05cc4d903c7276c559247, type: 2}
+  - {fileID: 11400000, guid: b84b50c35a5cc034a85c7f8db7fefe1a, type: 2}
 --- !u!114 &4431932798214555854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2854,6 +2857,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76073fdb57263d94cadd6aaf8c566ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5905079508183670717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317396937658932167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07e9b420b2f9a414f8c99ebd88e2073b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EquipmentPocket:
+    pocketName: Equipment
+    pocketType: 0
+    slotMax: 100
+    slotCount: 0
+  ConsumablePocket:
+    pocketName: Consumables
+    pocketType: 1
+    slotMax: 100
+    slotCount: 0
+  CellPocket:
+    pocketName: Cell
+    pocketType: 2
+    slotMax: 100
+    slotCount: 0
 --- !u!114 &9114463754745283373
 MonoBehaviour:
   m_ObjectHideFlags: 0

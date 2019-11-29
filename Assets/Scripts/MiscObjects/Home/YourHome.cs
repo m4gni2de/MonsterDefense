@@ -70,6 +70,8 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
         //SummonItem();
 
+        GameManager.Instance.GetComponent<YourAccount>().account.coins += 1000;
+
     }
 
     public void LoadMonsters()

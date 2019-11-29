@@ -170,4 +170,10 @@ public class EquipEffect
 
         
     }
+
+    public void TomeOfTheBlade()
+    {
+        monster.info.Attack.AddModifier(new StatModifier(equipment.atkPercentBonus, StatModType.PercentMult, equipment, equipment.itemName));
+        monster.info.Precision.AddModifier(new StatModifier(equipment.precPercentBonus, StatModType.PercentMult, equipment, equipment.itemName));
+    }
 }

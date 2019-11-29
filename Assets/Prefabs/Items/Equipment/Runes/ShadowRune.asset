@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShadowRune
   m_EditorClassIdentifier: 
   itemName: Shadow Rune
-  id: 5
+  id: 6
   description: A Rune that boosts a Shadow Type monster's attack stat by 10%
   sprite: {fileID: 21300000, guid: b554ccc04d073804595c3796f8493fb1, type: 3}
   equipClass: 0
@@ -29,7 +29,6 @@ MonoBehaviour:
   trigger:
     triggerType: 1
     id: 0
-    equipment: {fileID: 0}
   rarity: 0
   equipLevelMax: 0
   hpBonus: 0

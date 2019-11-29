@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     //the script that holds all of the base stats, level up movepool and everything else for the monster species
     public MonstersData monstersData;
 
+    //the player's inventory script
+    public Inventory Inventory;
     //the script that holds all of the data for the items in the game
     public Items items;
 
@@ -457,7 +459,8 @@ public class GameManager : MonoBehaviour
 ///Account: String[account name, account info Json]////
 ///Notifications: Int[Notifications]
 ///Monster Sort Mode: String["SortMode", SortMode.Mode.ToString()]
-///
+///Inventory Item Max: Int["ItemMax", integer]
+///Inventory Pockets: String["Equipment" or "Consumables" or "MonsterCells", pocket as a json]
 
 
 //different types of notifications, so the notification popup object knows what to do

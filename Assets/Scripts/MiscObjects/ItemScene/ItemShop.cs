@@ -225,47 +225,77 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
         int row = 0;
         float rowCheck = 0f;
 
-
-
-        foreach (KeyValuePair<string, int> equip in yourEquips)
+        for (int i = 0; i < GameManager.Instance.Inventory.EquipmentPocket.items.Count; i++)
         {
-            string name = equip.Key;
+            PocketItem p = GameManager.Instance.Inventory.EquipmentPocket.items[i];
+            EquipmentScript item = Instantiate(allEquips[p.itemName]);
+            item.info.inventorySlot = p;
+            int itemCount = PlayerPrefs.GetInt(item.name);
 
-            //Debug.Log(name);
+            GameObject a = Instantiate(equipmentObject, itemSprite.transform.position, Quaternion.identity);
 
-            //if the player has more than 0 of the item, display it
-            if (equip.Value > 0)
+
+            //a.GetComponent<EquipmentObject>().equipment.info.
+            a.transform.SetParent(itemScrollContent.transform, true);
+
+            a.GetComponent<EquipmentObject>().equipment = item;
+            a.GetComponent<EquipmentObject>().LoadItem(item);
+            //a.GetComponentInChildren<TMP_Text>().text = PlayerPrefs.GetInt(item.name).ToString();
+            a.GetComponentInChildren<TMP_Text>().text = "Lv: " + p.itemLevel;
+            a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
+            a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
+            a.tag = "Item";
+            a.name = item.name;
+            item.ActivateItem(item, a);
+
+            rowCheck += .25f;
+
+            if (rowCheck > .8f)
             {
-
-                EquipmentScript item = allEquips[name];
-                int itemCount = PlayerPrefs.GetInt(item.name);
-
-                GameObject a = Instantiate(equipmentObject, itemSprite.transform.position, Quaternion.identity);
-
-
-
-                a.transform.SetParent(itemScrollContent.transform, true);
-
-                a.GetComponent<EquipmentObject>().equipment = item;
-                a.GetComponent<EquipmentObject>().LoadItem(item);
-                //a.GetComponentInChildren<TMP_Text>().text = PlayerPrefs.GetInt(item.name).ToString();
-                a.GetComponentInChildren<TMP_Text>().text = equip.Value.ToString();
-                a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
-                a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
-                a.tag = "Item";
-                a.name = item.name;
-                item.ActivateItem(item, a);
-
-                rowCheck += .25f;
-
-                if (rowCheck > .8f)
-                {
-                    rowCheck = 0f;
-                    row += 1;
-                }
+                rowCheck = 0f;
+                row += 1;
             }
-
         }
+
+        //foreach (KeyValuePair<string, int> equip in yourEquips)
+        //{
+        //    string name = equip.Key;
+
+        //    //Debug.Log(name);
+
+        //    //if the player has more than 0 of the item, display it
+        //    if (equip.Value > 0)
+        //    {
+
+        //        EquipmentScript item = allEquips[name];
+        //        int itemCount = PlayerPrefs.GetInt(item.name);
+
+        //        GameObject a = Instantiate(equipmentObject, itemSprite.transform.position, Quaternion.identity);
+
+
+
+        //        a.transform.SetParent(itemScrollContent.transform, true);
+
+        //        a.GetComponent<EquipmentObject>().equipment = item;
+        //        a.GetComponent<EquipmentObject>().LoadItem(item);
+        //        //a.GetComponentInChildren<TMP_Text>().text = PlayerPrefs.GetInt(item.name).ToString();
+        //        a.GetComponentInChildren<TMP_Text>().text = equip.Value.ToString();
+        //        a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
+        //        a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
+        //        a.tag = "Item";
+        //        a.name = item.name;
+        //        item.ActivateItem(item, a);
+
+        //        rowCheck += .25f;
+
+        //        if (rowCheck > .8f)
+        //        {
+        //            rowCheck = 0f;
+        //            row += 1;
+        //        }
+        //    }
+
+        //}
 
         
     }
@@ -281,7 +311,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
         int row = 0;
         float rowCheck = 0f;
 
-        Debug.Log("ok");
+        //Debug.Log("ok");
 
         foreach (ConsumableItem c in consumables)
         {
@@ -327,48 +357,79 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
         int row = 0;
         float rowCheck = 0f;
 
-
-
-        foreach (KeyValuePair<string, int> item in consumables)
+        for (int i = 0; i < GameManager.Instance.Inventory.ConsumablePocket.items.Count; i++)
         {
-            if (consumables.ContainsKey(item.Key))
+            PocketItem item = GameManager.Instance.Inventory.ConsumablePocket.items[i];
+            ConsumableItem cItem = Instantiate(allCons[item.itemName]);
+            int itemCount = PlayerPrefs.GetInt(cItem.name);
+            cItem.inventorySlot = item;
+
+            GameObject a = Instantiate(consumableObject, itemScrollContent.transform.position, Quaternion.identity);
+
+
+            //itemQuantities[shopSpriteTotal] = itemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
+            a.transform.SetParent(itemScrollContent.transform, true);
+
+
+            a.GetComponent<ConsumableObject>().consumableItem = cItem;
+            a.GetComponent<ConsumableObject>().LoadItem();
+            a.GetComponentInChildren<TMP_Text>().text = "";
+            a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
+            a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
+            a.tag = "Item";
+            a.name = cItem.name;
+
+
+            rowCheck += .25f;
+
+            if (rowCheck > .8f)
             {
-
-                string name = item.Key;
-
-                //if the player has more than 0 of the item, display it
-                if (item.Value > 0)
-                {
-
-                    ConsumableItem cItem = allCons[item.Key];
-                    int itemCount = PlayerPrefs.GetInt(cItem.name);
-
-                    GameObject a = Instantiate(consumableObject, itemScrollContent.transform.position, Quaternion.identity);
-
-
-                    //itemQuantities[shopSpriteTotal] = itemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
-                    a.transform.SetParent(itemScrollContent.transform, true);
-
-
-                    a.GetComponent<ConsumableObject>().consumableItem = cItem;
-                    a.GetComponent<ConsumableObject>().LoadItem();
-                    a.GetComponentInChildren<TMP_Text>().text = PlayerPrefs.GetInt(item.Key).ToString();
-                    a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
-                    a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
-                    a.tag = "Item";
-                    a.name = cItem.name;
-
-
-                    rowCheck += .25f;
-
-                    if (rowCheck > .8f)
-                    {
-                        rowCheck = 0f;
-                        row += 1;
-                    }
-                }
+                rowCheck = 0f;
+                row += 1;
             }
         }
+
+
+        //foreach (KeyValuePair<string, int> item in consumables)
+        //{
+        //    if (consumables.ContainsKey(item.Key))
+        //    {
+
+        //        string name = item.Key;
+
+        //        //if the player has more than 0 of the item, display it
+        //        if (item.Value > 0)
+        //        {
+
+        //            ConsumableItem cItem = allCons[item.Key];
+        //            int itemCount = PlayerPrefs.GetInt(cItem.name);
+
+        //            GameObject a = Instantiate(consumableObject, itemScrollContent.transform.position, Quaternion.identity);
+
+
+        //            //itemQuantities[shopSpriteTotal] = itemSprites[shopSpriteTotal].GetComponentInChildren<TMP_Text>();
+        //            a.transform.SetParent(itemScrollContent.transform, true);
+
+
+        //            a.GetComponent<ConsumableObject>().consumableItem = cItem;
+        //            a.GetComponent<ConsumableObject>().LoadItem();
+        //            a.GetComponentInChildren<TMP_Text>().text = PlayerPrefs.GetInt(item.Key).ToString();
+        //            a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
+        //            a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
+        //            a.tag = "Item";
+        //            a.name = cItem.name;
+
+
+        //            rowCheck += .25f;
+
+        //            if (rowCheck > .8f)
+        //            {
+        //                rowCheck = 0f;
+        //                row += 1;
+        //            }
+        //        }
+        //    }
+        //}
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -431,7 +492,7 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
         displayMode = (DisplayMode)Enum.ToObject(typeof(DisplayMode), i);
         UpdateItem();
 
-        Debug.Log(displayMode);
+        //Debug.Log(displayMode);
     }
 
     public void LeftButton()
@@ -446,6 +507,6 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
         displayMode = (DisplayMode)Enum.ToObject(typeof(DisplayMode), i);
         UpdateItem();
 
-        Debug.Log(displayMode);
+        //Debug.Log(displayMode);
     }
 }

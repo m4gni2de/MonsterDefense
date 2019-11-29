@@ -11,6 +11,7 @@ public enum EquipmentType
     Axe,
     Glove,
     Ring,
+    Tome,
 }
 
 public enum ItemType
@@ -193,6 +194,8 @@ public class Items: MonoBehaviour
         {
             fullItemList.Add(cItem.itemName, ItemType.Consumable);
             allConsumablesDict.Add(cItem.itemName, cItem);
+
+            //Debug.Log(cItem.itemName);
         }
 
 

@@ -223,6 +223,7 @@
     <Compile Include="Assets\Scripts\GameData\Items\Equipment.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\EquipmentObject.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\EquipmentScript.cs" />
+    <Compile Include="Assets\Scripts\GameData\Items\Inventory.cs" />
     <Compile Include="Assets\Scripts\GameData\Items\Items.cs" />
     <Compile Include="Assets\Scripts\GameData\Maps.cs" />
     <Compile Include="Assets\Scripts\GameData\MonsterAbilities.cs" />
