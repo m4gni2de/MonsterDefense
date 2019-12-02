@@ -11,6 +11,7 @@ public class EquipEffect
 
     public EquipmentScript equipment;
     public int Slot;
+    
 
     //this variable is used to delegate which item method to use, given the name of the item
     public delegate void EquipmentDelegate();
@@ -21,6 +22,8 @@ public class EquipEffect
         monster = Monster;
         equipment = Equipment;
         Slot = slot;
+
+        
 
         equipment.UnEquip();
         

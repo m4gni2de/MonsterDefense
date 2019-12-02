@@ -399,7 +399,7 @@ public class GameManager : MonoBehaviour
     //accept an object and display it on the popmenu
     public void DisplayPopMenu(object obj)
     {
-        Debug.Log(obj);
+
         if (obj.GetType() == typeof(EquipmentScript))
         {
             popMenu.SetActive(true);

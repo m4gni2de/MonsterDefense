@@ -23,12 +23,14 @@ public enum ItemType
 
 public enum ItemRarity
 {
-    Common, 
+    Common,
     Rare,
     Mythic,
     Legendary,
     Immortal,
 }
+
+
 
 
 
@@ -213,8 +215,16 @@ public class Items: MonoBehaviour
             allEquipsDict.Add(equip.itemName, equip);
 
             //give them each an EquipManager and EquipmentInformation
-            equip.equip = new EquipManager();
-            equip.info = new EquipmentInformation();
+            //equip.equip = new EquipManager();
+            //equip.info = new EquipmentInformation();
+
+            //equip.info.equipLevel = equip.level;
+            //equip.info.equipLevelMax = equip.equipLevelMax;
+            //equip.info.equipLevel = 1;
+            //equip.info.equipLevelMax = equip.equipLevelMax;
+            //info.equipLevel = level;
+            //info.equipLevelMax = equipLevelMax;
+            equip.GetExpCurve();
 
             //if the item has an event trigger, set the trigger on the item itself
             if (equip.triggerType != TriggerType.None)

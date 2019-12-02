@@ -30,7 +30,9 @@ MonoBehaviour:
     triggerType: 0
     id: 0
   rarity: 0
-  equipLevelMax: 0
+  expConstant: 1.2
+  equipLevelMax: 5
+  level: 1
   hpBonus: 0
   atkBonus: 0
   defBonus: 0
@@ -62,8 +64,16 @@ MonoBehaviour:
     quantity: 0
     equipLevel: 0
     equipExp: 0
+    equipLevelMax: 0
     isEquipped: 0
+    isUpgraded: 0
     equippedMonster: {fileID: 0}
     boosts: []
+    inventorySlot:
+      slotIndex: 0
+      itemName: 
+      itemLevel: 0
+      itemExp: 0
+      pocketName: 
     triggerCount: 0
   GameObject: {fileID: 0}

@@ -11,7 +11,9 @@ public class PopMenuObject : MonoBehaviour
 
     //set an active monster to this object so that it can display information about that monster
     public Monster activeMonster;
-    
+    public EquipmentScript activeEquipment;
+
+    public GameObject equipUpgrade;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +45,9 @@ public class PopMenuObject : MonoBehaviour
         titleText.text = equip.itemName;
         menuText.text = equip.description;
         secondaryText.text = "";
+
+        activeEquipment = equip;
+        
     }
 
     //use this to display status information
@@ -72,7 +77,25 @@ public class PopMenuObject : MonoBehaviour
 
 
 
-    
+    //invoke this from the button on the PopMenu to trigger the equipment upgrade menu
+    public void UpgradeEquipment()
+    {
+        //equipUpgrade = GameManager.Instance.activeScene.GetRootGameObjects
+        GameObject[] items = GameManager.Instance.activeScene.GetRootGameObjects();
+        foreach (GameObject item in items)
+        {
+            if (item.name == "HomeObject")
+            {
+                item.GetComponentInChildren<ItemUpgrade>().ActiveEquipment(activeEquipment);
+                gameObject.SetActive(false);
+            }
+        }
+        
+        //equipUpgrade.gameObject.SetActive(true);
+        //itemUpgrade.GetComponent<ItemUpgrade>().ActiveEquipment(activeEquipment);
+    }
+
+
 
 
 }

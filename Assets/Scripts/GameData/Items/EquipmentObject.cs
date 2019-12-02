@@ -26,7 +26,7 @@ public class EquipmentObject : MonoBehaviour, IPointerEnterHandler, IPointerExit
 {
     public EquipmentScript equipment;
     public Image image;
-
+    public PocketItem inventorySlot;
 
     //public EquipmentInformation info = new EquipmentInformation();
     //public EquipManager equip = new EquipManager();
@@ -46,13 +46,13 @@ public class EquipmentObject : MonoBehaviour, IPointerEnterHandler, IPointerExit
         
     }
 
-    //load this item's consumable item
+    //load this item's equipment script
     public void LoadItem(EquipmentScript equip)
     {
         equipment = equip;
         image.sprite = equipment.sprite;
         gameObject.name = equipment.itemName;
-
+        inventorySlot = equip.info.inventorySlot;
         ////if the equipment has a type to be added, add it on the sprite
         //if (equip.spriteEffect != EquipmentSpriteEffect.None)
         //{

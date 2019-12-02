@@ -44,6 +44,7 @@ public struct EquipmentInformation
 
     public int equipLevel;
     public int equipExp;
+    public int equipLevelMax;
 
     //used to determine if the equipment item is in your inventory or equipped to a monster;
     public bool isEquipped;
@@ -78,7 +79,9 @@ public class EquipmentScript : ScriptableObject
     public EventTrigger trigger;
 
     public ItemRarity rarity;
+    public float expConstant;
     public int equipLevelMax;
+    public int level;
 
     
 
@@ -122,10 +125,23 @@ public class EquipmentScript : ScriptableObject
     //the gameobject that the item spawns upon
     public GameObject GameObject;
 
-    
+    public Dictionary<int, int> expToLevel = new Dictionary<int, int>();
+    public Dictionary<int, int> totalExpForLevel = new Dictionary<int, int>();
+
     public EquipmentScript()
     {
         equip = new EquipManager();
+        info = new EquipmentInformation();
+
+
+        info.equipLevel = level;
+        info.equipLevelMax = equipLevelMax;
+
+
+        expToLevel.Clear();
+        totalExpForLevel.Clear();
+        GetExpCurve();
+
     }
 
     //use this when the equipment is equipped to a monster
@@ -135,8 +151,12 @@ public class EquipmentScript : ScriptableObject
         
         info.equipSlot = EquipSlot;
         info.equippedMonster = Monster;
-
         info.isEquipped = true;
+
+        //info.inventorySlot.itemExp = info.equipExp;
+        //info.inventorySlot.itemLevel = info.equipLevel;
+        //info.inventorySlot.itemName = itemName;
+        //info.inventorySlot.pocketName = itemName;
 
         //UnEquip();
         EquipItem();
@@ -163,6 +183,52 @@ public class EquipmentScript : ScriptableObject
 
        
     }
+
+    public void GetExpCurve()
+    {
+        int totalExp = new int();
+        
+
+
+        for (int i = 1; i <= equipLevelMax; i++)
+        {
+            if (i == 1)
+            {
+                
+                expToLevel.Add(i, 0);
+                totalExpForLevel.Add(i, 0);
+
+                
+            }
+            else
+            {
+                int toNextLevel = Mathf.FloorToInt(Mathf.Pow(i, expConstant));
+                expToLevel.Add(i, (int)Mathf.Round(toNextLevel));
+                totalExp += (int)Mathf.Round(toNextLevel);
+                totalExpForLevel.Add(i, totalExp);
+            }
+
+            
+
+            if (i >= equipLevelMax)
+            {
+                
+                //EquipExp();
+            }
+        }
+
+
+    }
+
+    //public void EquipExp()
+    //{
+    //    if (expToLevel.ContainsKey(info.equipLevel))
+    //    {
+    //        int toNextLevel = expToLevel[info.equipLevel + 1];
+    //        int totalNextLevel = totalExpForLevel[info.equipLevel + 1];
+    //        int nextLevelDiff = totalNextLevel - info.equipExp;
+    //    }
+    //}
 
 
     //use this to give a gameobject's renderer that this object is spawned on to the correct properties
@@ -234,6 +300,12 @@ public class EquipmentScript : ScriptableObject
     {
         PocketItem item = new PocketItem();
         item.itemExp = info.equipExp;
+        if (info.equipLevel <= 0)
+        {
+            info.equipLevel = 1;
+        }
+
+
         item.itemLevel = info.equipLevel;
         item.itemName = this.itemName;
         item.pocketName = "Equipment";
@@ -345,9 +417,14 @@ public class EquipManager
         monster.info.baseAttack2.CritMod.RemoveAllModifiersFromSource(equipment);
         monster.info.baseAttack2.EffectChance.RemoveAllModifiersFromSource(equipment);
 
-
+        //ScriptableObject.Destroy(equipment);
 
         monster.MonsterStatMods();
+    }
+
+    public void EquipmentUpgrade(PocketItem item, int exp)
+    {
+
     }
 }
 
