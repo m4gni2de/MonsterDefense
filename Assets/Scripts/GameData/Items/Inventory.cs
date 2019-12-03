@@ -130,6 +130,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < quantity; i++)
         {
+            
             item.slotIndex = EquipmentPocket.items.Count + i;
             EquipmentPocket.items.Add(item);
             EquipmentPocket.slotCount += 1;
@@ -163,10 +164,20 @@ public class Inventory : MonoBehaviour
         SaveInventory();
     }
 
+
     public void RemoveEquipment(PocketItem item)
     {
         EquipmentPocket.items.Remove(item);
         EquipmentPocket.slotCount = EquipmentPocket.items.Count;
+        int index = item.slotIndex;
+
+        for(int i = 0; i < EquipmentPocket.slotCount; i++)
+        {
+            if (EquipmentPocket.items[i].slotIndex > index)
+            {
+                EquipmentPocket.items[i].slotIndex -= 1;
+            }
+        }
 
 
         SaveInventory();

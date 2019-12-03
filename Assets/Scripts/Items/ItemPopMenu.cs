@@ -35,7 +35,7 @@ public class ItemPopMenu : MonoBehaviour
         yourCoins = (int)Mathf.Round((float)account.coins);
     }
 
-    public void DisplayEquipment(EquipmentScript equip, GameObject obj)
+    public void DisplayEquipment(Equipment equip, GameObject obj)
     {
         GameObject[] r = GameObject.FindGameObjectsWithTag("Respawn");
         
@@ -78,7 +78,7 @@ public class ItemPopMenu : MonoBehaviour
             typeReqText.text = "Required Type: none";
         }
 
-        boostsText.text = equip.description;
+        boostsText.text = equip.equipment.description;
         //yourQuantityText.text = "On hand: " + PlayerPrefs.GetInt(equip.itemName).ToString();
         yourQuantityText.text = "On hand: " + itemQuantity;
         buyCostText.text = "Buy For: " + equip.cost.ToString();
@@ -161,7 +161,9 @@ public class ItemPopMenu : MonoBehaviour
 
             if (GameManager.Instance.items.allEquipsDict.ContainsKey(activeItemName))
             {
-                GameManager.Instance.items.allEquipsDict[activeItemName].AddToInventory(1);
+                
+                Equipment e = new Equipment(GameManager.Instance.items.allEquipsDict[activeItemName]);
+                e.AddToInventory(1);
             }
 
             if (GameManager.Instance.items.allConsumablesDict.ContainsKey(activeItemName))

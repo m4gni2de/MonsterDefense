@@ -19,7 +19,7 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     public float acumTime;
 
-    public EquipmentScript equipment;
+    public Equipment equipment;
 
     // Start is called before the first frame update
     void Start()
@@ -135,8 +135,9 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             string name = yourEquips.items[i].itemName;
 
                 PocketItem p = yourEquips.items[i];
-                EquipmentScript item = Instantiate(allEquips[name]);
-                item.info.inventorySlot = p;
+                //EquipmentScript eq = Instantiate(allEquips[name]);
+                Equipment item = new Equipment(allEquips[name]);
+                item.inventorySlot = p;
 
 
                 if (item.itemName == monster.info.equip1Name || item.itemName == monster.info.equip2Name)
@@ -147,13 +148,13 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 else
                 {
                     //Debug.Log(item.itemName + "    " + monster.info.equip1Name);
-                    if (item.typeMonsterReq == monster.info.type1 || item.typeMonsterReq == monster.info.type2 || item.typeMonsterReq == "none")
+                    if (item.equipment.typeMonsterReq == monster.info.type1 || item.equipment.typeMonsterReq == monster.info.type2 || item.equipment.typeMonsterReq == "none")
                     {
                         var x = Instantiate(equipmentObject, new Vector2(equipPlacement.transform.position.x + (50 * (q - 1)), equipPlacement.transform.position.y), Quaternion.identity);
                         x.transform.SetParent(transform, true);
                         x.GetComponent<EquipmentObject>().LoadItem(item);
-                        x.GetComponent<EquipmentObject>().valueText.text = "Lv. " + item.info.inventorySlot.itemLevel;
-                        item.ActivateItem(item, x);
+                        x.GetComponent<EquipmentObject>().valueText.text = "Lv. " + item.inventorySlot.itemLevel;
+                        item.equipment.ActivateItem(item.equipment, x);
 
                        
                         x.transform.localScale = new Vector3(1f, 1f, 1f);
@@ -218,13 +219,14 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             string name = yourEquips.items[i].itemName;
 
             PocketItem p = yourEquips.items[i];
-            EquipmentScript item = Instantiate(allEquips[name]);
-            item.info.inventorySlot = p;
+            //EquipmentScript eq = Instantiate(allEquips[name]);
+            Equipment item = new Equipment(allEquips[name]);
+            item.SetInventorySlot(p);
             var x = Instantiate(equipmentObject, new Vector2(equipPlacement.transform.position.x + (50 * (q - 1)), equipPlacement.transform.position.y), Quaternion.identity);
             x.transform.SetParent(transform, true);
             x.GetComponent<EquipmentObject>().LoadItem(item);
-            x.GetComponent<EquipmentObject>().valueText.text = "Lv. " + item.info.inventorySlot.itemLevel;
-            item.ActivateItem(item, x);
+            x.GetComponent<EquipmentObject>().valueText.text = "Lv. " + item.inventorySlot.itemLevel;
+            item.equipment.ActivateItem(item.equipment, x);
             x.transform.localScale = new Vector3(1f, 1f, 1f);
 
             q += 1;
@@ -244,8 +246,9 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
                 //if the menu is opened with the purpose of Equipping a monster with an item, then allow it to be equipped. Otherwise, show the item's details
                 if (tag == "Equipment" && !isTapping)
                 {
-                    //equipment = hit.gameObject.GetComponent<EquipmentItem>();
-                    equipment = hit.gameObject.GetComponent<EquipmentObject>().equipment;
+                //equipment = hit.gameObject.GetComponent<EquipmentItem>();
+                //EquipmentScript eq = Instantiate(hit.gameObject.GetComponent<EquipmentObject>().equipment.equipment);
+                equipment = hit.gameObject.GetComponent<EquipmentObject>().equipment;
                    
 
                     if (isEquipping)
@@ -281,10 +284,10 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             else
             {
                 monster.EquipItem(equipment, slot);
+                //equipment.RemoveFromInventory();
                 infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(monster);
                 isTapping = false;
-                int amount = PlayerPrefs.GetInt(equipment.name);
-                PlayerPrefs.SetInt(equipment.name, amount - 1);
+                int amount = PlayerPrefs.GetInt(equipment.itemName);
                 CloseEquipment();
 
             }

@@ -11,7 +11,7 @@ public class PopMenuObject : MonoBehaviour
 
     //set an active monster to this object so that it can display information about that monster
     public Monster activeMonster;
-    public EquipmentScript activeEquipment;
+    public Equipment activeEquipment;
 
     public GameObject equipUpgrade;
 
@@ -40,10 +40,10 @@ public class PopMenuObject : MonoBehaviour
     }
 
     //use this to display equipment information
-    public void AcceptEquipment(EquipmentScript equip)
+    public void AcceptEquipment(Equipment equip)
     {
         titleText.text = equip.itemName;
-        menuText.text = equip.description;
+        menuText.text = equip.equipment.description;
         secondaryText.text = "";
 
         activeEquipment = equip;

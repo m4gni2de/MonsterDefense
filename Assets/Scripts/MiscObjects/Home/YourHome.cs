@@ -144,7 +144,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     {
         GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
 
-
+        
         var monsters = GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict;
         //var monsters = GameManager.Instance.GetComponent<YourMonsters>().yourMonsterTokens;
         var byId = GameManager.Instance.monstersData.monstersByIdDict;

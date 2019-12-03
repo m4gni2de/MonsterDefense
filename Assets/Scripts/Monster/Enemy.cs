@@ -163,20 +163,22 @@ public class Enemy : MonoBehaviour
 
         if (allEquips.ContainsKey(monster.info.equip1Name))
         {
-            monster.info.equipment1 = allEquips[monster.info.equip1Name];
+            EquipmentScript eq = Instantiate(allEquips[monster.info.equip1Name]);
+            monster.info.equip1 = new Equipment(eq);
         }
         else
         {
-            monster.info.equipment1 = null;
+            monster.info.equip1 = null;
         }
 
         if (allEquips.ContainsKey(monster.info.equip2Name))
         {
-            monster.info.equipment2 = allEquips[monster.info.equip2Name];
+            EquipmentScript eq = Instantiate(allEquips[monster.info.equip2Name]);
+            monster.info.equip2 = new Equipment(eq);
         }
         else
         {
-            monster.info.equipment2 = null;
+            monster.info.equip2 = null;
         }
 
         //set the monster's ability'
@@ -667,7 +669,7 @@ public class Enemy : MonoBehaviour
         //isWaiting = !isWaiting;
 
         isPaused = !isPaused;
-        Debug.Log(isPaused);
+        //Debug.Log(isPaused);
     }
 
     private void MoveTowardsPath()

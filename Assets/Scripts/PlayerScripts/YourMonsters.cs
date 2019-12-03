@@ -149,6 +149,8 @@ public class MonsterToken
         newToken.maxLevel = monster.info.maxLevel;
         newToken.specialAbility = monster.info.abilityName;
         newToken.passiveSkill = monster.info.skillName;
+        newToken.equip1Slot = monster.info.equip1Slot;
+        newToken.equip2Slot = monster.info.equip2Slot;
     }
 
 }

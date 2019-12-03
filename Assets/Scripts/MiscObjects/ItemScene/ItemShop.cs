@@ -181,7 +181,8 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
 
             //if the player has more than 0 of the item, display it
 
-                EquipmentScript item = allEquips[name];
+                //EquipmentScript item = allEquips[name];
+                Equipment item = new Equipment(allEquips[name]);
 
                 GameObject a = Instantiate(equipmentObject, shopScrollContent.transform.position, Quaternion.identity);
 
@@ -192,13 +193,13 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
                 a.GetComponent<EquipmentObject>().equipment = item;
                 a.GetComponent<EquipmentObject>().LoadItem(item);
             //a.GetComponentInChildren<TMP_Text>().text = PlayerPrefs.GetInt(item.name).ToString();
-            a.GetComponentInChildren<TMP_Text>().text = item.cost.ToString();
+            a.GetComponentInChildren<TMP_Text>().text = item.equipment.cost.ToString();
 
-                item.ActivateItem(item, a);
+                item.equipment.ActivateItem(item.equipment, a);
                 a.transform.position = new Vector3(shopItemSprite.transform.position.x + ((rowCheck * 4) * shopScrollContent.GetComponent<RectTransform>().rect.width / 6), shopItemSprite.transform.position.y - (row * 35), shopItemSprite.transform.position.z);
                 a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
                 a.tag = "Item";
-                a.name = item.name;
+                a.name = item.itemName;
 
 
                 rowCheck += .25f;
@@ -228,9 +229,10 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
         for (int i = 0; i < GameManager.Instance.Inventory.EquipmentPocket.items.Count; i++)
         {
             PocketItem p = GameManager.Instance.Inventory.EquipmentPocket.items[i];
-            EquipmentScript item = Instantiate(allEquips[p.itemName]);
-            item.info.inventorySlot = p;
-            int itemCount = PlayerPrefs.GetInt(item.name);
+            //EquipmentScript item = Instantiate(allEquips[p.itemName]);
+            Equipment item = new Equipment(allEquips[p.itemName]);
+            item.SetInventorySlot(p);
+            int itemCount = PlayerPrefs.GetInt(item.itemName);
 
             GameObject a = Instantiate(equipmentObject, itemSprite.transform.position, Quaternion.identity);
 
@@ -245,8 +247,8 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
             a.transform.position = new Vector3(itemSprite.transform.position.x + ((rowCheck * 4) * itemScrollContent.GetComponent<RectTransform>().rect.width / 6), itemSprite.transform.position.y - (row * 35), itemSprite.transform.position.z);
             a.transform.localScale = new Vector3(a.transform.localScale.x * 1.5f, a.transform.localScale.y * 1.5f, 1f);
             a.tag = "Item";
-            a.name = item.name;
-            item.ActivateItem(item, a);
+            a.name = p.itemName;
+            item.equipment.ActivateItem(item.equipment, a);
 
             rowCheck += .25f;
 
@@ -447,7 +449,9 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
             {
                 if (displayMode == DisplayMode.Equipment)
                 {
-                    EquipmentScript item = hit.GetComponent<EquipmentObject>().equipment;
+                    //EquipmentScript item = hit.GetComponent<EquipmentObject>().equipment;
+                    Equipment item = hit.GetComponent<EquipmentObject>().equipment;
+
 
                     itemPopMenu.SetActive(true);
                     itemPopMenu.GetComponent<ItemPopMenu>().DisplayEquipment(item, hit.gameObject);

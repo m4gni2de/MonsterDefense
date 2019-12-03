@@ -31,6 +31,8 @@ public struct MonsterSaveToken
     public int maxLevel;
     public string specialAbility;
     public string passiveSkill;
+    public int equip1Slot;
+    public int equip2Slot;
 
 }
 
@@ -86,12 +88,14 @@ public struct MonsterInfo
     public string equip1Name;
     public string equip2Name;
 
-    public EquipmentScript equipment1;
-    public EquipmentScript equipment2;
+    //public EquipmentScript equipment1;
+    //public EquipmentScript equipment2;
 
     public Equipment equip1;
+    public int equip1Slot;
     public Equipment equip2;
-    
+    public int equip2Slot;
+
 
 
     [Header("Monster Stat Values")]
@@ -269,7 +273,7 @@ public class Monster : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        
+        var yourEquips = GameManager.Instance.Inventory.EquipmentPocket.items;
 
         tower = GetComponent<Tower>();
         enemy = GetComponent<Enemy>();
@@ -309,35 +313,56 @@ public class Monster : MonoBehaviour
             tower.enabled = false;
         }
 
+
+
         
-
-
 
         //EquipmentBoosts();
         var equipment = GameManager.Instance.GetComponent<Items>().allEquipsDict;
         var attacks = GameManager.Instance.baseAttacks.attackDict;
 
-        if (equipment.ContainsKey(info.equip1Name))
-        {
-            EquipmentScript equip1 = Instantiate(equipment[info.equip1Name]);
-            info.equipment1 = equip1;
-            info.equipment1.info.equippedMonster = this;
-        }
-        else
-        {
-            info.equipment1 = null;
-        }
+        //if (equipment.ContainsKey(info.equip1Name))
+        //{
+        //    //EquipmentScript equip1 = Instantiate(equipment[info.equip1Name]);
+        //    info.equip1 = new Equipment(equipment[info.equip1Name]);
+        //    info.equip1.monster = this;
 
-        if (equipment.ContainsKey(info.equip2Name))
-        {
-            EquipmentScript equip2 = Instantiate(equipment[info.equip2Name]);
-            info.equipment2 = equip2;
-            info.equipment2.info.equippedMonster = this;
-        }
-        else
-        {
-            info.equipment2 = null;
-        }
+        //    for (int i = 0; i < yourEquips.Count; i++)
+        //    {
+        //        if (yourEquips[i].slotIndex == info.equip1Slot)
+        //        {
+        //            info.equip1.SetInventorySlot(yourEquips[i]);
+        //        }
+        //    }
+
+
+        //    info.equip1.Equip(this, 1);
+        //}
+        //else
+        //{
+        //    info.equip1 = null;
+        //}
+
+        //if (equipment.ContainsKey(info.equip2Name))
+        //{
+        //    //EquipmentScript equip2 = Instantiate(equipment[info.equip2Name]);
+        //    info.equip2 = new Equipment(equipment[info.equip2Name]);
+        //    info.equip2.monster = this;
+
+        //    for (int i = 0; i < yourEquips.Count; i++)
+        //    {
+        //        if (yourEquips[i].slotIndex == info.equip2Slot)
+        //        {
+        //            info.equip2.SetInventorySlot(yourEquips[i]);
+        //        }
+        //    }
+
+        //    info.equip2.Equip(this, 2);
+        //}
+        //else
+        //{
+        //    info.equip2 = null;
+        //}
 
 
         info.sortIndex = info.index;
@@ -388,14 +413,15 @@ public class Monster : MonoBehaviour
 
    
     //Equip a new item to this monster
-    public void EquipItem(EquipmentScript equip, int slot)
+    public void EquipItem(Equipment equip, int slot)
     {
 
 
         if (slot == 1)
         {
             info.equip1Name = equip.itemName;
-            info.equipment1 = equip;
+            info.equip1 = equip;
+            info.equip1Slot = equip.inventorySlot.slotIndex;
         }
 
         if (slot == 2)
@@ -403,9 +429,10 @@ public class Monster : MonoBehaviour
             
 
             info.equip2Name = equip.itemName;
-            info.equipment2 = equip;
+            info.equip2 = equip;
+            info.equip2Slot = equip.inventorySlot.slotIndex;
 
-          
+
         }
 
         MonsterStatMods();
@@ -416,7 +443,7 @@ public class Monster : MonoBehaviour
     }
 
     //unequip an item from this monster
-    public void UnEquipItem(EquipmentScript equip, int slot)
+    public void UnEquipItem(Equipment equip, int slot)
     {
 
 
@@ -424,17 +451,19 @@ public class Monster : MonoBehaviour
         if (slot == 1)
         {
             info.equip1Name = "none";
-            info.equipment1 = null;
+            info.equip1 = null;
+            info.equip1Slot = 0;
 
         }
         if (slot == 2)
         {
             info.equip2Name = "none";
-            info.equipment2 = null;
+            info.equip2 = null;
+            info.equip1Slot = 0;
+            
         }
 
-        int itemCount = PlayerPrefs.GetInt(equip.name);
-        PlayerPrefs.SetInt(equip.name, itemCount + 1);
+        
 
         MonsterStatMods();
         SaveMonsterToken();
@@ -1036,6 +1065,7 @@ public class Monster : MonoBehaviour
         var abilities = GameManager.Instance.GetComponent<MonsterAbilities>().allAbilitiesDict;
         var skills = GameManager.Instance.GetComponent<AllSkills>().allSkillsDict;
         var allEquips = GameManager.Instance.items.allEquipsDict;
+        var yourEquips = GameManager.Instance.Inventory.EquipmentPocket.items;
 
         info.type1 = monsters[info.species].type1;
         info.type2 = monsters[info.species].type2;
@@ -1071,25 +1101,56 @@ public class Monster : MonoBehaviour
         info.equip1Name = saveToken.equip1;
         info.equip2Name = saveToken.equip2;
         info.maxLevel = saveToken.maxLevel;
-        
+        info.equip1Slot = saveToken.equip1Slot;
+        info.equip2Slot = saveToken.equip2Slot;
         
 
         if (allEquips.ContainsKey(info.equip1Name))
         {
-            info.equipment1 = allEquips[info.equip1Name];
+            //info.equipment1 = allEquips[info.equip1Name];
+            EquipmentScript eq = Instantiate(allEquips[info.equip1Name]);
+            info.equip1 = new Equipment(eq);
+
+            for (int i = 0; i < yourEquips.Count; i++)
+            {
+                if (yourEquips[i].slotIndex == info.equip1Slot)
+                {
+                    //info.equip1.monster = this;
+                    info.equip1.SetInventorySlot(yourEquips[i]);
+                    
+                }
+            }
+            //EquipmentScript e = Instantiate(allEquips[info.equip1Name]);
+            //info.equip1.Equip(this, 1);
         }
         else
         {
-            info.equipment1 = null;
+            //info.equipment1 = null;
+            info.equip1 = null;
         }
 
         if (allEquips.ContainsKey(info.equip2Name))
         {
-            info.equipment2 = allEquips[info.equip2Name];
+            //info.equipment2 = allEquips[info.equip2Name];
+            EquipmentScript eq = Instantiate(allEquips[info.equip2Name]);
+            info.equip2 = new Equipment(eq);
+            //EquipmentScript e = Instantiate(allEquips[info.equip2Name]);
+            //info.equip2.Equip(this, 2);
+
+            for (int i = 0; i < yourEquips.Count; i++)
+            {
+                if (yourEquips[i].slotIndex == info.equip2Slot)
+                {
+                    //info.equip2.monster = this;
+                    info.equip2.SetInventorySlot(yourEquips[i]);
+                }
+            }
+            //info.equip2.Equip(this, 2);
         }
         else
         {
-            info.equipment2 = null;
+            //info.equipment2 = null;
+            info.equip2 = null;
         }
 
         info.abilityName = saveToken.specialAbility;
@@ -1121,6 +1182,8 @@ public class Monster : MonoBehaviour
             info.baseAttack2 = null;
         }
 
+        
+        
         SetExp();
 
  
@@ -1132,30 +1195,18 @@ public class Monster : MonoBehaviour
        
         var equipment = GameManager.Instance.GetComponent<Items>().allEquipsDict;
 
+        
+
         if (equipment.ContainsKey(info.equip1Name))
         {
-            //info.equip1.equipment = equipment[info.equip1Name];
-            //info.equip1.equipment.GetEquipInfo(this, 1);
-
-
-            EquipmentScript equip1 = Instantiate(equipment[info.equip1Name]);
-            info.equipment1 = equip1;
-            //info.equipment2.trigger = new EventTrigger(info.equipment2.triggerType, info.equipment2);
-            info.equipment1.GetEquipInfo(this, 1);
+            info.equip1.Equip(this, 1);
 
 
         }
         if (equipment.ContainsKey(info.equip2Name))
         {
-            //info.equip2.equipment = equipment[info.equip2Name];
-            //info.equip2.equipment.GetEquipInfo(this, 2);
-
-
-            EquipmentScript equip2 = Instantiate(equipment[info.equip2Name]);
-            info.equipment2 = equip2;
-            //info.equipment2.trigger = new EventTrigger(info.equipment2.triggerType, info.equipment2);
-            info.equipment2.GetEquipInfo(this, 2);
-
+            
+            info.equip2.Equip(this, 2);
         }
 
     }

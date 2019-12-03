@@ -224,7 +224,7 @@ public class Items: MonoBehaviour
             //equip.info.equipLevelMax = equip.equipLevelMax;
             //info.equipLevel = level;
             //info.equipLevelMax = equipLevelMax;
-            equip.GetExpCurve();
+            //equip.GetExpCurve();
 
             //if the item has an event trigger, set the trigger on the item itself
             if (equip.triggerType != TriggerType.None)

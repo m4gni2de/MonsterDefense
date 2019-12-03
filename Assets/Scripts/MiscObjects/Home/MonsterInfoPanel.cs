@@ -28,7 +28,8 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     
 
 
-    public EquipmentScript equips1, equips2;
+    public Equipment equips1, equips2;
+    public EquipmentScript e1, e2;
     public bool isEquip1, isEquip2;
     private Monster monster, clickedMonsterIcon;
 
@@ -77,6 +78,21 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
     public void TouchManager()
     {
         
+    }
+
+    public void RefreshEquipment()
+    {
+       
+
+        equips1 = monster.info.equip1;
+        e1 = equips1.equipment;
+        equips1.Equip(monster, 1);
+
+
+        equips2 = monster.info.equip2;
+        e2 = equips2.equipment;
+        equips2.Equip(monster, 2);
+       
     }
 
     public void LoadInfo(Monster thisMonster)
@@ -140,7 +156,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
            
         }
 
-       
+        
 
         monster.transform.SetParent(transform, true);
         monster.transform.position = monsterSprite.transform.position;
@@ -172,83 +188,85 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             Destroy(equips[e]);
         }
 
+        
 
-        if (equips1)
+        if (e1)
         {
-            
-            equips1.DeactivateItem(equips1, equip1Btn.gameObject);
+            e1.DeactivateItem(e1, equip1Btn.gameObject);
         }
 
-        if (equips2)
+        if (e2)
         {
-            equips2.DeactivateItem(equips2, equip2Btn.gameObject);
+            e2.DeactivateItem(e2, equip2Btn.gameObject);
         }
+
 
         var allEquipment = GameManager.Instance.GetComponent<Items>().allEquipsDict;
-        
         var abilities = GameManager.Instance.GetComponent<MonsterAbilities>().allAbilitiesDict;
 
         GetComponentInChildren<EnviromentCanvas>().GetEnviroment(thisMonster.info.type1);
 
         //show the equipment item for Slot 1
-
         //if (equipment.ContainsKey(thisMonster.info.equip1Name))
-        if (allEquipment.ContainsKey(thisMonster.info.equip1Name))
+        if (allEquipment.ContainsKey(monster.info.equip1Name))
         {
-           
+
 
             equip1Btn.GetComponent<Image>().color = Color.white;
-            //equips1 = allEquipment[monster.info.equip1Name];
-            //equips1 = thisMonster.info.equipment1;
-            equips1 = monster.info.equipment1;
-            equips1.GetEquipInfo(monster, 1);
-            //set this monster to be displayed as the monster equipped with an item, to prevent item stacking
-            thisMonster = equips1.info.equippedMonster;
+
+            equips1 = monster.info.equip1;
+            e1 = equips1.equipment;
+            equips1.SetInventorySlot(monster.info.equip1.inventorySlot);
+            equips1.GetStats();
+            equips1.Equip(monster, 1);
             equip1Btn.interactable = false;
-            equip1Btn.GetComponent<Image>().sprite = equips1.sprite;
+            equip1Btn.GetComponent<Image>().sprite = equips1.equipment.sprite;
             equip1Btn.name = allEquipment[monster.info.equip1Name].name;
             isEquip1 = true;
 
-            equips1.ActivateItem(equips1, equip1Btn.gameObject);
+            equips1.equipment.ActivateItem(equips1.equipment, equip1Btn.gameObject);
         }
         else
         {
+
             equip1Btn.GetComponent<Image>().sprite = null;
             equip1Btn.GetComponent<Image>().color = Color.clear;
             equip1Btn.interactable = true;
             isEquip1 = false;
             equips1 = null;
+            e1 = null;
         }
 
-       
+
         //show the equipped item in slot 2
-        if (allEquipment.ContainsKey(thisMonster.info.equip2Name))
+        if (allEquipment.ContainsKey(monster.info.equip2Name))
         {
-            
+
 
             equip2Btn.GetComponent<Image>().color = Color.white;
-            //equips2 = allEquipment[monster.info.equip2Name];
-            //equips2 = thisMonster.info.equipment2;
-            equips2 = monster.info.equipment2;
-            equips2.GetEquipInfo(monster, 2);
-            //set this monster to be displayed as the monster equipped with an item, to prevent item stacking
-            thisMonster = equips2.info.equippedMonster;
+
+            equips2 = monster.info.equip2;
+            e2 = equips2.equipment;
+            equips2.Equip(monster, 2);
             equip2Btn.interactable = false;
-            equip2Btn.GetComponent<Image>().sprite = equips2.sprite;
+            equip2Btn.GetComponent<Image>().sprite = equips2.equipment.sprite;
             equip2Btn.name = allEquipment[monster.info.equip2Name].name;
             isEquip2 = true;
 
-            equips2.ActivateItem(equips2, equip2Btn.gameObject);
+            equips2.equipment.ActivateItem(equips2.equipment, equip2Btn.gameObject);
         }
         else
         {
+
             equip2Btn.GetComponent<Image>().sprite = null;
             equip2Btn.GetComponent<Image>().color = Color.clear;
             equip2Btn.interactable = true;
             isEquip2 = false;
             equips2 = null;
+            e2 = null;
         }
 
+       
         monsterNameText.text = thisMonster.info.name;
         //typeText.text = thisMonster.info.type1 + "/" + thisMonster.info.type2;
 
@@ -530,6 +548,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             isEquip1 = false;
             equip1Btn.GetComponent<Image>().sprite = null;
             LoadInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
+            
         }
         
     }   
@@ -546,6 +565,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             isEquip2 = false;
             equip2Btn.GetComponent<Image>().sprite = null;
             LoadInfo(GetComponentInParent<YourHome>().activeMonster.GetComponent<Monster>());
+            
         }
 
 
@@ -582,11 +602,21 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         //}
 
 
-        if (equips1)
+        //if (equips1.equipment)
+        //{
+        //    equips1.UnEquip();
+        //}
+        //if (equips2.equipment)
+        //{
+        //    equips2.UnEquip();
+
+        //}
+
+        if (isEquip1)
         {
             equips1.UnEquip();
         }
-        if (equips2)
+        if (isEquip2)
         {
             equips2.UnEquip();
 

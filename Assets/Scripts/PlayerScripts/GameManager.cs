@@ -348,18 +348,18 @@ public class GameManager : MonoBehaviour
 
                 MonsterInfo m = monster.info;
 
-                if (m.equipment1 != null && m.equipment1.triggerType == type)
+                if (m.equip1.equipment != null && m.equip1.equipment.triggerType == type)
                 {
                     //m.equipment1.trigger.equipment = m.equipment1;
                     //m.equipment1.trigger.ActivateTrigger(m.equipment1.triggerType);
-                    m.equipment1.TriggerEvent();
+                    m.equip1.TriggerEvent();
                 }
 
-                if (m.equipment2 != null && m.equipment2.triggerType == type)
+                if (m.equip2.equipment != null && m.equip2.equipment.triggerType == type)
                 {
                     //m.equipment2.trigger.equipment = m.equipment2;
                     //m.equipment2.trigger.ActivateTrigger(m.equipment2.triggerType);
-                    m.equipment2.TriggerEvent();
+                    m.equip1.TriggerEvent();
                 }
 
                 if (m.passiveSkill != null && m.passiveSkill.skill.triggerType == type)
@@ -389,6 +389,7 @@ public class GameManager : MonoBehaviour
 
         activeTiles.Clear();
         activeMap = null;
+        popMenu.SetActive(false);
 
         GameObject camera = GameObject.Find("Main Camera");
 
@@ -400,10 +401,10 @@ public class GameManager : MonoBehaviour
     public void DisplayPopMenu(object obj)
     {
 
-        if (obj.GetType() == typeof(EquipmentScript))
+        if (obj.GetType() == typeof(Equipment))
         {
             popMenu.SetActive(true);
-            popMenu.GetComponent<PopMenuObject>().AcceptEquipment((EquipmentScript)obj);
+            popMenu.GetComponent<PopMenuObject>().AcceptEquipment((Equipment)obj);
         }
 
         if (obj.GetType() == typeof(GameObject))

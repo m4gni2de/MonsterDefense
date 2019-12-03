@@ -643,8 +643,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: UpgradeButton
+      - m_Target: {fileID: 1512126896}
+        m_MethodName: ConfirmUpgrade
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4052,7 +4052,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &221996946
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4896,7 +4896,55 @@ MonoBehaviour:
   isEquipping: 0
   isTapping: 0
   acumTime: 0
-  equipment: {fileID: 0}
+  equipment:
+    equipment: {fileID: 0}
+    monster: {fileID: 0}
+    Slot: 0
+    inventorySlot:
+      slotIndex: 0
+      itemName: 
+      itemLevel: 0
+      itemExp: 0
+      pocketName: 
+    level: 0
+    exp: 0
+    levelMax: 0
+    itemName: 
+    expGiven: 0
+    cost: 0
+    toNextLevel: 0
+    totalNextLevel: 0
+    nextLevelDiff: 0
+    isEquipped: 0
+    equipClass: 0
+    typeMonsterReq: 
+    typeMoveReq: 
+    hpBonus: 0
+    atkBonus: 0
+    defBonus: 0
+    speedBonus: 0
+    precBonus: 0
+    atkPowerBonus: 0
+    atkTimeBonus: 0
+    atkRangeBonus: 0
+    critModBonus: 0
+    critChanceBonus: 0
+    staminaBonus: 0
+    hpPercentBonus: 0
+    atkPercentBonus: 0
+    defPercentBonus: 0
+    spePercentBonus: 0
+    precPercentBonus: 0
+    atkPowerPercentBonus: 0
+    atkTimePercentBonus: 0
+    evasionPercentBonus: 0
+    staminaPercentBonus: 0
+    spriteEffect: 0
+    alpha: 0
+    timeX: 0
+    colorX: {r: 0, g: 0, b: 0, a: 0}
+    Speed: 0
+    Distortion: 0
 --- !u!1 &287699331
 GameObject:
   m_ObjectHideFlags: 0
@@ -8513,7 +8561,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 422555681}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1512126896}
+        m_MethodName: DisplayEquipment
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &422555681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12226,7 +12285,55 @@ MonoBehaviour:
   titleText: {fileID: 2009966183}
   secondaryText: {fileID: 426365575}
   activeMonster: {fileID: 0}
-  activeEquipment: {fileID: 0}
+  activeEquipment:
+    equipment: {fileID: 0}
+    monster: {fileID: 0}
+    Slot: 0
+    inventorySlot:
+      slotIndex: 0
+      itemName: 
+      itemLevel: 0
+      itemExp: 0
+      pocketName: 
+    level: 0
+    exp: 0
+    levelMax: 0
+    itemName: 
+    expGiven: 0
+    cost: 0
+    toNextLevel: 0
+    totalNextLevel: 0
+    nextLevelDiff: 0
+    isEquipped: 0
+    equipClass: 0
+    typeMonsterReq: 
+    typeMoveReq: 
+    hpBonus: 0
+    atkBonus: 0
+    defBonus: 0
+    speedBonus: 0
+    precBonus: 0
+    atkPowerBonus: 0
+    atkTimeBonus: 0
+    atkRangeBonus: 0
+    critModBonus: 0
+    critChanceBonus: 0
+    staminaBonus: 0
+    hpPercentBonus: 0
+    atkPercentBonus: 0
+    defPercentBonus: 0
+    spePercentBonus: 0
+    precPercentBonus: 0
+    atkPowerPercentBonus: 0
+    atkTimePercentBonus: 0
+    evasionPercentBonus: 0
+    staminaPercentBonus: 0
+    spriteEffect: 0
+    alpha: 0
+    timeX: 0
+    colorX: {r: 0, g: 0, b: 0, a: 0}
+    Speed: 0
+    Distortion: 0
   equipUpgrade: {fileID: 0}
 --- !u!1 &619725814
 GameObject:
@@ -13564,7 +13671,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 682279057}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1512126896}
+        m_MethodName: DisplayEquipment
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &682279057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18836,14 +18954,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e820d12c8368b45b8515fb66fe99d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipment: {fileID: 0}
-  image: {fileID: 926000372}
-  inventorySlot:
-    slotIndex: 0
+  equipment:
+    equipment: {fileID: 0}
+    monster: {fileID: 0}
+    Slot: 0
+    inventorySlot:
+      slotIndex: 0
+      itemName: 
+      itemLevel: 0
+      itemExp: 0
+      pocketName: 
+    level: 0
+    exp: 0
+    levelMax: 0
     itemName: 
-    itemLevel: 0
-    itemExp: 0
-    pocketName: 
+    expGiven: 0
+    cost: 0
+    toNextLevel: 0
+    totalNextLevel: 0
+    nextLevelDiff: 0
+    isEquipped: 0
+    equipClass: 0
+    typeMonsterReq: 
+    typeMoveReq: 
+    hpBonus: 0
+    atkBonus: 0
+    defBonus: 0
+    speedBonus: 0
+    precBonus: 0
+    atkPowerBonus: 0
+    atkTimeBonus: 0
+    atkRangeBonus: 0
+    critModBonus: 0
+    critChanceBonus: 0
+    staminaBonus: 0
+    hpPercentBonus: 0
+    atkPercentBonus: 0
+    defPercentBonus: 0
+    spePercentBonus: 0
+    precPercentBonus: 0
+    atkPowerPercentBonus: 0
+    atkTimePercentBonus: 0
+    evasionPercentBonus: 0
+    staminaPercentBonus: 0
+    spriteEffect: 0
+    alpha: 0
+    timeX: 0
+    colorX: {r: 0, g: 0, b: 0, a: 0}
+    Speed: 0
+    Distortion: 0
+  image: {fileID: 926000372}
   valueText: {fileID: 0}
 --- !u!114 &926000371
 MonoBehaviour:
@@ -18887,7 +19047,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 926000372}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1512126896}
+        m_MethodName: SelectEquipment
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 926000370}
+          m_ObjectArgumentAssemblyTypeName: EquipmentObject, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &926000372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23239,7 +23410,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1199280277}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1512126896}
+        m_MethodName: DisplayEquipment
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1199280277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30024,21 +30206,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 952a668b65c765040868ea7b5577c18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
-  item2: {fileID: 0}
-  item3: {fileID: 0}
+  item: {fileID: 422555678}
+  item2: {fileID: 1199280274}
+  item3: {fileID: 682279054}
   itemScroll: {fileID: 1281338179}
   activeItemSprite: {fileID: 2078880338}
   equipmentObject: {fileID: 1040814893437746030, guid: 28c7f5adaeda4174db0cc65e9daa6067,
     type: 3}
   upgradeMenu: {fileID: 888500748}
   yourItemBase: {fileID: 926000369}
-  activeEquip: {fileID: 0}
+  activeEquip:
+    equipment: {fileID: 0}
+    monster: {fileID: 0}
+    Slot: 0
+    inventorySlot:
+      slotIndex: 0
+      itemName: 
+      itemLevel: 0
+      itemExp: 0
+      pocketName: 
+    level: 0
+    exp: 0
+    levelMax: 0
+    itemName: 
+    expGiven: 0
+    cost: 0
+    toNextLevel: 0
+    totalNextLevel: 0
+    nextLevelDiff: 0
+    isEquipped: 0
+    equipClass: 0
+    typeMonsterReq: 
+    typeMoveReq: 
+    hpBonus: 0
+    atkBonus: 0
+    defBonus: 0
+    speedBonus: 0
+    precBonus: 0
+    atkPowerBonus: 0
+    atkTimeBonus: 0
+    atkRangeBonus: 0
+    critModBonus: 0
+    critChanceBonus: 0
+    staminaBonus: 0
+    hpPercentBonus: 0
+    atkPercentBonus: 0
+    defPercentBonus: 0
+    spePercentBonus: 0
+    precPercentBonus: 0
+    atkPowerPercentBonus: 0
+    atkTimePercentBonus: 0
+    evasionPercentBonus: 0
+    staminaPercentBonus: 0
+    spriteEffect: 0
+    alpha: 0
+    timeX: 0
+    colorX: {r: 0, g: 0, b: 0, a: 0}
+    Speed: 0
+    Distortion: 0
   nameText: {fileID: 783792053}
   levelText: {fileID: 1219839204}
   expText: {fileID: 943122246}
   expSlider: {fileID: 1288748469}
   upgradeOptions: []
+  upgradeTributes: 
 --- !u!1 &1514807603
 GameObject:
   m_ObjectHideFlags: 0
@@ -40410,6 +40641,177 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2009966181}
   m_CullTransparentMesh: 0
+--- !u!1001 &2025995905
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6317396937658932167, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1013
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 570
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890321496488870181, guid: 29c14bd7d79313d44b5d2a69d51fe4a6,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125318792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125318792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125318792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125318792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125318792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125318792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125318792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125318792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125318792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125318792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125318792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125318792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125318792, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 29c14bd7d79313d44b5d2a69d51fe4a6, type: 3}
 --- !u!1 &2027054399
 GameObject:
   m_ObjectHideFlags: 0
@@ -41857,14 +42259,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e820d12c8368b45b8515fb66fe99d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipment: {fileID: 0}
-  image: {fileID: 2078880342}
-  inventorySlot:
-    slotIndex: 0
+  equipment:
+    equipment: {fileID: 0}
+    monster: {fileID: 0}
+    Slot: 0
+    inventorySlot:
+      slotIndex: 0
+      itemName: 
+      itemLevel: 0
+      itemExp: 0
+      pocketName: 
+    level: 0
+    exp: 0
+    levelMax: 0
     itemName: 
-    itemLevel: 0
-    itemExp: 0
-    pocketName: 
+    expGiven: 0
+    cost: 0
+    toNextLevel: 0
+    totalNextLevel: 0
+    nextLevelDiff: 0
+    isEquipped: 0
+    equipClass: 0
+    typeMonsterReq: 
+    typeMoveReq: 
+    hpBonus: 0
+    atkBonus: 0
+    defBonus: 0
+    speedBonus: 0
+    precBonus: 0
+    atkPowerBonus: 0
+    atkTimeBonus: 0
+    atkRangeBonus: 0
+    critModBonus: 0
+    critChanceBonus: 0
+    staminaBonus: 0
+    hpPercentBonus: 0
+    atkPercentBonus: 0
+    defPercentBonus: 0
+    spePercentBonus: 0
+    precPercentBonus: 0
+    atkPowerPercentBonus: 0
+    atkTimePercentBonus: 0
+    evasionPercentBonus: 0
+    staminaPercentBonus: 0
+    spriteEffect: 0
+    alpha: 0
+    timeX: 0
+    colorX: {r: 0, g: 0, b: 0, a: 0}
+    Speed: 0
+    Distortion: 0
+  image: {fileID: 2078880342}
   valueText: {fileID: 0}
 --- !u!114 &2078880341
 MonoBehaviour:
@@ -45699,8 +46143,106 @@ MonoBehaviour:
   atk2Mode: {fileID: 2008462231}
   atk2Force: {fileID: 0}
   atk2Status: {fileID: 202918950}
-  equips1: {fileID: 0}
-  equips2: {fileID: 0}
+  equips1:
+    equipment: {fileID: 0}
+    monster: {fileID: 0}
+    Slot: 0
+    inventorySlot:
+      slotIndex: 0
+      itemName: 
+      itemLevel: 0
+      itemExp: 0
+      pocketName: 
+    level: 0
+    exp: 0
+    levelMax: 0
+    itemName: 
+    expGiven: 0
+    cost: 0
+    toNextLevel: 0
+    totalNextLevel: 0
+    nextLevelDiff: 0
+    isEquipped: 0
+    equipClass: 0
+    typeMonsterReq: 
+    typeMoveReq: 
+    hpBonus: 0
+    atkBonus: 0
+    defBonus: 0
+    speedBonus: 0
+    precBonus: 0
+    atkPowerBonus: 0
+    atkTimeBonus: 0
+    atkRangeBonus: 0
+    critModBonus: 0
+    critChanceBonus: 0
+    staminaBonus: 0
+    hpPercentBonus: 0
+    atkPercentBonus: 0
+    defPercentBonus: 0
+    spePercentBonus: 0
+    precPercentBonus: 0
+    atkPowerPercentBonus: 0
+    atkTimePercentBonus: 0
+    evasionPercentBonus: 0
+    staminaPercentBonus: 0
+    spriteEffect: 0
+    alpha: 0
+    timeX: 0
+    colorX: {r: 0, g: 0, b: 0, a: 0}
+    Speed: 0
+    Distortion: 0
+  equips2:
+    equipment: {fileID: 0}
+    monster: {fileID: 0}
+    Slot: 0
+    inventorySlot:
+      slotIndex: 0
+      itemName: 
+      itemLevel: 0
+      itemExp: 0
+      pocketName: 
+    level: 0
+    exp: 0
+    levelMax: 0
+    itemName: 
+    expGiven: 0
+    cost: 0
+    toNextLevel: 0
+    totalNextLevel: 0
+    nextLevelDiff: 0
+    isEquipped: 0
+    equipClass: 0
+    typeMonsterReq: 
+    typeMoveReq: 
+    hpBonus: 0
+    atkBonus: 0
+    defBonus: 0
+    speedBonus: 0
+    precBonus: 0
+    atkPowerBonus: 0
+    atkTimeBonus: 0
+    atkRangeBonus: 0
+    critModBonus: 0
+    critChanceBonus: 0
+    staminaBonus: 0
+    hpPercentBonus: 0
+    atkPercentBonus: 0
+    defPercentBonus: 0
+    spePercentBonus: 0
+    precPercentBonus: 0
+    atkPowerPercentBonus: 0
+    atkTimePercentBonus: 0
+    evasionPercentBonus: 0
+    staminaPercentBonus: 0
+    spriteEffect: 0
+    alpha: 0
+    timeX: 0
+    colorX: {r: 0, g: 0, b: 0, a: 0}
+    Speed: 0
+    Distortion: 0
+  e1: {fileID: 0}
+  e2: {fileID: 0}
   isEquip1: 0
   isEquip2: 0
   equip1Btn: {fileID: 3163202128427024494}

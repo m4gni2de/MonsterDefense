@@ -82,7 +82,7 @@ public class EquipmentScript : ScriptableObject
     public float expConstant;
     public int equipLevelMax;
     public int level;
-
+    public int expGiven;
     
 
 
@@ -117,118 +117,51 @@ public class EquipmentScript : ScriptableObject
     public float Speed;
     public float Distortion;
 
-    //public EquipManager equip = new EquipManager();
-    //public EquipmentInformation info = new EquipmentInformation();
-    public EquipManager equip;
-    public EquipmentInformation info;
+    
+   
 
     //the gameobject that the item spawns upon
     public GameObject GameObject;
 
-    public Dictionary<int, int> expToLevel = new Dictionary<int, int>();
-    public Dictionary<int, int> totalExpForLevel = new Dictionary<int, int>();
+   
 
     public EquipmentScript()
     {
-        equip = new EquipManager();
-        info = new EquipmentInformation();
-
-
-        info.equipLevel = level;
-        info.equipLevelMax = equipLevelMax;
-
-
-        expToLevel.Clear();
-        totalExpForLevel.Clear();
-        GetExpCurve();
-
-    }
-
-    //use this when the equipment is equipped to a monster
-    public void GetEquipInfo(Monster Monster, int EquipSlot)
-    {
         
-        
-        info.equipSlot = EquipSlot;
-        info.equippedMonster = Monster;
-        info.isEquipped = true;
 
-        //info.inventorySlot.itemExp = info.equipExp;
-        //info.inventorySlot.itemLevel = info.equipLevel;
-        //info.inventorySlot.itemName = itemName;
-        //info.inventorySlot.pocketName = itemName;
 
-        //UnEquip();
-        EquipItem();
+        //info.equipLevel = level;
+        //info.equipLevelMax = equipLevelMax;
 
+
+        //expToLevel.Clear();
+        //totalExpForLevel.Clear();
+        //GetExpCurve();
 
         
     }
 
+   
     
 
-    //used to equip the attached monster with this item
-    public void EquipItem()
-    {
-        equip.Equip(info.equippedMonster, info.equipSlot, this);
-    }
+    ////used to equip the attached monster with this item
+    //public void EquipItem()
+    //{
+    //    equip.Equip(info.equippedMonster, info.equipSlot, this);
+    //}
 
 
 
     public void UnEquip()
     {
-        equip.Unequip(info.equippedMonster);
+        //equip.Unequip(info.equippedMonster);
         
 
 
        
     }
 
-    public void GetExpCurve()
-    {
-        int totalExp = new int();
-        
-
-
-        for (int i = 1; i <= equipLevelMax; i++)
-        {
-            if (i == 1)
-            {
-                
-                expToLevel.Add(i, 0);
-                totalExpForLevel.Add(i, 0);
-
-                
-            }
-            else
-            {
-                int toNextLevel = Mathf.FloorToInt(Mathf.Pow(i, expConstant));
-                expToLevel.Add(i, (int)Mathf.Round(toNextLevel));
-                totalExp += (int)Mathf.Round(toNextLevel);
-                totalExpForLevel.Add(i, totalExp);
-            }
-
-            
-
-            if (i >= equipLevelMax)
-            {
-                
-                //EquipExp();
-            }
-        }
-
-
-    }
-
-    //public void EquipExp()
-    //{
-    //    if (expToLevel.ContainsKey(info.equipLevel))
-    //    {
-    //        int toNextLevel = expToLevel[info.equipLevel + 1];
-    //        int totalNextLevel = totalExpForLevel[info.equipLevel + 1];
-    //        int nextLevelDiff = totalNextLevel - info.equipExp;
-    //    }
-    //}
+  
 
 
     //use this to give a gameobject's renderer that this object is spawned on to the correct properties
@@ -288,144 +221,548 @@ public class EquipmentScript : ScriptableObject
         }
     }
 
+   
+}
+
+[System.Serializable]
+//the class that combines the EquipmentScript scriptable object with the effects from the item itself
+public class Equipment
+{
+    public EquipmentScript equipment;
+    public Monster monster;
+    public int Slot;
+    public PocketItem inventorySlot = new PocketItem();
+
+    //this variable is used to delegate which item method to use, given the name of the item
+    public delegate void EquipmentDelegate();
+    public EquipmentDelegate equipMethod;
+
+    public int level;
+    public int exp;
+    public int levelMax;
+    public string itemName;
+    public int expGiven;
+    public float cost;
+
+    public int toNextLevel, totalNextLevel, nextLevelDiff;
+    //used to determine if the equipment item is in your inventory or equipped to a monster;
+    public bool isEquipped;
+
+    public EquipmentClass equipClass;
+    public string typeMonsterReq;
+    public string typeMoveReq;
+
+
+    public Dictionary<int, int> expToLevel = new Dictionary<int, int>();
+    public Dictionary<int, int> totalExpForLevel = new Dictionary<int, int>();
+
+
+    public int hpBonus;
+    public int atkBonus;
+    public int defBonus;
+    public int speedBonus;
+    public int precBonus;
+    public int atkPowerBonus;
+    public int atkTimeBonus;
+    public int atkRangeBonus;
+    public int critModBonus;
+    public int critChanceBonus;
+    public int staminaBonus;
+
+    public float hpPercentBonus;
+    public float atkPercentBonus;
+    public float defPercentBonus;
+    public float spePercentBonus;
+    public float precPercentBonus;
+    public float atkPowerPercentBonus;
+    public float atkTimePercentBonus;
+    public float evasionPercentBonus;
+    public int staminaPercentBonus;
+
+    //these variables exist to affect the possible sprite effects that can be added
+    public EquipmentSpriteEffect spriteEffect;
+    //use these variables to change the properties of the sprite effect
+    public float alpha;
+    public float timeX;
+    public Color colorX;
+    public float Speed;
+    public float Distortion;
+
+    public Equipment(EquipmentScript e)
+    {
+        
+        equipment = e;
+
+        hpBonus = e.hpBonus;
+        atkBonus = e.atkBonus;
+        defBonus = e.defBonus;
+        speedBonus = e.speedBonus;
+        precBonus = e.precBonus;
+        atkPowerBonus = e.atkPowerBonus;
+        atkTimeBonus = e.atkTimeBonus;
+        atkRangeBonus = e.atkRangeBonus;
+        critModBonus = e.critModBonus;
+        critChanceBonus = e.critChanceBonus;
+        staminaBonus = e.staminaBonus;
+
+        hpPercentBonus = e.hpPercentBonus;
+        atkPercentBonus = e.atkPercentBonus;
+        defPercentBonus = e.defPercentBonus;
+        spePercentBonus = e.spePercentBonus;
+        atkPowerPercentBonus = e.atkPowerPercentBonus;
+        atkTimePercentBonus = e.atkTimePercentBonus;
+        evasionPercentBonus = e.evasionPercentBonus;
+        staminaPercentBonus = e.staminaPercentBonus;
+
+        level = e.level;
+        levelMax = e.equipLevelMax;
+        itemName = e.itemName;
+        expGiven = e.expGiven;
+
+        alpha = e._Alpha;
+        timeX = e._TimeX;
+        colorX = e._ColorX;
+        Speed = e.Speed;
+        Distortion = e.Distortion;
+
+        equipClass = e.equipClass;
+        typeMonsterReq = e.typeMonsterReq;
+        typeMoveReq = e.typeMoveReq;
+
+        cost = e.cost;
+        
+
+
+        GetExpCurve(); 
+        
+    }
+
+    //create the method delegate for each item
+    EquipmentDelegate DelegateCreation(object target, string functionName)
+    {
+        EquipmentDelegate eq = (EquipmentDelegate)Delegate.CreateDelegate(typeof(EquipmentDelegate), target, functionName);
+        return eq;
+    }
+
+   
+
+    public void Equip(Monster Monster, int slot)
+    {
+
+        monster = Monster;
+        Slot = slot;
+
+        
+        //get string of the name of the item
+        string name = string.Concat(itemName.Where(c => !char.IsWhiteSpace(c)));
+
+        //convert string to a delegate to call the method of the name of the ability
+        equipMethod = DelegateCreation(this, name);
+
+        if (Slot == 1)
+        {
+            monster.info.equip1 = this;
+        }
+        else if (Slot == 2)
+        {
+            monster.info.equip2 = this;
+        }
+
+        isEquipped = true;
+
+        
+        //SetInventorySlot(inventorySlot);
+
+        equipMethod.Invoke();
+        //refresh the monster's list of stat modifiers
+        monster.MonsterStatMods();
+    }
+
+    public void UnEquip()
+    {
+        monster.info.HP.RemoveAllModifiersFromSource(this);
+        monster.info.Attack.RemoveAllModifiersFromSource(this);
+        monster.info.Defense.RemoveAllModifiersFromSource(this);
+        monster.info.Speed.RemoveAllModifiersFromSource(this);
+        monster.info.Precision.RemoveAllModifiersFromSource(this);
+        monster.info.Stamina.RemoveAllModifiersFromSource(this);
+        monster.info.EnergyGeneration.RemoveAllModifiersFromSource(this);
+        monster.info.EnergyCost.RemoveAllModifiersFromSource(this);
+        monster.info.CoinGeneration.RemoveAllModifiersFromSource(this);
+
+
+
+        monster.info.baseAttack1.Power.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack1.Range.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack1.AttackSpeed.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack1.AttackTime.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack1.CritChance.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack1.CritMod.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack1.EffectChance.RemoveAllModifiersFromSource(this);
+
+        monster.info.baseAttack2.Power.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack2.Range.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack2.AttackSpeed.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack2.AttackTime.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack2.CritChance.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack2.CritMod.RemoveAllModifiersFromSource(this);
+        monster.info.baseAttack2.EffectChance.RemoveAllModifiersFromSource(this);
+
+        //ScriptableObject.Destroy(equipment);
+
+        
+        isEquipped = false;
+        monster.MonsterStatMods();
+    }
+
+
     //if an equipment item has dynamic stats, call this to trigger its stat change
     public void TriggerEvent()
     {
         UnEquip();
-        info.triggerCount += 1;
-        EquipItem();
+        Equip(monster, Slot);
     }
+
+    public void GetExpCurve()
+    {
+        int totalExp = new int();
+
+
+
+        for (int i = 1; i <= levelMax; i++)
+        {
+            if (i == 1)
+            {
+
+                expToLevel.Add(i, 0);
+                totalExpForLevel.Add(i, 0);
+
+
+            }
+            else
+            {
+                toNextLevel = Mathf.FloorToInt(Mathf.Pow(i, equipment.expConstant));
+                expToLevel.Add(i, (int)Mathf.Round(toNextLevel));
+                totalExp += (int)Mathf.Round(toNextLevel);
+                totalExpForLevel.Add(i, totalExp);
+            }
+
+
+
+            if (i >= levelMax)
+            {
+
+                SetExp();
+            }
+        }
+
+    }
+
+    public void SetExp()
+    {
+        if (expToLevel.ContainsKey(level))
+        {
+            toNextLevel = expToLevel[level + 1];
+            totalNextLevel = totalExpForLevel[level + 1];
+            nextLevelDiff = totalNextLevel - exp;
+        }
+    }
+
+    ////this is called from the ItemUpgrade script
+    //public void GainEXP(int expGained)
+    //{
+    //    exp += (int)Mathf.Round(expGained);
+    //    if (expToLevel.ContainsKey(level))
+    //    {
+    //        toNextLevel = expToLevel[level + 1];
+    //        totalNextLevel = totalExpForLevel[level + 1];
+    //        nextLevelDiff = totalNextLevel - exp;
+
+
+    //        if (expGained >= nextLevelDiff)
+    //        {
+    //            OnLevelUp();
+
+    //            return;
+    //        }  
+    //    }
+    //}
+
+    //public void OnLevelUp()
+    //{
+    //    level += 1;
+    //    inventorySlot.itemExp = exp;
+    //    inventorySlot.itemLevel = level;
+        
+    //}
+
+    public void NatureRune()
+    {
+        if (monster.info.type1 == "Nature" || monster.info.type2 == "Nature")
+        {
+            monster.info.Attack.AddModifier(new StatModifier(atkPercentBonus, StatModType.PercentMult, this, itemName));
+        }
+
+
+    }
+
+    public void WaterRune()
+    {
+        if (monster.info.type1 == "Water" || monster.info.type2 == "Water")
+        {
+            monster.info.Attack.AddModifier(new StatModifier(atkPercentBonus, StatModType.PercentMult, this, itemName));
+        }
+    }
+
+    public void ShadowRune()
+    {
+        if (monster.info.type1 == "Shadow" || monster.info.type2 == "Shadow")
+        {
+            monster.info.Attack.AddModifier(new StatModifier(atkPercentBonus, StatModType.PercentMult, this, itemName));
+        }
+    }
+
+    public void FireRune()
+    {
+        if (monster.info.type1 == "Fire" || monster.info.type2 == "Fire")
+        {
+            monster.info.Attack.AddModifier(new StatModifier(atkPercentBonus, StatModType.PercentMult, this, itemName));
+        }
+    }
+
+    public void MechanicalRune()
+    {
+        if (monster.info.type1 == "Mechanical" || monster.info.type2 == "Mechanical")
+        {
+            monster.info.Attack.AddModifier(new StatModifier(atkPercentBonus, StatModType.PercentMult, this, itemName));
+        }
+    }
+
+    public void MagicRune()
+    {
+        if (monster.info.type1 == "Magic" || monster.info.type2 == "Magic")
+        {
+            monster.info.Attack.AddModifier(new StatModifier(atkPercentBonus, StatModType.PercentMult, this, itemName));
+        }
+    }
+
+    public void IceRune()
+    {
+
+        if (monster.info.type1 == "Ice" || monster.info.type2 == "Ice")
+        {
+            monster.info.Attack.AddModifier(new StatModifier(atkPercentBonus, StatModType.PercentMult, this, itemName));
+
+        }
+    }
+
+    public void ThunderRune()
+    {
+        if (monster.info.type1 == "Electric" || monster.info.type2 == "Electric")
+        {
+            monster.info.Attack.AddModifier(new StatModifier(atkPercentBonus, StatModType.PercentMult, this, itemName));
+        }
+    }
+
+    public void NormalRune()
+    {
+        if (monster.info.type1 == "Normal" || monster.info.type2 == "Normal")
+        {
+            monster.info.Attack.AddModifier(new StatModifier(atkPercentBonus, StatModType.PercentMult, this, itemName));
+        }
+    }
+
+    public void WoodAxe()
+    {
+        monster.info.baseAttack1.Power.AddModifier(new StatModifier(atkPowerBonus, StatModType.Flat, this, itemName));
+        monster.info.baseAttack2.Power.AddModifier(new StatModifier(atkPowerBonus, StatModType.Flat, this, itemName));
+    }
+
+    public void SpikedKnuckles()
+    {
+        if (monster.info.baseAttack1.attack.attackMode == AttackMode.Punch)
+        {
+            monster.info.baseAttack1.Power.AddModifier(new StatModifier(atkPowerPercentBonus, StatModType.PercentMult, this, itemName));
+        }
+
+        if (monster.info.baseAttack2.attack.attackMode == AttackMode.Punch)
+        {
+            monster.info.baseAttack2.Power.AddModifier(new StatModifier(atkPowerPercentBonus, StatModType.PercentMult, this, itemName));
+        }
+    }
+
+    public void RingOfFluctuation()
+    {
+        monster.info.Speed.AddModifier(new StatModifier(spePercentBonus, StatModType.PercentMult, this, itemName));
+    }
+
+
+    public void FrostAxe()
+    {
+        var tiles = GameManager.Instance.activeTiles;
+        int total = 0;
+        int tileCount = 0;
+
+        foreach (KeyValuePair<int, MapTile> tile in tiles)
+        {
+            if (tile.Value.tileAtt == TileAttribute.Ice)
+            {
+                total += atkBonus;
+            }
+
+            tileCount += 1;
+
+            if (tileCount >= tiles.Count)
+            {
+                monster.info.Attack.AddModifier(new StatModifier(total, StatModType.Flat, this, itemName));
+                break;
+            }
+
+        }
+
+
+    }
+
+    public void TomeOfTheBlade()
+    {
+        monster.info.Attack.AddModifier(new StatModifier(atkPercentBonus, StatModType.PercentMult, this, itemName));
+        monster.info.Precision.AddModifier(new StatModifier(precPercentBonus, StatModType.PercentMult, this, itemName));
+    }
+
+
+
+    public void SetInventorySlot(PocketItem e)
+    {
+        
+        inventorySlot = e;
+        exp = e.itemExp;
+        level = e.itemLevel;
+
+        
+    }
+
+    public void GetStats()
+    {
+        EquipmentLevelStats Stats = new EquipmentLevelStats(this, level);
+    }
+
 
     public void AddToInventory(int quantity)
     {
         PocketItem item = new PocketItem();
-        item.itemExp = info.equipExp;
-        if (info.equipLevel <= 0)
-        {
-            info.equipLevel = 1;
-        }
-
-
-        item.itemLevel = info.equipLevel;
-        item.itemName = this.itemName;
+        item.itemExp = exp;
+        item.itemLevel = level;
         item.pocketName = "Equipment";
-
-        info.inventorySlot = item;
-
-        GameManager.Instance.Inventory.AddEquipment(item, quantity);
+        item.itemName = itemName;
+        item.slotIndex = GameManager.Instance.Inventory.EquipmentPocket.items.Count;
+        inventorySlot = item;
+        
+ 
+        GameManager.Instance.Inventory.AddEquipment(inventorySlot, quantity);
     }
 
     public void RemoveFromInventory()
     {
-        GameManager.Instance.Inventory.RemoveEquipment(info.inventorySlot);
+        GameManager.Instance.Inventory.RemoveEquipment(inventorySlot);
     }
+
+
 }
 
 
-public class EquipManager
+public class EquipmentLevelStats
 {
-    public MonsterAttack attack1;
-    public MonsterAttack attack2;
+    public Equipment Equipment;
+    public int level;
 
-    public Monster monster;
-
-    public EquipmentScript equipment;
-    public int Slot;
-
-    
-    
-
-
-    public void Equip(Monster Monster, int slot, EquipmentScript equip)
+    public EquipmentLevelStats(Equipment e, int l)
     {
-        monster = Monster;
-        Slot = slot;
-        equipment = equip;
+        Equipment = e;
+        level = l;
 
-        EquipEffect effect = new EquipEffect(monster, equipment, Slot);
-
-        if (slot == 1)
+        if (Equipment.hpBonus != 0)
         {
-            monster.info.equipment1 = equip;
+            Equipment.hpBonus += (int)(5 * (level - 1));
         }
-        else if (slot == 2)
+        if (Equipment.atkBonus != 0)
         {
-            monster.info.equipment2 = equip;
+            Equipment.atkBonus += (int)(5 * (level - 1));
         }
+        if (Equipment.defBonus != 0)
+        {
+            Equipment.defBonus += (int)(5 * (level - 1));
+        }
+        if (Equipment.speedBonus != 0)
+        {
+            Equipment.speedBonus += (int)(5 * (level - 1));
+        }
+        if (Equipment.precBonus != 0)
+        {
+            Equipment.precBonus += (int)(5 * (level - 1));
+        }
+        if (Equipment.atkPowerBonus != 0)
+        {
+            Equipment.atkPowerBonus += (int)(5 * (level - 1));
+        }
+
+        if (Equipment.atkTimeBonus != 0)
+        {
+            Equipment.atkTimeBonus += (int)(5 * (level - 1));
+        }
+        if (Equipment.atkRangeBonus != 0)
+        {
+            Equipment.atkRangeBonus += (int)(5 * (level - 1));
+        }
+        if (Equipment.critModBonus != 0)
+        {
+            Equipment.critModBonus += (int)(5 * (level - 1));
+        }
+        if (Equipment.critChanceBonus != 0)
+        {
+            Equipment.critChanceBonus += (int)(5 * (level - 1));
+        }
+        if (Equipment.staminaBonus != 0)
+        {
+            Equipment.staminaBonus += (int)(5 * (level - 1));
+        }
+
+        if (Equipment.hpPercentBonus != 0)
+        {
+            Equipment.hpPercentBonus += (float)(.05f * (level - 1));
+        }
+        if (Equipment.atkPercentBonus != 0)
+        {
+            Equipment.atkPercentBonus += (float)(.05f * (level - 1));
+        }
+        if (Equipment.defPercentBonus != 0)
+        {
+            Equipment.defPercentBonus += (float)(.05f * (level - 1));
+        }
+        if (Equipment.spePercentBonus != 0)
+        {
+            Equipment.spePercentBonus += (float)(.05f * (level - 1));
+        }
+        if (Equipment.atkPowerPercentBonus != 0)
+        {
+            Equipment.atkPowerPercentBonus += (float)(.05f * (level - 1));
+        }
+        if (Equipment.atkTimePercentBonus != 0)
+        {
+            Equipment.atkTimePercentBonus += (float)(.05f * (level - 1));
+        }
+        if (Equipment.evasionPercentBonus != 0)
+        {
+            Equipment.evasionPercentBonus += (float)(.05f * (level - 1));
+        }
+        if (Equipment.staminaPercentBonus != 0)
+        {
+            Equipment.staminaPercentBonus += (int)(5 * (level - 1));
+        }
+
+        Equipment.cost *= 1 + (.2f * (level - 1));
+
         
-
-    }
-
-
-    
-
-
-
-
-    public void EquipmentStatChanges()
-    {
-        if (equipment.hpBonus != 0)
-            monster.info.HP.AddModifier(new StatModifier(equipment.hpBonus, StatModType.Flat, this, equipment.name));
-        if (equipment.atkBonus != 0)
-            monster.info.Attack.AddModifier(new StatModifier(equipment.atkBonus, StatModType.Flat, this, equipment.name));
-        if (equipment.defBonus != 0)
-            monster.info.Defense.AddModifier(new StatModifier(equipment.defBonus, StatModType.Flat, this, equipment.name));
-        if (equipment.speedBonus != 0)
-            monster.info.Speed.AddModifier(new StatModifier(equipment.speedBonus, StatModType.Flat, this, equipment.name));
-
-        if (equipment.hpPercentBonus != 0)
-            monster.info.HP.AddModifier(new StatModifier(equipment.hpPercentBonus, StatModType.PercentMult, this, equipment.name));
-        if (equipment.atkPercentBonus != 0)
-            monster.info.Attack.AddModifier(new StatModifier(equipment.atkPercentBonus, StatModType.PercentMult, this, equipment.name));
-        if (equipment.defPercentBonus != 0)
-            monster.info.Defense.AddModifier(new StatModifier(equipment.defPercentBonus, StatModType.PercentMult, this, equipment.name));
-        if (equipment.spePercentBonus != 0)
-            monster.info.Speed.AddModifier(new StatModifier(equipment.spePercentBonus, StatModType.PercentMult, this, equipment.name));
-
-
-    }
-
-
-    //invoke this to remove all of the stat boosts when unequipping an equipment item
-    public void Unequip(Monster monster)
-    {
-        monster.info.HP.RemoveAllModifiersFromSource(equipment);
-        monster.info.Attack.RemoveAllModifiersFromSource(equipment);
-        monster.info.Defense.RemoveAllModifiersFromSource(equipment);
-        monster.info.Speed.RemoveAllModifiersFromSource(equipment);
-        monster.info.Precision.RemoveAllModifiersFromSource(equipment);
-        monster.info.Stamina.RemoveAllModifiersFromSource(equipment);
-        monster.info.EnergyGeneration.RemoveAllModifiersFromSource(equipment);
-        monster.info.EnergyCost.RemoveAllModifiersFromSource(equipment);
-        monster.info.CoinGeneration.RemoveAllModifiersFromSource(equipment);
-
-
-        
-        monster.info.baseAttack1.Power.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack1.Range.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack1.AttackSpeed.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack1.AttackTime.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack1.CritChance.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack1.CritMod.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack1.EffectChance.RemoveAllModifiersFromSource(equipment);
-
-        monster.info.baseAttack2.Power.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack2.Range.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack2.AttackSpeed.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack2.AttackTime.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack2.CritChance.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack2.CritMod.RemoveAllModifiersFromSource(equipment);
-        monster.info.baseAttack2.EffectChance.RemoveAllModifiersFromSource(equipment);
-
-        //ScriptableObject.Destroy(equipment);
-
-        monster.MonsterStatMods();
-    }
-
-    public void EquipmentUpgrade(PocketItem item, int exp)
-    {
-
+        Debug.Log(Equipment.atkPercentBonus);
     }
 }
-
 
