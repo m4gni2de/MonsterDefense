@@ -149,7 +149,8 @@ public class ItemUpgrade : MonoBehaviour
                     option.GetComponent<Button>().GetComponent<Image>().color = Color.white;
                     option.GetComponent<Button>().GetComponent<Image>().sprite = allEquips[e.itemName].sprite;
                     option.GetComponent<EquipmentObject>().equipment.equipment.ActivateItem(allEquips[e.itemName], option.gameObject);
-                    option.name = e.itemName + "(" + activeEquip.inventorySlot.itemLevel + ")";
+                    option.GetComponentInChildren<TMP_Text>().text = option.GetComponent<EquipmentObject>().equipment.level.ToString();
+                    option.name = e.itemName + "(" + option.GetComponent<EquipmentObject>().equipment.level + ")";
 
                     upgradeOptions.Add(option);
                 //}
@@ -159,24 +160,30 @@ public class ItemUpgrade : MonoBehaviour
     }
 
 
+    //from the list of selected equipment, the one clicked on is added to the corresponded spot in the item tributes
     public void SelectEquipment(EquipmentObject obj)
     {
+        if (itemButtons[buttonNumber].GetComponent<Button>().GetComponent<Image>().sprite == null)
+        {
+            upgradeTributes.Add(obj.equipment.inventorySlot.slotIndex, obj.equipment.expGiven);
+            itemButtons[buttonNumber].GetComponent<Button>().GetComponent<Image>().color = Color.white;
+            itemButtons[buttonNumber].GetComponent<Button>().GetComponent<Image>().sprite = obj.equipment.equipment.sprite;
+            obj.equipment.equipment.ActivateItem(obj.equipment.equipment, itemButtons[buttonNumber].gameObject);
+            itemButtons[buttonNumber].name = obj.equipment.itemName + "(" + activeEquip.inventorySlot.itemLevel + ")";
+            itemButtons[buttonNumber].GetComponentInChildren<TMP_Text>().text = "Lv. " + obj.equipment.level;
 
-        upgradeTributes.Add(obj.equipment.inventorySlot.slotIndex, obj.equipment.expGiven);
-        itemButtons[buttonNumber].GetComponent<Button>().GetComponent<Image>().color = Color.white;
-        itemButtons[buttonNumber].GetComponent<Button>().GetComponent<Image>().sprite = obj.equipment.equipment.sprite;
-        obj.equipment.equipment.ActivateItem(obj.equipment.equipment, itemButtons[buttonNumber].gameObject);
-        itemButtons[buttonNumber].name = obj.equipment.itemName + "(" + activeEquip.inventorySlot.itemLevel + ")";
+            CheckEXP(obj.equipment.expGiven);
+            DisplayEquipment();
 
-        CheckEXP(obj.equipment.expGiven);
-        DisplayEquipment();
-
-        itemButtons[buttonNumber].GetComponent<Button>().onClick.RemoveListener(delegate { DisplayEquipment(); });
-        itemButtons[buttonNumber].GetComponent<Button>().onClick.AddListener(delegate { RemoveTribute(obj); });
+            itemButtons[buttonNumber].GetComponent<Button>().onClick.RemoveListener(delegate { DisplayEquipment(); });
+            itemButtons[buttonNumber].GetComponent<Button>().onClick.AddListener(delegate { RemoveTribute(obj); });
+        }
+        
         
 
     }
 
+    //adds exp to the item, then checks to see if that added exp will level up the item or not
     public void CheckEXP(int exp)
     {
         tempEquip.exp += exp;
@@ -217,6 +224,7 @@ public class ItemUpgrade : MonoBehaviour
 
     }
 
+    //if the item levels up, calculate the new level up here
     public void SetExp()
     {
         if (tempEquip.expToLevel.ContainsKey(tempEquip.level) && tempEquip.level < tempEquip.levelMax)
@@ -255,6 +263,7 @@ public class ItemUpgrade : MonoBehaviour
         
     }
 
+    //confirm the upgrade. all items used for the upgrade are removed from your inventory
     public void ConfirmUpgrade()
     {
         var yourEquips = GameManager.Instance.Inventory.EquipmentPocket.items;
@@ -268,8 +277,16 @@ public class ItemUpgrade : MonoBehaviour
         }
 
         upgradeTributes.Clear();
-        item.GetComponent<Button>().GetComponent<Image>().color = Color.white;
-        item.GetComponent<Button>().GetComponent<Image>().sprite = null;
+
+        for (int i = 0; i < itemButtons.Length; i++)
+        {
+            Debug.Log(i);
+            //itemButtons[i].GetComponent<Button>().onClick.RemoveListener(delegate { RemoveTribute(obj); });
+            //itemButtons[i].GetComponent<Button>().onClick.AddListener(delegate { DisplayEquipment(); });
+            itemButtons[i].GetComponent<Button>().GetComponent<Image>().color = Color.white;
+            itemButtons[i].GetComponent<Button>().GetComponent<Image>().sprite = null;
+            itemButtons[i].GetComponentInChildren<TMP_Text>().text = "";
+        }
         GameManager.Instance.Inventory.SaveInventory();
         ActiveEquipment(activeEquip);
         
@@ -297,7 +314,15 @@ public class ItemUpgrade : MonoBehaviour
             if (boost.Value != 0)
             {
                 itemBoosts.Add(boost.Key, (float)boost.Value);
-                boostTexts[boostCount].text = boost.Key + "  +  " + boost.Value;
+                if (boost.Value < 1)
+                {
+                    float value = boost.Value * 100;
+                    boostTexts[boostCount].text = boost.Key + "  +  " + value + "%";
+                }
+                else
+                {
+                    boostTexts[boostCount].text = boost.Key + "  +  " + boost.Value;
+                }
 
                 boostCount += 1;
             }
@@ -320,6 +345,7 @@ public class ItemUpgrade : MonoBehaviour
         itemButtons[buttonNumber].GetComponent<Button>().GetComponent<Image>().sprite = null;
         obj.equipment.equipment.DeactivateItem(obj.equipment.equipment, itemButtons[buttonNumber].gameObject);
         itemButtons[buttonNumber].name = "equip" + buttonNumber + 1;
+        itemButtons[buttonNumber].GetComponentInChildren<TMP_Text>().text = "";
 
         //make a new copy of the equipment being upgraded, then re-add all of the items already as a tribute so you can remove the exp the removed tribute was giving
         tempEquip = new Equipment(tempEquip.equipment);
@@ -358,8 +384,11 @@ public class ItemUpgrade : MonoBehaviour
             itemButtons[i].GetComponent<Button>().onClick.AddListener(delegate { DisplayEquipment(); });
             itemButtons[i].GetComponent<Button>().GetComponent<Image>().color = Color.white;
             itemButtons[i].GetComponent<Button>().GetComponent<Image>().sprite = null;
+            itemButtons[i].GetComponentInChildren<TMP_Text>().text = "";
         }
 
+        equipmentMenu.gameObject.SetActive(true);
+        equipmentMenu.GetComponent<EquipmentManager>().CloseEquipment();
         upgradeMenu.SetActive(false);
     }
 }

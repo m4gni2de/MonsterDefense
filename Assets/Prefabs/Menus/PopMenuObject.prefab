@@ -663,7 +663,7 @@ Transform:
   m_GameObject: {fileID: 6985062286562420541}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -2}
-  m_LocalScale: {x: 30, y: 30, z: 1.5288051}
+  m_LocalScale: {x: 50, y: 50, z: 1.5288051}
   m_Children:
   - {fileID: 7850697915164796902}
   - {fileID: 6985062286257804942}
@@ -739,6 +739,57 @@ MonoBehaviour:
   titleText: {fileID: 7850697915843896015}
   secondaryText: {fileID: 4906683656569426478}
   activeMonster: {fileID: 0}
+  activeEquipment:
+    equipment: {fileID: 0}
+    monster: {fileID: 0}
+    Slot: 0
+    inventorySlot:
+      slotIndex: 0
+      itemName: 
+      itemLevel: 0
+      itemExp: 0
+      pocketName: 
+    level: 0
+    exp: 0
+    levelMax: 0
+    itemName: 
+    expGiven: 0
+    cost: 0
+    toNextLevel: 0
+    totalNextLevel: 0
+    nextLevelDiff: 0
+    isEquipped: 0
+    equipClass: 0
+    typeMonsterReq: 
+    typeMoveReq: 
+    hpBonus: 0
+    atkBonus: 0
+    defBonus: 0
+    speedBonus: 0
+    precBonus: 0
+    atkPowerBonus: 0
+    atkTimeBonus: 0
+    atkRangeBonus: 0
+    critModBonus: 0
+    critChanceBonus: 0
+    staminaBonus: 0
+    hpPercentBonus: 0
+    atkPercentBonus: 0
+    defPercentBonus: 0
+    spePercentBonus: 0
+    precPercentBonus: 0
+    atkPowerPercentBonus: 0
+    atkTimePercentBonus: 0
+    evasionPercentBonus: 0
+    staminaPercentBonus: 0
+    spriteEffect: 0
+    alpha: 0
+    timeX: 0
+    colorX: {r: 0, g: 0, b: 0, a: 0}
+    Speed: 0
+    Distortion: 0
+  equipUpgrade: {fileID: 0}
+  upgradeButton: {fileID: 6985062286257804943}
 --- !u!1 &6985062288048368885
 GameObject:
   m_ObjectHideFlags: 0

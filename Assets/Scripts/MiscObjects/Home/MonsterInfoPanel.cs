@@ -13,7 +13,7 @@ using System.Linq;
 public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 {
     public GameObject monsterSprite, type1, type2, attack1Border, attack2Border;
-    public GameObject equipMenu, equipObject, monsterEditorMenu, monsterUpgradeMenu;
+    public GameObject equipMenu, equipObject, monsterEditorMenu, monsterUpgradeMenu, monsterList;
     public TMP_Text monsterNameText, levelText, atkText, defText, speText, precText, typeText, toNextLevelText, evasionText, energyGenText, energyCostText, stamTxt, abilityNameText, abilityText, coinGenText, koCountText;
     public TMP_Text atkBoostText, defBoostText, speBoostText, precBoostText, evasBoostText, enGenBoostText, costBoostText, stamBoostText, coinGenBoost;
     public TMP_Text attack1, attack2;
@@ -73,6 +73,16 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
                 attack2Btn.interactable = true;
             }
         }
+
+        
+    }
+
+    void LateUpdate()
+    {
+        //if (gameObject.activeSelf == true)
+        //{
+        //    monsterList.SetActive(false);
+        //}
     }
 
     public void TouchManager()

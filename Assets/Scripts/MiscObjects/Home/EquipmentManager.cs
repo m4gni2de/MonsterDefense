@@ -319,7 +319,10 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
                 if (i >= equips.Length - 1)
                 {
-                    GetComponentInParent<YourHome>().monsterScrollList.SetActive(true);
+                    if (!infoMenu.activeSelf)
+                    {
+                        GetComponentInParent<YourHome>().monsterScrollList.SetActive(true);
+                    }
                     gameObject.SetActive(false);
                 }
             }

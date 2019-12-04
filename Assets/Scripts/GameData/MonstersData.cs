@@ -402,6 +402,8 @@ public class MonsterItemDrop
     public MonsterItemDrop(Enemy enemy, Monster attacker)
     {
         var allMonsters = GameManager.Instance.monstersData.monstersAllDict;
+        var allEquips = GameManager.Instance.items.allEquipsDict;
+        var allConsumables = GameManager.Instance.items.allConsumablesDict;
 
         Monster thisMonster = enemy.GetComponent<Monster>();
         float dropRate = allMonsters[enemy.monster.info.species].dropRate + attacker.tempStats.DropRateMod.Value;
@@ -419,20 +421,32 @@ public class MonsterItemDrop
                 //when the list is made, choose one of the items at random to drop
                 if (d >= allMonsters[enemy.monster.info.species].itemDrops.Length - 1)
                 {
-                    int itemRand = UnityEngine.Random.Range(0, allMonsters[enemy.monster.info.species].itemDrops.Length + 1);
+                    int itemRand = UnityEngine.Random.Range(0, allMonsters[enemy.monster.info.species].itemDrops.Length);
 
-                    bool hasKey = PlayerPrefs.HasKey(allMonsters[enemy.monster.info.species].itemDrops[d]);
-
-                    if (hasKey || !hasKey)
+                    if (allEquips.ContainsKey(droppableItems[itemRand]))
                     {
-                        int itemAmount = PlayerPrefs.GetInt(allMonsters[enemy.monster.info.species].itemDrops[d], 0);
-                        
-
-                        PlayerPrefs.SetInt(allMonsters[enemy.monster.info.species].itemDrops[d], itemAmount + 1);
-                        //Debug.Log("Defeated " + enemy.monster.info.species + " dropped a " + allMonsters[enemy.monster.info.species].itemDrops[d] + "! You now have " + (itemAmount + 1) + " of these!");
-                        GameManager.Instance.SendNotificationToPlayer(allMonsters[enemy.monster.info.species].itemDrops[d], 1, NotificationType.MonsterDrop, allMonsters[enemy.monster.info.species].species);
-                        GameManager.Instance.GetComponent<YourItems>().GetYourItems();
+                        Equipment e = new Equipment(allEquips[droppableItems[itemRand]]);
+                        e.AddToInventory(1);
                     }
+                    else if (allConsumables.ContainsKey(droppableItems[itemRand]))
+                    {
+                        GameManager.Instance.items.allConsumablesDict[droppableItems[itemRand]].AddToInventory(1);
+                    }
+
+                    GameManager.Instance.SendNotificationToPlayer(allMonsters[enemy.monster.info.species].itemDrops[itemRand], 1, NotificationType.MonsterDrop, allMonsters[enemy.monster.info.species].species);
+                    GameManager.Instance.GetComponent<YourItems>().GetYourItems();
+                    //bool hasKey = PlayerPrefs.HasKey(allMonsters[enemy.monster.info.species].itemDrops[d]);
+
+                    //if (hasKey || !hasKey)
+                    //{
+                    //    int itemAmount = PlayerPrefs.GetInt(allMonsters[enemy.monster.info.species].itemDrops[d], 0);
+
+
+                    //    PlayerPrefs.SetInt(allMonsters[enemy.monster.info.species].itemDrops[d], itemAmount + 1);
+                    //    //Debug.Log("Defeated " + enemy.monster.info.species + " dropped a " + allMonsters[enemy.monster.info.species].itemDrops[d] + "! You now have " + (itemAmount + 1) + " of these!");
+                    //    GameManager.Instance.SendNotificationToPlayer(allMonsters[enemy.monster.info.species].itemDrops[d], 1, NotificationType.MonsterDrop, allMonsters[enemy.monster.info.species].species);
+                    //    GameManager.Instance.GetComponent<YourItems>().GetYourItems();
+                    //}
                 }
             }
         }

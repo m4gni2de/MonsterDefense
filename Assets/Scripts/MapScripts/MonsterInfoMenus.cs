@@ -359,6 +359,8 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             //if (activeMonster.GetComponent<Tower>().
             //indicator.transform.position = new Vector2(activeMonster.specs.head.transform.position.x, activeMonster.specs.head.transform.position.y + 40);
         }
+
+        
     }
 
     //brings up the current tower's stats on the window if you click on the monster

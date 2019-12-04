@@ -188,6 +188,15 @@ public class Inventory : MonoBehaviour
         ConsumablePocket.items.Remove(item);
         ConsumablePocket.slotCount = ConsumablePocket.items.Count;
 
+        int index = item.slotIndex;
+
+        for (int i = 0; i < ConsumablePocket.slotCount; i++)
+        {
+            if (ConsumablePocket.items[i].slotIndex > index)
+            {
+                ConsumablePocket.items[i].slotIndex -= 1;
+            }
+        }
 
         SaveInventory();
     }

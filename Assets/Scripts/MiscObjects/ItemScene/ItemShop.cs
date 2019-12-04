@@ -231,7 +231,10 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
             PocketItem p = GameManager.Instance.Inventory.EquipmentPocket.items[i];
             //EquipmentScript item = Instantiate(allEquips[p.itemName]);
             Equipment item = new Equipment(allEquips[p.itemName]);
+            //set the item to match the slot in the inventory
             item.SetInventorySlot(p);
+            //change the item's stats to match its level
+            item.GetStats();
             int itemCount = PlayerPrefs.GetInt(item.itemName);
 
             GameObject a = Instantiate(equipmentObject, itemSprite.transform.position, Quaternion.identity);
@@ -514,3 +517,6 @@ public class ItemShop : MonoBehaviour, IPointerDownHandler
         //Debug.Log(displayMode);
     }
 }
+
+
+

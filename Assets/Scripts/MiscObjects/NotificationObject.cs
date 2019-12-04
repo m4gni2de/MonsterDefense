@@ -60,7 +60,7 @@ public class NotificationObject : MonoBehaviour, IPointerDownHandler
                 if (consumables.ContainsKey(target))
                 {
                     notifyImageSp.enabled = false;
-                    notifyImage.color = Color.black;
+                    notifyImage.color = Color.white;
                     notifyImage.sprite = consumables[target].sprite;
                 }
 

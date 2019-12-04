@@ -229,8 +229,10 @@
     <Compile Include="Assets\Scripts\GameData\MonsterDataObject.cs" />
     <Compile Include="Assets\Scripts\GameData\MonstersData.cs" />
     <Compile Include="Assets\Scripts\GameData\ParticleEffects.cs" />
+    <Compile Include="Assets\Scripts\GameData\ShopData.cs" />
     <Compile Include="Assets\Scripts\GameData\SpriteMaterials.cs" />
     <Compile Include="Assets\Scripts\GameData\StatsCalc.cs" />
+    <Compile Include="Assets\Scripts\GameData\Summon.cs" />
     <Compile Include="Assets\Scripts\GameData\UnityOnly.cs" />
     <Compile Include="Assets\Scripts\GifAnimation.cs" />
     <Compile Include="Assets\Scripts\Items\ItemPopMenu.cs" />
@@ -254,6 +256,7 @@
     <Compile Include="Assets\Scripts\MiscObjects\Home\AccountInfoMenu.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\EnviromentCanvas.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\EquipmentManager.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\Home\ItemManager.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterEditor.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterHomeIcon.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\Home\MonsterInfoPanel.cs" />

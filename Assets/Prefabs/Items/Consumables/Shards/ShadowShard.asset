@@ -13,8 +13,14 @@ MonoBehaviour:
   m_Name: ShadowShard
   m_EditorClassIdentifier: 
   itemName: Shadow Shard
-  description: A Shadow Shard
-  cost: 0
+  description: A shard used to summon a Shadow Type Monster
+  cost: 100
   sprite: {fileID: 21300000, guid: 5b671987baacb7f4bb4d6b3136ca2808, type: 3}
   itemType: 0
   tileMinedFrom: 8
+  inventorySlot:
+    slotIndex: 0
+    itemName: 
+    itemLevel: 0
+    itemExp: 0
+    pocketName: 

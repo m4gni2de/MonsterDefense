@@ -9,7 +9,7 @@ using System.IO;
 
 public class YourHome : MonoBehaviour, IPointerDownHandler
 {
-    public GameObject homeCanvas, infoMenu, deleteButton, menuCanvas, equipListObject, equipPlacement, sortMenu, scrollContent;
+    public GameObject homeCanvas, infoMenu, deleteButton, menuCanvas, equipListObject, equipPlacement, sortMenu, scrollContent, itemsListObject;
 
     public GameObject monsterSprite;
     public GameObject[] monsterSprites;
@@ -349,6 +349,20 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
 
     }
 
+    //THIS SUMMONS A NEW MONSTER TO BE USED AS A TOWER AND CREATES A PLAYERPREF FOR IT. THIS IS CALLED FROM AN ITEM OR ANOTHER OBJECT THAT HAS A SPECIFIC SET OF POSSIBLE SUMMON OPTIONS
+    public void SummonMonster(Summon summon)
+    {
+        var monstersDict = GameManager.Instance.monstersData.monstersAllDict;
+
+        var monster = Instantiate(monstersDict[summon.summonChoice.species].monsterPrefab, scrollContent.transform.position, Quaternion.identity);
+        monster.GetComponent<Monster>().MonsterSummon(monster.GetComponent<Monster>().info.species);
+        activeMonster = monster.GetComponent<Monster>();
+        monsterSpriteTotal += 1;
+        GameManager.Instance.GetComponent<YourAccount>().account.totalMonstersCollected += 1;
+        
+        LoadMonsters();
+    }
+
     //use this to summon an item and add it to your inventory
     public void SummonItem()
     {
@@ -491,14 +505,26 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
     }
 
     
-
+    //called from a button
     public void ShowEquipment()
     {
+
         equipListObject.SetActive(true);
         monsterScrollList.SetActive(false);
         equipListObject.GetComponent<EquipmentManager>().LoadEquipment();
 
+
+    }
+
+    //called from a button
+    public void ShowItems()
+    {
         
+        itemsListObject.SetActive(true);
+        monsterScrollList.SetActive(false);
+        itemsListObject.GetComponent<ItemManager>().LoadItems();
+
+
     }
 
     public void CloseEquipment()
