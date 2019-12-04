@@ -285,7 +285,9 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             {
                 monster.EquipItem(equipment, slot);
                 //equipment.RemoveFromInventory();
+                
                 infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(monster);
+                //infoMenu.GetComponent<MonsterInfoPanel>().RefreshEquipment();
                 isTapping = false;
                 int amount = PlayerPrefs.GetInt(equipment.itemName);
                 CloseEquipment();
@@ -305,6 +307,7 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
         if (equips.Length == 0)
         {
+            GetComponentInParent<YourHome>().monsterScrollList.SetActive(true);
             gameObject.SetActive(false);
 
         }
@@ -316,10 +319,14 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
                 if (i >= equips.Length - 1)
                 {
+                    GetComponentInParent<YourHome>().monsterScrollList.SetActive(true);
                     gameObject.SetActive(false);
                 }
             }
         }
+
+        
+       
     }
 
     

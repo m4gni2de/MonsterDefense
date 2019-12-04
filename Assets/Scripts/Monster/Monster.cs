@@ -1199,13 +1199,17 @@ public class Monster : MonoBehaviour
 
         if (equipment.ContainsKey(info.equip1Name))
         {
+            info.equip1.SetInventorySlot(info.equip1.inventorySlot);
+            info.equip1.GetStats();
             info.equip1.Equip(this, 1);
 
 
         }
         if (equipment.ContainsKey(info.equip2Name))
         {
-            
+
+            info.equip2.SetInventorySlot(info.equip2.inventorySlot);
+            info.equip2.GetStats();
             info.equip2.Equip(this, 2);
         }
 

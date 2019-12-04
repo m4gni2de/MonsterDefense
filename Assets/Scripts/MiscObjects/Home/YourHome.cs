@@ -458,7 +458,7 @@ public class YourHome : MonoBehaviour, IPointerDownHandler
             activeMonster = hit.gameObject.GetComponent<Monster>();
 
                 monsterScrollList.SetActive(false);
-            infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(activeMonster);
+                infoMenu.GetComponent<MonsterInfoPanel>().LoadInfo(activeMonster);
 
             }
 

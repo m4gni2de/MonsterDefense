@@ -279,6 +279,9 @@ public class Equipment
     public float evasionPercentBonus;
     public int staminaPercentBonus;
 
+    //a dictionary of the item's stat boosts
+    public Dictionary<string, float> statBoosts = new Dictionary<string, float>();
+
     //these variables exist to affect the possible sprite effects that can be added
     public EquipmentSpriteEffect spriteEffect;
     //use these variables to change the properties of the sprite effect
@@ -330,6 +333,8 @@ public class Equipment
         typeMoveReq = e.typeMoveReq;
 
         cost = e.cost;
+
+
         
 
 
@@ -643,7 +648,11 @@ public class Equipment
 
     public void GetStats()
     {
+        
+        statBoosts.Clear();
+
         EquipmentLevelStats Stats = new EquipmentLevelStats(this, level);
+
     }
 
 
@@ -682,87 +691,106 @@ public class EquipmentLevelStats
 
         if (Equipment.hpBonus != 0)
         {
-            Equipment.hpBonus += (int)(5 * (level - 1));
+            Equipment.hpBonus = Equipment.equipment.hpBonus + (int)(5 * (level - 1));
+            Equipment.statBoosts.Add("HP", (float)Equipment.hpBonus);
         }
         if (Equipment.atkBonus != 0)
         {
-            Equipment.atkBonus += (int)(5 * (level - 1));
+            Equipment.atkBonus = Equipment.equipment.atkBonus + (int)(5 * (level - 1));
+            Equipment.statBoosts.Add("Attack", (float)Equipment.atkBonus);
         }
         if (Equipment.defBonus != 0)
         {
-            Equipment.defBonus += (int)(5 * (level - 1));
+            Equipment.defBonus = Equipment.equipment.defBonus + (int)(5 * (level - 1));
+            Equipment.statBoosts.Add("HP", (float)Equipment.defBonus);
         }
         if (Equipment.speedBonus != 0)
         {
-            Equipment.speedBonus += (int)(5 * (level - 1));
+            Equipment.speedBonus = Equipment.equipment.speedBonus + (int)(5 * (level - 1));
+            Equipment.statBoosts.Add("Speed", (float)Equipment.speedBonus);
         }
         if (Equipment.precBonus != 0)
         {
-            Equipment.precBonus += (int)(5 * (level - 1));
+            Equipment.precBonus = Equipment.equipment.precBonus + (int)(5 * (level - 1));
+            Equipment.statBoosts.Add("Precision", (float)Equipment.precBonus);
         }
         if (Equipment.atkPowerBonus != 0)
         {
-            Equipment.atkPowerBonus += (int)(5 * (level - 1));
+            Equipment.atkPowerBonus = Equipment.equipment.atkPowerBonus + (int)(5 * (level - 1));
+            Equipment.statBoosts.Add("Attack Power", (float)Equipment.atkPowerBonus);
         }
 
         if (Equipment.atkTimeBonus != 0)
         {
-            Equipment.atkTimeBonus += (int)(5 * (level - 1));
+            Equipment.atkTimeBonus = Equipment.equipment.atkTimeBonus + (int)(5 * (level - 1));
+            Equipment.statBoosts.Add("Attack Time", (float)Equipment.atkTimeBonus);
         }
         if (Equipment.atkRangeBonus != 0)
         {
-            Equipment.atkRangeBonus += (int)(5 * (level - 1));
+            Equipment.atkRangeBonus = Equipment.equipment.atkRangeBonus + (int)(5 * (level - 1));
+            Equipment.statBoosts.Add("Attack Range", (float)Equipment.atkRangeBonus);
         }
         if (Equipment.critModBonus != 0)
         {
-            Equipment.critModBonus += (int)(5 * (level - 1));
+            Equipment.critModBonus = Equipment.equipment.critModBonus + (int)(5 * (level - 1));
+            Equipment.statBoosts.Add("Critical Hit Multiplier", (float)Equipment.critModBonus);
         }
         if (Equipment.critChanceBonus != 0)
         {
-            Equipment.critChanceBonus += (int)(5 * (level - 1));
+            Equipment.critChanceBonus = Equipment.equipment.critChanceBonus + (int)(5 * (level - 1));
+            Equipment.statBoosts.Add("Critical Hit Chance", (float)Equipment.critChanceBonus);
         }
         if (Equipment.staminaBonus != 0)
         {
-            Equipment.staminaBonus += (int)(5 * (level - 1));
+            Equipment.staminaBonus = Equipment.equipment.staminaBonus + (int)(5 * (level - 1));
+            Equipment.statBoosts.Add("Stamina", (float)Equipment.staminaBonus);
         }
 
         if (Equipment.hpPercentBonus != 0)
         {
-            Equipment.hpPercentBonus += (float)(.05f * (level - 1));
+            Equipment.hpPercentBonus = Equipment.equipment.hpPercentBonus + (float)(.05f * (level - 1));
+            Equipment.statBoosts.Add("HP", Equipment.hpPercentBonus);
         }
         if (Equipment.atkPercentBonus != 0)
         {
-            Equipment.atkPercentBonus += (float)(.05f * (level - 1));
+            Equipment.atkPercentBonus = Equipment.equipment.atkPercentBonus + (float)(.05f * (level - 1));
+            Equipment.statBoosts.Add("Attack", Equipment.atkPercentBonus);
         }
         if (Equipment.defPercentBonus != 0)
         {
-            Equipment.defPercentBonus += (float)(.05f * (level - 1));
+            Equipment.defPercentBonus = Equipment.equipment.defPercentBonus + (float)(.05f * (level - 1));
+            Equipment.statBoosts.Add("Defense", Equipment.defPercentBonus);
         }
         if (Equipment.spePercentBonus != 0)
         {
-            Equipment.spePercentBonus += (float)(.05f * (level - 1));
+            Equipment.spePercentBonus = Equipment.equipment.spePercentBonus + (float)(.05f * (level - 1));
+            Equipment.statBoosts.Add("Speed", Equipment.spePercentBonus);
         }
         if (Equipment.atkPowerPercentBonus != 0)
         {
-            Equipment.atkPowerPercentBonus += (float)(.05f * (level - 1));
+            Equipment.atkPowerPercentBonus = Equipment.equipment.atkPowerPercentBonus + (float)(.05f * (level - 1));
+            Equipment.statBoosts.Add("Attack Power", Equipment.atkPowerPercentBonus);
         }
         if (Equipment.atkTimePercentBonus != 0)
         {
-            Equipment.atkTimePercentBonus += (float)(.05f * (level - 1));
+            Equipment.atkTimePercentBonus = Equipment.equipment.atkTimePercentBonus + (float)(.05f * (level - 1));
+            Equipment.statBoosts.Add("Attack Time", Equipment.atkTimeBonus);
         }
         if (Equipment.evasionPercentBonus != 0)
         {
-            Equipment.evasionPercentBonus += (float)(.05f * (level - 1));
+            Equipment.evasionPercentBonus = Equipment.equipment.evasionPercentBonus + (float)(.05f * (level - 1));
+            Equipment.statBoosts.Add("Evasion", Equipment.evasionPercentBonus);
         }
         if (Equipment.staminaPercentBonus != 0)
         {
-            Equipment.staminaPercentBonus += (int)(5 * (level - 1));
+            Equipment.staminaPercentBonus = Equipment.equipment.staminaPercentBonus + (int)(5 * (level - 1));
+            Equipment.statBoosts.Add("Stamina", Equipment.staminaPercentBonus);
         }
 
         Equipment.cost *= 1 + (.2f * (level - 1));
 
         
-        Debug.Log(Equipment.atkPercentBonus);
+        //Debug.Log(Equipment.atkPercentBonus);
     }
 }
 

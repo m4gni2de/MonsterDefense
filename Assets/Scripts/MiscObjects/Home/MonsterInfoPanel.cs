@@ -80,20 +80,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         
     }
 
-    public void RefreshEquipment()
-    {
-       
-
-        equips1 = monster.info.equip1;
-        e1 = equips1.equipment;
-        equips1.Equip(monster, 1);
-
-
-        equips2 = monster.info.equip2;
-        e2 = equips2.equipment;
-        equips2.Equip(monster, 2);
-       
-    }
+   
 
     public void LoadInfo(Monster thisMonster)
     {
@@ -170,6 +157,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         //}
 
         //RefreshMonsterInfo(thisMonster);
+        //RefreshEquipment();
         RefreshMonsterInfo(monster);
         
         
@@ -198,8 +186,10 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         if (e2)
         {
             e2.DeactivateItem(e2, equip2Btn.gameObject);
+            
         }
 
+       
 
         var allEquipment = GameManager.Instance.GetComponent<Items>().allEquipsDict;
         var abilities = GameManager.Instance.GetComponent<MonsterAbilities>().allAbilitiesDict;
@@ -214,7 +204,8 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
             equip1Btn.GetComponent<Image>().color = Color.white;
 
-            equips1 = monster.info.equip1;
+            //equips1 = monster.info.equip1;
+            equips1 = new Equipment(allEquipment[monster.info.equip1Name]);
             e1 = equips1.equipment;
             equips1.SetInventorySlot(monster.info.equip1.inventorySlot);
             equips1.GetStats();
@@ -223,6 +214,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             equip1Btn.GetComponent<Image>().sprite = equips1.equipment.sprite;
             equip1Btn.name = allEquipment[monster.info.equip1Name].name;
             isEquip1 = true;
+            
 
             equips1.equipment.ActivateItem(equips1.equipment, equip1Btn.gameObject);
         }
@@ -244,9 +236,10 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
 
             equip2Btn.GetComponent<Image>().color = Color.white;
-
-            equips2 = monster.info.equip2;
+            equips2 = new Equipment(allEquipment[monster.info.equip2Name]);
             e2 = equips2.equipment;
+            equips2.SetInventorySlot(monster.info.equip2.inventorySlot);
+            equips2.GetStats();
             equips2.Equip(monster, 2);
             equip2Btn.interactable = false;
             equip2Btn.GetComponent<Image>().sprite = equips2.equipment.sprite;
@@ -626,6 +619,9 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
 
         GetComponentInParent<YourHome>().MonsterListActive();
+        //GetComponentInParent<YourHome>().sorter.Sort(SortMode.Attack);
+        
+        GetComponentInParent<YourHome>().LoadMonsters();
         gameObject.SetActive(false);
     }
 
