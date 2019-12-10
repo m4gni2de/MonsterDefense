@@ -161,6 +161,15 @@ public class Enemy : MonoBehaviour
         monster.info.level = level;
 
 
+        int starChance = monsters[monster.info.species].starChance;
+        int randStar = Random.Range(0, 500);
+
+        if (randStar <= starChance)
+        {
+            monster.info.isStar = true;
+            monster.bodyParts.StarMonster();
+        }
+
         if (allEquips.ContainsKey(monster.info.equip1Name))
         {
             EquipmentScript eq = Instantiate(allEquips[monster.info.equip1Name]);
@@ -209,7 +218,7 @@ public class Enemy : MonoBehaviour
         int rand2 = Random.Range(0, monsters[monster.info.species].baseAttacks.Length - 1);
         monster.info.attack2Name = monsters[monster.info.species].baseAttacks[rand2];
 
-        monster.info.specialAbility = abilities[monster.info.abilityName];
+        monster.info.specialAbility = new MonsterAbility(abilities[monster.info.abilityName], monster);
         monster.info.passiveSkill = new PassiveSkill(monster, skills[monster.info.skillName]);
         StartCoroutine(monster.WeatherCheck());
 

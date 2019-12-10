@@ -415,6 +415,7 @@ public class MapTile : MonoBehaviour
 
         info.atkBonus = 100;
 
+        //adds this tile to the Map Details' AllTiles, if it isn't already
         if (!mapDetails.allTiles.Contains(this))
         {
             mapDetails.allTiles.Add(this);

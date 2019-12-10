@@ -7,7 +7,6 @@ using TMPro;
 public class MapInfoMenu : MonoBehaviour
 {
     public MapDetails mapDetails;
-    public GameObject worldMap;
     public Slider energySlider, mapHPSlider;
     public TMP_Text energyText, energyGenText, mapHPText;
     public SpriteRenderer weatherSprite;
@@ -30,7 +29,7 @@ public class MapInfoMenu : MonoBehaviour
 
     public void LoadMap()
     {
-        //mapDetails = worldMap.GetComponent<MapDetails>();
+        
 
 
 

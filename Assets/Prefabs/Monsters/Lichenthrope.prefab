@@ -23766,7 +23766,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5149978236063781882}
-  m_LocalRotation: {x: 0.000000026141727, y: -0.00000006898462, z: -0.6155301, w: -0.78811336}
+  m_LocalRotation: {x: 0.000000026141656, y: -0.00000006898464, z: -0.6155309, w: -0.78811276}
   m_LocalPosition: {x: 0.00000125967, y: 1.0000021, z: -0.00000009423187}
   m_LocalScale: {x: 3.9669409, y: 3.9669409, z: 3.9669425}
   m_Children:
@@ -24492,16 +24492,43 @@ MonoBehaviour:
         _value: 0
         lastBaseValue: -3.4028235e+38
     abilityName: 
-    specialAbility:
-      name: 
-      description: 
-      target: 0
-      type: 0
-      parameter: 0
-      scope: 0
-      typeParameter: 
-      classParameter: 0
-      speciesParameter: 
+    skillName: 
+    passiveSkill:
+      Owner: {fileID: 0}
+      skill:
+        name: 
+        description: 
+        triggerType: 0
+        trigger:
+          triggerType: 0
+          id: 0
+      triggerCount: 0
+      mod: []
+    equip1Name: 
+    equip2Name: 
+    equip1:
+      equipment: {fileID: 0}
+      monster: {fileID: 0}
+      Slot: 0
+      inventorySlot:
+        slotIndex: 0
+        itemName: 
+        itemLevel: 0
+        itemExp: 0
+        pocketName: 
+      level: 0
+      exp: 0
+      levelMax: 0
+      itemName: 
+      expGiven: 0
+      cost: 0
+      toNextLevel: 0
+      totalNextLevel: 0
+      nextLevelDiff: 0
+      isEquipped: 0
+      equipClass: 0
+      typeMonsterReq: 
+      typeMoveReq: 
       hpBonus: 0
       atkBonus: 0
       defBonus: 0
@@ -24522,67 +24549,63 @@ MonoBehaviour:
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
       staminaPercentBonus: 0
-      castingAmmo: 0
-      castingCount: 0
-      cooldown: 0
-      targetNumber: 0
-      Range:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      Power:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      CritChance:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      CritMod:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      EffectChance:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      AttackTime:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      AttackSpeed:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      AttackSlow:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      range: 0
-      power: 0
-      critChance: 0
-      critMod: 0
-      effectChance: 0
-      attackTime: 0
-      attackSpeed: 0
-      hitSlowTime: 0
-      attackMode: 0
-    skillName: 
-    passiveSkill:
-      Owner: {fileID: 0}
-      skill:
-        name: 
-        description: 
-        triggerType: 0
-        trigger:
-          triggerType: 0
-          id: 0
-      triggerCount: 0
-      mod: []
-    equip1Name: 
-    equip2Name: 
-    equipment1: {fileID: 0}
-    equipment2: {fileID: 0}
+      spriteEffect: 0
+      alpha: 0
+      timeX: 0
+      colorX: {r: 0, g: 0, b: 0, a: 0}
+      Speed: 0
+      Distortion: 0
+    equip1Slot: 0
+    equip2:
+      equipment: {fileID: 0}
+      monster: {fileID: 0}
+      Slot: 0
+      inventorySlot:
+        slotIndex: 0
+        itemName: 
+        itemLevel: 0
+        itemExp: 0
+        pocketName: 
+      level: 0
+      exp: 0
+      levelMax: 0
+      itemName: 
+      expGiven: 0
+      cost: 0
+      toNextLevel: 0
+      totalNextLevel: 0
+      nextLevelDiff: 0
+      isEquipped: 0
+      equipClass: 0
+      typeMonsterReq: 
+      typeMoveReq: 
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      staminaBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+      evasionPercentBonus: 0
+      staminaPercentBonus: 0
+      spriteEffect: 0
+      alpha: 0
+      timeX: 0
+      colorX: {r: 0, g: 0, b: 0, a: 0}
+      Speed: 0
+      Distortion: 0
+    equip2Slot: 0
     HP:
       BaseValue: 0
       _value: 0
@@ -24663,6 +24686,7 @@ MonoBehaviour:
       BaseValue: 0
       _value: 0
       lastBaseValue: -3.4028235e+38
+    isStar: 0
   specs:
     legs:
     - {fileID: 5149978237489808740}
@@ -24873,6 +24897,9 @@ MonoBehaviour:
     maxLevel: 0
     specialAbility: 
     passiveSkill: 
+    equip1Slot: 0
+    equip2Slot: 0
+    isStar: 0
   activeIndex: 0
   isEnemy: 0
   isTower: 0
@@ -24955,6 +24982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathList: []
   speed: 0
+  zeroSpeed: 0
   isCircular: 0
   inReverse: 1
   mapTileLayer:
@@ -25390,7 +25418,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5149978236579578175}
-  m_LocalRotation: {x: -0.00000010833768, y: -0.00000005592641, z: 0.5982266, w: 0.801327}
+  m_LocalRotation: {x: -0.00000007524154, y: -0.000000027783692, z: 0.5982212, w: 0.80133104}
   m_LocalPosition: {x: -0.000000030050685, y: 1.0000008, z: 0.00000009424244}
   m_LocalScale: {x: 0.42115617, y: 0.42115617, z: 0.421156}
   m_Children:
@@ -26924,6 +26952,15 @@ MonoBehaviour:
   - {fileID: 5149978236087179981}
   - {fileID: 5149978236322366708}
   - {fileID: 5149978236980183221}
+  starMeshes:
+  - {fileID: 2100000, guid: 76d7fed418416dc4faf599122e9250bf, type: 2}
+  - {fileID: 2100000, guid: 9f2af29d7c87d2340b47e8a47725d3c4, type: 2}
+  - {fileID: 2100000, guid: 9146296b184d4bc4c801603bdd310dab, type: 2}
+  - {fileID: 2100000, guid: 45bc1ea38e56a4c4aa4c5b22ad2d0895, type: 2}
+  - {fileID: 2100000, guid: 86dc12f003b5c7c4e99e62a2120aee03, type: 2}
+  - {fileID: 2100000, guid: 34baff2f1477dbc4cb608ce986aa62c8, type: 2}
+  - {fileID: 2100000, guid: 5b2cc705911157c4f8640eb7ad26fbab, type: 2}
+  - {fileID: 2100000, guid: 0ade7ff1751fd3848907daf7732a2330, type: 2}
 --- !u!114 &5149978237160255489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27826,7 +27863,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5149978237761787659}
-  m_LocalRotation: {x: 0.000000021073433, y: -0.000000084293696, z: 0.98356044, w: 0.18057942}
+  m_LocalRotation: {x: 0.0000000105367155, y: -0.000000042146855, z: 0.98356146, w: 0.18057378}
   m_LocalPosition: {x: 0, y: 1.0000002, z: -0.00000008290804}
   m_LocalScale: {x: 1.6041843, y: 1.6041843, z: 1.6041782}
   m_Children:
@@ -33370,12 +33407,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 4752871636588051156, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+    - target: {fileID: 4842977409391204461, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
         type: 3}
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 4842977409391204461, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+    - target: {fileID: 4752871636588051156, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
         type: 3}
       propertyPath: m_Layer
       value: 5
@@ -33395,12 +33432,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 3928943154953569328, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+    - target: {fileID: 4051794378144148041, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
         type: 3}
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 4051794378144148041, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
+    - target: {fileID: 3928943154953569328, guid: 1e1c2dbbc05328c4a8b97e1583d89de5,
         type: 3}
       propertyPath: m_Layer
       value: 5

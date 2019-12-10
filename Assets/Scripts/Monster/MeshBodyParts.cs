@@ -5,6 +5,7 @@ using UnityEngine;
 public class MeshBodyParts : MonoBehaviour
 {
     public GameObject[] bodyMeshes;
+    public Material[] starMeshes;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,5 +16,16 @@ public class MeshBodyParts : MonoBehaviour
     void Update()
     {
         
+    }
+
+    //call this to make the monster a star monster
+    public void StarMonster()
+    {
+        for (int i = 0; i < starMeshes.Length; i++)
+        {
+            bodyMeshes[i].GetComponent<Renderer>().material = starMeshes[i];
+            //bodyMeshes[i].GetComponent<Renderer>().materials[0].
+            
+        }
     }
 }

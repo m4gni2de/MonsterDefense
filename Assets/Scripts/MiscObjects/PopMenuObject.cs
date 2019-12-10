@@ -109,6 +109,9 @@ public class PopMenuObject : MonoBehaviour
         titleText.text = activeItem.itemName;
         menuText.text = activeItem.description;
         secondaryText.text = "";
+
+        
+       
     }
 
 
@@ -154,7 +157,7 @@ public class PopMenuObject : MonoBehaviour
     //invoke this from the button on the PopMenu to trigger the closing of this window
     public void CloseWindow()
     {
-        
+        activeMonster = null;
         gameObject.SetActive(false);
     }
 

@@ -9,7 +9,7 @@ public class MapTileMenu : MonoBehaviour, IPointerDownHandler
 {
     public TMP_Text tileNumberText, tileLevelText, levelPercentText, minedTimeText;
     public SpriteRenderer tileSprite, tileAttSprite, monsterSprite;
-    public GameObject monsterInfoMenu, worldMap;
+    public GameObject monsterInfoMenu;
     public MonsterInfoMenus infoMenu;
 
     public Button miningButton, placeMonsterBtn;

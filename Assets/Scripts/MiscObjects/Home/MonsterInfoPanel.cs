@@ -269,7 +269,7 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
             e2 = null;
         }
 
-       
+        thisMonster = monster;
         monsterNameText.text = thisMonster.info.name;
         //typeText.text = thisMonster.info.type1 + "/" + thisMonster.info.type2;
 
@@ -536,6 +536,11 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
 
         skillName.text = thisMonster.info.skillName;
         skillDescription.text = thisMonster.info.passiveSkill.skill.description;
+
+        if (thisMonster.info.isStar)
+        {
+            thisMonster.bodyParts.StarMonster();
+        }
     }
 
 
@@ -594,26 +599,6 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         gameObject.GetComponentInParent<YourHome>().ShowAllMonsters();
 
 
-
-        //if (equip1.equipPrefab)
-        //{
-        //    equip1.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
-        //}
-        //if (equip2.equipPrefab)
-        //{
-        //    equip2.equipPrefab.GetComponent<EquipmentItem>().UnEquip();
-        //}
-
-
-        //if (equips1.equipment)
-        //{
-        //    equips1.UnEquip();
-        //}
-        //if (equips2.equipment)
-        //{
-        //    equips2.UnEquip();
-
-        //}
 
         if (isEquip1)
         {
@@ -783,7 +768,13 @@ public class MonsterInfoPanel : MonoBehaviour, IPointerDownHandler
         monsterUpgradeMenu.GetComponent<MonsterUpgrade>().SelectMonster(GetComponentInParent<YourHome>().activeMonster);
     }
 
-   
+    //call this from the Items Button on the Panel, with the objective of using a consumable item on the active monster for this panel
+   public void OpenItems()
+    {
+        gameObject.GetComponentInParent<YourHome>().itemsListObject.SetActive(true);
+        gameObject.GetComponentInParent<YourHome>().itemsListObject.GetComponent<ItemManager>().LoadMonsterItems();
+        gameObject.GetComponentInParent<YourHome>().itemsListObject.GetComponent<ItemManager>().activeMonster = monster;
+    }
 
 
     public void OnDisable()

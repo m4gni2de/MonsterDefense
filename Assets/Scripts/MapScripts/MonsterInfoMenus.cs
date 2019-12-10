@@ -166,7 +166,10 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
                     //GameManager.Instance.overworldMenu.GetComponentInChildren<OverworldInfoMenu>().activeMonster = hit.collider.gameObject.GetComponent<Monster>();
 
                     infoMenu.SetActive(true);
-                    enemyInfoMenu.SetActive(false);
+                    if (enemyInfoMenu)
+                    {
+                        enemyInfoMenu.SetActive(false);
+                    }
                     activeMonster = hit.collider.gameObject.GetComponent<Monster>();
 
                     //checks the monster's equipment and displays the matching sprites if there is equipment on the monster
@@ -353,7 +356,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
             }
 
 
-            abiNameText.text = activeMonster.info.specialAbility.name;
+            abiNameText.text = activeMonster.info.specialAbility.abilityName;
             abiDescriptionText.text = activeMonster.info.specialAbility.description;
             ammoText.text = "Ammo: " + (activeMonster.info.specialAbility.castingAmmo - activeMonster.info.specialAbility.castingCount).ToString();
             //if (activeMonster.GetComponent<Tower>().
@@ -521,7 +524,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
         {
             activeMonster.GetComponent<Tower>().mapTileOn = tileToBePlaced;
             activeMonster.GetComponent<Tower>().StartCoroutine("PlaceTower");
-            
+ 
         }
 
     }
@@ -608,6 +611,7 @@ public class MonsterInfoMenus : MonoBehaviour, IPointerDownHandler
     {
         activeMonster.GetComponent<Tower>().SpecialAbility();
         activateAbilityBtn.interactable = false;
+        activeMonster.info.specialAbility.ActivateAbility();
     }
 
 }

@@ -280,7 +280,7 @@ public class ItemUpgrade : MonoBehaviour
 
         for (int i = 0; i < itemButtons.Length; i++)
         {
-            Debug.Log(i);
+            //Debug.Log(i);
             //itemButtons[i].GetComponent<Button>().onClick.RemoveListener(delegate { RemoveTribute(obj); });
             //itemButtons[i].GetComponent<Button>().onClick.AddListener(delegate { DisplayEquipment(); });
             itemButtons[i].GetComponent<Button>().GetComponent<Image>().color = Color.white;

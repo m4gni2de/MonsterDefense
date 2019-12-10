@@ -83,6 +83,16 @@ public class MonsterIcon : MonoBehaviour
             outline.GetComponent<SpriteRenderer>().color = type1Color;
             background.GetComponent<SpriteRenderer>().color = type1Color;
             levelOutline.GetComponent<SpriteRenderer>().color = type1Color;
+
+            if (monster.info.isStar)
+            {
+                outline.GetComponent<SpriteRenderer>().color = Color.white;
+                outline.GetComponent<PlasmaRainbow>().enabled = true;
+            }
+            //else
+            //{
+            //    outline.GetComponent<PlasmaRainbow>().enabled = false;
+            //}
         }
 
         //if (colors.ContainsKey(monster.info.type2))

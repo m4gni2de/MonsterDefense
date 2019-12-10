@@ -367,10 +367,12 @@ public class Equipment
         if (Slot == 1)
         {
             monster.info.equip1 = this;
+
         }
         else if (Slot == 2)
         {
             monster.info.equip2 = this;
+
         }
 
         isEquipped = true;
@@ -463,6 +465,7 @@ public class Equipment
 
     }
 
+    //call this when the item is first created to set its exp curve
     public void SetExp()
     {
         if (expToLevel.ContainsKey(level))
@@ -473,6 +476,61 @@ public class Equipment
         }
     }
 
+    //call this to set a level of the item based on the amount of exp it would gain
+    public void SetLevel(int expCheck)
+    {
+        exp += expCheck;
+
+        if (expToLevel.ContainsKey(level) && level < levelMax)
+        {
+            toNextLevel = expToLevel[level + 1];
+            totalNextLevel = totalExpForLevel[level + 1];
+            nextLevelDiff = totalNextLevel - exp;
+
+            if (expCheck >= nextLevelDiff)
+            {
+                level += 1;
+                LevelUp();
+
+            }
+
+          
+        }
+        else if (level == levelMax)
+        {
+            toNextLevel = 0;
+            totalNextLevel = 0;
+            nextLevelDiff = 0;
+        }
+    }
+
+    //if the item levels up, calculate the new level up here
+    public void LevelUp()
+    {
+        if (expToLevel.ContainsKey(level) && level < levelMax)
+        {
+            toNextLevel = expToLevel[level + 1];
+            totalNextLevel = totalExpForLevel[level + 1];
+            nextLevelDiff = totalNextLevel - exp;
+
+            if (nextLevelDiff <= 0)
+            {
+
+                level += 1;
+                LevelUp();
+
+            }
+
+        }
+        else if (level == levelMax)
+        {
+            toNextLevel = 0;
+            totalNextLevel = 0;
+            nextLevelDiff = 0;
+        }
+
+        GetStats();
+    }
     ////this is called from the ItemUpgrade script
     //public void GainEXP(int expGained)
     //{
@@ -498,7 +556,7 @@ public class Equipment
     //    level += 1;
     //    inventorySlot.itemExp = exp;
     //    inventorySlot.itemLevel = level;
-        
+
     //}
 
     public void NatureRune()
@@ -643,7 +701,6 @@ public class Equipment
         exp = e.itemExp;
         level = e.itemLevel;
 
-        
     }
 
     public void GetStats()

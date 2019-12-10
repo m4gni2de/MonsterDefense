@@ -7,7 +7,8 @@ using UnityEngine;
 
 public enum ConsumableType
 {
-    Shard,
+    PlayerUse, 
+    MonsterUse,
 }
 
 
@@ -23,15 +24,16 @@ public class ConsumableItem : ScriptableObject
     public TileAttribute tileMinedFrom;
 
     public PocketItem inventorySlot;
-
+    public Monster targetMonster;
+    
     //this variable is used to delegate which item method to use, given the name of the item
     public delegate void ItemDelegate();
     public ItemDelegate itemMethod;
 
-    //public ConsumableItem()
-    //{
-        
-    //}
+    public void SetTarget(Monster monster)
+    {
+        targetMonster = monster;
+    }
 
     public void UseItem()
     {
@@ -78,6 +80,36 @@ public class ConsumableItem : ScriptableObject
     {
         Summon summon = new Summon("Nature");
         summon.MonsterSummon();
+    }
+
+    public void MechanicalShard()
+    {
+        Summon summon = new Summon("Mechanical");
+        summon.MonsterSummon();
+    }
+
+    public void ShadowShard()
+    {
+        Summon summon = new Summon("Shadow");
+        summon.MonsterSummon();
+    }
+
+    public void FireShard()
+    {
+        Summon summon = new Summon("Fire");
+        summon.MonsterSummon();
+    }
+
+    public void IceShard()
+    {
+        Summon summon = new Summon("Ice");
+        summon.MonsterSummon();
+    }
+
+    public void StarCharm()
+    {
+        targetMonster.info.isStar = true;
+        targetMonster.UseItem();
     }
 }
 

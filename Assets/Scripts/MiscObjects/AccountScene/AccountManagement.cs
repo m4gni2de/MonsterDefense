@@ -84,6 +84,7 @@ public class AccountManagement : MonoBehaviour
         info.playerLevel = 0;
         info.playTime = 0;
         info.coins = 0;
+        info.defenderDataString = "none";
 
         GameManager.Instance.GetComponent<YourAccount>().account = info;
 
@@ -217,10 +218,11 @@ public class AccountManagement : MonoBehaviour
         info.playerExp = player.playerExp;
         info.playTime = player.playTime;
         info.coins = player.coins;
+        info.defenderDataString = player.defenderDataString;
 
         GameManager.Instance.GetComponent<YourAccount>().account = info;
 
-        GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
+        //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
         SceneManager.LoadScene("MainMenu");
     }
 

@@ -36784,6 +36784,14 @@ MonoBehaviour:
   - {fileID: 6076560619532156533}
   - {fileID: 6076560619230912410}
   - {fileID: 146160544314561151}
+  starMeshes:
+  - {fileID: 2100000, guid: bf3bcdc04492bf147af95d25b57ff1fa, type: 2}
+  - {fileID: 2100000, guid: 2a30e9a84eff2f34cb30ceee09d870a2, type: 2}
+  - {fileID: 2100000, guid: 7dab42c6437696849aa9ee3a7bdaea15, type: 2}
+  - {fileID: 2100000, guid: d2819d92cab4b2b40872b10bf9e88c2a, type: 2}
+  - {fileID: 2100000, guid: 551b033ea5d867c429ff27f3ec0df250, type: 2}
+  - {fileID: 2100000, guid: 6461a62adeb68f8428d1f899241f00da, type: 2}
+  - {fileID: 2100000, guid: 7e7ed919dcb6c394584eaf3829bcd1a1, type: 2}
 --- !u!1 &6076560620344356468
 GameObject:
   m_ObjectHideFlags: 0
@@ -37484,81 +37492,6 @@ MonoBehaviour:
         _value: 0
         lastBaseValue: -3.4028235e+38
     abilityName: 
-    specialAbility:
-      name: 
-      description: 
-      target: 0
-      type: 0
-      parameter: 0
-      scope: 0
-      typeParameter: 
-      classParameter: 0
-      speciesParameter: 
-      hpBonus: 0
-      atkBonus: 0
-      defBonus: 0
-      speedBonus: 0
-      precBonus: 0
-      atkPowerBonus: 0
-      atkTimeBonus: 0
-      atkRangeBonus: 0
-      critModBonus: 0
-      critChanceBonus: 0
-      staminaBonus: 0
-      hpPercentBonus: 0
-      atkPercentBonus: 0
-      defPercentBonus: 0
-      spePercentBonus: 0
-      precPercentBonus: 0
-      atkPowerPercentBonus: 0
-      atkTimePercentBonus: 0
-      evasionPercentBonus: 0
-      staminaPercentBonus: 0
-      castingAmmo: 0
-      castingCount: 0
-      cooldown: 0
-      targetNumber: 0
-      Range:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      Power:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      CritChance:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      CritMod:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      EffectChance:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      AttackTime:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      AttackSpeed:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      AttackSlow:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      range: 0
-      power: 0
-      critChance: 0
-      critMod: 0
-      effectChance: 0
-      attackTime: 0
-      attackSpeed: 0
-      hitSlowTime: 0
-      attackMode: 0
     skillName: 
     passiveSkill:
       Owner: {fileID: 0}
@@ -37587,7 +37520,15 @@ MonoBehaviour:
       exp: 0
       levelMax: 0
       itemName: 
+      expGiven: 0
+      cost: 0
+      toNextLevel: 0
+      totalNextLevel: 0
+      nextLevelDiff: 0
       isEquipped: 0
+      equipClass: 0
+      typeMonsterReq: 
+      typeMoveReq: 
       hpBonus: 0
       atkBonus: 0
       defBonus: 0
@@ -37609,11 +37550,12 @@ MonoBehaviour:
       evasionPercentBonus: 0
       staminaPercentBonus: 0
       spriteEffect: 0
-      _Alpha: 0
-      _TimeX: 0
-      _ColorX: {r: 0, g: 0, b: 0, a: 0}
+      alpha: 0
+      timeX: 0
+      colorX: {r: 0, g: 0, b: 0, a: 0}
       Speed: 0
       Distortion: 0
+    equip1Slot: 0
     equip2:
       equipment: {fileID: 0}
       monster: {fileID: 0}
@@ -37628,7 +37570,15 @@ MonoBehaviour:
       exp: 0
       levelMax: 0
       itemName: 
+      expGiven: 0
+      cost: 0
+      toNextLevel: 0
+      totalNextLevel: 0
+      nextLevelDiff: 0
       isEquipped: 0
+      equipClass: 0
+      typeMonsterReq: 
+      typeMoveReq: 
       hpBonus: 0
       atkBonus: 0
       defBonus: 0
@@ -37650,11 +37600,12 @@ MonoBehaviour:
       evasionPercentBonus: 0
       staminaPercentBonus: 0
       spriteEffect: 0
-      _Alpha: 0
-      _TimeX: 0
-      _ColorX: {r: 0, g: 0, b: 0, a: 0}
+      alpha: 0
+      timeX: 0
+      colorX: {r: 0, g: 0, b: 0, a: 0}
       Speed: 0
       Distortion: 0
+    equip2Slot: 0
     HP:
       BaseValue: 0
       _value: 0
@@ -37735,6 +37686,7 @@ MonoBehaviour:
       BaseValue: 0
       _value: 0
       lastBaseValue: -3.4028235e+38
+    isStar: 0
   specs:
     legs:
     - {fileID: 6409879638423811391}
@@ -37947,6 +37899,9 @@ MonoBehaviour:
     maxLevel: 0
     specialAbility: 
     passiveSkill: 
+    equip1Slot: 0
+    equip2Slot: 0
+    isStar: 0
   activeIndex: 0
   isEnemy: 0
   isTower: 0

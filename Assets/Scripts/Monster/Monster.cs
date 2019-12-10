@@ -21,7 +21,9 @@ public struct MonsterSaveToken
     public string attack1;
     public string attack2;
     public string equip1;
+    public int equip1Exp;
     public string equip2;
+    public int equip2Exp;
     public int hpPot;
     public int atkPot;
     public int defPot;
@@ -33,6 +35,8 @@ public struct MonsterSaveToken
     public string passiveSkill;
     public int equip1Slot;
     public int equip2Slot;
+    public bool isStar;
+    public int defenderIndex;
 
 }
 
@@ -42,6 +46,7 @@ public struct MonsterInfo
     [Header("Monster Stats")]
 
     public int index;
+    public int defenderIndex;
     public string species;
     public string name;
     public string type1;
@@ -67,6 +72,7 @@ public struct MonsterInfo
     public float maxHP;
     public float currentHP;
     
+    
 
     [Header("Monster Attacks")]
     public string attack1Name;
@@ -78,7 +84,7 @@ public struct MonsterInfo
 
     [Header("Monster Ability")]
     public string abilityName;
-    public Ability specialAbility;
+    public MonsterAbility specialAbility;
 
     [Header("Monster Skill")]
     public string skillName;
@@ -93,9 +99,10 @@ public struct MonsterInfo
 
     public Equipment equip1;
     public int equip1Slot;
+    public int equip1Exp;
     public Equipment equip2;
     public int equip2Slot;
-
+    public int equip2Exp;
 
 
     [Header("Monster Stat Values")]
@@ -135,6 +142,9 @@ public struct MonsterInfo
     public Stat ExplodeDamageMod;
     public Stat PierceDamageMod;
     public Stat DropRateMod;
+
+    //bool to tell if the monster is a Star Form or not. Star Forms have different sprites
+    public bool isStar;
 
 };
 
@@ -212,11 +222,13 @@ public class Monster : MonoBehaviour
     public Dictionary<int, int> expToLevel = new Dictionary<int, int>();
     public Dictionary<int, int> totalExpForLevel = new Dictionary<int, int>();
 
+    //the animator that controls the monster's movement
     public Animator monsterMotion;
 
     //the puppet controller script that acts as the trigger for a monster's motions in the animator
     public Puppet2D_GlobalControl puppet;
 
+    //variables related to the visual models of the monster
     public GameObject monsterIcon, frontModel, shadow;
 
     //list to keep track of the tiles that are boosting this monster while it's on the map. this list is added to from the maptile script itself
@@ -240,9 +252,10 @@ public class Monster : MonoBehaviour
     public List<GlobalStat> ownedGlobalStats = new List<GlobalStat>();
     //the global stats currently affecting this monster, to prevent duplicates of the same stat from being added
     public List<GlobalStat> activeGlobalStats = new List<GlobalStat>();
-
+    //the aura that glows when the monster's ability is ready
     public GameObject abilityAura;
 
+    
     private void Awake()
     {
         allStats.Clear();
@@ -312,81 +325,7 @@ public class Monster : MonoBehaviour
             enemy.enabled = false;
             tower.enabled = false;
         }
-
-
-
-        
-
-        //EquipmentBoosts();
-        var equipment = GameManager.Instance.GetComponent<Items>().allEquipsDict;
-        var attacks = GameManager.Instance.baseAttacks.attackDict;
-
-        //if (equipment.ContainsKey(info.equip1Name))
-        //{
-        //    //EquipmentScript equip1 = Instantiate(equipment[info.equip1Name]);
-        //    info.equip1 = new Equipment(equipment[info.equip1Name]);
-        //    info.equip1.monster = this;
-
-        //    for (int i = 0; i < yourEquips.Count; i++)
-        //    {
-        //        if (yourEquips[i].slotIndex == info.equip1Slot)
-        //        {
-        //            info.equip1.SetInventorySlot(yourEquips[i]);
-        //        }
-        //    }
-
-
-        //    info.equip1.Equip(this, 1);
-        //}
-        //else
-        //{
-        //    info.equip1 = null;
-        //}
-
-        //if (equipment.ContainsKey(info.equip2Name))
-        //{
-        //    //EquipmentScript equip2 = Instantiate(equipment[info.equip2Name]);
-        //    info.equip2 = new Equipment(equipment[info.equip2Name]);
-        //    info.equip2.monster = this;
-
-        //    for (int i = 0; i < yourEquips.Count; i++)
-        //    {
-        //        if (yourEquips[i].slotIndex == info.equip2Slot)
-        //        {
-        //            info.equip2.SetInventorySlot(yourEquips[i]);
-        //        }
-        //    }
-
-        //    info.equip2.Equip(this, 2);
-        //}
-        //else
-        //{
-        //    info.equip2 = null;
-        //}
-
-
-        info.sortIndex = info.index;
-
-
-        //if (attacks.ContainsKey(info.attack1Name))
-        //{
-        //    info.baseAttack1 = new BaseAttack(attacks[info.attack1Name], this);
-        //}
-        //else
-        //{
-        //    info.baseAttack1 = null;
-        //}
-
-        //if (attacks.ContainsKey(info.attack2Name))
-        //{
-        //    info.baseAttack2 = new BaseAttack(attacks[info.attack2Name], this);
-        //}
-        //else
-        //{
-        //    info.baseAttack2 = null;
-        //}
-        //info.baseAttack1 = new BaseAttack(null, this);
-        //info.baseAttack2 = new BaseAttack(null, this);
+        info.sortIndex = info.index; 
     }
 
 
@@ -422,6 +361,7 @@ public class Monster : MonoBehaviour
             info.equip1Name = equip.itemName;
             info.equip1 = equip;
             info.equip1Slot = equip.inventorySlot.slotIndex;
+
         }
 
         if (slot == 2)
@@ -431,6 +371,7 @@ public class Monster : MonoBehaviour
             info.equip2Name = equip.itemName;
             info.equip2 = equip;
             info.equip2Slot = equip.inventorySlot.slotIndex;
+
 
 
         }
@@ -445,299 +386,32 @@ public class Monster : MonoBehaviour
     //unequip an item from this monster
     public void UnEquipItem(Equipment equip, int slot)
     {
-
-
-
         if (slot == 1)
         {
             info.equip1Name = "none";
             info.equip1 = null;
             info.equip1Slot = 0;
-
         }
         if (slot == 2)
         {
             info.equip2Name = "none";
             info.equip2 = null;
-            info.equip1Slot = 0;
-            
+            info.equip1Slot = 0;          
         }
-
-        
 
         MonsterStatMods();
         SaveMonsterToken();
         GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Remove(info.index);
         GameManager.Instance.GetComponent<YourMonsters>().yourMonstersDict.Add(info.index, PlayerPrefs.GetString(info.index.ToString()));
         
-
-
     }
-
-
-    ////when a new monster is being summoned, it's stats are randomized within the bounds of its species. Creates a new Playerpref for the amount of monsters, along with a playerpref string for the json object for the newly summoned object
-    //public void SummonNewMonster(string name)
-    //{
-    //    bool haskey = PlayerPrefs.HasKey("MonsterCount");
-
-
-    //    if (haskey)
-    //    {
-    //        int monsterCount = GameManager.Instance.monsterCount + 1;
-
-    //        var attacksDict = GameManager.Instance.baseAttacks.attackDict;
-
-    //        var dict = GameManager.Instance.monstersData.monstersAllDict;
-
-
-
-    //        //get the monster's species dependent stats from the Game Manager
-    //        if (dict.ContainsKey(name))
-    //        {
-    //            info.type1 = dict[name].type1;
-    //            info.type2 = dict[name].type2;
-    //            info.dexId = dict[name].id;
-    //            info.hpBase = dict[name].hpBase;
-    //            info.atkBase = dict[name].atkBase;
-    //            info.defBase = dict[name].defBase;
-    //            info.speBase = dict[name].speBase;
-    //            info.precBase = dict[name].precBase;
-    //            info.staminaBase = dict[name].staminaBase;
-    //            info.level = 1;
-    //            info.totalExp = 0;
-    //            info.AttackPotential.BaseValue = Random.Range(0, 26);
-    //            info.DefensePotential.BaseValue = Random.Range(0, 26);
-    //            info.SpeedPotential.BaseValue = Random.Range(0, 26);
-    //            info.PrecisionPotential.BaseValue = Random.Range(0, 26);
-    //            info.HPPotential.BaseValue = Random.Range(0, 26);
-    //            info.index = monsterCount;
-    //            info.maxLevel = dict[name].maxLevel;
-    //            info.levelConst = dict[name].levelConst;
-    //            info.monsterRank = 0;
-
-
-
-    //            PlayerPrefs.SetInt("MonsterCount", monsterCount);
-    //            GameManager.Instance.monsterCount = monsterCount;
-
-    //            //for each of the attacks this monster has in its base attack array, choose 2 at random to give to this monster
-    //            //int rand = Random.Range(0, dict[name].baseAttacks.Length - 1);
-    //            //int rand2 = Random.Range(0, dict[name].baseAttacks.Length - 1);
-
-
-    //            int rand = Random.Range(0, dict[name].baseAttacks.Length - 1);
-    //            info.attack1Name = dict[name].baseAttacks[rand];
-    //            int rand2 = Random.Range(0, dict[name].baseAttacks.Length - 1);
-
-    //            //make sure the 2 attacks aren't the same
-    //            if (rand2 == rand)
-    //            {
-    //                if (rand2 == 0)
-    //                {
-    //                    info.attack2Name = dict[name].baseAttacks[rand + 1];
-    //                }
-    //                if (rand2 == dict[name].baseAttacks.Length - 1)
-    //                {
-    //                    info.attack2Name = dict[name].baseAttacks[rand - 1];
-    //                }
-    //            }
-    //            else
-    //            {
-    //                info.attack2Name = dict[name].baseAttacks[rand];
-    //            }
-
-
-    //        }
-
-
-
-    //        //sets the monster's nickname to its name if there isn't a nickname
-    //        if (info.name != null || info.name == "")
-    //        {
-    //            info.name = info.species;
-    //        }
-
-    //        //load in the attacks of the monster
-    //        if (attacksDict.ContainsKey(info.attack1Name))
-    //        {
-    //            //MonsterAttack attack = attacksDict[info.attack1Name];
-    //            tempStats.attack1 = info.attack1;
-    //            info.attack1 = attacksDict[info.attack1Name];
-               
-
-    //        }
-
-    //        if (attacksDict.ContainsKey(info.attack2Name))
-    //        {
-    //            //MonsterAttack attack = attacksDict[info.attack2Name];
-    //            //tempStats.attack2 = attack;
-    //            info.attack2 = attacksDict[info.attack2Name];
-    //            tempStats.attack2 = info.attack2;
-    //        }
-
-    //        SetMonsterStats();
-            
-    //    }
-    //}
-
-
-
-    ////gets the monster's information from the Game Manager and creates the monster's stats
-    //public void SetMonsterStats()
-    //{
-
-    //    var attacksDict = GameManager.Instance.baseAttacks.attackDict;
-
-    //    var equip = GameManager.Instance.items.allEquipmentDict;
-    //    var dict = GameManager.Instance.monstersData.monstersAllDict;
-    //    var name = info.species;
-
-
-    //    //get the monster's species dependent stats from the Game Manager
-    //    if (dict.ContainsKey(name))
-    //    {
-    //        info.type1 = dict[name].type1;
-    //        info.type2 = dict[name].type2;
-    //        info.dexId = dict[name].id;
-    //        info.hpBase = dict[name].hpBase;
-    //        info.atkBase = dict[name].atkBase;
-    //        info.defBase = dict[name].defBase;
-    //        info.speBase = dict[name].speBase;
-    //        info.precBase = dict[name].precBase;
-    //        info.staminaBase = dict[name].staminaBase;
-    //        info.maxLevel = dict[name].maxLevel;
-    //        info.levelConst = dict[name].levelConst;
-    //        info.energyCost = dict[name].energyCost;
-    //        info.energyGenBase = dict[name].energyGenBase;
-
-    //        //for each of the attacks this monster has in its base attack array, choose 2 at random to give to this monster
-    //        int rand = Random.Range(0, dict[name].baseAttacks.Length - 1);
-    //        info.attack1Name = dict[name].baseAttacks[rand];
-    //        int rand2 = Random.Range(0, dict[name].baseAttacks.Length - 1);
-
-    //        //make sure the 2 attacks aren't the same
-    //        if (rand2 == rand)
-    //        {
-    //            if (rand2 == 0)
-    //            {
-    //                info.attack2Name = dict[name].baseAttacks[rand + 1];
-    //            }
-    //            if (rand2 == dict[name].baseAttacks.Length - 1)
-    //            {
-    //                info.attack2Name = dict[name].baseAttacks[rand - 1];
-    //            }
-    //        }
-    //        else
-    //        {
-    //            info.attack2Name = dict[name].baseAttacks[rand];
-    //        }
-
-
-    //    }
-
-
-
-
-    //    //sets the monster's nickname to its name if there isn't a nickname
-    //    if (info.name != null || info.name == "")
-    //    {
-    //        info.name = info.species;
-    //    }
-
-    //    //load in the attacks of the monster
-    //    if (attacksDict.ContainsKey(info.attack1Name))
-    //    {
-
-    //        MonsterAttack attack = attacksDict[info.attack1Name];
-
-
-    //        tempStats.attack1.Power.BaseValue = attack.power;
-    //        tempStats.attack1.Range.BaseValue = attack.range;
-    //        tempStats.attack1.CritChance.BaseValue = attack.critChance;
-    //        tempStats.attack1.CritMod.BaseValue = attack.critMod;
-    //        tempStats.attack1.EffectChance.BaseValue = attack.effectChance;
-    //        tempStats.attack1.AttackTime.BaseValue = attack.attackTime;
-    //        tempStats.attack1.AttackSpeed.BaseValue = attack.attackSpeed;
-    //        tempStats.attack1.AttackSlow.BaseValue = attack.hitSlowTime;
-
-
-
-    //    }
-
-    //    if (attacksDict.ContainsKey(info.attack2Name))
-    //    {
-    //        MonsterAttack attack = attacksDict[info.attack2Name];
-
-    //        tempStats.attack2.Power.BaseValue = attack.power;
-    //        tempStats.attack2.Range.BaseValue = attack.range;
-    //        tempStats.attack2.CritChance.BaseValue = attack.critChance;
-    //        tempStats.attack2.CritMod.BaseValue = attack.critMod;
-    //        tempStats.attack2.EffectChance.BaseValue = attack.effectChance;
-    //        tempStats.attack2.AttackTime.BaseValue = attack.attackTime;
-    //        tempStats.attack2.AttackSpeed.BaseValue = attack.attackSpeed;
-    //        tempStats.attack2.AttackSlow.BaseValue = attack.hitSlowTime;
-    //    }
-
-
-
-
-    //    //if the monster has equipment attached to it, set their value to "none" to avoid Null Exceptions
-    //    if (info.equip1Name == null)
-    //    {
-    //        info.equip1Name = "none";
-    //    }
-    //    if (info.equip2Name == null)
-    //    {
-    //        info.equip2Name = "none";
-    //    }
-
-
-
-
-
-    //    //if this monster is an enemy, then fill in the stats for the enemy with randomized values for Potential
-    //    if (isEnemy)
-    //    {
-
-    //        //enemy.SetEnemyStats();
-
-    //    }
-    //    //if it is NOT an enemy, then it already has prefab stats, so get those
-    //    else
-    //    {
-
-            
-    //        StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
-    //        GetStats(stats);
-
-    //    }
-
-
-    //}
-
-
-
-    
-
 
     //****************The following methods are for calculating the stats of the monster***********//
     public void GetStats(StatsCalc stats)
-    {
-
-        
+    {    
         info = stats.Monster.info;
         tempStats = stats.Monster.tempStats;
         SaveMonsterToken();
-
-        
-        //MonsterTokenSet();
-        //PlayerPrefs.SetString(info.index.ToString(), JsonUtility.ToJson(info));
-        //GameManager.Instance.GetComponent<YourMonsters>().GetYourMonsters();
-        //SaveMonsterToken();
-
-
-
-
     }
 
    
@@ -788,8 +462,6 @@ public class Monster : MonoBehaviour
         {
             effect.ProcEffect(timer);
             enemy.CalculateStatus(effect);
-            
-
             //if the monster has been inflicted with the status for longer than the duration that the status can be inflicted for, then it is no longer afflicted. if not, run the status trigger again
             if (acumTime <= status.duration)
             {
@@ -798,7 +470,6 @@ public class Monster : MonoBehaviour
                 display.transform.SetParent(enemy.enemyCanvas.transform, true);
                 display.GetComponentInChildren<TMP_Text>().text = "-" + status.name;
                 Destroy(display, display.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
-
             }
             else
             {
@@ -831,10 +502,7 @@ public class Monster : MonoBehaviour
                     effect.HealStatus(this, status);
                 }
             }
-        }
-
-
-        
+        } 
     }
 
     public void CalculateStatus(StatusEffects effect)
@@ -845,7 +513,6 @@ public class Monster : MonoBehaviour
         tempStats = effect.Monster.tempStats;
  
     }
-
 
 
     //create the monster's exp curve given it's information from the data scripts
@@ -875,9 +542,7 @@ public class Monster : MonoBehaviour
             {
                 SetExp();
             }
-        }
-
-        
+        } 
     }
 
     public void SetExp()
@@ -919,9 +584,6 @@ public class Monster : MonoBehaviour
             SaveMonsterToken();
         }
 
-        
-
-
     }
 
     public void OnLevelUp()
@@ -938,6 +600,14 @@ public class Monster : MonoBehaviour
         
     }
 
+
+    public void UseItem()
+    {
+        SaveMonsterToken();
+
+        StatsCalc stats = new StatsCalc(gameObject.GetComponent<Monster>());
+        GetStats(stats);
+    }
 
 
 
@@ -972,7 +642,15 @@ public class Monster : MonoBehaviour
                 info.maxLevel = monsters[name].maxLevel;
                 info.levelConst = monsters[name].levelConst;
                 info.monsterRank = 1;
-                
+
+                int starChance = monsters[name].starChance;
+                int randStar = Random.Range(0, 500);
+
+                if (randStar <= starChance)
+                {
+                    info.isStar = true;
+                }
+
                 
 
                 PlayerPrefs.SetInt("MonsterCount", monsterCount);
@@ -1088,6 +766,7 @@ public class Monster : MonoBehaviour
         info.attack1Name = saveToken.attack1;
         info.attack2Name = saveToken.attack2;
         info.index = saveToken.index;
+        info.defenderIndex = saveToken.defenderIndex;
         info.level = saveToken.level;
         info.totalExp = saveToken.totalExp;
         info.monsterRank = saveToken.rank;
@@ -1099,11 +778,15 @@ public class Monster : MonoBehaviour
         info.HPPotential.BaseValue = saveToken.hpPot;
         info.name = saveToken.name;
         info.equip1Name = saveToken.equip1;
+        info.equip1Exp = saveToken.equip1Exp;
         info.equip2Name = saveToken.equip2;
+        info.equip2Exp = saveToken.equip2Exp;
         info.maxLevel = saveToken.maxLevel;
         info.equip1Slot = saveToken.equip1Slot;
         info.equip2Slot = saveToken.equip2Slot;
-        
+        info.isStar = saveToken.isStar;
+
+
 
         if (allEquips.ContainsKey(info.equip1Name))
         {
@@ -1117,7 +800,7 @@ public class Monster : MonoBehaviour
                 {
                     //info.equip1.monster = this;
                     info.equip1.SetInventorySlot(yourEquips[i]);
-                    
+                    info.equip1Exp = info.equip1.inventorySlot.itemExp;
                 }
             }
             //EquipmentScript e = Instantiate(allEquips[info.equip1Name]);
@@ -1127,6 +810,7 @@ public class Monster : MonoBehaviour
         {
             //info.equipment1 = null;
             info.equip1 = null;
+            info.equip1Exp = 0;
         }
 
         if (allEquips.ContainsKey(info.equip2Name))
@@ -1143,6 +827,7 @@ public class Monster : MonoBehaviour
                 {
                     //info.equip2.monster = this;
                     info.equip2.SetInventorySlot(yourEquips[i]);
+                    info.equip2Exp = info.equip2.inventorySlot.itemExp;
                 }
             }
             //info.equip2.Equip(this, 2);
@@ -1151,10 +836,11 @@ public class Monster : MonoBehaviour
         {
             //info.equipment2 = null;
             info.equip2 = null;
+            info.equip2Exp = 0;
         }
 
         info.abilityName = saveToken.specialAbility;
-        info.specialAbility = abilities[info.abilityName];
+        info.specialAbility = new MonsterAbility(abilities[info.abilityName], this);
         info.skillName = saveToken.passiveSkill;
         info.passiveSkill = new PassiveSkill(this, skills[info.skillName]);
         //info.equippable1 = new EquippableItem();
@@ -1182,6 +868,11 @@ public class Monster : MonoBehaviour
             info.baseAttack2 = null;
         }
 
+
+        if (info.isStar)
+        {
+            bodyParts.StarMonster();
+        }
         
         
         SetExp();
@@ -1204,6 +895,7 @@ public class Monster : MonoBehaviour
             info.equip1.Equip(this, 1);
 
 
+
         }
         if (equipment.ContainsKey(info.equip2Name))
         {
@@ -1211,6 +903,7 @@ public class Monster : MonoBehaviour
             info.equip2.SetInventorySlot(info.equip2.inventorySlot);
             info.equip2.GetStats();
             info.equip2.Equip(this, 2);
+
         }
 
     }
@@ -1320,13 +1013,7 @@ public class Monster : MonoBehaviour
     //use this to call the monster's passive skill
     public void PassiveSkill()
     {
-       
-
-
-        
-        info.passiveSkill.ActivateSkill();
-        
-        
+        info.passiveSkill.ActivateSkill(); 
     }
 
     //use this to check the global stat mods in play and apply them to this monster
@@ -1350,6 +1037,7 @@ public class Monster : MonoBehaviour
         
 
     }
+
 
     public void OnDestroy()
     {

@@ -2443,6 +2443,7 @@ MonoBehaviour:
       itemDrops:
       - Nature Rune
       - Nature Shard
+      starChance: 3
     Armordan:
       monsterPrefab: {fileID: 8546301644363537172, guid: ed1aaac6a03f6e44cb3aa9f6338f85d8,
         type: 3}
@@ -2476,6 +2477,7 @@ MonoBehaviour:
       itemDrops:
       - Nature Rune
       - Nature Shard
+      starChance: 3
     Fowitzer:
       monsterPrefab: {fileID: 1557278105191115862, guid: 684c16b28784dfc46830d4417162e3df,
         type: 3}
@@ -2507,6 +2509,7 @@ MonoBehaviour:
       - Item Finder
       dropRate: 0.2
       itemDrops: []
+      starChance: 3
     Iceros:
       monsterPrefab: {fileID: 7742632022644978468, guid: 7373b0563b529b44886d926dba691deb,
         type: 3}
@@ -2540,6 +2543,7 @@ MonoBehaviour:
       itemDrops:
       - Ice Shard
       - Ice Rune
+      starChance: 3
     Vypior:
       monsterPrefab: {fileID: 7745724050459182641, guid: 1ea93981b702dc0428bcfa3e5beae5c3,
         type: 3}
@@ -2573,6 +2577,7 @@ MonoBehaviour:
       dropRate: 0.2
       itemDrops:
       - Shadow Shard
+      starChance: 3
     Skaeren:
       monsterPrefab: {fileID: 8861124303440786022, guid: ab1bd6c3337fd1e40a93e2687644338a,
         type: 3}
@@ -2605,6 +2610,7 @@ MonoBehaviour:
       itemDrops:
       - Nature Rune
       - Nature Shard
+      starChance: 3
   allTypes:
     Normal:
       name: Normal
@@ -2804,6 +2810,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b6bcfde4626276643b934316a5905cb8, type: 2}
   - {fileID: 11400000, guid: 45e6cc15eeb62a04699f8f42ff530f62, type: 2}
   - {fileID: 11400000, guid: 5ad4deea455622d4eb8e9d56359d8d21, type: 2}
+  - {fileID: 11400000, guid: cb734e4a1e17300469f2de28a787783d, type: 2}
   equipment:
   - {fileID: 11400000, guid: 40c824c8a9cc04a4888df70d04984b3b, type: 2}
   - {fileID: 11400000, guid: 136aadc32482d4f4da603b4269245d25, type: 2}

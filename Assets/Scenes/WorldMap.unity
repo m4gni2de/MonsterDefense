@@ -7144,7 +7144,6 @@ MonoBehaviour:
   tileAttSprite: {fileID: 257324861}
   monsterSprite: {fileID: 127909391}
   monsterInfoMenu: {fileID: 2749243116775689391}
-  worldMap: {fileID: 0}
   infoMenu: {fileID: 3453567421543788037}
   miningButton: {fileID: 240304656}
   placeMonsterBtn: {fileID: 135336021}
@@ -12973,7 +12972,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 918488936}
+  - {fileID: 1693871070}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13997,7 +13996,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 3.52, y: 6.4599996}
-  m_SizeDelta: {x: 3.219, y: 1}
+  m_SizeDelta: {x: 3.227, y: 1.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &782148789
 SpriteRenderer:
@@ -15952,40 +15951,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
---- !u!21 &918488936
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &920206225
 GameObject:
   m_ObjectHideFlags: 0
@@ -27657,8 +27622,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.15, y: 6.46}
-  m_SizeDelta: {x: 3.219, y: 1}
+  m_AnchoredPosition: {x: -3.147, y: 6.315}
+  m_SizeDelta: {x: 3.227, y: 1.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1567726645
 SpriteRenderer:
@@ -29107,6 +29072,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1692305297}
   m_CullTransparentMesh: 0
+--- !u!21 &1693871070
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1707789748
 GameObject:
   m_ObjectHideFlags: 0
@@ -45313,6 +45312,58 @@ MonoBehaviour:
   titleText: {fileID: 2948523916944136665}
   secondaryText: {fileID: 2130553144}
   activeMonster: {fileID: 0}
+  activeEquipment:
+    equipment: {fileID: 0}
+    monster: {fileID: 0}
+    Slot: 0
+    inventorySlot:
+      slotIndex: 0
+      itemName: 
+      itemLevel: 0
+      itemExp: 0
+      pocketName: 
+    level: 0
+    exp: 0
+    levelMax: 0
+    itemName: 
+    expGiven: 0
+    cost: 0
+    toNextLevel: 0
+    totalNextLevel: 0
+    nextLevelDiff: 0
+    isEquipped: 0
+    equipClass: 0
+    typeMonsterReq: 
+    typeMoveReq: 
+    hpBonus: 0
+    atkBonus: 0
+    defBonus: 0
+    speedBonus: 0
+    precBonus: 0
+    atkPowerBonus: 0
+    atkTimeBonus: 0
+    atkRangeBonus: 0
+    critModBonus: 0
+    critChanceBonus: 0
+    staminaBonus: 0
+    hpPercentBonus: 0
+    atkPercentBonus: 0
+    defPercentBonus: 0
+    spePercentBonus: 0
+    precPercentBonus: 0
+    atkPowerPercentBonus: 0
+    atkTimePercentBonus: 0
+    evasionPercentBonus: 0
+    staminaPercentBonus: 0
+    spriteEffect: 0
+    alpha: 0
+    timeX: 0
+    colorX: {r: 0, g: 0, b: 0, a: 0}
+    Speed: 0
+    Distortion: 0
+  activeItem: {fileID: 0}
+  equipUpgrade: {fileID: 0}
+  upgradeButton: {fileID: 0}
 --- !u!114 &9123259333295953661
 MonoBehaviour:
   m_ObjectHideFlags: 0

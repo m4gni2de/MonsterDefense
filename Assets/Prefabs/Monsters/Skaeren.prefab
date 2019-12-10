@@ -29983,16 +29983,43 @@ MonoBehaviour:
         _value: 0
         lastBaseValue: -3.4028235e+38
     abilityName: 
-    specialAbility:
-      name: 
-      description: 
-      target: 0
-      type: 0
-      parameter: 0
-      scope: 0
-      typeParameter: 
-      classParameter: 0
-      speciesParameter: 
+    skillName: 
+    passiveSkill:
+      Owner: {fileID: 0}
+      skill:
+        name: 
+        description: 
+        triggerType: 0
+        trigger:
+          triggerType: 0
+          id: 0
+      triggerCount: 0
+      mod: []
+    equip1Name: 
+    equip2Name: 
+    equip1:
+      equipment: {fileID: 0}
+      monster: {fileID: 0}
+      Slot: 0
+      inventorySlot:
+        slotIndex: 0
+        itemName: 
+        itemLevel: 0
+        itemExp: 0
+        pocketName: 
+      level: 0
+      exp: 0
+      levelMax: 0
+      itemName: 
+      expGiven: 0
+      cost: 0
+      toNextLevel: 0
+      totalNextLevel: 0
+      nextLevelDiff: 0
+      isEquipped: 0
+      equipClass: 0
+      typeMonsterReq: 
+      typeMoveReq: 
       hpBonus: 0
       atkBonus: 0
       defBonus: 0
@@ -30013,67 +30040,63 @@ MonoBehaviour:
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
       staminaPercentBonus: 0
-      castingAmmo: 0
-      castingCount: 0
-      cooldown: 0
-      targetNumber: 0
-      Range:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      Power:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      CritChance:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      CritMod:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      EffectChance:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      AttackTime:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      AttackSpeed:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      AttackSlow:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      range: 0
-      power: 0
-      critChance: 0
-      critMod: 0
-      effectChance: 0
-      attackTime: 0
-      attackSpeed: 0
-      hitSlowTime: 0
-      attackMode: 0
-    skillName: 
-    passiveSkill:
-      Owner: {fileID: 0}
-      skill:
-        name: 
-        description: 
-        triggerType: 0
-        trigger:
-          triggerType: 0
-          id: 0
-      triggerCount: 0
-      mod: []
-    equip1Name: 
-    equip2Name: 
-    equipment1: {fileID: 0}
-    equipment2: {fileID: 0}
+      spriteEffect: 0
+      alpha: 0
+      timeX: 0
+      colorX: {r: 0, g: 0, b: 0, a: 0}
+      Speed: 0
+      Distortion: 0
+    equip1Slot: 0
+    equip2:
+      equipment: {fileID: 0}
+      monster: {fileID: 0}
+      Slot: 0
+      inventorySlot:
+        slotIndex: 0
+        itemName: 
+        itemLevel: 0
+        itemExp: 0
+        pocketName: 
+      level: 0
+      exp: 0
+      levelMax: 0
+      itemName: 
+      expGiven: 0
+      cost: 0
+      toNextLevel: 0
+      totalNextLevel: 0
+      nextLevelDiff: 0
+      isEquipped: 0
+      equipClass: 0
+      typeMonsterReq: 
+      typeMoveReq: 
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      staminaBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+      evasionPercentBonus: 0
+      staminaPercentBonus: 0
+      spriteEffect: 0
+      alpha: 0
+      timeX: 0
+      colorX: {r: 0, g: 0, b: 0, a: 0}
+      Speed: 0
+      Distortion: 0
+    equip2Slot: 0
     HP:
       BaseValue: 0
       _value: 0
@@ -30154,6 +30177,7 @@ MonoBehaviour:
       BaseValue: 0
       _value: 0
       lastBaseValue: -3.4028235e+38
+    isStar: 0
   specs:
     legs:
     - {fileID: 3705923697677235930}
@@ -30364,6 +30388,9 @@ MonoBehaviour:
     maxLevel: 0
     specialAbility: 
     passiveSkill: 
+    equip1Slot: 0
+    equip2Slot: 0
+    isStar: 0
   activeIndex: 0
   isEnemy: 0
   isTower: 0
@@ -30446,6 +30473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathList: []
   speed: 0
+  zeroSpeed: 0
   isCircular: 0
   inReverse: 0
   mapTileLayer:
@@ -31175,6 +31203,17 @@ MonoBehaviour:
   - {fileID: 8861124304005472342}
   - {fileID: 5147091590789957116}
   - {fileID: 5147091592283456204}
+  starMeshes:
+  - {fileID: 2100000, guid: 165fbab2c1628fe4494162628ec3967f, type: 2}
+  - {fileID: 2100000, guid: 0767eed66fa97e245991d3c99a81baf7, type: 2}
+  - {fileID: 2100000, guid: 7f0d811220b782747b78785dc380c1bd, type: 2}
+  - {fileID: 2100000, guid: 69023fd69f48766419f2b8ca971b94bf, type: 2}
+  - {fileID: 2100000, guid: a61a5c69c98dc054f8036e336e28b6a7, type: 2}
+  - {fileID: 2100000, guid: 6a905ece4599dcf49a93490730631706, type: 2}
+  - {fileID: 2100000, guid: 35413fb53e3c6b445ad23720c55d2837, type: 2}
+  - {fileID: 2100000, guid: aec8a9eaee2afdd47b34bbdfcb389d78, type: 2}
+  - {fileID: 2100000, guid: 94b4da8aa9da19e458b5d25ee754eb48, type: 2}
+  - {fileID: 2100000, guid: 06fa95c09f1eb8b46920a8fdd3376459, type: 2}
 --- !u!114 &8861124303721163736
 MonoBehaviour:
   m_ObjectHideFlags: 0

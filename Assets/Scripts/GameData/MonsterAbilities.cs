@@ -241,6 +241,11 @@ public class MonsterAbility
     public Ability Ability;
     public Monster Owner;
 
+    public int castingCount;
+    public int castingAmmo;
+    public string abilityName;
+    public string description;
+
     //this variable is used to delegate which ability method to use, given the name of the ability
     public delegate void AbilityDelegate();
     public AbilityDelegate abilityMethod;
@@ -253,12 +258,23 @@ public class MonsterAbility
         Ability = ability;
         Owner = owner;
 
+        castingAmmo = ability.castingAmmo;
+        castingCount = ability.castingCount;
+        abilityName = ability.name;
+        description = ability.description;
+
        
         //get string of the name of the ability
         string name = string.Concat(ability.name.Where(c => !char.IsWhiteSpace(c)));
 
         //convert string to a delegate to call the method of the name of the ability
         abilityMethod = DelegateCreation(this, name);
+        
+    }
+
+    public void ActivateAbility()
+    {
+        GameManager.Instance.SendNotificationToPlayer(Ability.name, 1, NotificationType.AbilityReady, Owner.info.species);
         abilityMethod.Invoke();
     }
 
@@ -267,7 +283,6 @@ public class MonsterAbility
     AbilityDelegate DelegateCreation(object target, string functionName)
     {
         AbilityDelegate ab = (AbilityDelegate)Delegate.CreateDelegate(typeof(AbilityDelegate), target, functionName);
-        GameManager.Instance.SendNotificationToPlayer(Ability.name, 1, NotificationType.AbilityReady, Owner.info.species);
         return ab;
     }
 

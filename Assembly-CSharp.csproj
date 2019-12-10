@@ -272,6 +272,7 @@
     <Compile Include="Assets\Scripts\MiscObjects\ObjectOnTouch.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\PopMenuObject.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\TouchObject.cs" />
+    <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\Defenders\TileInfoObject.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\EnemyInfoPanel.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\MapInfoMenu.cs" />
     <Compile Include="Assets\Scripts\MiscObjects\WorldMapScene\MapTileMenu.cs" />
@@ -296,6 +297,7 @@
     <Compile Include="Assets\Scripts\Monster\Shadow.cs" />
     <Compile Include="Assets\Scripts\Monster\Tower.cs" />
     <Compile Include="Assets\Scripts\NonDrawingGraphic.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\Defenders\DefendersMain.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\YourAccount.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\YourItems.cs" />

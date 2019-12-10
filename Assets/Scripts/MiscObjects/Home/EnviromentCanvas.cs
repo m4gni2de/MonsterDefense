@@ -8,6 +8,7 @@ public class EnviromentCanvas : MonoBehaviour
     public GameObject[] background;
 
     public GameObject backgroundSpawn;
+    public GameObject[] bgFrames;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,20 @@ public class EnviromentCanvas : MonoBehaviour
 
         Destroy(bg);
 
+        if (GetComponentInParent<YourHome>().activeMonster.info.isStar)
+        {
+            for (int i = 0; i < bgFrames.Length; i++)
+            {
+                bgFrames[i].GetComponent<PlasmaRainbow>().enabled = true;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < bgFrames.Length; i++)
+            {
+                bgFrames[i].GetComponent<PlasmaRainbow>().enabled = false;
+            }
+        }
 
         if (type == "Ice")
         {

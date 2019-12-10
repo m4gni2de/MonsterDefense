@@ -7,7 +7,21 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Reflection;
 
+////PlayerPrefs/////
+///Items: Int[Itemname, quantity]
+///Monsters: String[Monster's Index as a String, monster info Json]////
+///Account: String["Account", account info Json]////
+///Notifications: Int[Notifications]
+///Monster Sort Mode: String["SortMode", SortMode.Mode.ToString()]
+///Inventory Item Max: Int["ItemMax", integer]
+///Inventory Pockets: String["Equipment" or "Consumables" or "MonsterCells", pocket as a json]
+///DefenderInfo: DefenderInfo[All TileData as a single json]
 
+public enum GameMode
+{
+    NormalMode,
+    DefenderMode,
+}
 public class GameManager : MonoBehaviour
 {
     // create class as singleton
@@ -98,6 +112,11 @@ public class GameManager : MonoBehaviour
     //the game's audio manager
     public AudioManager AudioManager;
 
+    //when true, the player can click on a monster to use an item on it
+    public bool itemMode;
+
+    //used to tell which type of game the user is currently in
+    public GameMode gameMode;
     //create the instance of the GameManager to be used throughout the game
     void Awake()
     {
@@ -106,6 +125,10 @@ public class GameManager : MonoBehaviour
 
 
         //PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteKey("Account");
+        //PlayerPrefs.DeleteKey("DefenderInfo");
+
+        
 
         if (FindObjectsOfType(GetType()).Length > 1)
         {
@@ -449,19 +472,18 @@ public class GameManager : MonoBehaviour
         
     }
 
+
+    //call this from a ConsumableItem to allow the player to choose a monster to use the item on
+    public void ItemMode()
+    {
+
+    }
+
 }
 
 
 
 
-////PlayerPrefs/////
-///Items: Int[Itemname, quantity]
-///Monsters: String[Monster's Index as a String, monster info Json]////
-///Account: String[account name, account info Json]////
-///Notifications: Int[Notifications]
-///Monster Sort Mode: String["SortMode", SortMode.Mode.ToString()]
-///Inventory Item Max: Int["ItemMax", integer]
-///Inventory Pockets: String["Equipment" or "Consumables" or "MonsterCells", pocket as a json]
 
 
 //different types of notifications, so the notification popup object knows what to do

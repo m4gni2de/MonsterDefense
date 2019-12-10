@@ -55,7 +55,8 @@ public struct MonsterData
     public float dropRate;
     //what items this monster can drop on defeat
     public string[] itemDrops;
-
+    //chance that this monster will be summoned as a Star Monster. Base value is 1/500 chance to be a Star Monster
+    public int starChance;
 };
 
 [System.Serializable]

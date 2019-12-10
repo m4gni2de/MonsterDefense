@@ -33,6 +33,7 @@ public class MainMenu : MonoBehaviour
     public void WorldMapButton()
     {
         SceneManager.LoadScene("WorldMap");
+        GameManager.Instance.gameMode = GameMode.NormalMode;
     }
 
     public void YourHomeButton()
@@ -43,5 +44,12 @@ public class MainMenu : MonoBehaviour
     public void ItemShop()
     {
         SceneManager.LoadScene("ItemShop");
+    }
+
+
+    public void YourDefenses()
+    {
+        SceneManager.LoadScene("Defenders");
+        GameManager.Instance.gameMode = GameMode.DefenderMode;
     }
 }

@@ -81,53 +81,6 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         //var allEquips = GameManager.Instance.Inventory.EquipmentPocket.items;
 
 
-        //int i = 1;
-
-        ////loops through all the items that you have, and if the selected monster meets the equipment requirements, then you can equip this item to the monster
-        //foreach (KeyValuePair<string, EquipmentScript> items in allEquips)
-        //{
-        //    string name = items.Key;
-        //    if (PlayerPrefs.HasKey(name))
-        //    {
-        //        EquipmentScript item = allEquips[name];
-        //        int itemCount = PlayerPrefs.GetInt(item.name);
-
-
-        //        if (item.itemName == monster.info.equip1Name || item.itemName == monster.info.equip2Name)
-        //        {
-        //            //
-
-        //        }
-        //            else
-        //            {
-        //            //Debug.Log(item.itemName + "    " + monster.info.equip1Name);
-        //            if (item.typeMonsterReq == monster.info.type1 || item.typeMonsterReq == monster.info.type2 || item.typeMonsterReq == "none")
-        //            {
-        //                var x = Instantiate(equipmentObject, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
-        //                x.transform.SetParent(transform, true);
-        //                x.GetComponent<EquipmentObject>().LoadItem(item);
-        //                x.GetComponent<EquipmentObject>().valueText.text = "";
-        //                item.ActivateItem(item, x);
-
-        //                ////if the equipment has a type to be added, add it on the sprite
-        //                //if (item.spriteEffect != EquipmentSpriteEffect.None)
-        //                //{
-
-        //                //    x.AddComponent(Type.GetType(item.spriteEffect.ToString()));
-        //                //}
-
-        //                //x.GetComponent<EquipmentItem>().EquipItemInfo(item);
-        //                x.transform.localScale = new Vector3(1f, 1f, 1f);
-        //                //x.GetComponent<Image>().color = Color.white;
-        //                i += 1;
-        //            }
-        //        }
-
-
-
-        //    }
-        //}
-
         int q = 1;
         //loops through all the items that you have, and if the selected monster meets the equipment requirements, then you can equip this item to the monster
         for (int i = 0; i < yourEquips.items.Count; i++)
@@ -173,44 +126,11 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     public void LoadEquipment()
     {
         isEquipping = false;
-
-        //var allItems = GameManager.Instance.items.allItemsDict;
-        //var allItems = GameManager.Instance.items.fullItemList;
-        //var allEquips = GameManager.Instance.GetComponent<Items>().allEquipmentDict;
         var allEquips = GameManager.Instance.GetComponent<Items>().allEquipsDict;
         var yourEquips = GameManager.Instance.Inventory.EquipmentPocket;
 
 
-        ////loops through all the items in the game, checks them against a playerpref of the same name. if the playerpref exists, then the player has at least 1 of that item. Add those items to a Dictionary of your items
-        //foreach (KeyValuePair<string, EquipmentScript> items in allEquips)
-        //{
-        //    string name = items.Key;
-        //    if (PlayerPrefs.HasKey(name))
-        //    {
-        //        //Equipment item = allEquips[name];
-        //        EquipmentScript item = allEquips[name];
-        //        int itemCount = PlayerPrefs.GetInt(item.name);
-        //        //var x = Instantiate(allEquips[item.name].equipPrefab, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
-        //        var x = Instantiate(equipmentObject, new Vector2(equipPlacement.transform.position.x + (50 * (i - 1)), equipPlacement.transform.position.y), Quaternion.identity);
-        //        x.transform.SetParent(transform, true);
-        //        x.GetComponent<EquipmentObject>().LoadItem(item);
-        //        x.GetComponent<EquipmentObject>().valueText.text = "";
-
-        //        item.ActivateItem(item, x);
-        //        //x.transform.SetParent(transform, true);
-        //        //x.GetComponent<EquipmentItem>().EquipItemInfo(item);
-        //        x.transform.localScale = new Vector3(1f, 1f, 1f);
-
-        //        ////if the equipment has a type to be added, add it on the sprite
-        //        //if (item.spriteEffect != EquipmentSpriteEffect.None)
-        //        //{
-
-        //        //    x.AddComponent(Type.GetType(item.spriteEffect.ToString()));
-        //        //}
-
-        //        i += 1;
-        //    }
-        //}
+       
 
         int q = 1;
         //loops through all the items that you have, and if the selected monster meets the equipment requirements, then you can equip this item to the monster
@@ -307,7 +227,10 @@ public class EquipmentManager : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
         if (equips.Length == 0)
         {
-            GetComponentInParent<YourHome>().monsterScrollList.SetActive(true);
+            if (!infoMenu.activeSelf)
+            {
+                GetComponentInParent<YourHome>().monsterScrollList.SetActive(true);
+            }
             gameObject.SetActive(false);
 
         }

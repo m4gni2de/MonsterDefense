@@ -9,6 +9,8 @@ public class YourMonsters : MonoBehaviour
 
     //dictionary for your monsters as save tokens
     public Dictionary<int, string> yourMonstersDict = new Dictionary<int, string>();
+    //dictionary for your defender monsters as save tokens
+    public Dictionary<int, string> yourDefendersDict = new Dictionary<int, string>();
     //public Dictionary<int, Monster> yourMonstersAllInfo = new Dictionary<int, Monster>();
 
     //keeps track of all of your monsters and their coin generation
@@ -35,6 +37,7 @@ public class YourMonsters : MonoBehaviour
     {
         yourMonstersDict.Clear();
         coinGenDict.Clear();
+        yourDefendersDict.Clear();
         GameManager.Instance.coinGeneration = 0;
 
         //var byPrefab = GameManager.Instance.monstersData.monsterPrefabsDict;
@@ -52,6 +55,16 @@ public class YourMonsters : MonoBehaviour
             var t = JsonUtility.FromJson<MonsterSaveToken>(json);
             float coinGen = (int)(t.level * gameObject.GetComponent<MonstersData>().monstersAllDict[t.species].coinGenBase);
             coinGenDict.Add(t.index, coinGen);
+
+            if (t.defenderIndex != 0)
+            {
+                if (!yourDefendersDict.ContainsKey(t.defenderIndex + 1))
+                {
+                    yourDefendersDict.Add(t.defenderIndex + 1, json);
+                }
+
+                Debug.Log(yourDefendersDict[t.defenderIndex + 1]);
+            }
             
             //Debug.Log(yourMonstersDict[i]);
         }
@@ -131,6 +144,7 @@ public class MonsterToken
         
 
         newToken.index = monster.info.index;
+        newToken.defenderIndex = monster.info.defenderIndex;
         newToken.species = monster.info.species;
         newToken.name = monster.info.name;
         newToken.level = monster.info.level;
@@ -144,13 +158,17 @@ public class MonsterToken
         newToken.attack1 = monster.info.attack1Name;
         newToken.attack2 = monster.info.attack2Name;
         newToken.equip1 = monster.info.equip1Name;
+        newToken.equip1Exp = monster.info.equip1Exp;
         newToken.equip2 = monster.info.equip2Name;
+        newToken.equip2Exp = monster.info.equip2Exp;
         newToken.koCount = monster.info.koCount;
         newToken.maxLevel = monster.info.maxLevel;
         newToken.specialAbility = monster.info.abilityName;
         newToken.passiveSkill = monster.info.skillName;
         newToken.equip1Slot = monster.info.equip1Slot;
         newToken.equip2Slot = monster.info.equip2Slot;
+        newToken.isStar = monster.info.isStar;
+        
     }
 
 }

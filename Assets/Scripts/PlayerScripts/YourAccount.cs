@@ -18,8 +18,8 @@ public struct AccountInfo
     public int totalMonstersCollected;
 
     public float playTime;
-    
 
+    public string defenderDataString;
 
 };
 public class YourAccount : MonoBehaviour

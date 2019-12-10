@@ -1117,6 +1117,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraMoveSpeed: 0
+  cameraMaxSize: 225
+  cameraMinSize: 50
   isClicked: 0
   clickPosition: {x: 0, y: 0, z: 0}
   isFree: 0
@@ -6570,6 +6572,7 @@ MonoBehaviour:
   tileNumber: 0
   mapTile: {fileID: 504203571771387818, guid: 42051998af0b7324590a2d750fc5b774, type: 3}
   mapCanvas: {fileID: 1430899805}
+  activeGlobalStats: []
   path:
   - {fileID: 0}
   - {fileID: 0}
@@ -6677,8 +6680,6 @@ MonoBehaviour:
   allTiles: []
   enemies: 
   enemyMax: 0
-  pathEndX: 0
-  pathEndY: 0
   levelMin: 0
   levelMax: 0
   spawnInterval: 0
@@ -6695,9 +6696,12 @@ MonoBehaviour:
     energyRate: 0
     mapHealthMax: 0
     mapHealthCurrent: 0
+    autoPlay: 0
   mapInfoMenu: {fileID: 0}
   cameraMin: 0
   cameraMax: 0
+  spawnPoints: []
+  pathEndPoints: []
 --- !u!222 &5760761986729787005
 CanvasRenderer:
   m_ObjectHideFlags: 0

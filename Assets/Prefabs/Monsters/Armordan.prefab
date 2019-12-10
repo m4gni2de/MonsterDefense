@@ -29143,7 +29143,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259364453767046}
-  m_LocalRotation: {x: 0.019191692, y: -0.00047205325, z: 0.024585571, w: -0.9995134}
+  m_LocalRotation: {x: 0.019191608, y: -0.00047212112, z: 0.024589093, w: -0.9995133}
   m_LocalPosition: {x: -0.0000000049984137, y: 1.0000001, z: 0.00000008426844}
   m_LocalScale: {x: 0.17428383, y: 0.17428383, z: 0.17428342}
   m_Children:
@@ -29758,8 +29758,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259365082260720}
-  m_LocalRotation: {x: 0.00000004192551, y: -0.0000000034103773, z: -0.118832104,
-    w: 0.9929144}
+  m_LocalRotation: {x: -0.00000004149933, y: 0.000000008661233, z: -0.118823096, w: 0.9929155}
   m_LocalPosition: {x: -0.0000000359788, y: 0.99999994, z: 0.00000008342479}
   m_LocalScale: {x: 0.89975584, y: 0.89975584, z: 0.8997554}
   m_Children:
@@ -30547,7 +30546,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8236259365632174104}
-  m_LocalRotation: {x: -0.0000000026299898, y: 1.4848599e-10, z: -0.9896921, w: 0.14321168}
+  m_LocalRotation: {x: -0.0000000026299907, y: 1.4847137e-10, z: -0.9896929, w: 0.14320618}
   m_LocalPosition: {x: 0.33432, y: -0.5532203, z: 0}
   m_LocalScale: {x: 1.9796704, y: 1.9796704, z: 1.9796705}
   m_Children:
@@ -30816,6 +30815,10 @@ MonoBehaviour:
   - {fileID: 8255787879340787247}
   - {fileID: 8255787880101332093}
   - {fileID: 8255787879345533633}
+  starMeshes:
+  - {fileID: 2100000, guid: 9d73432ab0a9cc64aaf09d17fa116f0e, type: 2}
+  - {fileID: 2100000, guid: 00d30363882d90148a58e5fe9710e7e8, type: 2}
+  - {fileID: 2100000, guid: 7a2b2a20306417045a06e491a411ab18, type: 2}
 --- !u!1 &8236259365842787851
 GameObject:
   m_ObjectHideFlags: 0
@@ -32724,16 +32727,43 @@ MonoBehaviour:
         _value: 0
         lastBaseValue: -3.4028235e+38
     abilityName: 
-    specialAbility:
-      name: 
-      description: 
-      target: 0
-      type: 0
-      parameter: 0
-      scope: 0
-      typeParameter: 
-      classParameter: 0
-      speciesParameter: 
+    skillName: 
+    passiveSkill:
+      Owner: {fileID: 0}
+      skill:
+        name: 
+        description: 
+        triggerType: 0
+        trigger:
+          triggerType: 0
+          id: 0
+      triggerCount: 0
+      mod: []
+    equip1Name: 
+    equip2Name: 
+    equip1:
+      equipment: {fileID: 0}
+      monster: {fileID: 0}
+      Slot: 0
+      inventorySlot:
+        slotIndex: 0
+        itemName: 
+        itemLevel: 0
+        itemExp: 0
+        pocketName: 
+      level: 0
+      exp: 0
+      levelMax: 0
+      itemName: 
+      expGiven: 0
+      cost: 0
+      toNextLevel: 0
+      totalNextLevel: 0
+      nextLevelDiff: 0
+      isEquipped: 0
+      equipClass: 0
+      typeMonsterReq: 
+      typeMoveReq: 
       hpBonus: 0
       atkBonus: 0
       defBonus: 0
@@ -32754,67 +32784,63 @@ MonoBehaviour:
       atkTimePercentBonus: 0
       evasionPercentBonus: 0
       staminaPercentBonus: 0
-      castingAmmo: 0
-      castingCount: 0
-      cooldown: 0
-      targetNumber: 0
-      Range:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      Power:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      CritChance:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      CritMod:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      EffectChance:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      AttackTime:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      AttackSpeed:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      AttackSlow:
-        BaseValue: 0
-        _value: 0
-        lastBaseValue: -3.4028235e+38
-      range: 0
-      power: 0
-      critChance: 0
-      critMod: 0
-      effectChance: 0
-      attackTime: 0
-      attackSpeed: 0
-      hitSlowTime: 0
-      attackMode: 0
-    skillName: 
-    passiveSkill:
-      Owner: {fileID: 0}
-      skill:
-        name: 
-        description: 
-        triggerType: 0
-        trigger:
-          triggerType: 0
-          id: 0
-      triggerCount: 0
-      mod: []
-    equip1Name: 
-    equip2Name: 
-    equipment1: {fileID: 0}
-    equipment2: {fileID: 0}
+      spriteEffect: 0
+      alpha: 0
+      timeX: 0
+      colorX: {r: 0, g: 0, b: 0, a: 0}
+      Speed: 0
+      Distortion: 0
+    equip1Slot: 0
+    equip2:
+      equipment: {fileID: 0}
+      monster: {fileID: 0}
+      Slot: 0
+      inventorySlot:
+        slotIndex: 0
+        itemName: 
+        itemLevel: 0
+        itemExp: 0
+        pocketName: 
+      level: 0
+      exp: 0
+      levelMax: 0
+      itemName: 
+      expGiven: 0
+      cost: 0
+      toNextLevel: 0
+      totalNextLevel: 0
+      nextLevelDiff: 0
+      isEquipped: 0
+      equipClass: 0
+      typeMonsterReq: 
+      typeMoveReq: 
+      hpBonus: 0
+      atkBonus: 0
+      defBonus: 0
+      speedBonus: 0
+      precBonus: 0
+      atkPowerBonus: 0
+      atkTimeBonus: 0
+      atkRangeBonus: 0
+      critModBonus: 0
+      critChanceBonus: 0
+      staminaBonus: 0
+      hpPercentBonus: 0
+      atkPercentBonus: 0
+      defPercentBonus: 0
+      spePercentBonus: 0
+      precPercentBonus: 0
+      atkPowerPercentBonus: 0
+      atkTimePercentBonus: 0
+      evasionPercentBonus: 0
+      staminaPercentBonus: 0
+      spriteEffect: 0
+      alpha: 0
+      timeX: 0
+      colorX: {r: 0, g: 0, b: 0, a: 0}
+      Speed: 0
+      Distortion: 0
+    equip2Slot: 0
     HP:
       BaseValue: 0
       _value: 0
@@ -32895,6 +32921,7 @@ MonoBehaviour:
       BaseValue: 0
       _value: 0
       lastBaseValue: -3.4028235e+38
+    isStar: 0
   specs:
     legs:
     - {fileID: 4980344897773231375}
@@ -33107,6 +33134,9 @@ MonoBehaviour:
     maxLevel: 0
     specialAbility: 
     passiveSkill: 
+    equip1Slot: 0
+    equip2Slot: 0
+    isStar: 0
   activeIndex: 0
   isEnemy: 0
   isTower: 0
@@ -33189,6 +33219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathList: []
   speed: 0
+  zeroSpeed: 0
   isCircular: 0
   inReverse: 0
   mapTileLayer:
